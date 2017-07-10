@@ -58,6 +58,8 @@
     </mt-tab-container>
   
     <h1 class="animated infinite bounce">Example</h1>
+
+    <a href="/topic">topic</a>
   </div>
 </template>
 

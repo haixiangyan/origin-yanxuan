@@ -10,7 +10,7 @@ Vue.config.productionTip = false
 // 使用插件
 import './plugins'
 // 使用 mock 数据
-import './mock'
+// import './mock'
 
 // 引入公用的 CSS 样式
 import '@/commons/font-awesome-4.7.0/css/font-awesome.min.css'

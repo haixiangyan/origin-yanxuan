@@ -26,11 +26,14 @@ app.use(cors({
     alloweHeaders:['Conten-Type', 'Authorization']
 }));
 
+// 解决 history 模式的问题（非常重要！！！）
+app.use(require('connect-history-api-fallback')())
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use('/', index);
 app.use('/users', users);

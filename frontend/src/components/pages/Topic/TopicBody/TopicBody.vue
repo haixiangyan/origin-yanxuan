@@ -17,7 +17,7 @@ export default {
         // 发送请求，获取数据
       this.$http({
         method: 'get',
-        url: `/test`
+        url: '/test'
       })
         .then((res) => {
           console.log('vue-resource then', res.body);
