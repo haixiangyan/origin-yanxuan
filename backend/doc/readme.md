@@ -24,7 +24,7 @@
 *  information  //商品参数信息
 *  sale         //已卖出件数
 *  Category      //商品所归属的分类
-
+*  date    //上架时间
 
 ## cart
 
