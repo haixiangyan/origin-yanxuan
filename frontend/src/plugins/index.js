@@ -10,7 +10,7 @@ import Mint from 'mint-ui';
 import 'mint-ui/lib/style.css';
 
 Object.defineProperty(Vue.prototype, '$myhost', {
-    value: 'http://localhost:3000'
+    value: 'http://localhost:8080'
 });
 
 // 使用 Element UI 插件
