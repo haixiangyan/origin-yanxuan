@@ -16,7 +16,7 @@
 *  price       //价格  
 *  topName    //商品名
 *  subName    //商品二级名字
-*  shortDescription //三个简短介绍
+*  shortDescription //六个简短介绍
 *  shortDescriptionImage //三个简短介绍对应的图
 *  headImage   //商品详情页最顶上的五张图
 *  type      //商品类别,给用户选择购买
@@ -26,7 +26,7 @@
 *  sale         //已卖出件数
 *  category      //商品所归属的分类
 *  date       //上架时间
-
+*  manufacturer  //制造商
 
 ## cart
 
