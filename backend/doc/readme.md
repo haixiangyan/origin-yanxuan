@@ -1,7 +1,6 @@
 ## user
 
 *  photo
-*  ID
 *  telephone
 *  password
 *  name
@@ -27,6 +26,7 @@
 *  category      //商品所归属的分类
 *  date       //上架时间
 *  manufacturer  //制造商
+*  label       //当前商品所进行的活动
 
 ## cart
 
