@@ -41,7 +41,10 @@
 * payID    //付款的单号
 * totalFee  //用户总付款费用
 
-
+##comment
+* date  //评价时间
+* userID 
+* userName
 
 
 
