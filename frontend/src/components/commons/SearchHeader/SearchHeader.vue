@@ -27,7 +27,7 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 16px 30px;
+    padding: 20px 30px;
 }
 /*logo 部分样式*/
 

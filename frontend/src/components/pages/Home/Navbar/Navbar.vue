@@ -1,0 +1,114 @@
+<template>
+    <div class="yan-navbar-wrapper">
+    
+        <div class="yan-navbar-bar">
+            <!--导航条部分-->
+            <div v-for="(item, index) in catalog" :key="index" :class="[{'is-active':  selectedIndex === index}, 'yan-navbar-item']" @click="changeIndex(index)">
+                <router-link :to="item.url">
+                    <span>{{item.name}}</span>
+                </router-link>
+            </div>
+        </div>
+    
+        <!--展示导航内容-->
+        <router-view></router-view>
+    </div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            yanNavbarItem: 'yan-navbar-item',
+            selectedIndex: 0,
+            // 分类
+            catalog: [
+                {
+                    name: '推荐',
+                    url: '/home/recommend'
+                },
+                {
+                    name: '居家',
+                    url: '/home/household'
+                },
+                {
+                    name: '餐厨',
+                    url: '/home/household'
+                },
+                {
+                    name: '配件',
+                    url: '/home/household'
+                },
+                {
+                    name: '服装',
+                    url: '/home/household'
+                },
+                {
+                    name: '洗护',
+                    url: '/home/household'
+                },
+                {
+                    name: '婴童',
+                    url: '/home/household'
+                },
+                {
+                    name: '杂货',
+                    url: '/home/household'
+                },
+                {
+                    name: '饮食',
+                    url: '/home/household'
+                },
+                {
+                    name: '志趣',
+                    url: '/home/goods'
+                }
+            ]
+        }
+    },
+    methods: {
+        changeIndex(index) {
+            this.selectedIndex = index;
+        }
+    }
+}
+</script>
+
+<style scoped>
+/*外围样式*/
+.yan-navbar-wrapper {
+    background: rgb(244, 244, 244);
+}
+
+/*导航条样式*/
+.yan-navbar-bar {
+    padding: 0 30px;    
+    overflow: auto;
+    white-space: nowrap;
+    border-bottom: 2px solid #ddd;
+    background: #fff;
+}
+
+/*选中的样式*/
+.is-active {
+    margin: 0;
+    border-bottom: 4px solid rgb(180, 40, 45);
+}
+
+.is-active span {
+    color: rgb(180, 40, 45);
+}
+
+/*导航栏的项目样式*/
+.yan-navbar-item {
+    display: inline-block;
+    width: 110px;
+    height: 70px;
+    margin-left: 30px;
+    text-align: center;
+}
+
+.yan-navbar-item span {
+    line-height: 75px;
+}
+</style>
