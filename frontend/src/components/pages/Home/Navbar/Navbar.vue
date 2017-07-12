@@ -1,5 +1,7 @@
 <template>
     <div class="yan-navbar-wrapper">
+        <!--搜索框头部-->
+        <yan-search-header></yan-search-header>
     
         <div class="yan-navbar-bar">
             <!--导航条部分-->
@@ -10,12 +12,13 @@
             </div>
         </div>
     
-        <!--展示导航内容-->
-        <router-view></router-view>
     </div>
 </template>
 
 <script>
+// 引入搜索框
+import YanSearchHeader from '@/components/commons/SearchHeader/SearchHeader';
+
 export default {
     data() {
         return {
@@ -66,6 +69,9 @@ export default {
             ]
         }
     },
+    components: {
+        YanSearchHeader,
+    },
     methods: {
         changeIndex(index) {
             this.selectedIndex = index;
@@ -77,7 +83,7 @@ export default {
 <style scoped>
 /*外围样式*/
 .yan-navbar-wrapper {
-    background: rgb(244, 244, 244);
+    background: #fff;
 }
 
 /*导航条样式*/
@@ -102,7 +108,7 @@ export default {
 /*导航栏的项目样式*/
 .yan-navbar-item {
     display: inline-block;
-    width: 110px;
+    width: 140px;
     height: 70px;
     margin-left: 30px;
     text-align: center;
