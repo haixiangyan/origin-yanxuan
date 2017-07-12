@@ -20,7 +20,7 @@
 *  headImage   //商品详情页最顶上的五张图
 *  type      //商品类别,给用户选择购买
 *  inventory  //库存
-*  discription //商品介绍图
+*  description //商品介绍图
 *  information  //商品参数信息
 *  sale         //已卖出件数
 *  category      //商品所归属的分类

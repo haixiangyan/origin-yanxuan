@@ -7,12 +7,12 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-
+var goods = require('./routes/goods');
 // 配置 cors
-var cors = require('cors');
+//var cors = require('cors');
 
 var app = express();
-
+//app.get();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -20,14 +20,14 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 // 配置 cors
-app.use(cors({
-    origin:['http://localhost:8080'],
-    methods:['GET','POST', 'DELETE', 'PATCH', 'PUT'],
-    alloweHeaders:['Conten-Type', 'Authorization']
-}));
+//app.use(cors({
+//  origin:['http://localhost:8080'],
+//  methods:['GET','POST', 'DELETE', 'PATCH', 'PUT'],
+//  alloweHeaders:['Conten-Type', 'Authorization']
+//}));
 
 // 解决 history 模式的问题（非常重要！！！）
-app.use(require('connect-history-api-fallback')())
+//app.use(require('connect-history-api-fallback')())
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use('/', index);
 app.use('/users', users);
-
+app.use('/goods',goods);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
