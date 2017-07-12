@@ -64,6 +64,8 @@ router.get('/recentSale', function(req, res, next) {
 					chara: docs[i].chara,
 					headImage: docs[i].headImage[0]
 				};
+				arr.push(obj);
+			}
 			res.json({
 				result: "success",
 				data: docs
@@ -75,4 +77,34 @@ router.get('/recentSale', function(req, res, next) {
 		}
 	})
 });
+router.get('/displayGoods', function(req, res, next) {
+	goods.getGoodsByAllType(function(err,docs){
+		if(err=="success"){
+		res.json({
+				result: "success",
+				data: docs
+			})
+		
+		}else{
+			res.json({
+				result: "error"
+			})
+		}
+	})
+})
+router.get('/category',function(req,res,next){
+	goods.getCategory(function(err,docs){
+		if(!err){
+			res.json({
+				result: "success",
+				data: docs
+			})
+		}else{
+			res.json({
+				result: "error"
+			})
+		}
+		
+	})
+})
 module.exports = router;
