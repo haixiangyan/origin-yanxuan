@@ -1,5 +1,5 @@
 <template>
-  <div class="yan-display-header-wrapper" v-bind:style="{ background: `url(${headerInfo.img})`}">
+  <div class="yan-display-header-wrapper" v-bind:style="{ background: `url(${bg})`}">
     <div :class="['yan-display-title', textClass]">{{title[index]}}</div>
     <a :class="['yan-display-more-btn', bgClass]" href="/">
       <span :class="textClass">查看全部</span>
@@ -13,7 +13,7 @@ export default {
   props: ['headerInfo', 'index'],
   data() {
     return {
-      title: ['周一周四 · 新品首发', '人气推荐 · 好物精选', ]
+      title: ['周一周四 · 新品首发', '人气推荐 · 好物精选',]
     }
   },
   computed: {
@@ -35,6 +35,14 @@ export default {
           return 'blue-bg';
       }
     },
+    bg() {
+      switch (this.index) {
+        case 0:
+          return '/static/img/header/header-1.png';
+        case 1:
+          return '/static/img/header/header-2.png'
+      }
+    }
   }
 }    
 </script>
@@ -49,11 +57,14 @@ export default {
   text-align: center;
 }
 
+
 /*标题*/
+
 .yan-display-title {
   text-align: center;
   font-size: 50px;
 }
+
 
 /*查看全部按钮*/
 
@@ -66,7 +77,9 @@ export default {
   text-align: center;
 }
 
+
 /*颜色样式*/
+
 .blue-text {
   color: rgb(139, 160, 182);
 }

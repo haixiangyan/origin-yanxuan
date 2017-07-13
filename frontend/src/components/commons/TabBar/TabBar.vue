@@ -1,10 +1,10 @@
 <template>
     <div class="yan-tabbar-wrapper">
-
         <!--tab bar 的子项-->
-        <router-link v-for="(tab, index) in tabBarInfo" tag="div" :to="tab.url" 
-            :key="index" :class="[{'tab-active':  selectedIndex === index}, 'yan-tabbar-item']"
-            @click="changeIndex(index)">
+        <router-link v-for="(tab, index) in tabBarInfo" tag="div" 
+            :to="tab.url" 
+            :key="index" 
+            :class="[{'tab-active':  selectedIndex === index}, 'yan-tabbar-item']">
             <i :class="tab.className" aria-hidden="true"></i>
             <div>{{tab.title}}</div>
         </router-link>    
@@ -14,9 +14,9 @@
 <script>
 
 export default {
+    props: ['selectedIndex'],
     data() {
         return {
-            selectedIndex: 0,
             tabBarInfo: [
                 {
                     title: '首页',
@@ -25,7 +25,7 @@ export default {
                 },
                 {
                     title: '专题',
-                    url: '/',
+                    url: '/home/topic',
                     className: 'fa fa-coffee fa-2x'
                 },
                 {
@@ -44,11 +44,6 @@ export default {
                     className: 'fa fa-user-o fa-2x'
                 }
             ]
-        }
-    },
-    methods: {
-        changeIndex(index) {
-            this.selectedIndex = index;
         }
     }
 }

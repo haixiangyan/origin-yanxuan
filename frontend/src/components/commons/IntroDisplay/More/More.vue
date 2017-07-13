@@ -17,7 +17,6 @@ export default {
 <style scoped>
 .yan-display-more {
     display: inline-block;
-    padding: 40px;
     width: 330px;
     height: 330px;
 }

@@ -2,15 +2,18 @@
     <div class="yan-home-wrapper">
         <!--导航栏-->
         <yan-navbar class="yan-navbar"></yan-navbar>
-
+    
         <!--展示导航内容-->
         <router-view></router-view>
-
+    
         <!--脚注-->
         <yan-home-footer class="yan-home-footer"></yan-home-footer>
-
+    
         <!--Tab bar-->
-        <yan-tab-bar></yan-tab-bar>
+        <yan-tab-bar :selectedIndex="0"></yan-tab-bar>
+    
+        <!--返回到顶部-->
+        <yan-scroll-top></yan-scroll-top>
     </div>
 </template>
 
@@ -21,6 +24,8 @@ import YanNavbar from '@/components/pages/Home/Navbar/Navbar';
 import YanHomeFooter from '@/components/pages/Home/Footer/Footer';
 // 引入 TabBar 组件
 import YanTabBar from '@/components/commons/TabBar/TabBar';
+// 引入返回到顶部的组件
+import YanScrollTop from '@/components/commons/ScrollTop/ScrollTop';
 
 export default {
     data() {
@@ -30,7 +35,8 @@ export default {
     components: {
         YanNavbar,
         YanHomeFooter,
-        YanTabBar
+        YanTabBar,
+        YanScrollTop,
     }
 }
 </script>

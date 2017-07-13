@@ -7,9 +7,9 @@
             <!--倒计时-->
             <div class="yan-counter">
                 <span class="yan-counter-hours">{{hours}}</span>
-                <span class="yan-colon">:</span>
+                <span class="yan-colon animated flash infinite">:</span>
                 <span class="yan-counter-minutes">{{minutes}}</span>
-                <span class="yan-colon">:</span>
+                <span class="yan-colon animated flash infinite">:</span>
                 <span class="yan-counter-seconds">{{seconds}}</span>
             </div>
     

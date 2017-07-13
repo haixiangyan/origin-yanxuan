@@ -4,8 +4,8 @@
         <yan-intro-header :index="index" :headerInfo="introInfo.headerInfo"></yan-intro-header>
         <!--商品的内容-->
         <div class="yan-intro-goods-wrapper">
-            <yan-intro-good v-for="(good, index) in introInfo.goods" :key="index" :good="good"></yan-intro-good>
-            <yan-more :url="introInfo.url"></yan-more>
+            <yan-intro-good class="yan-intro-good" v-for="(good, index) in introInfo.goods" :key="index" :good="good"></yan-intro-good>
+            <yan-more class="yan-more" :url="introInfo.url"></yan-more>
         </div>
     </div>
 </template>
@@ -36,5 +36,11 @@ export default {
     overflow: auto;
     white-space: nowrap;
     background: #fff;
+}
+
+/*展示商品*/
+.yan-intro-good,
+.yan-more {
+    padding: 10px;
 }
 </style>

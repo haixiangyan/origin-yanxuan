@@ -1,8 +1,8 @@
 <template>
-    <div class="yan-catalog-good-wrapper">
+    <a :href="`/${good.ID}`" class="yan-catalog-good-wrapper">
         <!--商品-->
         <div class="yan-good-avatar">
-            <img :src="good.img" alt="good">
+            <img :src="good.headImage" alt="good">
 
             <!--商品的特点-->
             <yan-vertical-good-label class="yan-ver-label" :title="good.chara"></yan-vertical-good-label>
@@ -10,7 +10,7 @@
     
         <!--商品描术-->
         <div class="yan-good-desc">
-            {{good.desc.length > 13 ? `${good.desc.slice(0, 13)}...` : good.desc}}
+            {{good.subName.length > 13 ? `${good.subName.slice(0, 13)}...` : good.subName}}
         </div>
 
         <!--商品的标签-->
@@ -20,14 +20,14 @@
     
         <!--商品名字-->
         <div class="yan-good-name">
-            {{good.name.length > 11 ? `${good.name.slice(0, 11)}...` : good.name}}
+            {{good.topName.length > 11 ? `${good.topName.slice(0, 11)}...` : good.topName}}
         </div>
 
         <!--商品价格-->
         <div class="yan-good-price">
             ￥{{good.price}}
         </div>
-    </div>
+    </a>
 </template>
 
 <script>

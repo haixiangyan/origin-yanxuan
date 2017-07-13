@@ -39,7 +39,8 @@
     
         <!--推荐的商品-->
         <div class="yan-recommend-goods-wrapper">
-            <yan-intro-display v-for="(info, index) in introInfo" :key="index" :index="index" :introInfo="info"></yan-intro-display>
+            <yan-intro-display :index="0" :introInfo="saleSortInfo"></yan-intro-display>
+             <yan-intro-display :index="1" :introInfo="timeSortInfo"></yan-intro-display> 
         </div>
     
         <!--倒计时-->
@@ -98,8 +99,8 @@ export default {
                     label: '上新'
                 },
             ],
-            // 商品展示信息
-            introInfo: [],
+            saleSortInfo: [],
+            timeSortInfo: [],
             // 倒计时信息
             counterInfo: {},
             // 专题精选封面
@@ -116,13 +117,25 @@ export default {
         YanCatalog
     },
     mounted() {
-        // 发送请求，获取商品的展示信息
+        // 发送请求，获取商品的最近销量展示信息
         this.$http({
             method: 'get',
-            url: `/intro-goods`
+            url: `/goods/topSale`
         })
             .then((res) => {
-                this.introInfo = res.body.data;
+                this.saleSortInfo = res.body.data;
+            })
+            .catch((err) => {
+                console.log('vue-resource err', err);
+            });
+
+        // 发送请求，获取商品的最好销量展示信息
+        this.$http({
+            method: 'get',
+            url: `/goods/recentSale`
+        })
+            .then((res) => {
+                this.timeSortInfo = res.body.data;
             })
             .catch((err) => {
                 console.log('vue-resource err', err);

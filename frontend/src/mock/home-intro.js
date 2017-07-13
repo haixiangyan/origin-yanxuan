@@ -2,50 +2,81 @@ const Mock = require('mockjs');
 const Random = Mock.Random;
 
 export const home = [{
-    path: '/intro-goods', // 栏截获取商品简介的路由
+    path: '/goods/recentSale', // 栏截获取商品简介的路由
     type: 'get',
     data(body) {
-      let data = {
+      let result = {
         result: 'success',
-        data: []
-      }
-
-      for (let i = 0; i < 2; i++) {
-        let introInfo = {
+        data: {
           headerInfo: {
-            title: Random.ctitle(),
-            img: `/static/img/header/header-${i+1}.png`
           },
           goods: []
-        };
-
-        for (let j = 0; j < Random.natural(7, 9); j++) {
-          let good = {
-            name: Random.cname(),
-            desc: Random.ctitle(),
-            price: Random.natural(0, 200),
-            url: '/',
-            img: `/static/img/goods/good-${Random.natural(1, 16)}.png`,
-            chara: Random.ctitle(),
-            labels: []
-          };
-
-          for (let m = 0; m < Random.natural(0, 1); m++) {
-            let label = {
-              title: Random.ctitle(),
-              type: Random.natural(1, 2)
-            }
-
-            good.labels.push(label);
-          }
-
-          introInfo.goods.push(good)
         }
-
-        data.data.push(introInfo);
       }
 
-      return data;
+      for (let j = 0; j < Random.natural(7, 9); j++) {
+        let good = {
+          topName: Random.cname(),
+          subName: Random.ctitle(),
+          price: Random.natural(0, 200),
+          ID: '',
+          img: `/static/img/goods/good-${Random.natural(1, 16)}.png`,
+          chara: Random.ctitle(),
+          labels: []
+        };
+
+        for (let m = 0; m < Random.natural(0, 1); m++) {
+          let label = {
+            title: Random.ctitle(),
+            type: Random.natural(1, 2)
+          }
+
+          good.labels.push(label);
+        }
+
+        result.data.goods.push(good)
+      }
+
+      return result;
+    },
+  },
+  {
+    path: '/goods/topSale', // 栏截获取商品简介的路由
+    type: 'get',
+    data(body) {
+      let result = {
+        result: 'success',
+        data: {
+          headerInfo: {
+          },
+          goods: []
+        }
+      }
+
+      for (let j = 0; j < Random.natural(7, 9); j++) {
+        let good = {
+          topName: Random.cname(),
+          subName: Random.ctitle(),
+          price: Random.natural(0, 200),
+          ID: '/',
+          img: `/static/img/goods/good-${Random.natural(1, 16)}.png`,
+          chara: Random.ctitle(),
+          labels: []
+        };
+
+        for (let m = 0; m < Random.natural(0, 1); m++) {
+          let label = {
+            title: Random.ctitle(),
+            type: Random.natural(1, 2)
+          }
+
+          good.labels.push(label);
+        }
+
+        result.data.goods.push(good)
+      }
+
+      return result;
     },
   },
   {
@@ -94,19 +125,19 @@ export const home = [{
 
       for (let i = 0; i < 9; i++) {
         let catalog = {
-          title: Random.ctitle(2),
-          subtitle: Random.ctitle(),
-          goods: []
+          name: Random.ctitle(2),
+          data: []
         };
 
         for (let j = 0; j < 7; j++) {
           let good = {
-            name: Random.cname(),
-            desc: Random.ctitle(),
+            topName: Random.cname(),
+            subName: Random.ctitle(),
             chara: `${Random.natural(2, 4)}色可选`,
             price: Random.natural(20, 2000),
-            img: `/static/img/catalog/catalog-good-${Random.natural(1, 14)}.png`,
-            labels: []
+            headImage: `/static/img/catalog/catalog-good-${Random.natural(1, 14)}.png`,
+            labels: [],
+            ID: ''
           };
 
           for (let m = 0; m < Random.natural(0, 2); m++) {
@@ -116,7 +147,7 @@ export const home = [{
             };
             good.labels.push(label);
           }
-          catalog.goods.push(good);
+          catalog.data.push(good);
         }
 
         result.data.push(catalog);

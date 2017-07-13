@@ -1,5 +1,5 @@
 <template>
-    <a :href="good.url" class="yan-display-good-wrapper">
+    <a :href="`/${good.ID}`" class="yan-display-good-wrapper">
         <div class="yan-display-img-wrapper">
             <!--商品的图片-->
             <img class="yan-display-good-img" :src="good.img">
@@ -14,12 +14,12 @@
     
         <!--商品的名字-->
         <div class="yan-display-good-name">
-            {{good.name.length > 10 ? `${good.name.slice(0, 10)}...` : good.name}}
+            {{good.topName.length > 10 ? `${good.topName.slice(0, 10)}...` : good.topName}}
         </div>
     
         <!--商品的t简介-->
         <div class="yan-display-good-desc">
-            {{good.desc.length > 10 ? `${good.desc.slice(0, 10)}...` : good.desc}}
+            {{good.subName.length > 10 ? `${good.subName.slice(0, 10)}...` : good.subName}}
         </div>
     
         <!--商品的价格-->
@@ -44,7 +44,6 @@ export default {
 
 <style scoped>
 .yan-display-good-wrapper {
-    padding: 40px;
     display: inline-block;
     width: 330px;
     background: #fff;

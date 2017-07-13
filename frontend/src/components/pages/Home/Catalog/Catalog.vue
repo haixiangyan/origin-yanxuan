@@ -10,7 +10,7 @@
         </div>
         
         <div class="yan-catalog-goods">
-            <yan-catalog-good class="yan-catalog-good" v-for="(good, index) in catalog.goods" :key="index" :good="good"></yan-catalog-good>            
+            <yan-catalog-good class="yan-catalog-good" v-for="(good, index) in catalog.data" :key="index" :good="good"></yan-catalog-good>            
             <yan-catalog-more :title="catalog.title" :index="index"></yan-catalog-more>
         </div>
     </div>
