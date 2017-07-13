@@ -1,13 +1,15 @@
-import Mock from 'mockjs'
+import Mock from 'mockjs';
 
-import { login } from './front-page.js'
+import { login } from './front-page.js';
 
-import { home, homeStatic } from './home-intro.js'
+import { home, homeStatic } from './home-intro.js';
+import { homeGood } from './home-goods.js';
 
 let data = [].concat(
     login,
     home,
-    homeStatic
+    homeStatic,
+    homeGood
 );
 
 data.forEach((res) => {

@@ -11,7 +11,7 @@
         
         <div class="yan-catalog-goods">
             <yan-catalog-good class="yan-catalog-good" v-for="(good, index) in catalog.data" :key="index" :good="good"></yan-catalog-good>            
-            <yan-catalog-more :title="catalog.title" :index="index"></yan-catalog-more>
+            <yan-catalog-more :title="catalog.name" :name="catalog.name"></yan-catalog-more>
         </div>
     </div>
 </template>
@@ -68,6 +68,6 @@ export default {
 }
 
 .yan-catalog-good {
-    padding: 0 10px 50px;
+    padding: 0 10px 30px;
 }
 </style>
