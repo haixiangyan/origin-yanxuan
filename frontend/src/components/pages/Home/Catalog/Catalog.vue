@@ -3,7 +3,7 @@
         <!--商品分类的头部-->
         <div class="yan-catalog-header">
             <!--分类的标题-->
-            <div class="yan-title">{{catalog.title}}</div>
+            <div class="yan-title">{{catalog.name}}好物</div>
     
             <!--分类的副标题-->
             <div v-if="catalog.title" class="yan-subtitle">{{catalog.subtitle}}</div>
