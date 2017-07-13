@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  props: ['headerInfo', 'index'],
+  props: ['index'],
   data() {
     return {
       title: ['周一周四 · 新品首发', '人气推荐 · 好物精选',]

@@ -30,9 +30,6 @@
 </template>
 
 <script>
-// 引入 momentjs
-import moment from 'moment';
-
 export default {
     props: ['counterInfo'],
     data() {
