@@ -104,4 +104,52 @@ router.get('/category',function(req,res,next){
 		
 	})
 })
+router.post('/certainCategory',function(req,res,next){
+	var category= req.body.category;
+	goods.getCertainCategory(category,function(err,docs){
+		if(err=="success"){
+			res.json({
+				result: "success",
+				data: docs
+			})
+		}else{
+			res.json({
+				result: "error"
+			})
+		}
+		
+	})
+})
+router.post('/subCategoryGoods',function(req,res,next){
+	var subCategory= req.body.subCategory;
+	goods.getCertainSubCategoryGoods(subCategory,function(err,docs){
+		if(!err){
+			res.json({
+				result: "success",
+				data: docs
+			})
+		}else{
+			res.json({
+				result: "error"
+			})
+		}
+		
+	})
+})
+router.post('/search',function(req,res,next){
+	var keyword= req.body.key;
+	goods.search(keyword,function(err,docs){
+		if(err=="success"){
+			res.json({
+				result: "success",
+				data: docs
+			})
+		}else{
+			res.json({
+				result: "error"
+			})
+		}
+		
+	})
+})
 module.exports = router;
