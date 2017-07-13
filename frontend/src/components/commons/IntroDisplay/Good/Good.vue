@@ -2,7 +2,7 @@
     <a :href="`/${good.ID}`" class="yan-display-good-wrapper">
         <div class="yan-display-img-wrapper">
             <!--商品的图片-->
-            <img class="yan-display-good-img" :src="good.img">
+            <img class="yan-display-good-img" :src="good.headImage">
             <!--特色标签-->
             <yan-vertical-gold-label class="yan-display-ver-label" v-if="good.chara" :title="good.chara"></yan-vertical-gold-label>
         </div>
