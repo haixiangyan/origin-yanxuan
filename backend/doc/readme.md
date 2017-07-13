@@ -14,6 +14,7 @@
 *  ID        //商品编号
 *  price       //价格  
 *  topName    //商品名
+*  chara    //商品类型归纳，展示所需
 *  subName    //商品二级名字
 *  shortDescription //六个简短介绍
 *  shortDescriptionImage //三个简短介绍对应的图
@@ -23,7 +24,8 @@
 *  description //商品介绍图
 *  information  //商品参数信息
 *  sale         //已卖出件数
-*  category      //商品所归属的分类
+*  category      //商品所归属的主分类
+*  subCategory      //商品所归属的子分类
 *  date       //上架时间
 *  manufacturer  //制造商
 *  label       //当前商品所进行的活动
@@ -58,6 +60,7 @@
 
 ##catagory //商品分类表
 * name      //商品名
+* picture   //商品分类页的图
 * subcatagory //子分类数组，单个子分类包含一张图和名字
 
 

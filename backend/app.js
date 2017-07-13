@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var goods = require('./routes/goods');
+var shop =require('./routes/shop');
 // 配置 cors
 //var cors = require('cors');
 
@@ -38,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/goods',goods);
+app.use('/shop',shop);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

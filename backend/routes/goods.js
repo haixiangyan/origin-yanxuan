@@ -21,20 +21,18 @@ router.get('/goods', function(req, res, next) {
 	})
 })
 router.get('/topSale', function(req, res, next) {
-	console.log("getTopSale")
 	goods.getGoodsBySale(function(err, docs) {
 		if (!err) {
 			var arr = [];
-			var obj;
 			for (var i = 0; i < docs.length; i++) {
-				obj = {
+				var obj = {
 					ID: docs[i].ID,
 					topName: docs[i].topName,
 					subName : docs[i].subName,
 					price: docs[i].price,
 					label: docs[i].label,
 					chara: docs[i].chara,
-					headImage: docs[i].headImage[0]
+					headImage: docs[i].headImage[0],
 				};
 				arr.push(obj);
 			}
@@ -53,9 +51,8 @@ router.get('/recentSale', function(req, res, next) {
 	goods.getGoodsByDate(function(err, docs) {
 		if (!err) {
 			var arr = [];
-			var obj;
 			for (var i = 0; i < docs.length; i++) {
-				obj = {
+				var obj = {
 					ID: docs[i].ID,
 					topName: docs[i].topName,
 					subName : docs[i].subName,
@@ -68,7 +65,7 @@ router.get('/recentSale', function(req, res, next) {
 			}
 			res.json({
 				result: "success",
-				data: docs
+				data: arr
 			})
 		} else {
 			res.json({

@@ -50,30 +50,30 @@ db.once('open', function() {
 })
 
 function addGoods() {
-	for (var i = 0; i < 20; i++) {
+	for (var i = 0; i < 100; i++) {
 		var goodsEntity = new goodsModel({
 			ID: i,
 			price: 10 * i + 5,
-			chara: "A",
-			topName: "a",
-			subName: "b",
+			chara: "二种可选",
+			topName: "懒人清洁新选择",
+			subName: "高效清洁组合",
 			shortDescription: ['a', 'a', 'a', 'a', 'a', 'a'],
 			shortDescriptionImage: ['a', 'a', 'a', 'a', 'a', 'a'],
-			headImage: ['a', 'a', 'a', 'a', 'a'],
+			headImage: ['/static/goodsImage/1.png', 'a', 'a', 'a', 'a'],
 			type: ['a', 'a', 'a', 'a', 'a', 'a'],
 			inventory: 999,
 			description: ['a', 'a', 'a', 'a', 'a', 'a'],
 			information: ['a', 'a', 'a', 'a', 'a', 'a'],
-			sale: parseInt(Math.random() * 40),
-			category: i,
+			sale: parseInt(Math.random() *100),
+			category: parseInt(i/8),
 			subCategory: i + 100,
 			date: new Date().getTime(),
 			manufacturer: "ck",
 			label: [{
-				title: "a",
+				title: "爆品",
 				type: "1"
 			}, {
-				title: "a",
+				title: "新品",
 				type: "2"
 			}]
 		})
@@ -147,7 +147,6 @@ function getGoodsByAllType(cb) {
 						label: docs2[j].label,
 						chara: docs2[j].chara,
 						headImage: docs2[j].headImage[0],
-						category:docs2[j].category
 					};
 					goodsArr.push(goods);
 				}
