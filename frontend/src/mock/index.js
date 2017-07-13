@@ -1,6 +1,6 @@
 import Mock from 'mockjs'
 
-import { login } from './front-page.js'
+import { login } from './login.js'
 import { topic } from './topic.js'
 let data = [].concat(
     login, topic
