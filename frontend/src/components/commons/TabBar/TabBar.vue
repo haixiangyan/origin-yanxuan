@@ -25,12 +25,12 @@ export default {
                 },
                 {
                     title: '专题',
-                    url: '/home/topic',
+                    url: '/topic',
                     className: 'fa fa-coffee fa-2x'
                 },
                 {
                     title: '分类',
-                    url: '/',
+                    url: '/category',
                     className: 'fa fa-shopping-cart fa-2x'
                 },
                 {
