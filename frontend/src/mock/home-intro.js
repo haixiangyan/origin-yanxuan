@@ -16,7 +16,7 @@ export const home = [{
           subName: Random.ctitle(),
           price: Random.natural(0, 200),
           ID: '',
-          img: `/static/img/goods/good-${Random.natural(1, 16)}.png`,
+          headImage: `/static/img/goods/good-${Random.natural(1, 16)}.png`,
           chara: Random.ctitle(),
           labels: []
         };
@@ -51,7 +51,7 @@ export const home = [{
           subName: Random.ctitle(),
           price: Random.natural(0, 200),
           ID: '/',
-          img: `/static/img/goods/good-${Random.natural(1, 16)}.png`,
+          headImage: `/static/img/goods/good-${Random.natural(1, 16)}.png`,
           chara: Random.ctitle(),
           labels: []
         };

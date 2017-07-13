@@ -6,7 +6,7 @@ import { home, homeStatic } from './home-intro.js'
 
 let data = [].concat(
     login,
-    // home,
+    home,
     homeStatic
 );
 
