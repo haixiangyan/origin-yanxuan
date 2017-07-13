@@ -7,7 +7,7 @@ db.on('error', function() {
 
 db.once('open', function() {
 
-	console.log("connected");
+	console.log("user connected");
 	var userschema = new mongoose.Schema({
 		telephone: String,
 		name: String,

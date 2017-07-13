@@ -32,7 +32,7 @@ router.post('/addToCart', function(req, res, next) {
 	shopping.addToCart(obj, function(err, docs) {
 		if (!err) {
 			req.json({
-				result: "success",
+				result: "success"
 			})
 		} else {
 			req.json({
@@ -45,7 +45,20 @@ router.post('/addToCart', function(req, res, next) {
 router.delete('/cart/:userid/:id', function(req, res, next) {
 	var goodsID=req.params.id;
 	var userID=req.params.userid;
-	
-	
+	shopping.deleteItemFromCart(userID,goodsID,function(err,docs){
+		if(err=="error"){
+			req.json({
+				result: "error"
+			})
+		}else{
+			req.json({
+				result: "success",
+				cartList:docs
+			})
+		}
+		
+	})	
 })
+
+
 module.exports = router;

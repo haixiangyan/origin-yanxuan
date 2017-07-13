@@ -59,7 +59,7 @@ function addGoods() {
 			subName: "高效清洁组合",
 			shortDescription: ['a', 'a', 'a', 'a', 'a', 'a'],
 			shortDescriptionImage: ['a', 'a', 'a', 'a', 'a', 'a'],
-			headImage: ['/static/goodsImage/1.png', 'a', 'a', 'a', 'a'],
+			headImage: ['../file/goodsImage/1.png', 'a', 'a', 'a', 'a'],
 			type: ['a', 'a', 'a', 'a', 'a', 'a'],
 			inventory: 999,
 			description: ['a', 'a', 'a', 'a', 'a', 'a'],
