@@ -152,4 +152,20 @@ router.post('/search',function(req,res,next){
 		
 	})
 })
+router.post('/order',function(req,res,next){
+	var keyword= req.body.cartList;
+	goods.search(keyword,function(err,docs){
+		if(err=="success"){
+			res.json({
+				result: "success",
+				data: docs
+			})
+		}else{
+			res.json({
+				result: "error"
+			})
+		}
+		
+	})
+})
 module.exports = router;

@@ -6,9 +6,6 @@
         <!--展示导航内容-->
         <router-view></router-view>
     
-        <!--脚注-->
-        <yan-home-footer class="yan-home-footer"></yan-home-footer>
-    
         <!--Tab bar-->
         <yan-tab-bar :selectedIndex="0"></yan-tab-bar>
     
@@ -20,8 +17,6 @@
 <script>
 // 引入导航栏
 import YanNavbar from '@/components/pages/Home/Navbar/Navbar';
-// 引入首页的脚注
-import YanHomeFooter from '@/components/pages/Home/Footer/Footer';
 // 引入 TabBar 组件
 import YanTabBar from '@/components/commons/TabBar/TabBar';
 // 引入返回到顶部的组件
@@ -34,7 +29,6 @@ export default {
     },
     components: {
         YanNavbar,
-        YanHomeFooter,
         YanTabBar,
         YanScrollTop,
     }

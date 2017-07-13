@@ -57,6 +57,9 @@
         <div class="yan-catalog-wrapper">
             <yan-catalog class="yan-catalog" v-for="(catalog, index) in catalogsInfo" :key="index" :index="index" :catalog="catalog"></yan-catalog>
         </div>
+
+        <!--脚注-->
+        <yan-home-footer class="yan-home-footer"></yan-home-footer>
     </div>
 </template>
 
@@ -71,6 +74,8 @@ import YanCounter from '@/components/pages/Home/Recommend/Counter/Counter';
 import YanTopicPreface from '@/components/pages/Home/TopicPreface/TopicPreface';
 // 引入展示分类商品的组件
 import YanCatalog from '@/components/pages/Home/Catalog/Catalog';
+// 引入首页的脚注
+import YanHomeFooter from '@/components/pages/Home/Footer/Footer';
 
 export default {
     data() {
@@ -114,9 +119,15 @@ export default {
         YanIntroDisplay,
         YanCounter,
         YanTopicPreface,
-        YanCatalog
+        YanCatalog,
+        YanHomeFooter
     },
     mounted() {
+        // 改变所选的索引值
+        this.$store.commit('changeNavbarIndex', {
+            selectedIndex: 0
+        });
+
         // 发送请求，获取商品的最近销量展示信息
         this.$http({
             method: 'get',
@@ -246,7 +257,7 @@ export default {
 .yan-counter-wrapper,
 .yan-topic-preface-wrapper,
 .yan-catalog {
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 /*展示分类商品*/

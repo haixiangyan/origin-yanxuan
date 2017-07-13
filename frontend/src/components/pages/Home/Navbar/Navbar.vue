@@ -23,7 +23,6 @@ export default {
     data() {
         return {
             yanNavbarItem: 'yan-navbar-item',
-            selectedIndex: 0,
             // 分类
             catalog: [
                 {
@@ -36,37 +35,42 @@ export default {
                 },
                 {
                     name: '餐厨',
-                    url: '/home/household'
+                    url: '/home/cook'
                 },
                 {
                     name: '配件',
-                    url: '/home/household'
+                    url: '/home/accessories'
                 },
                 {
                     name: '服装',
-                    url: '/home/household'
+                    url: '/home/clothes'
                 },
                 {
                     name: '洗护',
-                    url: '/home/household'
+                    url: '/home/care'
                 },
                 {
                     name: '婴童',
-                    url: '/home/household'
+                    url: '/home/children'
                 },
                 {
                     name: '杂货',
-                    url: '/home/household'
+                    url: '/home/groceries'
                 },
                 {
                     name: '饮食',
-                    url: '/home/household'
+                    url: '/home/food'
                 },
                 {
                     name: '志趣',
-                    url: '/home/goods'
+                    url: '/home/interest'
                 }
             ]
+        }
+    },
+    computed: {
+        selectedIndex() {
+            return this.$store.getters.navbarIndex;
         }
     },
     components: {

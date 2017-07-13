@@ -1,5 +1,5 @@
 <template>
-    <a :href="url" class="yan-catalog-more">
+    <a @click.prevent="more" class="yan-catalog-more">
         <div class="yan-catalog-text">更多{{title}}好物</div>
         <div>
             <i class="fa fa-chevron-right" aria-hidden="true"></i>
@@ -9,15 +9,11 @@
 
 <script>
 export default {
-    props: ['index', 'title'],
-    computed: {
-        url() {
-            switch (this.index) {
-                case 0:
-                    return '/';
-                case 1:
-                    return '/';
-            }
+    props: ['name', 'title'],
+    methods: {
+        more() {
+            // 发送请求..
+            console.log(this.name);
         }
     }
 }

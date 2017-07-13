@@ -41,6 +41,7 @@ export default {
 /*展示商品*/
 .yan-intro-good,
 .yan-more {
-    padding: 10px;
+    padding: 30px;
+    padding-right: 0px;
 }
 </style>

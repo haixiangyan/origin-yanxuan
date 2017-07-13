@@ -13,7 +13,7 @@ db.once('open', function() {
 		goodsList: Array
 	});
 
-	cartModel = db.model("Cart", cartSchema);
+	cartModel = db.model("carts", cartSchema);
 	var orderSchema = new mongoose.Schema({
 		orderID: String,
 		userID: String,
@@ -25,7 +25,7 @@ db.once('open', function() {
 		payID: String,
 		totalFee: Number
 	});
-	orderModel = db.model("Order", orderSchema);
+	orderModel = db.model("orders", orderSchema);
 	//	addCatagory();
 })
 
@@ -51,7 +51,7 @@ db.once('open', function() {
 //}
 //function CH
 function getCart(userID, cb) {
-	cartModel.findRule({
+	cartModel.find({
 		userID: obj.userID
 	}, function(err, docs) {
 		cb(docs[0].goodsList);
@@ -92,6 +92,9 @@ function deleteItemFromCart(userID, goodsID, cb) {
 		}
 
 	})
+}
+function addOrder(){
+	
 }
 module.exports.getCart = getCart;
 module.exports.addtoCart = addtoCart;
