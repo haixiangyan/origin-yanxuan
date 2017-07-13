@@ -30,9 +30,9 @@ export default {
         // 发送请求，获取商品的分类信息
         this.$http({
             method: 'post',
-            url: `/certainCategory`,
+            url: `/goods/certainCategory`,
             body: {
-                catagory: 0
+                category: 0
             }
         })
             .then((res) => {
