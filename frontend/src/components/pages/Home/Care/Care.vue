@@ -29,8 +29,11 @@ export default {
 
         // 发送请求，获取商品的分类信息
         this.$http({
-            method: 'get',
-            url: `/goods/displayGoods`
+            method: 'post',
+            url: `/goods/certainCategory`,
+            body: {
+                category: 4
+            }
         })
             .then((res) => {
                 this.careInfo = res.body.data;

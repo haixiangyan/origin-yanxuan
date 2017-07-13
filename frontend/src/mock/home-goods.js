@@ -2,7 +2,7 @@ const Mock = require('mockjs');
 const Random = Mock.Random;
 
 export const homeGood = [{
-  path: '/certainCategory', // 栏截获取商品分类展示部分
+  path: '/goods/certainCategory', // 栏截获取商品分类展示部分
   methods: 'post',
   data(option) {
 
