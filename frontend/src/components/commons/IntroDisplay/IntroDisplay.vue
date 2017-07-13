@@ -1,10 +1,10 @@
 <template>
     <div class="yan-intro-display-wrapper">
         <!--商品简介的头部-->
-        <yan-intro-header :index="index" :headerInfo="introInfo.headerInfo"></yan-intro-header>
+        <yan-intro-header :index="index"></yan-intro-header>
         <!--商品的内容-->
         <div class="yan-intro-goods-wrapper">
-            <yan-intro-good class="yan-intro-good" v-for="(good, index) in introInfo.goods" :key="index" :good="good"></yan-intro-good>
+            <yan-intro-good class="yan-intro-good" v-for="(good, index) in introInfo" :key="index" :good="good"></yan-intro-good>
             <yan-more class="yan-more" :url="introInfo.url"></yan-more>
         </div>
     </div>

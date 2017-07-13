@@ -7,11 +7,7 @@ export const home = [{
     data(body) {
       let result = {
         result: 'success',
-        data: {
-          headerInfo: {
-          },
-          goods: []
-        }
+        data: []
       }
 
       for (let j = 0; j < Random.natural(7, 9); j++) {
@@ -34,7 +30,7 @@ export const home = [{
           good.labels.push(label);
         }
 
-        result.data.goods.push(good)
+        result.data.push(good)
       }
 
       return result;
@@ -46,11 +42,7 @@ export const home = [{
     data(body) {
       let result = {
         result: 'success',
-        data: {
-          headerInfo: {
-          },
-          goods: []
-        }
+        data: []
       }
 
       for (let j = 0; j < Random.natural(7, 9); j++) {
@@ -73,49 +65,14 @@ export const home = [{
           good.labels.push(label);
         }
 
-        result.data.goods.push(good)
+        result.data.push(good)
       }
 
       return result;
     },
   },
   {
-    path: '/home-counter', // 栏截获取商品倒计时的路由
-    methods: 'get',
-    data() {
-      let result = {
-        result: 'success',
-        data: {
-          url: '/',
-          next: 123878273,
-          img: '/static/img/counter/counter-img.png',
-          currentPrice: 14.9,
-          previousPrice: 59.9,
-          deadline: 523878273
-        }
-      }
-
-      return result;
-    }
-  },
-  {
-    path: '/home-topic-preface', // 栏截获取商品专题精选部分
-    methods: 'get',
-    data() {
-      let result = {
-        result: 'success',
-        data: {
-          name: '严选办公室人手必备神器大公开',
-          desc: '久坐伏案人士请收好',
-          price: 14,
-          img: '/static/img/topic-preface/preface.jpg'
-        }
-      }
-      return result;
-    }
-  },
-  {
-    path: '/home-catalogs', // 栏截获取商品分类展示部分
+    path: '/goods/displayGoods', // 栏截获取商品分类展示部分
     methods: 'get',
     data() {
       let result = {
@@ -156,4 +113,41 @@ export const home = [{
       return result;
     }
   }
+]
+
+export const homeStatic = [{
+    path: '/home-counter', // 栏截获取商品倒计时的路由
+    methods: 'get',
+    data() {
+      let result = {
+        result: 'success',
+        data: {
+          url: '/',
+          next: 123878273,
+          img: '/static/img/counter/counter-img.png',
+          currentPrice: 14.9,
+          previousPrice: 59.9,
+          deadline: 523878273
+        }
+      }
+
+      return result;
+    }
+  },
+  {
+    path: '/home-topic-preface', // 栏截获取商品专题精选部分
+    methods: 'get',
+    data() {
+      let result = {
+        result: 'success',
+        data: {
+          name: '严选办公室人手必备神器大公开',
+          desc: '久坐伏案人士请收好',
+          price: 14,
+          img: '/static/img/topic-preface/preface.jpg'
+        }
+      }
+      return result;
+    }
+  },
 ]

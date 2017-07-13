@@ -40,7 +40,7 @@
         <!--推荐的商品-->
         <div class="yan-recommend-goods-wrapper">
             <yan-intro-display :index="0" :introInfo="saleSortInfo"></yan-intro-display>
-             <yan-intro-display :index="1" :introInfo="timeSortInfo"></yan-intro-display> 
+            <yan-intro-display :index="1" :introInfo="timeSortInfo"></yan-intro-display> 
         </div>
     
         <!--倒计时-->
@@ -168,7 +168,7 @@ export default {
         // 发送请求，获取商品的分类信息
         this.$http({
             method: 'get',
-            url: `/home-catalogs`
+            url: `/goods/displayGoods`
         })
             .then((res) => {
                 this.catalogsInfo = res.body.data;
