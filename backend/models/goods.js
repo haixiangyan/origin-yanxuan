@@ -693,11 +693,8 @@ function search(key, cb) {
 	})
 }
 
-function showTopic(number, cb) {
-	var query = topicModel.find({});
-
-	query.limit(parseInt(number));
-	query.exec(cb);
+function showTopic(cb) {
+	topicModel.find({},cb);
 }
 
 function makeOrder(obj, cb) {

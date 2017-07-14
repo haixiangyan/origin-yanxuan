@@ -154,8 +154,7 @@ router.post('/search',function(req,res,next){
 })
 
 router.get("/topic",function(req,res,next){
-	var number=req.query.number;
-	goods.showTopic(number,function(err,docs){
+	goods.showTopic(function(err,docs){
 		if(!err){
 			res.json({
 				result: "success",

@@ -93,76 +93,59 @@ function deleteItemFromCart(userID, goodsID, cb) {
 
 	})
 }
-function makeOrder(obj,cb){
+
+function makeOrder(obj, cb) {
 	var i;
-	for(i=0;i<obj.goodsList.length;i++){
-	      var newobj=obj.goodsList[i];
-	       goodsModel.findByID(newobj.ID,function(err,docs){
-	        if (docs.length > 0) {
-			var goods = docs[0];
-			var j;
-			for (j = 0; j < goods.type.length; j++) {
-				if (obj.type == goods.type[j]) {
+	for (i = 0; i < obj.goodsList.length; i++) {
+		var newobj = obj.goodsList[i];
+		goodsModel.findByID(newobj.ID, function(err, docs) {
+				var goods = docs[0];
+				var j;
+				for (j = 0; j < goods.type.length; j++) {
+					if (obj.type == goods.type[j]) {
+						break;
+					}
+				}
+				if (goods.inventory[j] > 0) {
+					goods.inventory[j] -= 1;
+					docs.save();
+				} else {
 					break;
 				}
-			}
-			if (goods.inventory[j] > 0) {
-				goods.inventory[j]-=1;
+		})
+	}
+	if (i < obj.goodsList.length) {//有些商品库存不够，返回错误
+		for (var k = 0; k < i; k++) {
+			var newobj = obj.goodsList[i];
+			goodsModel.findByID(newobj.ID, function(err, docs) {
+				var goods = docs[0];
+				var j;
+				for (j = 0; j < goods.type.length; j++) {
+					if (obj.type == goods.type[j]) {
+						break;
+					}
+				}
+				goods.inventory[j] += 1;
 				docs.save();
-			} else {
-//				cb("error", "1")//库存不足 
-               break;
-			}
-		} else {
-			cb("error", "2") //找不到该商品
+			})
 		}
-	       
-	       })
+		cb("error", obj.goodsList[i].ID);
+	} else {
+		var order = new Date().getTime() + obj.userID;
+		var orderEntity = new orderModel({
+			orderID: order,
+			userID: obj.userID,
+			goodsList: obj.goodsList,
+			expressNumber: 0,
+			expressCompany: "",
+			address: obj.address,
+			orderState: 0,
+			payID: "0",
+			totalFee: obj.totalFee
+		})
+		orderEntity.save();
+		cb("success", order);
 	}
-	if(i<obj.goodsList.length){
-		for(var k=0;k<i;k++){
-			
-		}
-	}
-//	goodsModel.findByID(obj.goodsID, function(err, docs) {
-//		if (docs.length > 0) {
-//			var goods = docs[0];
-//			var i;
-//			for (i = 0; i < goods.type.length; i++) {
-//				if (obj.type == goods.type[i]) {
-//					break;
-//				}
-//			}
-//			if (goods.inventory[i] > 0) {
-//				goods.inventory[i]-=1;
-//				docs.save();
-//				var arr=[];
-//				var newobj={
-//					ID:obj.goodsID,
-//					type:obj.type,
-//					number:obj.number
-//				}
-//				arr.push(newobj);
-//				var order=new Date().getTime()+obj.userID;
-//				var orderEntity = new orderModel({
-//					orderID:order,
-//					userID: obj.userID,
-//					goodsList:arr,
-//					expressNumber:0,
-//					expressCompany:"",
-//					address: obj.address,
-//					orderState: 0,
-//					payID:"0",
-//					totalFee:obj.totalFee
-//				})
-//				orderEntity.save();
-//				cb("success",order);
-//			} else {
-//				cb("error", "1")
-//			}
-//		} else {
-//			cb("error", "2")
-//		}
 }
 module.exports.getCart = getCart;
 module.exports.addtoCart = addtoCart;
