@@ -93,12 +93,37 @@ function deleteItemFromCart(userID, goodsID, cb) {
 
 	})
 }
-//function makeOrder(obj,cb){
-//	for(var i=0;i<obj.goodsList.length;i++){
-//	    
-//	
-//	
-//	}
+function makeOrder(obj,cb){
+	var i;
+	for(i=0;i<obj.goodsList.length;i++){
+	      var newobj=obj.goodsList[i];
+	       goodsModel.findByID(newobj.ID,function(err,docs){
+	        if (docs.length > 0) {
+			var goods = docs[0];
+			var j;
+			for (j = 0; j < goods.type.length; j++) {
+				if (obj.type == goods.type[j]) {
+					break;
+				}
+			}
+			if (goods.inventory[j] > 0) {
+				goods.inventory[j]-=1;
+				docs.save();
+			} else {
+//				cb("error", "1")//库存不足 
+               break;
+			}
+		} else {
+			cb("error", "2") //找不到该商品
+		}
+	       
+	       })
+	}
+	if(i<obj.goodsList.length){
+		for(var k=0;k<i;i++){
+			
+		}
+	}
 //	goodsModel.findByID(obj.goodsID, function(err, docs) {
 //		if (docs.length > 0) {
 //			var goods = docs[0];
@@ -138,7 +163,7 @@ function deleteItemFromCart(userID, goodsID, cb) {
 //		} else {
 //			cb("error", "2")
 //		}
-//}
+}
 module.exports.getCart = getCart;
 module.exports.addtoCart = addtoCart;
 module.exports.deleteItemFromCart = deleteItemFromCart;
