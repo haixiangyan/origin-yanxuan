@@ -29,6 +29,9 @@ import YanInterest from '@/components/pages/Home/Interest/Interest';
 // 引入专题的组件
 import YanTopic from '@/components/pages/Topic/Topic';
 
+// 引入分类的组件
+import YanCategory from '@/components/pages/Category/Category';
+
 
 Vue.use(Router)
 
@@ -91,6 +94,11 @@ export default new Router({
       path: '/topic',
       name: 'Topic',
       component: YanTopic
+    },
+    {
+      path: '/category',
+      name: 'Category',
+      component: YanCategory
     }
   ]
 })
