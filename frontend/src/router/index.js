@@ -32,6 +32,8 @@ import YanTopic from '@/components/pages/Topic/Topic';
 // 引入分类的组件
 import YanCategory from '@/components/pages/Category/Category';
 
+// 引入搜索组件页
+import YanSearch from '@/components/pages/Search/Search';
 
 Vue.use(Router)
 
@@ -43,7 +45,7 @@ export default new Router({
       redirect: '/home/recommend'
     },
     {
-      path: '/home',
+      path: '/home',  // 首页路由
       name: 'Home',
       redirect: '/home/recommend',
       component: YanHome,
@@ -91,14 +93,19 @@ export default new Router({
       ]
     },
     {
-      path: '/topic',
+      path: '/topic',  // 专题路由
       name: 'Topic',
       component: YanTopic
     },
     {
-      path: '/category',
+      path: '/category',  // 商品分类的路由
       name: 'Category',
       component: YanCategory
+    },
+    {
+      path: '/search',  // 搜索页的路由
+      name: 'Search',
+      component: YanSearch
     }
   ]
 })

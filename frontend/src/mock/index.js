@@ -11,10 +11,10 @@ import { category } from './category.js';
 
 let data = [].concat(
     login,
-    // home,
+    home,
     homeStatic,
-    // homeGood
-    // category
+    homeGood,
+    category
 );
 
 data.forEach((res) => {

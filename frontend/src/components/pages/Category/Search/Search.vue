@@ -1,15 +1,14 @@
 <template>
-    <a href="/" class="yan-category-search-wrapper">
+    <router-link to="/search" class="yan-category-search-wrapper">
         <div class="yan-category-search">
             <i class="fa fa-search" aria-hidden="true">&nbsp;</i>
             <span>搜索商品，共6757款好物</span>
         </div>
-    </a>
+    </router-link>
 </template>
 
 <script>
 export default {
-
 }
 </script>
 
