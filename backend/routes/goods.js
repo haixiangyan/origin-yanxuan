@@ -152,22 +152,7 @@ router.post('/search',function(req,res,next){
 		
 	})
 })
-router.post('/order',function(req,res,next){
-	var keyword= req.body.cartList;
-	goods.search(keyword,function(err,docs){
-		if(err=="success"){
-			res.json({
-				result: "success",
-				data: docs
-			})
-		}else{
-			res.json({
-				result: "error"
-			})
-		}
-		
-	})
-})
+
 router.get("/topic",function(req,res,next){
 	goods.showTopic(function(err,docs){
 		if(!err){
@@ -180,6 +165,29 @@ router.get("/topic",function(req,res,next){
 				result: "error"
 			})
 		}
+	})
+})
+router.post('/order',function(req,res,next){//没测
+	var goodsID= req.body.goodsID;
+	var type=req.body.type;
+	var number=req.body.number;
+	var userID=req.body.userID;
+	var address=req.body.address;
+	var totalFee=req.body.totalFee;
+	var obj={userID:userID,goodsID:goodsID,type:type,number:number,address:address,totalFee:totalFee};
+	goods.makeOrder(obj,function(err,docs){
+		if(err=="success"){
+			res.json({
+				result: "success",
+				orderID: docs[0]
+			})
+		}else{
+			res.json({
+				result: "error",
+				type:docs[0]
+			})
+		}
+		
 	})
 })
 module.exports = router;

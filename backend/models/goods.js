@@ -18,7 +18,7 @@ db.once('open', function() {
 		shortDescriptionImage: Array,
 		headImage: Array,
 		type: Array,
-		inventory: Number,
+		inventory: Array,
 		description: Array,
 		information: Array,
 		sale: Number,
@@ -57,7 +57,19 @@ db.once('open', function() {
 		watchNumber: String
 	});
 	topicModel = db.model("topics", topicModelSchema);
-	addTopic()
+	addTopic();
+	var orderSchema = new mongoose.Schema({
+		orderID: String,
+		userID: String,
+		goodsList: Array,
+		expressNumber: Number,
+		expressCompany: String,
+		address: Array,
+		orderState: Number,
+		payID: String,
+		totalFee: Number
+	});
+	orderModel = db.model("orders", orderSchema);
 })
 
 function addGoods() {
@@ -72,7 +84,7 @@ function addGoods() {
 			shortDescriptionImage: ['a', 'a', 'a', 'a', 'a', 'a'],
 			headImage: ['/static/img/goodsImage/1.png', 'a', 'a', 'a', 'a'],
 			type: ['a', 'a', 'a', 'a', 'a', 'a'],
-			inventory: 999,
+			inventory: [999, 999, 999, 999, 999, 999],
 			description: ['a', 'a', 'a', 'a', 'a', 'a'],
 			information: ['a', 'a', 'a', 'a', 'a', 'a'],
 			sale: parseInt(Math.random() * 100),
@@ -98,10 +110,10 @@ function addTopic() {
 			topicID: i,
 			writer: "餐厨组：锅锅",
 			writerImage: "/static/img/topicImage/writerImage/1.jpg",
-			picture: ["/static/img/topicImage/headImage/1.jpg","/static/img/topicImage/headImage/2.jpg","/static/img/topicImage/headImage/3.jpg"],
+			picture: ["/static/img/topicImage/headImage/1.jpg", "/static/img/topicImage/headImage/2.jpg", "/static/img/topicImage/headImage/3.jpg"],
 			headline: "用这套刀，发现德式厨房奥秘",
-			content:"如果你参观过德国人的厨房，一定会被满屋子的bling bling震撼到：不仅台面...",
-			watchNumber:"14.6k"
+			content: "如果你参观过德国人的厨房，一定会被满屋子的bling bling震撼到：不仅台面...",
+			watchNumber: "14.6k"
 		})
 		topicEntity.save();
 	}
@@ -671,11 +683,50 @@ function search(key, cb) {
 }
 
 function showTopic(cb) {
-   topicModel.find({},cb)
+	topicModel.find({}, cb)
 }
 
-function addOrder() {
- 
+function makeOrder(obj, cb) {
+	goodsModel.findByID(obj.goodsID, function(err, docs) {
+		if (docs.length > 0) {
+			var goods = docs[0];
+			var i;
+			for (i = 0; i < goods.type.length; i++) {
+				if (obj.type == goods.type[i]) {
+					break;
+				}
+			}
+			if (goods.inventory[i] > 0) {
+				goods.inventory[i]-=1;
+				docs.save();
+				var arr=[];
+				var newobj={
+					ID:obj.goodsID,
+					type:obj.type,
+					number:obj.number
+				}
+				arr.push(newobj);
+				var order=new Date().getTime()+obj.userID;
+				var orderEntity = new orderModel({
+					orderID:order,
+					userID: obj.userID,
+					goodsList:arr,
+					expressNumber:0,
+					expressCompany:"",
+					address: obj.address,
+					orderState: 0,
+					payID:"0",
+					totalFee:obj.totalFee
+				})
+				orderEntity.save();
+				cb("success",order);
+			} else {
+				cb("error", "1")
+			}
+		} else {
+			cb("error", "2")
+		}
+	})
 }
 
 module.exports.getCategory = getCategory;
@@ -686,4 +737,5 @@ module.exports.getGoodsByAllType = getGoodsByAllType;
 module.exports.getCertainCategory = getCertainCategory;
 module.exports.getCertainSubCategoryGoods = getCertainSubCategoryGoods;
 module.exports.search = search;
-module.exports.showTopic=showTopic;
+module.exports.showTopic = showTopic;
+module.exports.makeOrder = makeOrder;

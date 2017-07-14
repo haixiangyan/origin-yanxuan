@@ -93,9 +93,53 @@ function deleteItemFromCart(userID, goodsID, cb) {
 
 	})
 }
-function addOrder(){
-	
-}
+//function makeOrder(obj,cb){
+//	for(var i=0;i<obj.goodsList.length;i++){
+//	    
+//	
+//	
+//	}
+//	goodsModel.findByID(obj.goodsID, function(err, docs) {
+//		if (docs.length > 0) {
+//			var goods = docs[0];
+//			var i;
+//			for (i = 0; i < goods.type.length; i++) {
+//				if (obj.type == goods.type[i]) {
+//					break;
+//				}
+//			}
+//			if (goods.inventory[i] > 0) {
+//				goods.inventory[i]-=1;
+//				docs.save();
+//				var arr=[];
+//				var newobj={
+//					ID:obj.goodsID,
+//					type:obj.type,
+//					number:obj.number
+//				}
+//				arr.push(newobj);
+//				var order=new Date().getTime()+obj.userID;
+//				var orderEntity = new orderModel({
+//					orderID:order,
+//					userID: obj.userID,
+//					goodsList:arr,
+//					expressNumber:0,
+//					expressCompany:"",
+//					address: obj.address,
+//					orderState: 0,
+//					payID:"0",
+//					totalFee:obj.totalFee
+//				})
+//				orderEntity.save();
+//				cb("success",order);
+//			} else {
+//				cb("error", "1")
+//			}
+//		} else {
+//			cb("error", "2")
+//		}
+//}
 module.exports.getCart = getCart;
 module.exports.addtoCart = addtoCart;
 module.exports.deleteItemFromCart = deleteItemFromCart;
+//module.exports.makeOrder=makeOrder;

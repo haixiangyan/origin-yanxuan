@@ -43,22 +43,37 @@ router.post('/addToCart', function(req, res, next) {
 	})
 });
 router.delete('/cart/:userid/:id', function(req, res, next) {
-	var goodsID=req.params.id;
-	var userID=req.params.userid;
-	shopping.deleteItemFromCart(userID,goodsID,function(err,docs){
-		if(err=="error"){
+	var goodsID = req.params.id;
+	var userID = req.params.userid;
+	shopping.deleteItemFromCart(userID, goodsID, function(err, docs) {
+		if (err == "error") {
 			req.json({
 				result: "error"
 			})
-		}else{
+		} else {
 			req.json({
 				result: "success",
-				cartList:docs
+				cartList: docs
 			})
 		}
-		
-	})	
+
+	})
 })
 
+router.post('/order', function(req, res, next) {
+	var goodsList = req.body.goodList;
+	var userID = req.body.userID;
+	var address = req.body.address;
+	var totalFee = req.body.totalFee;
+	var obj = {
+		goodsList: goodsList,
+		userID: userID,
+		address: address,
+		totalFee: totalFee
+	};
+//	shopping.makeOrder(obj,function(err,docs){
+//		
+//	})
 
+})
 module.exports = router;
