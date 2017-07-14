@@ -72,10 +72,10 @@ export default {
 				//发送请求，获取更多数据
 				this.$http({
 					method: 'get',
-					url:'/topic-body-more-items'
+					url:'/goods/topic?number=4'
 				}).then((res)=>{
 					console.log('vue-more-resource then', res.body);
-					this.body_items = this.body_items.concat(res.body.items);
+					this.body_items = this.body_items.concat(res.body.data);
 					console.log(this.body_items);
 				}).catch((err) => {
 					console.log('vue-resource err', err);
