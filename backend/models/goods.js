@@ -46,7 +46,7 @@ db.once('open', function() {
 		subCategory: Array
 	});
 	categoryModel = db.model("categories", categorySchema);
-		addCategory();
+	addCategory();
 	var topicModelSchema = new mongoose.Schema({
 		topicID: Number,
 		writer: String,
@@ -55,7 +55,7 @@ db.once('open', function() {
 		headline: String,
 		content: String,
 		watchNumber: String,
-		price:Number
+		price: Number
 	});
 	topicModel = db.model("topics", topicModelSchema);
 	addTopic();
@@ -87,7 +87,16 @@ function addGoods() {
 			type: ['a', 'a', 'a', 'a', 'a', 'a'],
 			inventory: [999, 999, 999, 999, 999, 999],
 			description: ['a', 'a', 'a', 'a', 'a', 'a'],
-			information: ['a', 'a', 'a', 'a', 'a', 'a'],
+			information: [{
+				"attrName": "asd"
+				"attrValue": "af"
+			}, {
+				"attrName": "asd"
+				"attrValue": "af"
+			}, {
+				"attrName": "asd"
+				"attrValue": "af"
+			}]
 			sale: parseInt(Math.random() * 100),
 			category: parseInt(i / 8),
 			subCategory: i + 100,
@@ -115,7 +124,7 @@ function addTopic() {
 			headline: "用这套刀，发现德式厨房奥秘",
 			content: "如果你参观过德国人的厨房，一定会被满屋子的bling bling震撼到：不仅台面...",
 			watchNumber: "14.6k",
-			price:parseInt(Math.random()*100)
+			price: parseInt(Math.random() * 100)
 		})
 		topicEntity.save();
 	}
@@ -684,9 +693,9 @@ function search(key, cb) {
 	})
 }
 
-function showTopic(number,cb) {
-	var query=topicModel.find({});
-	
+function showTopic(number, cb) {
+	var query = topicModel.find({});
+
 	query.limit(parseInt(number));
 	query.exec(cb);
 }
@@ -702,31 +711,31 @@ function makeOrder(obj, cb) {
 				}
 			}
 			if (goods.inventory[i] > 0) {
-				goods.inventory[i]-=1;
+				goods.inventory[i] -= 1;
 				docs.save();
-				var arr=[];
-				var newobj={
-					ID:obj.goodsID,
-					type:obj.type,
-					number:obj.number
+				var arr = [];
+				var newobj = {
+					ID: obj.goodsID,
+					type: obj.type,
+					number: obj.number
 				}
 				arr.push(newobj);
-				var order=new Date().getTime()+obj.userID;
+				var order = new Date().getTime() + obj.userID;
 				var orderEntity = new orderModel({
-					orderID:order,
+					orderID: order,
 					userID: obj.userID,
-					goodsList:arr,
-					expressNumber:0,
-					expressCompany:"",
+					goodsList: arr,
+					expressNumber: 0,
+					expressCompany: "",
 					address: obj.address,
 					orderState: 0,
-					payID:"0",
-					totalFee:obj.totalFee
+					payID: "0",
+					totalFee: obj.totalFee
 				})
 				orderEntity.save();
-				cb("success",order);
+				cb("success", order);
 			} else {
-				cb("error", "1")//库存不足
+				cb("error", "1") //库存不足
 			}
 		} else {
 			cb("error", "2") //找不到该商品
