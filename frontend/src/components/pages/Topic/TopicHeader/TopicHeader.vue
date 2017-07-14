@@ -1,7 +1,8 @@
 <template>
     <div class="yan-topic">
 		<div class="yan-topic-header">  
-			<li class="yan-topin-header-box" v-for="(item, index) in header_items" :key="index" :style="{'background-image': `url(${item.img_url})`}">
+			<li class="yan-topin-header-box" v-for="(item, index) in header_items" 
+				:key="index" :style="{'background-image': `url(${item.img})`}">
 				<span class="yan-topic-header-title"> 
 					{{item.item_name}}
 				</span>
@@ -15,23 +16,25 @@ export default {
     data() {
         return {
             msg: 'Topic Header',
-            header_items: []
+            header_items: [{
+                        item_name: '丁磊私物推荐',
+						img: '/static/img/topic/topic-1.jpg',
+                    },
+                    {
+                        item_name: '严选推荐',
+						img: '/static/img/topic/topic-2.jpg',
+                    },
+                    {
+                        item_name: '挑款师推荐',
+						img: '/static/img/topic/topic-3.png',
+                    },
+                    {
+                        item_name: '明星商品',
+						img: '/static/img/topic/topic-4.png',
+                        
+                    }]
         }
     },
-    mounted() {
-        // 发送请求，获取数据
-      this.$http({
-        method: 'get',
-        url: '/topic-header-items'
-      })
-        .then((res) => {
-          console.log('vue-resource then', res.body);
-          this.header_items = res.body.items;
-        })
-        .catch((err) => {
-          console.log('vue-resource err', err);
-        });
-    }
 }
 </script>
 

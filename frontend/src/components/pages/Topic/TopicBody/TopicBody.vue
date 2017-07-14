@@ -2,34 +2,34 @@
 	<div class="yan-topic-body">
 		<a class="yan-topic-body-item" v-for="(item, index) in body_items" :key="index">
 			<div class="yan-topic-body-item-header">
-				<div class="yan-topic-body-item-header-avatar">
-					<img :src="item.avatar_url" />
+				<div class="yan-topic-body-item-header-writerImage">
+					<img :src="item.writerImage" />
 				</div>
-				<div class="yan-topic-body-item-header-author">{{item.author}}</div>
+				<div class="yan-topic-body-item-header-writer">{{item.writer}}</div>
 			</div>
 			<div class="yan-topic-body-item-img-container" >
-				<div class="left" :style="{'background-image': `url(${item.left_img_url})`}">
+				<div class="left" :style="{'background-image': `url(${item.picture[0]})`}">
 				</div>
-				<div class="right" v-if="item.hasRight">
-					<div class="right-img" :style="{'background-image': `url(${item.right_img_url1})`}">
+				<div class="right" v-if="item.picture[1]!==''">
+					<div class="right-img" :style="{'background-image': `url(${item.picture[1]})`}">
 					</div>
-					<div class="right-img" :style="{'background-image': `url(${item.right_img_url2})`}">
+					<div class="right-img" :style="{'background-image': `url(${item.picture[2]})`}">
 					</div>
 				</div>
 				<div class="i-icon">
 					<span class="eye"></span>
-					<span class="view-num">{{item.view_num}}</span>
+					<span class="view-num">{{item.watchNumber}}</span>
 				</div>
 			</div>
 			<div class="yan-topic-body-item-topic-info">
 				<div class="title">
-					<div>{{item.info_title}}</div>
-					<div class="price" v-if="!item.hasRight">
+					<div>{{item.headline}}</div>
+					<div class="price" v-if="item.picture[1]===''">
 						<span>{{item.price}}</span>
 						<span>元起</span>
 					</div>
 				</div>
-				<div class="subtitle">{{item.info_subtitle}}</div>
+				<div class="subtitle">{{item.content}}</div>
 			</div>
 		</a>
 		<i class="toToTop" v-on:click="goToTop()" ref="toTopSpan" v-bind:style="{display: appear, opacity: opa}"></i>
@@ -87,11 +87,11 @@ export default {
         // 发送请求，获取数据
 		this.$http({
 			method: 'get',
-			url: '/topic-body-items'
+			url: '/goods/topic'
 		})
 			.then((res) => {
 			console.log('vue-resource then', res.body);
-			this.body_items = res.body.items;
+				this.body_items = res.body.data;
 			})
 			.catch((err) => {
 			console.log('vue-resource err', err);
@@ -123,21 +123,21 @@ div {
 	padding: 30px 40px;
 }
 
-.yan-topic-body-item-header-avatar{
+.yan-topic-body-item-header-writerImage{
 	width: 80px;
 	height: 80px;
 	border-radius: 50%;
 	overflow: hidden;
 	margin-right: 20px;
 }
-.yan-topic-body-item-header-avatar img{
+.yan-topic-body-item-header-writerImage img{
 	display: block;
 	width: 100%;
 	height: 100%;
 }
 
 
-.yan-topic-body-item-header-author{
+.yan-topic-body-item-header-writer{
 	font-size: 36px;
 	text-align: center;
 }
@@ -182,7 +182,7 @@ div {
 	text-align: right;
 	bottom: 0;
 	right: 0;
-	background: url(http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/rbGradient-049c62dfb5.png) no-repeat;
+	background: url(/static/img/topicImage/components/bg.png) no-repeat;
 	background-size: cover;
 	width: 120px;
 	height: 50px;
@@ -196,7 +196,7 @@ div {
 	/*flex: 1;*/
 	width: 30px;
 	height: 20px;
-	background: url(http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/topicEye-b71328754f.png) no-repeat;
+	background: url(/static/img/topicImage/components/eye.png) no-repeat;
 	background-size: 100%;
 }
 
@@ -225,9 +225,9 @@ div {
 }
 
 .yan-topic-body-item-topic-info .subtitle{
-	font-size: 36px;
+	font-size: 33px;
 	color: #7f7f7f;
-	line-height: 1.3;
+	line-height: 1.5;
 }
 
 .toToTop{
@@ -236,7 +236,7 @@ div {
 	bottom: 160px;
 	height: 100px;
 	width: 100px;
-	background-image: url(http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/goToTop-7a19216f77.png);
+	background-image: url(/static/img/topicImage/components/goToTop.png);
 	background-size: 100%;
 	z-index: 2;
 }
