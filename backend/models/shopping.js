@@ -120,7 +120,7 @@ function makeOrder(obj,cb){
 	       })
 	}
 	if(i<obj.goodsList.length){
-		for(var k=0;k<i;i++){
+		for(var k=0;k<i;k++){
 			
 		}
 	}
