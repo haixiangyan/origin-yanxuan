@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var goods = require("../models/goods");
-
 router.post('/', function(req, res, next) {
 	res.send('respond with a resource');
 })

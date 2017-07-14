@@ -88,15 +88,15 @@ function addGoods() {
 			inventory: [999, 999, 999, 999, 999, 999],
 			description: ['a', 'a', 'a', 'a', 'a', 'a'],
 			information: [{
-				"attrName": "asd"
+				"attrName": "asd",
 				"attrValue": "af"
 			}, {
-				"attrName": "asd"
+				"attrName": "asd",
 				"attrValue": "af"
 			}, {
-				"attrName": "asd"
+				"attrName": "asd",
 				"attrValue": "af"
-			}]
+			}],
 			sale: parseInt(Math.random() * 100),
 			category: parseInt(i / 8),
 			subCategory: i + 100,

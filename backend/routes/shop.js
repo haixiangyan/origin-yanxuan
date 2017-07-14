@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var shopping = require("../models/shopping");
 
-router.get('/cart', function(req, res, next) {
+router.get('/cart/:ID', function(req, res, next) {
 	var ID = req.params.ID;
 	shopping.getCart(ID, function(err, docs) {
 		if (!err) {
@@ -30,9 +30,10 @@ router.post('/addToCart', function(req, res, next) {
 		userID: userID
 	};
 	shopping.addToCart(obj, function(err, docs) {
-		if (!err) {
+		if (err=="success") {
 			req.json({
-				result: "success"
+				result: "success",
+				data:docs[0]
 			})
 		} else {
 			req.json({
@@ -56,10 +57,26 @@ router.delete('/cart/:userid/:id', function(req, res, next) {
 				cartList: docs
 			})
 		}
-
 	})
 })
-
+router.post('/changeNumebr', function(req, res, next) {
+	var goodsID = req.body.id;
+	var userID = req.body.userid;
+	var type= req.body.type;
+	var number = req.body.number;
+	shopping.changeItemInCart(userID, goodsID,type,number,function(err, docs) {
+		if (err == "error") {
+			req.json({
+				result: "error"
+			})
+		} else {
+			req.json({
+				result: "success",
+				cartList: docs
+			})
+		}
+	})
+})
 router.post('/order', function(req, res, next) {
 	var goodsList = req.body.goodList;
 	var userID = req.body.userID;
@@ -71,9 +88,20 @@ router.post('/order', function(req, res, next) {
 		address: address,
 		totalFee: totalFee
 	};
-//	shopping.makeOrder(obj,function(err,docs){
-//		
-//	})
+    shopping.makeOrder(obj,function(req,res,next){
+    	if(err=="success"){
+			res.json({
+				result: "success",
+				orderID: docs[0]
+			})
+		}else{
+			res.json({
+				result: "error",
+				warning:docs[0]
+			})
+		}
+    	
+    })
 
 })
 module.exports = router;

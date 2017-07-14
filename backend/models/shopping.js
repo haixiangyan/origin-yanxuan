@@ -59,16 +59,24 @@ function getCart(userID, cb) {
 }
 
 function addtoCart(obj, cb) {
-	var newobject = {
-		ID: obj.ID,
-		type: obj.type,
-		number: onj.number
-	}
 	cartModel.find({
 		userID: obj.userID
 	}, function(err, docs) {
-		docs[0].goodsList.push(newobject)
-		docs[0].save();
+		var i;
+		for(i=0;i<docs[0].goodsList.length;i++){
+		   if(docs[0].goodsList[i].ID==obj.ID && docs[0].goodsList[i].type==obj.type){
+		   	 break;
+		   }
+		}
+		if(i==docs[0].goodsList.length){
+			docs[0].goodsList.push(newobject);
+			docs[0].save();
+			cb("success",docs[0].goodsList);
+		}else{
+			docs[0].goodsList[i].number+=obj.number;
+			docs[0].save();
+			cb("success",docs[0].goodsList);
+		}
 	})
 }
 
@@ -93,6 +101,28 @@ function deleteItemFromCart(userID, goodsID, cb) {
 
 	})
 }
+function changeItemInCart(userID, goodsID,type,number,cb) {
+	cartModel.find({
+		userID: userID
+	}, function(err, docs) {
+		var arr = docs[0].goodsList;
+		var i = 0;
+		for (i = 0; i < arr.length; i++) {
+			if (arr[i].ID == goodsID && arr[i].type==type) {
+				break;
+			}
+		}
+		if (i == arr.length) {
+			cb("error", "");
+		} else {
+			arr[i].number=number;
+			docs.save();
+			cb("success", arr);
+		}
+
+	})
+}
+
 
 function makeOrder(obj, cb) {
 	var i;
@@ -150,4 +180,5 @@ function makeOrder(obj, cb) {
 module.exports.getCart = getCart;
 module.exports.addtoCart = addtoCart;
 module.exports.deleteItemFromCart = deleteItemFromCart;
-//module.exports.makeOrder=makeOrder;
+module.exports.makeOrder=makeOrder;
+module.exports.changeItemInCart=changeItemInCart;
