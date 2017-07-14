@@ -6,7 +6,6 @@ export const category = [{
   type: 'get',
   data(body) {
     let menuInfo = [
-      '家装区',
       '居家',
       '餐厨',
       '配件',
@@ -24,18 +23,18 @@ export const category = [{
     }
 
     // 初始化商品的分类
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 8; i++) {
       let category = {
         name: menuInfo[i],
-        picture: `/static/img/category/category-1.jpg`,
+        picture: `/static/img/category/category-${i+2}.png`,
         subCategory: []
       };
 
       // 初始化商品的子分类
-      for (let j = 0; j < 9; j++) {
+      for (let j = 0; j < 12; j++) {
         let subCategory = {
           name: Random.ctitle(),
-          photo: `/static/img/category/subcategory/subcategory-1.jpg`
+          photo: `/static/img/category/subcategory/subcategory-${Random.natural(1, 20)}.png`
         };
 
         category.subCategory.push(subCategory);

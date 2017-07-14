@@ -17,7 +17,6 @@ export default {
     data() {
         return {
             menuInfo: [
-                '家装区',
                 '居家',
                 '餐厨',
                 '配件',

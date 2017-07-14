@@ -34,12 +34,12 @@ export default {
                     className: 'fa fa-shopping-cart fa-2x'
                 },
                 {
-                    title: '首页',
+                    title: '购物车',
                     url: '/',
                     className: 'fa fa-lemon-o fa-2x'
                 },
                 {
-                    title: '首页',
+                    title: '个人',
                     url: '/',
                     className: 'fa fa-user-o fa-2x'
                 }

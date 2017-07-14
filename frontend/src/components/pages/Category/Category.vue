@@ -28,7 +28,6 @@ export default {
     data() {
         return {
             categoryInfo: [],
-            selectedCategory: {}
         }
     },
     components: {
@@ -36,6 +35,11 @@ export default {
         YanCategoryMenu,
         YanCategoryContent,
         YanTabBar
+    },
+    computed: {
+        selectedCategory() {
+            return this.$store.getters.selectedMenu;
+        }
     },
     mounted() {
         // 发送请求，获取菜单的资源
@@ -50,8 +54,9 @@ export default {
                 // 初始化所选内容
                 this.categoryInfo.forEach((category) => {
                     if (category.name === '居家') {
-                        this.selectedCategory = category;
-                        console.log(this.selectedCategory)
+                        this.$store.commit('initSelectedMenu', {
+                            selectedMenu: category
+                        }); 
                         return ;
                     }
                 });
@@ -60,9 +65,7 @@ export default {
                 this.$store.commit('initMenuSource', {
                     menuSource: this.categoryInfo
                 });
-                this.$store.commit('initSelectedMenu', {
-                    selectedMenu: this.selectedCategory
-                });             
+          
             })
             .catch((err) => {
                 console.log('vue-resource err', err);

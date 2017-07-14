@@ -24,9 +24,7 @@ const mutations = {
                 state.selectedMenu = elem;
                 return ;
             }
-        })
-
-        console.log(state.selectedMenu);
+        });
     },
     // 获取菜单的全部内容
     initMenuSource(state, payload) {
