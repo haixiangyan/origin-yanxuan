@@ -168,4 +168,18 @@ router.post('/order',function(req,res,next){
 		
 	})
 })
+router.get("/topic",function(req,res,next){
+	goods.showTopic(function(err,docs){
+		if(!err){
+			res.json({
+				result: "success",
+				data: docs
+			})
+		}else{
+			res.json({
+				result: "error"
+			})
+		}
+	})
+})
 module.exports = router;
