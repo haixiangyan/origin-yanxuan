@@ -15,7 +15,7 @@
         </div>
         <div class="auxiliary form-item" >
             <div class="register">
-                <a href=''>注册账号</a>
+                <a href='/register'>注册账号</a>
             </div>
             <div class="forgetPw">
                 <a>忘记密码</a>
@@ -33,7 +33,10 @@ export default {
             form:{
                 name:'',
                 password:''
-            }
+            },
+            status: '',
+            errorMeg :'',
+            user: {}
         }
     },
     methods:{
@@ -49,7 +52,11 @@ export default {
                     }
                 ).then(response => {
                     console.log('vue-resource then', response.body);
-                    
+                    this.status = response.body.result;
+                    if(this.status === 'success'){
+                        this.user = response.body.user;
+                        
+                    }
                 }, response => {
                     // error callback
                     console.log('vue-resource err', response.err);

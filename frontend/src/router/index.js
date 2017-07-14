@@ -6,6 +6,7 @@ import Template from '@/components/Template'
 // 引入专题的组件
 import YanTopic from '@/components/pages/Topic/Topic'
 import YanUsers from '@/components/pages/Users/Login/Login'
+import YanUsersRegister from '@/components/pages/Users/Register/Register'
 Vue.use(Router)
 
 export default new Router({
@@ -21,14 +22,13 @@ export default new Router({
             component: YanTopic
         },
         {
-            path: '/users',
+            path: '/login',
             name: 'Users',
             component: YanUsers
-        },
-        // {
-        //     path: '/users/regist',
-        //     name: 'Users',
-        //     component: YanUsers
-        // }
+        }, {
+            path: '/register',
+            name: 'Register',
+            component: YanUsersRegister
+        }
     ]
 })
