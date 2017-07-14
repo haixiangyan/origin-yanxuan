@@ -22,6 +22,12 @@
             </div>
         </div>
 
+        <div class="login-footer">
+            <div class="weixin"><img src="/static/img/loginImage/weixin.png">微信</div>
+            <div class="qq"><img src="/static/img/loginImage/QQ.png">QQ</div>
+            <div class="weibo"><img src="/static/img/loginImage/weibo.png">微博</div>
+        </div>
+
     </div>
 </template>
 <script>
@@ -36,7 +42,6 @@ export default {
             },
             status: '',
             errorMeg :'',
-            user: {}
         }
     },
     methods:{
@@ -54,8 +59,8 @@ export default {
                     console.log('vue-resource then', response.body);
                     this.status = response.body.result;
                     if(this.status === 'success'){
-                        this.user = response.body.user;
                         
+                        this.$router.push({name: 'User Center', params: { userId: response.body.user.telephone }})
                     }
                 }, response => {
                     // error callback
@@ -74,8 +79,9 @@ export default {
 .yan-login-body-wrapper{
     margin: 0 auto;
     width: 90%;
-    height: 500px;
-    padding: 180px 0 0;
+    /* height: 100%; */
+      height: 1200px;  
+    padding: 180px 0 180px;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-around;
@@ -83,8 +89,9 @@ export default {
 }
 
 .yan-login-body-form{
-    flex: 1;
+    flex: 2;
     /*width: 100%;*/
+    
     height: 300x;
     display: flex;
     flex-flow: column nowrap;
@@ -155,5 +162,38 @@ a{
     text-decoration: none;
 }
 
+.login-footer{
+    /* height: 300px; */
+    font-size: 36px;
+    flex:  3;
+    display: flex;
+    justify-content: center;
+    flex-flow: row nowrap;
+    align-items: flex-end;
+}
 
+.login-footer .weixin, .qq, .weibo{
+    width: 300px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+     justify-content: center;
+}
+
+/* .login-footer .weixin{
+} */
+.login-footer .qq{
+     justify-content: center;
+     border-left: 3px solid #9fabbf;
+     border-right: 3px solid #9fabbf;
+     
+}
+ /* .login-footer .weibo{
+     justify-content: flex-start;  
+} */
+
+.login-footer img{
+    width: 40px;
+    height:40px;
+}
 </style>
