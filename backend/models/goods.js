@@ -686,7 +686,8 @@ function search(key, cb) {
 
 function showTopic(number,cb) {
 	var query=topicModel.find({});
-	query.limit(number);
+	
+	query.limit(parseInt(number));
 	query.exec(cb);
 }
 
