@@ -1,6 +1,6 @@
 <template>
 	<div class="yan-topic-body">
-		<a class="yan-topic-body-item" v-for="(item, index) in body_items" :key="index">
+		<a class="yan-topic-body-item" v-for="(item, index) in currentLoad" :key="index">
 			<div class="yan-topic-body-item-header">
 				<div class="yan-topic-body-item-header-writerImage">
 					<img :src="item.writerImage" />
@@ -43,6 +43,8 @@ export default {
         return {
             msg: 'Topic body',
             body_items: [],
+			page: 0,
+			currentLoad: [],
 			appear: 'none',
 			opa: 0
         }
@@ -69,17 +71,13 @@ export default {
 			let scrollHeight = document.body.scrollHeight;
 			let currentHeight = document.body.scrollTop + document.documentElement.clientHeight;
 			if(currentHeight >= scrollHeight-1){
-				//发送请求，获取更多数据
-				this.$http({
-					method: 'get',
-					url:'/goods/topic?number=4'
-				}).then((res)=>{
-					console.log('vue-more-resource then', res.body);
-					this.body_items = this.body_items.concat(res.body.data);
-					console.log(this.body_items);
-				}).catch((err) => {
-					console.log('vue-resource err', err);
-				})
+				//加载更多的数据items
+				if(this.currentLoad.length+4>this.body_items.length){
+					this.currentLoad = this.currentLoad.concat(this.body_items.slice(this.page*4, this.body_items.length));
+				}else{
+					this.currentLoad = this.currentLoad.concat(this.body_items.slice(this.page*4,this.page*4 + 4));
+					this.page++;
+				}
 			}
 		}
 	},
@@ -89,11 +87,17 @@ export default {
 			method: 'get',
 			url: '/goods/topic'
 		})
-			.then((res) => {
+		.then((res) => {
 			console.log('vue-resource then', res.body);
-				this.body_items = res.body.data;
-			})
-			.catch((err) => {
+			this.body_items = res.body.data;
+			if(this.body_items.length < 4){
+				this.currentLoad = this.currentLoad.concat(this.body_items.slice(0,this.body_items.length));
+			}else{
+				this.currentLoad = this.currentLoad.concat(this.body_items.slice(0,4));
+				this.page++;
+			}
+		})
+		.catch((err) => {
 			console.log('vue-resource err', err);
 		});
 		// 
