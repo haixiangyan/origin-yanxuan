@@ -35,6 +35,9 @@ import YanCategory from '@/components/pages/Category/Category';
 // 引入搜索组件页
 import YanSearch from '@/components/pages/Search/Search';
 
+// 引入商品详情页
+import YanGoodInfo from '@/components/pages/GoodInfo/GoodInfo';
+
 Vue.use(Router)
 
 export default new Router({
@@ -106,6 +109,11 @@ export default new Router({
       path: '/search',  // 搜索页的路由
       name: 'Search',
       component: YanSearch
+    },
+    {
+      path: '/good/:id', // 商品详情页
+      name: 'GoodInfo',
+      component: YanGoodInfo
     }
   ]
 })

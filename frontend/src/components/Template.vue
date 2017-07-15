@@ -90,7 +90,7 @@ export default {
       // 测试发送请求
       this.$http({
         method: 'post',
-        url: `${this.$myhost}/first`
+        url: `/goods/goods/`
       })
         .then((res) => {
           console.log('vue-resource then', res.body);

@@ -12,13 +12,17 @@ import { category } from './category.js';
 // 搜索页面
 import { search } from './search.js';
 
+// 商品详情页面
+import { good } from './good.js';
+
 let data = [].concat(
     login,
     home,
     homeStatic,
     homeGood,
     category,
-    search
+    search,
+    good
 );
 
 data.forEach((res) => {
