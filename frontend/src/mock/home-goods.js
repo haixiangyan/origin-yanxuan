@@ -24,7 +24,7 @@ export const homeGood = [{
           price: Random.natural(20, 2000),
           headImage: `/static/img/catalog/catalog-good-${Random.natural(1, 14)}.png`,
           labels: [],
-          ID: ''
+          ID: 1
         };
 
         for (let m = 0; m < Random.natural(0, 2); m++) {

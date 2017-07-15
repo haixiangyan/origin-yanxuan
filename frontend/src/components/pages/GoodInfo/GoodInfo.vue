@@ -54,7 +54,8 @@
                     <img src="/static/icons/more.png" alt="more">
                 </div>
             </router-link>
-            <yan-good-comment></yan-good-comment>
+
+            <yan-good-comment :comment="firstComment" :author="firstAuthor"></yan-good-comment>
         </div>
 
         <!-- 商品的详细信息 -->
@@ -81,7 +82,7 @@
         <div class="yan-suggest-goods">
             <yan-title class="yan-title" :title="'大家都在看'"></yan-title>
 
-            <yan-catalog :catalog="suggestGoods" :more="false"></yan-catalog>
+            <yan-catalog :catalog="suggestGoods" :more="true"></yan-catalog>
         </div>
 
         <yan-good-footer></yan-good-footer>
@@ -103,7 +104,7 @@ import YanGoodSelect from '@/components/pages/GoodInfo/Select/Select';
 // 引入商品的评价
 import YanGoodComment from '@/components/pages/GoodInfo/Comment/Comment';
 // 引入商品的详细信息的组件
-import YanGoodSpec from '@/components/pages/GoodInfo/Info/Info';
+import YanGoodSpec from '@/components/pages/GoodInfo/Spec/Spec';
 // 引入标题组件
 import YanTitle from '@/components/commons/Title/Title';
 // 引入商品的分类组件
@@ -116,6 +117,10 @@ import YanScrollTop from '@/components/commons/ScrollTop/ScrollTop';
 export default {
     data() {
         return {
+            selection: {
+                type: 0,
+                num: 1
+            },
             problems: [
                 {
                     question: '购买运费如何收取？',
@@ -155,6 +160,12 @@ export default {
     computed: {
         goodInfo() {
             return this.$store.getters.good;
+        },
+        firstComment() {
+            return this.$store.getters.comment;
+        },
+        firstAuthor() {
+            return this.$store.getters.author;
         }
     },
     components: {
@@ -170,7 +181,7 @@ export default {
         YanScrollTop
     },
     mounted() {
-        let id = this.$route.params.id;
+        let id = this.$route.params.goodId;
 
         // 发送请求获取商品的全部数据
         this.$http({
@@ -181,6 +192,11 @@ export default {
                 // 初始化商品
                 this.$store.commit('initGood', {
                     good: res.body.data[0]
+                });
+                // 初始化第一个评论
+                this.$store.commit('initComment', {
+                    comment: res.body.data[1],
+                    author: res.body.data[2]
                 })
             })
             .catch((err) => {
@@ -206,7 +222,7 @@ export default {
 <style scoped>
 .yan-good-info {
     background: rgb(249, 249, 249);
-     margin-bottom: 130px;
+    margin-bottom: 130px;
 }
 
 /* 轮播图 */
@@ -293,19 +309,18 @@ export default {
 
 .question,
 .answer {
-    font-size: 13px;
     word-break: break-all;
     word-wrap: break-word;
 }
 
 .question {
+    font-size: 40px;    
     padding-bottom: 20px;
 }
 
 .answer {
-    font-size: 12px;
     color: rgb(120, 120, 120);
-    line-height: 23px;
+    line-height: 50px; 
 }
 
 /* 推荐的商品 */

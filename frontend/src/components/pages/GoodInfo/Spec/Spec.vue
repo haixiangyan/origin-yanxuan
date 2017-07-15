@@ -1,5 +1,5 @@
 <template>
-  <div class="yan-good-info">
+  <div class="yan-good-spec">
     <!-- 商品参数的头部 -->
     <div class="info-title">
       商品参数
@@ -25,7 +25,7 @@ export default {
 </script>
 
 <style scoped>
-.yan-good-info {
+.yan-good-spec {
   padding: 35px;
   background: #fff;
 }

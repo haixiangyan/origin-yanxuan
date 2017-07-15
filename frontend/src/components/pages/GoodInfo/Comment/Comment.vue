@@ -5,35 +5,42 @@
       <!-- 用户信息 -->
       <div class="user">
         <!-- 用户的头像 -->
-        <img src="/static/img/good/comment/avatar.jpg" alt="avatar">
+        <img :src="author.customerPicture" alt="avatar">
   
         <!-- 用户的名字 -->
-        <span>h****a</span>
+        <span>{{author.customerName}}</span>
       </div>
   
       <!-- 发表的时间 -->
       <div class="date">
-        2017-06-20 22:24:39
+        {{getDate}}
       </div>
     </div>
   
     <!-- 内容 -->
     <div class="yan-good-comment-content">
       <p>
-        根据我多年的发烧经验，这款耳机实在是太太太超值了！ 音质超赞，蓝牙稳定。说它音质普通的人完全外行，是根据价位做出的心理上的判断， 你卖他两千块他就说好了
+        {{comment.content}}
       </p>
     </div>
 
     <!-- 图片区 -->
     <div class="yan-good-comment-pics">
-      <img src="/static/img/good/comment/pic.jpg" alt="comment">
+      <img v-for="(pic, index) in comment.picture" :key="index" :src="pic" alt="comment">
     </div>
   </div>
 </template>
 
 <script>
 export default {
-
+  props: ['comment', 'author'],
+  computed: {
+    getDate() {
+      let date = new Date(Number.parseInt(this.comment.commentDate));
+      let result = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getMilliseconds()}`;
+      return result;
+    }
+  }
 }
 </script>
 
@@ -78,5 +85,6 @@ export default {
 
 .yan-good-comment-pics img {
   max-height: 200px;
+  margin-right: 20px;
 }
 </style>

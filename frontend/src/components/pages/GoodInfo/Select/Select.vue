@@ -1,7 +1,7 @@
 <template>
   <div class="yan-good-select">
     <!-- 规格的选择 -->
-    <router-link tag="div" to="/" class="yan-spec-select">
+    <router-link tag="div" :to="`/choose/${this.$route.params.goodId}`" class="yan-spec-select">
         <div>
             请选择规格数量
         </div>
