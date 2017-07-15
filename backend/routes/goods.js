@@ -4,13 +4,13 @@ var goods = require("../models/goods");
 router.post('/', function(req, res, next) {
 	res.send('respond with a resource');
 })
-router.get('/goods', function(req, res, next) {
+router.get('/goods/:ID', function(req, res, next) {
 	var ID = req.params.ID;
 	goods.getGoods(ID, function(err, docs) {
-		if (docs.length > 0) {
+		if (err=="success") {
 			res.json({
 				result: "success",
-				data: docs[0]
+				data: docs
 			})
 		} else {
 			res.json({

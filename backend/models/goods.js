@@ -39,7 +39,7 @@ db.once('open', function() {
 		}, cb)
 	}
 	goodsModel = db.model("goods", goodsSchema);
-	//	addGoods()
+	addGoods()
 	var categorySchema = new mongoose.Schema({
 		name: String,
 		picture: String,
@@ -71,25 +71,44 @@ db.once('open', function() {
 		totalFee: Number
 	});
 	orderModel = db.model("orders", orderSchema);
+
+	var commentSchema = new mongoose.Schema({
+		goodsID: Number,
+		userID: String,
+		content: String,
+		picture: Array,
+		commentDate: String
+	});
+	commentModel = db.model("comments", commentSchema);
+	var userschema = new mongoose.Schema({
+		telephone: String,
+		name: String,
+		password: String,
+		photo: String,
+		gender: String,
+		interest: Array,
+		address: Array
+	});
+	userModel = db.model("User", userschema);
 })
 
 function addGoods() {
-	for (var i = 0; i < 100; i++) {
+	for(var i = 0; i < 100; i++) {
 		var goodsEntity = new goodsModel({
 			ID: i,
 			price: 10 * i + 5,
 			chara: "二种可选",
 			topName: "懒人清洁新选择",
 			subName: "高效清洁组合",
-			shortDescription: ['a', 'a', 'a', 'a', 'a', 'a'],
-			shortDescriptionImage: ['a', 'a', 'a', 'a', 'a', 'a'],
-			headImage: ['/static/img/goodsImage/1.png', 'a', 'a', 'a', 'a'],
-			type: ['a', 'a', 'a', 'a', 'a', 'a'],
+			shortDescription: ['静电吸附', '轻盈省力', '转头流畅', '智慧灵活', '双面可用', '坚韧厚实'],
+			shortDescriptionImage: ['/static/img/goodsImage/0/shortdescriptionImage/1.png', '/static/img/goodsImage/0/shortdescriptionImage/2.jpg', '/static/img/goodsImage/0/shortdescriptionImage/3.jpg'],
+			headImage: ['/static/img/goodsImage/0/headImage/1.jpg', '/static/img/goodsImage/0/headImage/2.jpg', '/static/img/goodsImage/0/headImage/3.jpg', '/static/img/goodsImage/0/headImage/4.jpg', '/static/img/goodsImage/0/headImage/5.jpg'],
+			type: ['1套装 伸缩杆懒人拖把+懒人抹布 4卷装+40片装 地板清洁湿巾 3包装'],
 			inventory: [999, 999, 999, 999, 999, 999],
-			description: ['a', 'a', 'a', 'a', 'a', 'a'],
+			description: ['/static/img/goodsImage/0/description/1.jpg', '/static/img/goodsImage/0/description/2.jpg', '/static/img/goodsImage/0/description/3.jpg', '/static/img/goodsImage/0/description/4.jpg', '/static/img/goodsImage/0/description/5.jpg', '/static/img/goodsImage/0/description/6.jpg', '/static/img/goodsImage/0/description/7.jpg', '/static/img/goodsImage/0/description/8.jpg'],
 			information: [{
-				"attrName": "asd",
-				"attrValue": "af"
+				"attrName": "组合",
+				"attrValue": "1套装 伸缩杆懒人拖把 <br />4卷装 懒人抹布<br />3包装 地板清洁湿巾（40片装）"
 			}, {
 				"attrName": "asd",
 				"attrValue": "af"
@@ -115,7 +134,7 @@ function addGoods() {
 }
 
 function addTopic() {
-	for (var i = 0; i < 10; i++) {
+	for(var i = 0; i < 10; i++) {
 		var topicEntity = new topicModel({
 			topicID: i,
 			writer: "餐厨组：锅锅",
@@ -532,7 +551,31 @@ function addCategory() {
 }
 
 function getGoods(ID, cb) {
-	goodsModel.findByID(ID, cb);
+	goodsModel.findByID(ID, function(err, docs) {
+		//		console.log(docs);
+		var obj = docs[0];
+		//		console.log(obj);
+		var arr = [];
+		arr.push(obj)
+		commentModel.find({
+			goodsID: obj.ID
+		}, function(err, docs2) {
+			var newobj = docs2[0];
+			arr.push(newobj);
+			userModel.find({
+				telephone: newobj.userID
+			}, function(err, docs3) {
+				var newobj2 = {
+					customerPicture: docs3[0].photo,
+					customerName: docs3[0].name
+				}
+				arr.push(newobj2)
+				cb("success", arr);
+			})
+		})
+
+	});
+
 }
 
 function getGoodsBySale(cb) {
@@ -556,7 +599,7 @@ function getGoodsByDate(cb) {
 function getGoodsByAllType(cb) {
 	let arr = [];
 	categoryModel.find({}, function(err, docs) {
-		for (let i = 0; i < docs.length; i++) {
+		for(let i = 0; i < docs.length; i++) {
 			let obj = {
 				name: "",
 				data: []
@@ -570,7 +613,7 @@ function getGoodsByAllType(cb) {
 			goodsModel.find(queryGoods, function(err, docs2) {
 				let goodsArr = []
 				let goods;
-				for (let j = 0; j < docs2.length; j++) {
+				for(let j = 0; j < docs2.length; j++) {
 					let goods = {
 						ID: docs2[j].ID,
 						topName: docs2[j].topName,
@@ -585,7 +628,7 @@ function getGoodsByAllType(cb) {
 				}
 				obj.data = goodsArr;
 				arr.push(obj);
-				if (arr.length == docs.length - 1) {
+				if(arr.length == docs.length - 1) {
 					cb("success", arr)
 				}
 			})
@@ -604,7 +647,7 @@ function getCertainCategory(category, cb) {
 		name: category
 	}, function(err, docs) {
 		let subCategoryArr = docs[0].subCategory;
-		for (let i = 0; i < subCategoryArr.length; i++) {
+		for(let i = 0; i < subCategoryArr.length; i++) {
 			let obj = {
 				name: "",
 				data: []
@@ -619,7 +662,7 @@ function getCertainCategory(category, cb) {
 			goodsModel.find(queryGoods, function(err, docs2) {
 				let goodsArr = []
 				let goods;
-				for (let j = 0; j < docs2.length; j++) {
+				for(let j = 0; j < docs2.length; j++) {
 					let goods = {
 						ID: docs2[j].ID,
 						topName: docs2[j].topName,
@@ -633,7 +676,7 @@ function getCertainCategory(category, cb) {
 				}
 				obj.data = goodsArr;
 				arr.push(obj);
-				if (arr.length == subCategoryArr.length - 1) {
+				if(arr.length == subCategoryArr.length - 1) {
 					cb("success", arr)
 				}
 			})
@@ -647,7 +690,7 @@ function getCertainSubCategoryGoods(category, cb) {
 	goodsModel.find({
 		subCategory: category
 	}, function(err, docs) {
-		for (var i = 0; i < docs.length; i++) {
+		for(var i = 0; i < docs.length; i++) {
 			let goods = {
 				ID: docs[i].ID,
 				topName: docs[i].topName,
@@ -667,9 +710,9 @@ function search(key, cb) {
 
 	var arr = [];
 	goodsModel.find({}, function(err, docs) {
-		for (var i = 0; i < docs.length; i++) {
+		for(var i = 0; i < docs.length; i++) {
 			var obj = docs[i];
-			if (obj.topName.indexOf(key) != -1 || obj.subName.indexOf(key) != -1 || obj.category.indexOf(key) != -1 || obj.subCategory.indexOf(key) != -1) {
+			if(obj.topName.indexOf(key) != -1 || obj.subName.indexOf(key) != -1 || obj.category.indexOf(key) != -1 || obj.subCategory.indexOf(key) != -1) {
 				var newobj = {
 					ID: docs[i].ID,
 					topName: docs[i].topName,
@@ -681,11 +724,11 @@ function search(key, cb) {
 				}
 				arr.push(newobj);
 			}
-			if (arr.length > 10) {
+			if(arr.length > 10) {
 				break;
 			}
 		}
-		if (arr.length > 0) {
+		if(arr.length > 0) {
 			cb("success", arr)
 		} else {
 			cb("error", "")
@@ -694,20 +737,20 @@ function search(key, cb) {
 }
 
 function showTopic(cb) {
-	topicModel.find({},cb);
+	topicModel.find({}, cb);
 }
 
 function makeOrder(obj, cb) {
 	goodsModel.findByID(obj.goodsID, function(err, docs) {
-		if (docs.length > 0) {
+		if(docs.length > 0) {
 			var goods = docs[0];
 			var i;
-			for (i = 0; i < goods.type.length; i++) {
-				if (obj.type == goods.type[i]) {
+			for(i = 0; i < goods.type.length; i++) {
+				if(obj.type == goods.type[i]) {
 					break;
 				}
 			}
-			if (goods.inventory[i] > 0) {
+			if(goods.inventory[i] > 0) {
 				goods.inventory[i] -= 1;
 				docs.save();
 				var arr = [];

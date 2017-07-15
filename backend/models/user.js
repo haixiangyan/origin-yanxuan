@@ -34,8 +34,21 @@ db.once('open', function() {
 		}, cb)
 	}
 	userModel = db.model("User", userschema);
+	addUser();
 })
-
+function addUser(){
+	var userEntity=new userModel({
+		telephone:'1',
+		password:'123456',
+		photo:"/static/img/userImage/1.gif",
+		name:"xu",
+		gender:"man",
+		interest:["1","2","3"],
+		address:["1","2"]
+	})
+    userEntity.save();
+	
+}
 function creatUser(obj, cb) {
 	userModel.findByTelephone(obj.telephone, function(err, docs) {
 		if (docs == "") {

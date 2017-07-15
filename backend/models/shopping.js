@@ -27,6 +27,16 @@ db.once('open', function() {
 	});
 	orderModel = db.model("orders", orderSchema);
 	//	addCatagory();
+	var commentSchema = new mongoose.Schema({
+		goodsID:Number,
+		userID: String,
+		content: String,
+        picture:Array,
+		commentDate:String,
+		type:String
+	});
+	commentModel = db.model("comments", commentSchema);
+	addComment();
 })
 
 //function addCart() {
@@ -50,6 +60,18 @@ db.once('open', function() {
 //	
 //}
 //function CH
+
+function addComment(){
+	var commentEntity=new commentModel({
+		goodsID:0,
+		userID:"1",
+		content:"物超所值，对于不愿弯腰干活的人拖把真的是福音啊，简单易操作。",
+		picture:["/static/img/commentImage/0/1/1.jpg"],
+		commentDate:new Date().getTime(),
+		type:"1套装 伸缩杆懒人拖把+懒人抹布 4卷装+40片装 地板清洁湿巾 3包装"
+	})
+    commentEntity.save();
+}
 function getCart(userID, cb) {
 	cartModel.find({
 		userID: obj.userID
