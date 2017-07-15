@@ -5,9 +5,6 @@ export const homeGood = [{
   path: '/goods/certainCategory', // 栏截获取商品分类展示部分
   methods: 'post',
   data(option) {
-
-    console.log(JSON.parse(option.body));
-
     let result = {
       result: 'success',
       data: []

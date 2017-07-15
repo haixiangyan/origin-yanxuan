@@ -1,9 +1,9 @@
 <template>
     <div class="yan-home-catalog-wrapper">
         <!--商品分类的头部-->
-        <div class="yan-catalog-header">
+        <div v-if="catalog.name" class="yan-catalog-header">
             <!--分类的标题-->
-            <div class="yan-title">{{catalog.name}}好物</div>
+            <div v-if="catalog.name" class="yan-title">{{catalog.name}}好物</div>
     
             <!--分类的副标题-->
             <div v-if="catalog.title" class="yan-subtitle">{{catalog.subtitle}}</div>
@@ -11,7 +11,7 @@
         
         <div class="yan-catalog-goods">
             <yan-catalog-good class="yan-catalog-good" v-for="(good, index) in catalog.data" :key="index" :good="good"></yan-catalog-good>            
-            <yan-catalog-more class="yan-catalog-more" :title="catalog.name" :name="catalog.name"></yan-catalog-more>
+            <yan-catalog-more v-if="more" class="yan-catalog-more" :title="catalog.name" :name="catalog.name"></yan-catalog-more>
         </div>
     </div>
 </template>
@@ -23,7 +23,7 @@ import YanCatalogGood from '@/components/pages/Home/Catalog/Good/Good';
 import YanCatalogMore from '@/components/pages/Home/Catalog/More/More';
 
 export default {
-    props: ['catalog', 'index'],
+    props: ['catalog', 'index', 'more'],
     components: {
         YanCatalogGood,
         YanCatalogMore

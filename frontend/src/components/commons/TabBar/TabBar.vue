@@ -26,17 +26,17 @@ export default {
                 {
                     title: '专题',
                     url: '/topic',
-                    className: 'fa fa-coffee fa-2x'
+                    className: 'fa fa-dribbble fa-2x'
                 },
                 {
                     title: '分类',
                     url: '/category',
-                    className: 'fa fa-shopping-cart fa-2x'
+                    className: 'fa fa-th-large fa-2x'
                 },
                 {
                     title: '购物车',
                     url: '/',
-                    className: 'fa fa-lemon-o fa-2x'
+                    className: 'fa fa-shopping-cart fa-2x'
                 },
                 {
                     title: '个人',
