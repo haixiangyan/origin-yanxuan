@@ -137,6 +137,7 @@ router.post('/subCategoryGoods',function(req,res,next){
 })
 router.post('/search',function(req,res,next){
 	var keyword= req.body.key;
+	console.log(keyword);
 	goods.search(keyword,function(err,docs){
 		if(err=="success"){
 			res.json({
@@ -155,6 +156,21 @@ router.post('/search',function(req,res,next){
 router.get("/topic",function(req,res,next){
 	goods.showTopic(function(err,docs){
 		if(!err){
+			res.json({
+				result: "success",
+				data: docs
+			})
+		}else{
+			res.json({
+				result: "error"
+			})
+		}
+	})
+})
+router.get("/comment/:goodsID",function(req,res,next){
+	var goodsID=req.params.goodsID;
+	goods.getComment(goodsID,function(err,docs){
+		if(err=="success"){
 			res.json({
 				result: "success",
 				data: docs

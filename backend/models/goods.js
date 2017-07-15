@@ -782,7 +782,28 @@ function makeOrder(obj, cb) {
 		}
 	})
 }
-
+function getComment(goodsID,cb){
+	var arr=[];
+	commentModel.find({goodsID:goodsID},function(err,docs){
+		for(var i=0;i<docs.length;i++){
+			var newobj = docs[i];
+			arr.push(newobj)
+			userModel.find({
+				telephone: newobj.userID
+			}, function(err, docs3) {
+				var newobj2 = {
+					customerPicture: docs3[0].photo,
+					customerName: docs3[0].name
+				}
+//				var newobj3={comment:newobj,customer:newobj2};
+				arr.push(newobj2);
+			})
+		}
+		if(arr.length==docs.length){
+			cb("success", arr);
+		}
+	})
+}
 module.exports.getCategory = getCategory;
 module.exports.getGoods = getGoods;
 module.exports.getGoodsBySale = getGoodsBySale;
@@ -793,3 +814,4 @@ module.exports.getCertainSubCategoryGoods = getCertainSubCategoryGoods;
 module.exports.search = search;
 module.exports.showTopic = showTopic;
 module.exports.makeOrder = makeOrder;
+module.exports.getComment=getComment;

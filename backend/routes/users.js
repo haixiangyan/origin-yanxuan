@@ -38,7 +38,7 @@ router.patch('/changeInformation', function(req, res, next) {
 		var gender = fields.gender[0];
 		var name = fields.name[0];
 		var photo = files.photo[0].originalFilename;
-		fs.rename(files.photo[0].path, "./dist/static/PersonImage/" + files.photo[0].originalFilename, function(err) {
+		fs.rename(files.photo[0].path, "/static/userImage/" + files.photo[0].originalFilename, function(err) {
 			console.log(err)
 		})
 		var obj = {
