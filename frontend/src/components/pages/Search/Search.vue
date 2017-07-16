@@ -22,7 +22,7 @@
         <!-- 搜索建议 -->
         <div v-show="isShowSuggestList" class="yan-search-suggest-wrapper">
             <div class="yan-search-suggest-inner">
-                <yan-search-suggest class="yan-search-suggest" v-for="(suggest, index) in searchSuggest" :key="index" :suggest="suggest"></yan-search-suggest> 
+                <yan-search-suggest v-on:getResult="getResult" class="yan-search-suggest" v-for="(suggest, index) in searchSuggest" :key="index" :suggest="suggest"></yan-search-suggest> 
             </div>
         </div>
 
@@ -60,6 +60,7 @@ export default {
             if (suggest.length === 0) {
                 // 隐藏建议列表
                 this.isShowSuggestList = false;
+                this.isShowResult = false;                
                 // 显示建议标签
                 this.isShowSuggest = true;
             }
@@ -75,6 +76,7 @@ export default {
             this.result = result;
             // 隐藏热门推荐
             this.isShowSuggest = false;
+            this.isShowSuggestList = false;
             // 显示结果
             this.isShowResult = true;
         },

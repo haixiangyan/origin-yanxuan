@@ -73,7 +73,7 @@ export default {
     },
     selection() {
       return this.$store.getters.selection;
-    }
+    },
   },
   components: {
     YanHeader,

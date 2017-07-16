@@ -39,6 +39,19 @@ const mutations = {
     // 改变类别
     changeType(state, payload) {
         state.selection.type = payload.type;
+    },
+    // 添加1
+    addNum(state) {
+        state.selection.num ++;
+    },
+    // 减1
+    subNum(state) {
+        if (state.selection.num === 1) {
+            return ;
+        }
+        else {
+            state.selection.num --;
+        }
     }
 }
 

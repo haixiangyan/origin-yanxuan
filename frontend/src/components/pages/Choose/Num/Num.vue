@@ -6,7 +6,7 @@
         </div>
     
         <div class="num">
-            <input v-model="selectNum" type="text">
+            <input v-model="num" type="text">
         </div>
     
         <!-- 加一件 -->
@@ -18,35 +18,18 @@
 
 <script>
 export default {
-    props: ['num'],
-    data() {
-        return {
-            selectNum: 1
-        }
-    },
-    watch: {
-        selectNum: function (newNum) {
-            if (newNum === '') {
-                this.selectNum = 0;
-            }
-
-            // 将选择的数量返回到父组件上
-            this.$store.commit('changeNum', this.newNum);
+    computed: {
+        num() {
+            return this.$store.getters.selection.num;
         }
     },
     methods: {
         add() {
-            this.selectNum ++;
+            this.$store.commit('addNum');
         },
         sub() {
-            if (this.selectNum === 1) {
-                return ;
-            }
-            this.selectNum --;
+            this.$store.commit('subNum');
         }
-    },
-    mounted() {
-        this.selectNum = this.num;  
     }
 }
 </script>
