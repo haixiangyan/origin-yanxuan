@@ -1,5 +1,5 @@
 <template>
-    <a :href="`/good/${good.ID}`" class="yan-display-good-wrapper">
+    <a :href="`/good-info/${good.ID}`" class="yan-display-good-wrapper">
         <div class="yan-display-img-wrapper">
             <!--商品的图片-->
             <img class="yan-display-good-img" :src="good.headImage">

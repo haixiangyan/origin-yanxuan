@@ -93,7 +93,7 @@ db.once('open', function() {
 })
 
 function addGoods() {
-	var i=0;
+	var i=1;
 //	for(var i = 0; i < 100; i++) {
 		var goodsEntity = new goodsModel({
 			ID: i,
@@ -109,13 +109,7 @@ function addGoods() {
 			description: ['/static/img/goodsImage/0/description/1.jpg', '/static/img/goodsImage/0/description/2.jpg', '/static/img/goodsImage/0/description/3.jpg', '/static/img/goodsImage/0/description/4.jpg', '/static/img/goodsImage/0/description/5.jpg', '/static/img/goodsImage/0/description/6.jpg', '/static/img/goodsImage/0/description/7.jpg', '/static/img/goodsImage/0/description/8.jpg'],
 			information: [{
 				"attrName": "组合",
-				"attrValue": "1套装 伸缩杆懒人拖把 <br />4卷装 懒人抹布<br />3包装 地板清洁湿巾（40片装）"
-			}, {
-				"attrName": "asd",
-				"attrValue": "af"
-			}, {
-				"attrName": "asd",
-				"attrValue": "af"
+				"attrValue": `1套装 伸缩杆懒人拖把  4卷装 懒人抹布 3包装 地板清洁湿巾（40片装）`
 			}],
 			sale: parseInt(Math.random() * 100),
 			category: parseInt(i / 8),
@@ -562,6 +556,7 @@ function getGoods(ID, cb) {
 			goodsID: obj.ID
 		}, function(err, docs2) {
 			var newobj = docs2[0];
+			console.log(docs2)
 			arr.push(newobj);
 			userModel.find({
 				telephone: newobj.userID

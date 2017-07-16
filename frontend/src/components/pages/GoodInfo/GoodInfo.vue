@@ -240,7 +240,7 @@ export default {
     padding: 15px 20px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 /* 商品的介绍部分 */

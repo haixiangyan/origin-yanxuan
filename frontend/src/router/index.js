@@ -43,7 +43,7 @@ import YanGoodChoose from '@/components/pages/Choose/Choose';
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  // mode: 'history',
   routes: [{
       path: '/',
       redirect: '/home/recommend'
@@ -111,7 +111,7 @@ export default new Router({
       component: YanSearch
     },
     {
-      path: '/good/:goodId', // 商品详情页
+      path: '/good-info/:goodId', // 商品详情页
       name: 'GoodInfo',
       component: YanGoodInfo
     },

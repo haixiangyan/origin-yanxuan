@@ -29,7 +29,8 @@ export default {
 .yan-desc-avatar img {
     margin-right: 20px;
     border-radius: 50%;
-    max-width: 80%;
+    width: 80px;
+    height: 80px;
 }
 
 /* 文字部分 */

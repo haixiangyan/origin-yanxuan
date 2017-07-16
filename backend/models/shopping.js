@@ -78,7 +78,7 @@ function addOrder(){
 
 function addComment() {
 	var commentEntity = new commentModel({
-		goodsID: 0,
+		goodsID: 1,
 		userID: "1",
 		content: "物超所值，对于不愿弯腰干活的人拖把真的是福音啊，简单易操作。",
 		picture: ["/static/img/commentImage/0/1/1.jpg"],
