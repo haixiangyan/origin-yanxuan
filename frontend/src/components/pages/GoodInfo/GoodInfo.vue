@@ -44,7 +44,7 @@
         <!-- 商品的评价 -->
         <div class="yan-good-comment-wrapper">
             <!-- 评价区的头部 -->
-            <router-link tag="div" to="/" class="yan-good-comment-header">
+            <router-link tag="div" :to="`/comment-list/${this.$route.params.goodId}`" class="yan-good-comment-header">
                 <div>
                     用户评价(999+)
                 </div>
