@@ -93,39 +93,39 @@ db.once('open', function() {
 })
 
 function addGoods() {
-	var i=1;
-//	for(var i = 0; i < 100; i++) {
-		var goodsEntity = new goodsModel({
-			ID: i,
-			price: 10 * i + 5,
-			chara: "二种可选",
-			topName: "懒人清洁新选择",
-			subName: "高效清洁组合",
-			shortDescription: ['静电吸附', '轻盈省力', '转头流畅', '智慧灵活', '双面可用', '坚韧厚实'],
-			shortDescriptionImage: ['/static/img/goodsImage/0/shortdescriptionImage/1.png', '/static/img/goodsImage/0/shortdescriptionImage/2.jpg', '/static/img/goodsImage/0/shortdescriptionImage/3.jpg'],
-			headImage: ['/static/img/goodsImage/0/headImage/1.jpg', '/static/img/goodsImage/0/headImage/2.jpg', '/static/img/goodsImage/0/headImage/3.jpg', '/static/img/goodsImage/0/headImage/4.jpg', '/static/img/goodsImage/0/headImage/5.jpg'],
-			type: ['1套装 伸缩杆懒人拖把+懒人抹布 4卷装+40片装 地板清洁湿巾 3包装'],
-			inventory: [999, 999, 999, 999, 999, 999],
-			description: ['/static/img/goodsImage/0/description/1.jpg', '/static/img/goodsImage/0/description/2.jpg', '/static/img/goodsImage/0/description/3.jpg', '/static/img/goodsImage/0/description/4.jpg', '/static/img/goodsImage/0/description/5.jpg', '/static/img/goodsImage/0/description/6.jpg', '/static/img/goodsImage/0/description/7.jpg', '/static/img/goodsImage/0/description/8.jpg'],
-			information: [{
-				"attrName": "组合",
-				"attrValue": `1套装 伸缩杆懒人拖把  4卷装 懒人抹布 3包装 地板清洁湿巾（40片装）`
-			}],
-			sale: parseInt(Math.random() * 100),
-			category: parseInt(i / 8),
-			subCategory: i + 100,
-			date: new Date().getTime(),
-			manufacturer: "ck",
-			label: [{
-				title: "爆品",
-				type: "1"
-			}, {
-				title: "新品",
-				type: "2"
-			}]
-		})
-		goodsEntity.save();
-//	}
+	var i = 1;
+	//	for(var i = 0; i < 100; i++) {
+	var goodsEntity = new goodsModel({
+		ID: i,
+		price: 10 * i + 5,
+		chara: "二种可选",
+		topName: "懒人清洁新选择",
+		subName: "高效清洁组合",
+		shortDescription: ['静电吸附', '轻盈省力', '转头流畅', '智慧灵活', '双面可用', '坚韧厚实'],
+		shortDescriptionImage: ['/static/img/goodsImage/0/shortdescriptionImage/1.png', '/static/img/goodsImage/0/shortdescriptionImage/2.jpg', '/static/img/goodsImage/0/shortdescriptionImage/3.jpg'],
+		headImage: ['/static/img/goodsImage/0/headImage/1.jpg', '/static/img/goodsImage/0/headImage/2.jpg', '/static/img/goodsImage/0/headImage/3.jpg', '/static/img/goodsImage/0/headImage/4.jpg', '/static/img/goodsImage/0/headImage/5.jpg'],
+		type: ['1套装 伸缩杆懒人拖把+懒人抹布 4卷装+40片装 地板清洁湿巾 3包装'],
+		inventory: [999, 999, 999, 999, 999, 999],
+		description: ['/static/img/goodsImage/0/description/1.jpg', '/static/img/goodsImage/0/description/2.jpg', '/static/img/goodsImage/0/description/3.jpg', '/static/img/goodsImage/0/description/4.jpg', '/static/img/goodsImage/0/description/5.jpg', '/static/img/goodsImage/0/description/6.jpg', '/static/img/goodsImage/0/description/7.jpg', '/static/img/goodsImage/0/description/8.jpg'],
+		information: [{
+			"attrName": "组合",
+			"attrValue": `1套装 伸缩杆懒人拖把  4卷装 懒人抹布 3包装 地板清洁湿巾（40片装）`
+		}],
+		sale: parseInt(Math.random() * 100),
+		category: parseInt(i / 8),
+		subCategory: i + 100,
+		date: new Date().getTime(),
+		manufacturer: "ck",
+		label: [{
+			title: "爆品",
+			type: "1"
+		}, {
+			title: "新品",
+			type: "2"
+		}]
+	})
+	goodsEntity.save();
+	//	}
 }
 
 function addTopic() {
@@ -746,11 +746,11 @@ function makeOrder(obj, cb) {
 					break;
 				}
 			}
-//			console.log(i);
-//			console.log(goods.inventory[i]);
+			//			console.log(i);
+			//			console.log(goods.inventory[i]);
 			if(goods.inventory[i] > obj.number) {
 				goods.inventory[i] -= obj.number;
-//				console.log(goods.inventory[i]);
+				//				console.log(goods.inventory[i]);
 				goods.save();
 				var arr = [];
 				var newobj = {
@@ -781,25 +781,33 @@ function makeOrder(obj, cb) {
 		}
 	})
 }
-function getComment(goodsID,cb){
-	var arr=[];
-	commentModel.find({goodsID:goodsID},function(err,docs){
-		for(var i=0;i<docs.length;i++){
+
+function getComment(goodsID, cb) {
+	var arr = [];
+	var arr2 = [];
+	commentModel.find({
+		goodsID: goodsID
+	}, function(err, docs) {
+		for(var i = 0; i < docs.length; i++) {
 			var newobj = docs[i];
 			arr.push(newobj)
 			userModel.find({
-				telephone: newobj.userID
-			}, function(err, docs3) {
-				var newobj2 = {
-					customerPicture: docs3[0].photo,
-					customerName: docs3[0].name
-				}
-//				var newobj3={comment:newobj,customer:newobj2};
-				arr.push(newobj2);
-			})
-		}
-		if(arr.length==docs.length){
-			cb("success", arr);
+					telephone: newobj.userID
+				}, function(err, docs3) {
+					var newobj2 = {
+						customerPicture: docs3[0].photo,
+						customerName: docs3[0].name
+					}
+					//				var newobj3={comment:newobj,customer:newobj2};
+					arr2.push(newobj2);
+					if(arr.length == docs.length && arr2.length == docs.length) {
+						var obj = {
+							comment: arr,
+							user: arr2
+						}
+						cb("success", obj)
+					}
+			});
 		}
 	})
 }
@@ -813,4 +821,4 @@ module.exports.getCertainSubCategoryGoods = getCertainSubCategoryGoods;
 module.exports.search = search;
 module.exports.showTopic = showTopic;
 module.exports.makeOrder = makeOrder;
-module.exports.getComment=getComment;
+module.exports.getComment = getComment;
