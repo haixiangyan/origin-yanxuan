@@ -737,21 +737,24 @@ function showTopic(cb) {
 }
 
 function makeOrder(obj, cb) {
-	goodsModel.findByID(obj.goodsID, function(err, docs) {
-		if(docs.length > 0) {
-			var goods = docs[0];
-			var i;
-			for(i = 0; i < goods.type.length; i++) {
-				if(obj.type == goods.type[i]) {
+	goodsModel.findOne({ID:obj.goodsID}, function(err, docs) {
+//		console.log(docs)
+        
+		if(docs) {
+			var inventory=[];
+			inventory=docs.inventory;
+			for(i = 0; i < docs.type.length; i++) {
+				if(obj.type == docs.type[i]) {
 					break;
 				}
 			}
-			//			console.log(i);
-			//			console.log(goods.inventory[i]);
-			if(goods.inventory[i] > obj.number) {
-				goods.inventory[i] -= obj.number;
-				//				console.log(goods.inventory[i]);
-				goods.save();
+			if(docs.inventory[i] > obj.number) {
+				inventory[i] -= obj.number;
+				console.log(inventory);
+				docs.inventory=inventory;
+              docs.markModified('inventory');
+				docs.save();
+				
 				var arr = [];
 				var newobj = {
 					ID: obj.goodsID,

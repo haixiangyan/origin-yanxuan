@@ -29,7 +29,7 @@ app.set('view engine', 'jade');
 //}));
 
 // 解决 history 模式的问题（非常重要！！！）
-app.use(history());
+//app.use(history());
 
 app.use(logger('dev'));
 app.use(bodyParser.json());

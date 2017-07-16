@@ -14,7 +14,7 @@ db.once('open', function() {
 	});
 
 	cartModel = db.model("carts", cartSchema);
-	
+	addCart();
 	var orderSchema = new mongoose.Schema({
 		orderID: String,
 		userID: String,
@@ -28,7 +28,7 @@ db.once('open', function() {
 	});
 
 	orderModel = db.model("orders", orderSchema);
-	
+
 	var commentSchema = new mongoose.Schema({
 		goodsID: Number,
 		userID: String,
@@ -40,37 +40,43 @@ db.once('open', function() {
 	commentModel = db.model("comments", commentSchema);
 	addComment();
 })
-function addOrder(){
-	var orderEntity=({
+
+function addOrder() {
+	var orderEntity = ({
 		orderID: "14234",
 		userID: "1",
-		goodsList: [{ID:"123",number:1,type:"Asd"}],
-		expressNumber:123123,
+		goodsList: [{
+			ID: "123",
+			number: 1,
+			type: "Asd"
+		}],
+		expressNumber: 123123,
 		expressCompany: "saddas",
 		address: ['asd'],
 		orderState: 0,
 		payID: "Asfasf",
-		totalFee:13
+		totalFee: 13
 	})
 	orderEntity.save();
 }
-//function addCart() {
-//	var arr = [];
-//	for (var i = 0; i < 20; i++) {
-//		var obj = {
-//			ID: i,
-//			type: "1",
-//			number: 1
-//		}
-//		arr.push(obj);
-//	}
-//	var cartEntity = new cartModel({
-//		userID: 0,
-//		goodsList: arr
-//	});
-//	cartEntity.save();
-//
-//}
+
+function addCart() {
+	var arr = [];
+	for(var i = 0; i < 5; i++) {
+		var obj = {
+			ID: i,
+			type: "1",
+			number: 1
+		}
+		arr.push(obj);
+	}
+	var cartEntity = new cartModel({
+		userID: 0,
+		goodsList: arr
+	});
+	cartEntity.save();
+
+}
 //function addOrder(){
 //	
 //}
@@ -89,62 +95,100 @@ function addComment() {
 }
 
 function getCart(userID, cb) {
-	cartModel.find({
-		userID: obj.userID
-	}, function(err, docs) {
-		cb(docs[0].goodsList);
-	})
-}
-
-function addtoCart(obj, cb) {
-	cartModel.find({
-		userID: obj.userID
-	}, function(err, docs) {
-		var i;
-		for(i = 0; i < docs[0].goodsList.length; i++) {
-			if(docs[0].goodsList[i].ID == obj.ID && docs[0].goodsList[i].type == obj.type) {
-				break;
-			}
-		}
-		if(i == docs[0].goodsList.length) {
-			docs[0].goodsList.push(newobject);
-			docs[0].save();
-			cb("success", docs[0].goodsList);
-		} else {
-			docs[0].goodsList[i].number += obj.number;
-			docs[0].save();
-			cb("success", docs[0].goodsList);
-		}
-	})
-}
-
-function deleteItemFromCart(userID, goodsID, cb) {
-	cartModel.find({
+	cartModel.findOne({
 		userID: userID
 	}, function(err, docs) {
-		var arr = docs[0].goodsList;
-		var i = 0;
-		for(i = 0; i < arr.length; i++) {
-			if(arr[i].ID == goodsID) {
-				break;
-			}
-		}
-		if(i == arr.length) {
-			cb("error", "");
+		if(docs) {
+			cb("success", docs.goodsList);
 		} else {
-			arr.splice(i);
-			docs.save();
+			cb("err", "");
+		}
+
+	})
+}
+
+function addToCart(obj, cb) {
+	cartModel.findOne({
+		userID: obj.userID
+	}, function(err, docs) {
+		if(docs) {
+			var i;
+			for(i = 0; i < docs.goodsList.length; i++) {
+				if(docs.goodsList[i].ID == obj.ID && docs.goodsList[i].type == obj.type) {
+					break;
+				}
+			}
+
+			if(i == docs.goodsList.length) {
+				console.log(1);
+				var newobj = {
+					ID: obj.ID,
+					type: obj.type,
+					number: obj.number
+				}
+				docs.goodsList.push(newobj);
+				docs.markModified('goodsList');
+				docs.save();
+				cb("success", docs.goodsList);
+			} else {
+				console.log(2);
+				docs.goodsList[i].number += parseInt(obj.number);
+				docs.save();
+				cb("success", docs.goodsList);
+			}
+		} else {
+			console.log(obj)
+			console.log(3);
+			var newobj = {
+				ID: obj.ID,
+				type: obj.type,
+				number: obj.number
+			}
+			var arr = [];
+			arr.push(newobj);
+			console.log(obj.userID);
+			var cartEntity = new cartModel({
+				userID: obj.userID,
+				goodsList: arr
+			});
+			cartEntity.save();
 			cb("success", arr);
 		}
 
 	})
 }
 
-function changeItemInCart(userID, goodsID, type, number, cb) {
-	cartModel.find({
+function deleteItemFromCart(userID, goodsID, cb) {
+	cartModel.findOne({
 		userID: userID
 	}, function(err, docs) {
-		var arr = docs[0].goodsList;
+		if(docs) {
+			var arr = docs.goodsList;
+			var i = 0;
+			for(i = 0; i < arr.length; i++) {
+				if(arr[i].ID == goodsID) {
+					break;
+				}
+			}
+			if(i == arr.length) {
+				cb("error", "");
+			} else {
+				arr.splice(i, 1);
+				docs.save();
+				cb("success", arr);
+			}
+		} else {
+			cb("error", "");
+		}
+
+	})
+}
+
+function changeItemInCart(userID, goodsID, type, number, cb) {
+	cartModel.findOne({
+		userID: userID
+	}, function(err, docs) {
+		var arr = docs.goodsList;
 		var i = 0;
 		for(i = 0; i < arr.length; i++) {
 			if(arr[i].ID == goodsID && arr[i].type == type) {
@@ -154,7 +198,7 @@ function changeItemInCart(userID, goodsID, type, number, cb) {
 		if(i == arr.length) {
 			cb("error", "");
 		} else {
-			arr[i].number = number;
+			arr[i].number = parseInt(number);
 			docs.save();
 			cb("success", arr);
 		}
@@ -162,13 +206,21 @@ function changeItemInCart(userID, goodsID, type, number, cb) {
 	})
 }
 
-function changeCartList(userID, cartList) {
-	cartModel.find({
-		userID: userID
+function changeCartList(userID, cartList,cb) {
+	console.log(userID);
+	cartModel.findOne({
+		userID: parseInt(userID)
 	}, function(err, docs) {
-		docs[0].goodsList = cartList;
-		docs.save();
-		cb("success", "")
+		console.log(docs)
+		if(docs) {
+			docs.goodsList = cartList;
+			docs.markModified('goodsList');
+			docs.save();
+			cb("success", "")
+		} else {
+			cb("error", "")
+		}
+
 	})
 }
 
@@ -187,6 +239,7 @@ function makeOrder(obj, cb) {
 			if(goods.inventory[j] > 0) {
 				goods.inventory[j] -= 1;
 				goods.sale += 1;
+				docs.markModified('inventory');
 				docs.save();
 			} else {
 				break;
@@ -206,6 +259,7 @@ function makeOrder(obj, cb) {
 				}
 				goods.inventory[j] += 1;
 				goods.sale -= 1;
+				docs.markModified('inventory');
 				docs.save();
 			})
 		}
@@ -259,6 +313,7 @@ function deliverGoods(orderid, expressCompany, expressNumber, cb) {
 		cb("success", "");
 	})
 }
+
 function deliverComment(obj, cb) {
 	orderModel.find({
 		orderID: obj.orderID
@@ -289,11 +344,8 @@ function confirmGoods(orderid, cb) {
 	})
 }
 
-
-
-
 module.exports.getCart = getCart;
-module.exports.addtoCart = addtoCart;
+module.exports.addToCart = addToCart;
 module.exports.deleteItemFromCart = deleteItemFromCart;
 module.exports.makeOrder = makeOrder;
 module.exports.changeItemInCart = changeItemInCart;
