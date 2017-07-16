@@ -39,11 +39,13 @@ import YanSearch from '@/components/pages/Search/Search';
 import YanGoodInfo from '@/components/pages/GoodInfo/GoodInfo';
 // 引入商品的选择页
 import YanGoodChoose from '@/components/pages/Choose/Choose';
+// 引入商品的评论列表
+import YanCommentList from '@/components/pages/CommentList/CommentList';
 
 Vue.use(Router)
 
 export default new Router({
-  // mode: 'history',
+  mode: 'history',
   routes: [{
       path: '/',
       redirect: '/home/recommend'
@@ -119,6 +121,11 @@ export default new Router({
       path: '/choose/:goodId', // 选择商品的页
       name: 'GoodChoose',
       component: YanGoodChoose
+    },
+    {
+      path: '/comment-list/:goodId', // 选择商品的页
+      name: 'CommentList',
+      component: YanCommentList
     }
   ]
 })
