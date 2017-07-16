@@ -182,7 +182,7 @@ router.get("/comment/:goodsID",function(req,res,next){
 		}
 	})
 })
-router.post('/order',function(req,res,next){//没测
+router.post('/order',function(req,res,next){
 	var goodsID= req.body.goodsID;
 	var type=req.body.type;
 	var number=req.body.number;
@@ -194,12 +194,12 @@ router.post('/order',function(req,res,next){//没测
 		if(err=="success"){
 			res.json({
 				result: "success",
-				orderID: docs[0]
+				orderID: docs
 			})
 		}else{
 			res.json({
 				result: "error",
-				type:docs[0]
+				type:docs
 			})
 		}
 		

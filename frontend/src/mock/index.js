@@ -15,6 +15,8 @@ let data = [].concat(
     homeStatic,
     // homeGood
     // category
+    // search,
+    good
 );
 
 data.forEach((res) => {

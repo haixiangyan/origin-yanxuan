@@ -93,7 +93,8 @@ db.once('open', function() {
 })
 
 function addGoods() {
-	for(var i = 0; i < 100; i++) {
+	var i=0;
+//	for(var i = 0; i < 100; i++) {
 		var goodsEntity = new goodsModel({
 			ID: i,
 			price: 10 * i + 5,
@@ -130,7 +131,7 @@ function addGoods() {
 			}]
 		})
 		goodsEntity.save();
-	}
+//	}
 }
 
 function addTopic() {
@@ -750,9 +751,12 @@ function makeOrder(obj, cb) {
 					break;
 				}
 			}
-			if(goods.inventory[i] > 0) {
-				goods.inventory[i] -= 1;
-				docs.save();
+//			console.log(i);
+//			console.log(goods.inventory[i]);
+			if(goods.inventory[i] > obj.number) {
+				goods.inventory[i] -= obj.number;
+//				console.log(goods.inventory[i]);
+				goods.save();
 				var arr = [];
 				var newobj = {
 					ID: obj.goodsID,

@@ -284,7 +284,7 @@ function confirmGoods(orderid, cb) {
 	}, function(err, docs) {
 		var obj = docs[0];
 		obj.orderState = 3;
-		docs.save();
+		obj.save();
 		cb("success", "");
 	})
 }
