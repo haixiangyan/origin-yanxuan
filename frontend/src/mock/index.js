@@ -9,12 +9,21 @@ import { homeGood } from './home-goods.js';
 // 分类页面
 import { category } from './category.js';
 
+// 搜索页面
+import { search } from './search.js';
+
+// 商品详情页面
+import { good } from './good.js';
+
 let data = [].concat(
     login,
-    // home,
+    home,
     homeStatic,
     // homeGood
     // category
+    // search,
+    homeGood,
+    category,
     // search,
     good
 );

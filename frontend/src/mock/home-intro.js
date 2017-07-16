@@ -15,7 +15,7 @@ export const home = [{
           topName: Random.cname(),
           subName: Random.ctitle(),
           price: Random.natural(0, 200),
-          ID: '',
+          ID: 1,
           headImage: `/static/img/goods/good-${Random.natural(1, 16)}.png`,
           chara: Random.ctitle(),
           labels: []
@@ -50,7 +50,7 @@ export const home = [{
           topName: Random.cname(),
           subName: Random.ctitle(),
           price: Random.natural(0, 200),
-          ID: '/',
+          ID: 1,
           headImage: `/static/img/goods/good-${Random.natural(1, 16)}.png`,
           chara: Random.ctitle(),
           labels: []
@@ -94,7 +94,7 @@ export const home = [{
             price: Random.natural(20, 2000),
             headImage: `/static/img/catalog/catalog-good-${Random.natural(1, 14)}.png`,
             labels: [],
-            ID: ''
+            ID: 1
           };
 
           for (let m = 0; m < Random.natural(0, 2); m++) {

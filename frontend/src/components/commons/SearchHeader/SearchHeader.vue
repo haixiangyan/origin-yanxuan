@@ -2,13 +2,13 @@
     <div class="yan-search-header">
         <!--头部 logo 部分-->
         <div class="yan-logo-wrapper">
-            <a href="/">网易严选</a>
+            <router-link to="/">网易严选</router-link>
         </div>
     
-        <a href="/" class="yan-search-wrapper">
+        <router-link to="/search" class="yan-search-wrapper">
             <i class="fa fa-search" aria-hidden="true">&nbsp;</i>
             <span>搜索商品，共6757款好物</span>
-        </a>
+        </router-link>
     </div>
 </template>
 

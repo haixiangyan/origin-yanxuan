@@ -55,7 +55,7 @@
 
         <!--分类展示商品-->
         <div class="yan-catalog-wrapper">
-            <yan-catalog class="yan-catalog" v-for="(catalog, index) in catalogsInfo" :key="index" :index="index" :catalog="catalog"></yan-catalog>
+            <yan-catalog class="yan-catalog" v-for="(catalog, index) in catalogsInfo" :key="index" :index="index" :catalog="catalog" :more="true"></yan-catalog>
         </div>
 
         <!--脚注-->

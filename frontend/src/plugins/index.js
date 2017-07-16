@@ -11,3 +11,4 @@ import VueResource from 'vue-resource'
 Vue.use(ElementUI);
 // 使用 vue-resouce
 Vue.use(VueResource);
+Vue.http.options.emulateJSON = true

@@ -1,5 +1,5 @@
 <template>
-    <a :href="`/${good.ID}`" class="yan-catalog-good-wrapper">
+    <a :href="`/good/${good.ID}`" class="yan-catalog-good-wrapper">
         <!--商品-->
         <div class="yan-good-avatar">
             <img :src="good.headImage" alt="good">

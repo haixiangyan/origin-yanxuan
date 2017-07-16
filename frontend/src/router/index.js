@@ -32,23 +32,28 @@ import YanTopic from '@/components/pages/Topic/Topic';
 // 引入分类的组件
 import YanCategory from '@/components/pages/Category/Category';
 
+// 引入搜索组件页
+import YanSearch from '@/components/pages/Search/Search';
+
+// 引入商品详情页
+import YanGoodInfo from '@/components/pages/GoodInfo/GoodInfo';
+// 引入商品的选择页
+import YanGoodChoose from '@/components/pages/Choose/Choose';
 
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  routes: [
-    {
+  routes: [{
       path: '/',
       redirect: '/home/recommend'
     },
     {
-      path: '/home',
+      path: '/home', // 首页路由
       name: 'Home',
       redirect: '/home/recommend',
       component: YanHome,
-      children: [
-        {
+      children: [{
           path: 'recommend',
           component: YanRecommend
         },
@@ -91,14 +96,29 @@ export default new Router({
       ]
     },
     {
-      path: '/topic',
+      path: '/topic', // 专题路由
       name: 'Topic',
       component: YanTopic
     },
     {
-      path: '/category',
+      path: '/category', // 商品分类的路由
       name: 'Category',
       component: YanCategory
+    },
+    {
+      path: '/search', // 搜索页的路由
+      name: 'Search',
+      component: YanSearch
+    },
+    {
+      path: '/good/:goodId', // 商品详情页
+      name: 'GoodInfo',
+      component: YanGoodInfo
+    },
+    {
+      path: '/choose/:goodId', // 选择商品的页
+      name: 'GoodChoose',
+      component: YanGoodChoose
     }
   ]
 })

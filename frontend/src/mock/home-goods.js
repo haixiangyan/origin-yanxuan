@@ -5,9 +5,6 @@ export const homeGood = [{
   path: '/goods/certainCategory', // 栏截获取商品分类展示部分
   methods: 'post',
   data(option) {
-
-    console.log(JSON.parse(option.body));
-
     let result = {
       result: 'success',
       data: []
@@ -27,7 +24,7 @@ export const homeGood = [{
           price: Random.natural(20, 2000),
           headImage: `/static/img/catalog/catalog-good-${Random.natural(1, 14)}.png`,
           labels: [],
-          ID: ''
+          ID: 1
         };
 
         for (let m = 0; m < Random.natural(0, 2); m++) {
