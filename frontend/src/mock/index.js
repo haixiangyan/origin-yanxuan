@@ -15,17 +15,18 @@ import { search } from './search.js';
 // 商品详情页面
 import { good } from './good.js';
 
+// 商品的评论列表
+import { comment } from './comment.js';
+
 let data = [].concat(
     login,
     home,
     homeStatic,
-    // homeGood
-    // category
-    // search,
     homeGood,
     category,
-    // search,
-    good
+    search,
+    good,
+    comment
 );
 
 data.forEach((res) => {
