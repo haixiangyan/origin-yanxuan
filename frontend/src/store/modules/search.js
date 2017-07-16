@@ -13,7 +13,7 @@ const mutations = {
     // 获取搜索内容
     getSearchResult(state, payload) {
         state.searchResult.data = payload.searchResult;
-    }
+    },
 }
 
 const actions = {

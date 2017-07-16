@@ -32,7 +32,7 @@
             </div> 
 
             <div class="yan-search-catalog-wrapper">
-                <yan-search-catalog class="yan-search-catalog" :catalog="filterResult" :more="false"></yan-search-catalog>
+                <yan-search-catalog class="yan-search-catalog" :catalog="filterResult" :more="filterResult.data.length % 2 !== 0"></yan-search-catalog>
             </div>
         </div>
     </div>
