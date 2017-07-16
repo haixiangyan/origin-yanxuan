@@ -259,6 +259,24 @@ function deliverGoods(orderid, expressCompany, expressNumber, cb) {
 		cb("success", "");
 	})
 }
+function deliverComment(obj, cb) {
+	orderModel.find({
+		orderID: obj.orderID
+	}, function(err, docs) {
+		docs[0].orderState = 4;
+		docs.save();
+		var commentEntity = new commentModel({
+			goodsID: obj.goodsID,
+			userID: obj.userID,
+			content: obj.content,
+			picture: obj.picture,
+			commentDate: obj.commentDate,
+			type: obj.type
+		})
+		commentEntity.save();
+		cb("success", "");
+	})
+}
 
 function confirmGoods(orderid, cb) {
 	orderModel.find({
@@ -271,25 +289,7 @@ function confirmGoods(orderid, cb) {
 	})
 }
 
-function addComment(goodsID, orderid, cb) {
-//	orderModel.find({
-//		orderID: orderid
-//	}, function(err, docs) {
-//		var obj = docs[0];
-//		obj.orderState = 4;
-//		docs.save();
-//		var commentEntity = new commentModel({
-//			goodsID: goodsID,
-//			userID: obj.userID,
-//			content: "物超所值，对于不愿弯腰干活的人拖把真的是福音啊，简单易操作。",
-//			picture: ["/static/img/commentImage/0/1/1.jpg"],
-//			commentDate: new Date().getTime(),
-//			type: "1套装 伸缩杆懒人拖把+懒人抹布 4卷装+40片装 地板清洁湿巾 3包装"
-//		})
-//		commentEntity.save();
-//		cb("success", "");
-//	})
-}
+
 
 
 module.exports.getCart = getCart;
@@ -302,4 +302,4 @@ module.exports.getOrder = getOrder;
 module.exports.pay = pay;
 module.exports.deliverGoods = deliverGoods;
 module.exports.confirmGoods = confirmGoods;
-module.exports.addComment = addComment;
+module.exports.deliverComment = deliverComment;
