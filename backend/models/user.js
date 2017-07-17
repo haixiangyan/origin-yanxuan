@@ -55,10 +55,19 @@ function creatUser(obj, cb) {
 	userModel.find({
 		telephone: obj.telephone
 	}, function (err, docs) {
-		if (docs.length==0) {
+		if (docs.length == 0) {
+			var newobj = {
+				telephone: obj,
+				password: obj.password,
+				photo: "",
+				name: "",
+				gender: "",
+				interest: [],
+				address: []
+			}
 			var userEntity = new userModel(obj);
 			userEntity.save();
-			cb("success","")
+			cb("success", "")
 		} else {
 			cb("error", "");
 		}
@@ -101,16 +110,19 @@ function checkLogin(obj, cb) {
 		}
 	})
 }
-function getInformation(telephone,cb){
-   userModel.findOne({telephone:telephone},function(err,docs){
-	   if(docs){
-          cb("success",docs)
-	   }else{
-		   cb("error","")
-	   }
-   })
+
+function getInformation(telephone, cb) {
+	userModel.findOne({
+		telephone: telephone
+	}, function (err, docs) {
+		if (docs) {
+			cb("success", docs)
+		} else {
+			cb("error", "")
+		}
+	})
 }
 module.exports.checkLogin = checkLogin;
 module.exports.creatUser = creatUser;
 module.exports.changeInformation = changeInformation;
-module.exports.getInformation=getInformation;
+module.exports.getInformation = getInformation;

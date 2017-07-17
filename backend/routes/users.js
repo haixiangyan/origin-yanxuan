@@ -29,7 +29,7 @@ router.post('/register', function (req, res, next) {
 
 router.patch('/changeInformation', function (req, res, next) {
 	var form = new multiparty.Form({
-		uploadDir: "./dist/static/PersonImage"
+		uploadDir: "/static/temp/"
 	})
 	form.parse(req, function (err, fields, files) {
 		var telephone = fields.telephone[0];
