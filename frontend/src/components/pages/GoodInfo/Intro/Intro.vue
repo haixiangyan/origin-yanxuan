@@ -35,7 +35,7 @@
             </div>
 
             <div class="yan-good-comment-check">
-                <router-link to="/">查看</router-link>
+                <router-link :to="`/comment-list/${this.$route.params.goodId}`">查看</router-link>
             </div>
         </div>
     </div>

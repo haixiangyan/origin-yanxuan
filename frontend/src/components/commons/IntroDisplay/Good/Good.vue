@@ -1,5 +1,5 @@
 <template>
-    <a :href="`/good-info/${good.ID}`" class="yan-display-good-wrapper">
+    <router-link :to="`/#/good-info/${good.ID}`" class="yan-display-good-wrapper">
         <div class="yan-display-img-wrapper">
             <!--商品的图片-->
             <img class="yan-display-good-img" :src="good.headImage">
@@ -24,7 +24,7 @@
     
         <!--商品的价格-->
         <div class="yan-display-good-price">￥{{good.price}}</div>
-    </a>
+    </router-link>
 </template>
 
 <script>
