@@ -39,7 +39,7 @@ export default {
         // 发送请求获取评论
         this.$http({
             method: 'get',
-            url: `/shop/comment/${id}`
+            url: `/goods/comment/${id}`
         })
             .then((res) => {
                 this.commentList = res.body.data.comment;

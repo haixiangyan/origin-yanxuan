@@ -4,41 +4,41 @@ var user = require("../models/user");
 var multiparty = require("multiparty")
 var fs = require("fs");
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
 	res.send('respond with a resource');
 });
-router.post('/register', function(req, res, next) {
+router.post('/register', function (req, res, next) {
 	var tel = req.body.telephone;
 	var password = req.body.password;
 	var obj = {
 		telephone: tel,
 		password: password
 	}
-	user.creatUser(obj, function(err, docs) {
-		if (docs.length > 0) {
+	user.creatUser(obj, function (err, docs) {
+		if (err=="success") {
 			res.json({
-					result: "success",
-				})
+				result: "success",
+			})
 		} else {
 			res.json({
-					result: "error",
-				})
+				result: "error",
+			})
 		}
 	})
 })
 
-router.patch('/changeInformation', function(req, res, next) {
+router.patch('/changeInformation', function (req, res, next) {
 	var form = new multiparty.Form({
-		uploadDir: "./dist/static/PersonImage"
+		uploadDir: "/static/temp/"
 	})
-	form.parse(req, function(err, fields, files) {
+	form.parse(req, function (err, fields, files) {
 		var telephone = fields.telephone[0];
 		var address = fields.address[0];
 		var interest = fields.interest[0];
 		var gender = fields.gender[0];
 		var name = fields.name[0];
 		var photo = files.photo[0].originalFilename;
-		fs.rename(files.photo[0].path, "/static/userImage/" + files.photo[0].originalFilename, function(err) {
+		fs.rename(files.photo[0].path, "/static/userImage/" + files.photo[0].originalFilename, function (err) {
 			console.log(err)
 		})
 		var obj = {
@@ -49,39 +49,61 @@ router.patch('/changeInformation', function(req, res, next) {
 			photo: photo,
 			address: address
 		}
-		user.changeInformation(obj, function(err, docs) {
-			console.log(docs);
+		user.changeInformation(obj, function (err, docs) {
+			if (err == "success") {
+				res.json({
+					result: "success",
+				})
+			} else {
+				res.json({
+					result: "error"
+				})
+			}
 		})
 	})
 })
-
-router.post('/login', function(req, res, next) {
+router.get('/getInformation/:telephone', function (req, res, next) {
+	var tel = req.params.telephone;
+    user.getInformation(tel,function(err,docs){
+		if (err == "success") {
+				res.json({
+					result: "success",
+					data:docs
+				})
+			} else {
+				res.json({
+					result: "error"
+				})
+			}
+	})
+})
+router.post('/login', function (req, res, next) {
 	var tel = req.body.telephone;
 	var password = req.body.password;
 	var obj = {
 		telephone: tel,
 		password: password
 	}
-	user.checkLogin(obj, function(err, docs) {
+	user.checkLogin(obj, function (err, docs) {
 		console.log("err  " + err + "\n docs：  " + docs)
-			if (err == "success") {
+		if (err == "success") {
+			res.json({
+				result: "success",
+				user: docs
+			})
+		} else {
+			if (err == "error") {
 				res.json({
-					result: "success",
-					user: docs
-				})
+					result: "error",
+					errorMeg: "1"
+				}) //1表示密码错误，2表示找不到用户
 			} else {
-				if (err =="error") {
-					res.json({
-							result: "error",
-							errorMeg: "1"
-						}) //1表示密码错误，2表示找不到用户
-				} else {
-					res.json({
-						result: "error",
-						errorMeg: "2"
-					})
-				}
+				res.json({
+					result: "error",
+					errorMeg: "2"
+				})
 			}
+		}
 	})
 })
 

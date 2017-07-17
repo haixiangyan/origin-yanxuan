@@ -2,10 +2,10 @@ var mongoose = require('mongoose');
 
 var db = mongoose.createConnection('localhost', 'YanXuan');
 
-db.on('error', function() {
+db.on('error', function () {
 	console.log("error")
 });
-db.once('open', function() {
+db.once('open', function () {
 
 	console.log("shopping connected");
 	var cartSchema = new mongoose.Schema({
@@ -28,7 +28,7 @@ db.once('open', function() {
 	});
 
 	orderModel = db.model("orders", orderSchema);
-
+	addOrder();
 	var commentSchema = new mongoose.Schema({
 		goodsID: Number,
 		userID: String,
@@ -42,23 +42,30 @@ db.once('open', function() {
 })
 
 function addOrder() {
-	var orderEntity = ({
-		orderID: "14234",
+	var orderEntity = new orderModel({
+		orderID: "123",
 		userID: "1",
 		goodsList: [{
 			ID: "123",
 			number: 1,
 			type: "Asd",
-			price:50,
-			name:"懒人清洁新选择",
-			picture:'/static/img/goodsImage/0/headImage/1.jpg'
+			price: 50,
+			name: "懒人清洁新选择",
+			picture: '/static/img/goodsImage/0/headImage/1.jpg'
 		}],
 		expressNumber: 123123,
 		expressCompany: "saddas",
-		address: ['asd'],
+		address: [{
+			province: "liaoning",
+			city: "shenyang",
+			town: "hunnan",
+			detailinfortion: "Neu",
+			recevier: "xu",
+			telephone: "123124"
+		}],
 		orderState: 0,
-		payID: "Asfasf",
-		totalFee: 13
+		payID: "",
+		totalFee: 50
 	})
 	orderEntity.save();
 }
@@ -70,14 +77,14 @@ function addCart() {
 			ID: i,
 			type: "1",
 			number: 1,
-			price:50,
-			name:"懒人清洁新选择",
-			picture:'/static/img/goodsImage/0/headImage/1.jpg'
+			price: 50,
+			name: "懒人清洁新选择",
+			picture: '/static/img/goodsImage/0/headImage/1.jpg'
 		}
 		arr.push(obj);
 	}
 	var cartEntity = new cartModel({
-		userID: 0,
+		userID: 1,
 		goodsList: arr
 	});
 	cartEntity.save();
@@ -103,9 +110,8 @@ function addComment() {
 function getCart(userID, cb) {
 	cartModel.findOne({
 		userID: userID
-	}, function(err, docs) {
+	}, function (err, docs) {
 		if (docs) {
-			console.log(docs.goodsList);
 			cb("success", docs.goodsList);
 		} else {
 			cb("err", "");
@@ -117,7 +123,7 @@ function getCart(userID, cb) {
 function addToCart(obj, cb) {
 	cartModel.findOne({
 		userID: obj.userID
-	}, function(err, docs) {
+	}, function (err, docs) {
 		if (docs) {
 			var i;
 			for (i = 0; i < docs.goodsList.length; i++) {
@@ -126,44 +132,44 @@ function addToCart(obj, cb) {
 				}
 			}
 			if (i == docs.goodsList.length) {
-				goodsModel.findOne({ID:obj.ID},function(err,docs2){
+				goodsModel.findOne({ ID: obj.ID }, function (err, docs2) {
 					var newobj = {
-					ID: obj.ID,
-					type: obj.type,
-					number: obj.number,
-					price:docs2.price,
-					picture:docs2.headImage[0],
-					name:docs2.topName
-				}
-				docs.goodsList.push(newobj);
-				docs.markModified('goodsList');
-				docs.save();
-				cb("success", docs.goodsList);
+						ID: obj.ID,
+						type: obj.type,
+						number: obj.number,
+						price: docs2.price,
+						picture: docs2.headImage[0],
+						name: docs2.topName
+					}
+					docs.goodsList.push(newobj);
+					docs.markModified('goodsList');
+					docs.save();
+					cb("success", docs.goodsList);
 				})
-				
+
 			} else {
 				docs.goodsList[i].number += parseInt(obj.number);
 				docs.save();
 				cb("success", docs.goodsList);
 			}
 		} else {
-			goodsModel.findOne({ID:obj.ID},function(err,docs){
-					var newobj = {
+			goodsModel.findOne({ ID: obj.ID }, function (err, docs) {
+				var newobj = {
 					ID: obj.ID,
 					type: obj.type,
 					number: obj.number,
-					price:docs.price,
-					picture:docs.headImage[0],
-					name:docs.topName
+					price: docs.price,
+					picture: docs.headImage[0],
+					name: docs.topName
 				}
 				var arr = [];
-			   arr.push(newobj);
-		    	var cartEntity = new cartModel({
-				userID: obj.userID,
-				goodsList: arr
-			  });
-			  cartEntity.save();
-			  cb("success", arr);
+				arr.push(newobj);
+				var cartEntity = new cartModel({
+					userID: obj.userID,
+					goodsList: arr
+				});
+				cartEntity.save();
+				cb("success", arr);
 			})
 
 		}
@@ -174,7 +180,7 @@ function addToCart(obj, cb) {
 function deleteItemFromCart(userID, goodsID, cb) {
 	cartModel.findOne({
 		userID: userID
-	}, function(err, docs) {
+	}, function (err, docs) {
 		if (docs) {
 			var arr = docs.goodsList;
 			var i = 0;
@@ -200,7 +206,7 @@ function deleteItemFromCart(userID, goodsID, cb) {
 function changeItemInCart(userID, goodsID, type, number, cb) {
 	cartModel.findOne({
 		userID: userID
-	}, function(err, docs) {
+	}, function (err, docs) {
 		var arr = docs.goodsList;
 		var i = 0;
 		for (i = 0; i < arr.length; i++) {
@@ -220,11 +226,9 @@ function changeItemInCart(userID, goodsID, type, number, cb) {
 }
 
 function changeCartList(userID, cartList, cb) {
-	console.log(userID);
 	cartModel.findOne({
 		userID: parseInt(userID)
-	}, function(err, docs) {
-		console.log(docs)
+	}, function (err, docs) {
 		if (docs) {
 			docs.goodsList = cartList;
 			docs.markModified('goodsList');
@@ -239,15 +243,15 @@ function changeCartList(userID, cartList, cb) {
 
 function makeOrder(obj, cb) {
 	var i;
-	var flag=false;
-	var arr=[];
-	var arr2=[];
-	var goodsList=JSON.parse(obj.goodsList);
+	var flag = false;
+	var arr = [];
+	var arr2 = [];
+	var goodsList = JSON.parse(obj.goodsList);
 	for (i = 0; i < goodsList.length; i++) {
 		var newobj = goodsList[i];
 		goodsModel.findOne({
 			ID: newobj.ID
-		}, function(err, docs) {
+		}, function (err, docs) {
 			if (docs) {
 				var j;
 				for (j = 0; j < docs.type.length; j++) {
@@ -256,33 +260,33 @@ function makeOrder(obj, cb) {
 					}
 				}
 				if (docs.inventory[j] > newobj.number) {
-					docs.inventory[j] -=  parseInt(newobj.number) ;
-					docs.sale +=  parseInt(newobj.number) ;
+					docs.inventory[j] -= parseInt(newobj.number);
+					docs.sale += parseInt(newobj.number);
 					docs.markModified('inventory');
-					docs.save(); 
-					 arr.push(i);
+					docs.save();
+					arr.push(i);
 				} else {
-					flag=true;
-                   arr2.push(newobj.topName);
+					flag = true;
+					arr2.push(newobj.topName);
 				}
-			}else{
+			} else {
 				// cb("error", "1");//没找到商品
 			}
 
 		})
 	}
-	if (flag==true) { //有些商品库存不够，返回错误
+	if (flag == true) { //有些商品库存不够，返回错误
 		for (var k = 0; k < arr.length; k++) {
 			var newobj = obj.goodsList[arr[k]];
-			goodsModel.findOne({ID:newobj.ID}, function(err, docs) {
+			goodsModel.findOne({ ID: newobj.ID }, function (err, docs) {
 				var j;
 				for (j = 0; j < docs.type.length; j++) {
 					if (obj.type == docs.type[j]) {
 						break;
 					}
 				}
-				docs.inventory[j] +=  parseInt(newobj.number) ;
-				docs.sale -=  parseInt(newobj.number) ;
+				docs.inventory[j] += parseInt(newobj.number);
+				docs.sale -= parseInt(newobj.number);
 				docs.markModified('inventory');
 				docs.save();
 			})
@@ -299,7 +303,7 @@ function makeOrder(obj, cb) {
 			address: JSON.parse(obj.address),
 			orderState: 0,
 			payID: "0",
-			totalFee:parseInt(obj.totalFee) 
+			totalFee: parseInt(obj.totalFee)
 		})
 		orderEntity.save();
 		cb("success", order);
@@ -314,35 +318,44 @@ function getOrder(orderid, cb) {
 }
 
 function pay(orderid, payid, cb) {
-	orderModel.find({
+	orderModel.findOne({
 		orderID: orderid
-	}, function(err, docs) {
-		var obj = docs[0];
-		obj.payID = payid;
-		obj.orderState = 1;
-		docs.save();
-		cb("success", "");
+	}, function (err, docs) {
+		if (docs) {
+			docs.payID = payid;
+			docs.orderState = 1;
+			docs.save();
+			cb("success", "");
+		} else {
+			cb("error", "");
+		}
+
 	})
 }
 
 function deliverGoods(orderid, expressCompany, expressNumber, cb) {
-	orderModel.find({
+	orderModel.findOne({
 		orderID: orderid
-	}, function(err, docs) {
-		var obj = docs[0];
-		obj.expressCompany = expressCompany;
-		obj.expressNumber = expressNumber;
-		obj.orderState = 2;
-		docs.save();
-		cb("success", "");
+	}, function (err, docs) {
+		if (docs) {
+			docs.expressCompany = expressCompany;
+			docs.expressNumber = expressNumber;
+			docs.orderState = 2;
+			docs.save();
+			cb("success", "");
+		} else {
+			cb("error", "")
+		}
+
 	})
 }
 
 function deliverComment(obj, cb) {
-	orderModel.find({
+	orderModel.findOne({
 		orderID: obj.orderID
-	}, function(err, docs) {
-		docs[0].orderState = 4;
+	}, function (err, docs) {
+		if(docs){
+			docs.orderState = 4;
 		docs.save();
 		var commentEntity = new commentModel({
 			goodsID: obj.goodsID,
@@ -354,17 +367,25 @@ function deliverComment(obj, cb) {
 		})
 		commentEntity.save();
 		cb("success", "");
+		}else{
+			cb("error", "");
+		}
+		
 	})
 }
 
 function confirmGoods(orderid, cb) {
-	orderModel.find({
+	orderModel.findOne({
 		orderID: orderid
-	}, function(err, docs) {
-		var obj = docs[0];
-		obj.orderState = 3;
-		obj.save();
+	}, function (err, docs) {
+		if(docs){		
+		docs.orderState = 3;
+		docs.save();
 		cb("success", "");
+		}else{
+			cb("error", "");
+		}
+		
 	})
 }
 
