@@ -14,7 +14,7 @@ db.once('open', function() {
 	});
 
 	cartModel = db.model("carts", cartSchema);
-	
+	addCart();
 	var orderSchema = new mongoose.Schema({
 		orderID: String,
 		userID: String,
@@ -28,7 +28,7 @@ db.once('open', function() {
 	});
 
 	orderModel = db.model("orders", orderSchema);
-	
+
 	var commentSchema = new mongoose.Schema({
 		goodsID: Number,
 		userID: String,
@@ -40,37 +40,49 @@ db.once('open', function() {
 	commentModel = db.model("comments", commentSchema);
 	addComment();
 })
-function addOrder(){
-	var orderEntity=({
+
+function addOrder() {
+	var orderEntity = ({
 		orderID: "14234",
 		userID: "1",
-		goodsList: [{ID:"123",number:1,type:"Asd"}],
-		expressNumber:123123,
+		goodsList: [{
+			ID: "123",
+			number: 1,
+			type: "Asd",
+			price:50,
+			name:"懒人清洁新选择",
+			picture:'/static/img/goodsImage/0/headImage/1.jpg'
+		}],
+		expressNumber: 123123,
 		expressCompany: "saddas",
 		address: ['asd'],
 		orderState: 0,
 		payID: "Asfasf",
-		totalFee:13
+		totalFee: 13
 	})
 	orderEntity.save();
 }
-//function addCart() {
-//	var arr = [];
-//	for (var i = 0; i < 20; i++) {
-//		var obj = {
-//			ID: i,
-//			type: "1",
-//			number: 1
-//		}
-//		arr.push(obj);
-//	}
-//	var cartEntity = new cartModel({
-//		userID: 0,
-//		goodsList: arr
-//	});
-//	cartEntity.save();
-//
-//}
+
+function addCart() {
+	var arr = [];
+	for (var i = 0; i < 5; i++) {
+		var obj = {
+			ID: i,
+			type: "1",
+			number: 1,
+			price:50,
+			name:"懒人清洁新选择",
+			picture:'/static/img/goodsImage/0/headImage/1.jpg'
+		}
+		arr.push(obj);
+	}
+	var cartEntity = new cartModel({
+		userID: 0,
+		goodsList: arr
+	});
+	cartEntity.save();
+
+}
 //function addOrder(){
 //	
 //}
@@ -89,72 +101,117 @@ function addComment() {
 }
 
 function getCart(userID, cb) {
-	cartModel.find({
-		userID: obj.userID
+	cartModel.findOne({
+		userID: userID
 	}, function(err, docs) {
-		cb(docs[0].goodsList);
+		if (docs) {
+			console.log(docs.goodsList);
+			cb("success", docs.goodsList);
+		} else {
+			cb("err", "");
+		}
+
 	})
 }
 
-function addtoCart(obj, cb) {
-	cartModel.find({
+function addToCart(obj, cb) {
+	cartModel.findOne({
 		userID: obj.userID
 	}, function(err, docs) {
-		var i;
-		for(i = 0; i < docs[0].goodsList.length; i++) {
-			if(docs[0].goodsList[i].ID == obj.ID && docs[0].goodsList[i].type == obj.type) {
-				break;
+		if (docs) {
+			var i;
+			for (i = 0; i < docs.goodsList.length; i++) {
+				if (docs.goodsList[i].ID == obj.ID && docs.goodsList[i].type == obj.type) {
+					break;
+				}
 			}
-		}
-		if(i == docs[0].goodsList.length) {
-			docs[0].goodsList.push(newobject);
-			docs[0].save();
-			cb("success", docs[0].goodsList);
+			if (i == docs.goodsList.length) {
+				goodsModel.findOne({ID:obj.ID},function(err,docs2){
+					var newobj = {
+					ID: obj.ID,
+					type: obj.type,
+					number: obj.number,
+					price:docs2.price,
+					picture:docs2.headImage[0],
+					name:docs2.topName
+				}
+				docs.goodsList.push(newobj);
+				docs.markModified('goodsList');
+				docs.save();
+				cb("success", docs.goodsList);
+				})
+				
+			} else {
+				docs.goodsList[i].number += parseInt(obj.number);
+				docs.save();
+				cb("success", docs.goodsList);
+			}
 		} else {
-			docs[0].goodsList[i].number += obj.number;
-			docs[0].save();
-			cb("success", docs[0].goodsList);
+			goodsModel.findOne({ID:obj.ID},function(err,docs){
+					var newobj = {
+					ID: obj.ID,
+					type: obj.type,
+					number: obj.number,
+					price:docs.price,
+					picture:docs.headImage[0],
+					name:docs.topName
+				}
+				var arr = [];
+			   arr.push(newobj);
+		    	var cartEntity = new cartModel({
+				userID: obj.userID,
+				goodsList: arr
+			  });
+			  cartEntity.save();
+			  cb("success", arr);
+			})
+
 		}
+
 	})
 }
 
 function deleteItemFromCart(userID, goodsID, cb) {
-	cartModel.find({
+	cartModel.findOne({
 		userID: userID
 	}, function(err, docs) {
-		var arr = docs[0].goodsList;
-		var i = 0;
-		for(i = 0; i < arr.length; i++) {
-			if(arr[i].ID == goodsID) {
-				break;
+		if (docs) {
+			var arr = docs.goodsList;
+			var i = 0;
+			for (i = 0; i < arr.length; i++) {
+				if (arr[i].ID == goodsID) {
+					break;
+				}
 			}
-		}
-		if(i == arr.length) {
-			cb("error", "");
+			if (i == arr.length) {
+				cb("error", "");
+			} else {
+				arr.splice(i, 1);
+				docs.save();
+				cb("success", arr);
+			}
 		} else {
-			arr.splice(i);
-			docs.save();
-			cb("success", arr);
+			cb("error", "");
 		}
 
 	})
 }
 
 function changeItemInCart(userID, goodsID, type, number, cb) {
-	cartModel.find({
+	cartModel.findOne({
 		userID: userID
 	}, function(err, docs) {
-		var arr = docs[0].goodsList;
+		var arr = docs.goodsList;
 		var i = 0;
-		for(i = 0; i < arr.length; i++) {
-			if(arr[i].ID == goodsID && arr[i].type == type) {
+		for (i = 0; i < arr.length; i++) {
+			if (arr[i].ID == goodsID && arr[i].type == type) {
 				break;
 			}
 		}
-		if(i == arr.length) {
+		if (i == arr.length) {
 			cb("error", "");
 		} else {
-			arr[i].number = number;
+			arr[i].number = parseInt(number);
 			docs.save();
 			cb("success", arr);
 		}
@@ -162,66 +219,87 @@ function changeItemInCart(userID, goodsID, type, number, cb) {
 	})
 }
 
-function changeCartList(userID, cartList) {
-	cartModel.find({
-		userID: userID
+function changeCartList(userID, cartList, cb) {
+	console.log(userID);
+	cartModel.findOne({
+		userID: parseInt(userID)
 	}, function(err, docs) {
-		docs[0].goodsList = cartList;
-		docs.save();
-		cb("success", "")
+		console.log(docs)
+		if (docs) {
+			docs.goodsList = cartList;
+			docs.markModified('goodsList');
+			docs.save();
+			cb("success", "")
+		} else {
+			cb("error", "")
+		}
+
 	})
 }
 
 function makeOrder(obj, cb) {
 	var i;
-	for(i = 0; i < obj.goodsList.length; i++) {
-		var newobj = obj.goodsList[i];
-		goodsModel.findByID(newobj.ID, function(err, docs) {
-			var goods = docs[0];
-			var j;
-			for(j = 0; j < goods.type.length; j++) {
-				if(obj.type == goods.type[j]) {
-					break;
-				}
-			}
-			if(goods.inventory[j] > 0) {
-				goods.inventory[j] -= 1;
-				goods.sale += 1;
-				docs.save();
-			} else {
-				break;
-			}
-		})
-	}
-	if(i < obj.goodsList.length) { //有些商品库存不够，返回错误
-		for(var k = 0; k < i; k++) {
-			var newobj = obj.goodsList[i];
-			goodsModel.findByID(newobj.ID, function(err, docs) {
-				var goods = docs[0];
+	var flag=false;
+	var arr=[];
+	var arr2=[];
+	var goodsList=JSON.parse(obj.goodsList);
+	for (i = 0; i < goodsList.length; i++) {
+		var newobj = goodsList[i];
+		goodsModel.findOne({
+			ID: newobj.ID
+		}, function(err, docs) {
+			if (docs) {
 				var j;
-				for(j = 0; j < goods.type.length; j++) {
-					if(obj.type == goods.type[j]) {
+				for (j = 0; j < docs.type.length; j++) {
+					if (obj.type == docs.type[j]) {
 						break;
 					}
 				}
-				goods.inventory[j] += 1;
-				goods.sale -= 1;
+				if (docs.inventory[j] > newobj.number) {
+					docs.inventory[j] -=  parseInt(newobj.number) ;
+					docs.sale +=  parseInt(newobj.number) ;
+					docs.markModified('inventory');
+					docs.save(); 
+					 arr.push(i);
+				} else {
+					flag=true;
+                   arr2.push(newobj.topName);
+				}
+			}else{
+				// cb("error", "1");//没找到商品
+			}
+
+		})
+	}
+	if (flag==true) { //有些商品库存不够，返回错误
+		for (var k = 0; k < arr.length; k++) {
+			var newobj = obj.goodsList[arr[k]];
+			goodsModel.findOne({ID:newobj.ID}, function(err, docs) {
+				var j;
+				for (j = 0; j < docs.type.length; j++) {
+					if (obj.type == docs.type[j]) {
+						break;
+					}
+				}
+				docs.inventory[j] +=  parseInt(newobj.number) ;
+				docs.sale -=  parseInt(newobj.number) ;
+				docs.markModified('inventory');
 				docs.save();
 			})
 		}
-		cb("error", obj.goodsList[i].ID);
+		cb("error", arr2);
 	} else {
 		var order = new Date().getTime() + obj.userID;
 		var orderEntity = new orderModel({
 			orderID: order,
 			userID: obj.userID,
-			goodsList: obj.goodsList,
+			goodsList: JSON.parse(obj.goodsList),
 			expressNumber: 0,
 			expressCompany: "",
-			address: obj.address,
+			address: JSON.parse(obj.address),
 			orderState: 0,
 			payID: "0",
-			totalFee: obj.totalFee
+			totalFee:parseInt(obj.totalFee) 
 		})
 		orderEntity.save();
 		cb("success", order);
@@ -259,6 +337,7 @@ function deliverGoods(orderid, expressCompany, expressNumber, cb) {
 		cb("success", "");
 	})
 }
+
 function deliverComment(obj, cb) {
 	orderModel.find({
 		orderID: obj.orderID
@@ -289,11 +368,8 @@ function confirmGoods(orderid, cb) {
 	})
 }
 
-
-
-
 module.exports.getCart = getCart;
-module.exports.addtoCart = addtoCart;
+module.exports.addToCart = addToCart;
 module.exports.deleteItemFromCart = deleteItemFromCart;
 module.exports.makeOrder = makeOrder;
 module.exports.changeItemInCart = changeItemInCart;

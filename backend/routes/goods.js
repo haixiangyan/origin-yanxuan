@@ -170,6 +170,7 @@ router.get("/topic",function(req,res,next){
 router.get("/comment/:goodsID",function(req,res,next){
 	var goodsID=req.params.goodsID;
 	goods.getComment(goodsID,function(err,docs){
+		console.log(docs)
 		if(err=="success"){
 			res.json({
 				result: "success",

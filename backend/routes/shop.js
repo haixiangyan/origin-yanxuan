@@ -5,23 +5,23 @@ var multiparty = require("multiparty")
 var fs = require("fs");
 var path = require('path');
 
-router.get('/cart/:ID', function(req, res, next) {
+router.get('/cart/:ID', function(req, res, next) {//已测
 	var ID = req.params.ID;
 	shopping.getCart(ID, function(err, docs) {
-		if(!err) {
-			req.json({
+		if(err=='success') {
+			res.json({
 				result: "success",
 				data: docs
 			})
 		} else {
-			req.json({
+			res.json({
 				result: "error"
 			})
 		}
 	})
 
 });
-router.post('/addToCart', function(req, res, next) {
+router.post('/addToCart', function(req, res, next) {//已测
 	var ID = req.body.ID;
 	var Type = req.body.type;
 	var number = req.body.number;
@@ -34,69 +34,69 @@ router.post('/addToCart', function(req, res, next) {
 	};
 	shopping.addToCart(obj, function(err, docs) {
 		if(err == "success") {
-			req.json({
+			res.json({
 				result: "success",
-				data: docs[0]
+				cartList: docs
 			})
 		} else {
-			req.json({
+			res.json({
 				result: "error"
 			})
 		}
 
 	})
 });
-router.delete('/cart/:userid/:id', function(req, res, next) {
-	var goodsID = req.params.id;
-	var userID = req.params.userid;
+router.delete('/cart/:userID/:ID', function(req, res, next) {//已测
+	var goodsID = req.params.ID;
+	var userID = req.params.userID;
 	shopping.deleteItemFromCart(userID, goodsID, function(err, docs) {
 		if(err == "error") {
-			req.json({
+			res.json({
 				result: "error"
 			})
 		} else {
-			req.json({
+			res.json({
 				result: "success",
 				cartList: docs
 			})
 		}
 	})
 })
-router.post('/changeNumebr', function(req, res, next) {
-	var goodsID = req.body.id;
-	var userID = req.body.userid;
+router.post('/changeNumebr', function(req, res, next) {//已测，输入修改后的数字
+	var goodsID = req.body.ID;
+	var userID = req.body.userID;
 	var type = req.body.type;
 	var number = req.body.number;
 	shopping.changeItemInCart(userID, goodsID, type, number, function(err, docs) {
 		if(err == "error") {
-			req.json({
+			res.json({
 				result: "error"
 			})
 		} else {
-			req.json({
+			res.json({
 				result: "success",
 				cartList: docs
 			})
 		}
 	})
 })
-router.post('/changeCart', function(req, res, next) {
+router.post('/changeCart', function(req, res, next) {//已测
 	var cartList = req.body.cartList;
 	var userid = req.body.userID;
 	shopping.changeCartList(userid, cartList, function(err, docs) {
 		if(err == "error") {
-			req.json({
+			res.json({
 				result: "error"
 			})
 		} else {
-			req.json({
+			res.json({
 				result: "success"
 			})
 		}
 	})
 })
 router.post('/order', function(req, res, next) {
-	var goodsList = req.body.goodList;
+	var goodsList = req.body.goodsList;
 	var userID = req.body.userID;
 	var address = req.body.address;
 	var totalFee = req.body.totalFee;
@@ -106,16 +106,16 @@ router.post('/order', function(req, res, next) {
 		address: address,
 		totalFee: totalFee
 	};
-	shopping.makeOrder(obj, function(req, res, next) {
+	shopping.makeOrder(obj, function(err,docs) {
 		if(err == "success") {
 			res.json({
 				result: "success",
-				orderID: docs[0]
+				orderID: docs
 			})
 		} else {
 			res.json({
 				result: "error",
-				warning: docs[0]
+				warning: docs
 			})
 		}
 
