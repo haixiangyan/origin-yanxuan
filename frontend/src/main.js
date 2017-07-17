@@ -5,7 +5,8 @@ import App from './App'
 import router from './router'
 import store from './store'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+Vue.http.options.emulateJSON = true;
 
 // 使用插件
 import './plugins'

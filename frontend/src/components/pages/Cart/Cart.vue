@@ -4,7 +4,15 @@
         <yan-cart-header></yan-cart-header>
 
         <!-- 购物车的子项 -->
-        <yan-cart-item v-for="(cartItem, index) in cartItems" :index="index" :key="index" :cartItem="cartItem"></yan-cart-item>
+        <yan-cart-item v-show="!isEditCart" v-for="(cartItem, index) in cartItems" :index="index" :key="index" :cartItem="cartItem"></yan-cart-item> 
+
+        <!-- 购物车的编辑项 -->
+        <yan-edit-item v-show="isEditCart" v-for="(cartItem, index) in cartItems" :index="index" :key="index" :cartItem="cartItem"></yan-edit-item>
+
+        <!-- 编辑脚注 -->
+         <yan-edit-cart-footer v-show="isEditCart"></yan-edit-cart-footer>  
+
+         <yan-make-order-footer v-show="!isEditCart"></yan-make-order-footer> 
 
         <!-- tab bar -->
         <yan-tab-bar :selectedIndex="3"></yan-tab-bar>
@@ -16,6 +24,12 @@
 import YanCartHeader from '@/components/pages/Cart/Header/Header';
 // 引入购物车的 item
 import YanCartItem from '@/components/pages/Cart/CartItem/CartItem';
+// 引入修改购物车的组件
+import YanEditItem from '@/components/pages/Cart/EditItem/EditItem';
+// 引入编辑的脚注
+import YanEditCartFooter from '@/components/pages/Cart/Footer/EditCartFooter';
+// 引入下单的脚注
+import YanMakeOrderFooter from '@/components/pages/Cart/Footer/makeOrderFooter';
 // 引入 TabBar 组件
 import YanTabBar from '@/components/commons/TabBar/TabBar';
 
@@ -27,11 +41,17 @@ export default {
     computed: {
         cartItems() {
             return this.$store.getters.cart;
+        },
+        isEditCart() {
+            return this.$store.getters.isEditCart;
         }
     },
     components: {
         YanCartHeader,
+        YanEditItem,
         YanCartItem,
+        YanEditCartFooter,
+        YanMakeOrderFooter,
         YanTabBar
     },
     mounted() {

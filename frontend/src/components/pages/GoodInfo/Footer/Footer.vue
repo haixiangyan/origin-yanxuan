@@ -1,21 +1,21 @@
 <template>
-  <div class="yan-good-footer">
-    <!-- 联系店家 -->
-    <router-link tag="div" to="/" class="yan-contact">
-         <img v-if="!isBack" src="/static/icons/service.png" alt="contact">  
-         <span @click="back" v-if="isBack">返回</span> 
-    </router-link>
-
-    <!-- 立即购买 -->
-    <router-link tag="div" to="/" class="yan-buy">
-        立即购买
-    </router-link>
-
-    <!-- 加入购物车 -->
-    <div @click.prevent="addToCart"  class="yan-add-cart">
-        加入购物车
+    <div class="yan-good-footer">
+        <!-- 联系店家 -->
+        <router-link tag="div" to="/" class="yan-contact">
+            <img v-if="!isBack" src="/static/icons/service.png" alt="contact">
+            <span @click="back" v-if="isBack">返回</span>
+        </router-link>
+    
+        <!-- 立即购买 -->
+        <router-link tag="div" to="/" class="yan-buy">
+            立即购买
+        </router-link>
+    
+        <!-- 加入购物车 -->
+        <div @click.prevent="addToCart" class="yan-add-cart">
+            加入购物车
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -27,6 +27,9 @@ export default {
         },
         selection() {
             return this.$store.getters.selection;
+        },
+        user() {
+            return this.$store.getters.user;
         }
     },
     methods: {
@@ -35,10 +38,6 @@ export default {
         },
         addToCart() {
             // 将商品加入购物车
-            console.log('id', this.$route.params.goodId);
-            console.log('type', this.goodInfo.type[this.selection.type]);
-            console.log('num', this.selection.num);
-            
             this.$store.commit('addToCart', {
                 cartItem: {
                     id: this.$route.params.goodId,
@@ -46,6 +45,24 @@ export default {
                     type: this.goodInfo.type[this.selection.type]
                 }
             });
+
+            // 发送请求，加入到购物车
+            this.$http({
+                method: 'POST',
+                url: `/shop/addToCart`,
+                body: {
+                    ID: this.$route.params.goodId,
+                    type: this.goodInfo.type[this.selection.type],
+                    number: this.selection.num,
+                    userID: this.user.userID
+                },
+            })
+                .then((res) => {
+                    console.log('add to cart successfully!');
+                })
+                .catch((err) => {
+                    console.log('vue-resource err', err);
+                });
         }
     }
 }
@@ -61,7 +78,9 @@ export default {
     border-top: 1px solid #666;
 }
 
+
 /* 联系商家 */
+
 .yan-contact {
     padding: 30px 0;
     display: inline-flex;
