@@ -30,7 +30,7 @@ let data = [].concat(
     search,
     good,
     comment,
-    // cart
+    cart
 
 );
 

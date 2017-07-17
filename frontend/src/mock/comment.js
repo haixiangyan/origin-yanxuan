@@ -2,7 +2,7 @@ const Mock = require('mockjs');
 const Random = Mock.Random;
 
 export const comment = [{
-  path: '/shop/comment/1',
+  path: '/goods/comment/1',
   type: 'get',
   data(option) {
     let result = {

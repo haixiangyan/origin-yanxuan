@@ -55,11 +55,11 @@ export default {
 <style scoped>
 /* 评论的内容 */
 .yan-comment-list-content {
-    margin-top: 118px;
+    margin-top: 116px;
 } 
 
 .yan-comment {
-    padding: 0 30px 30px;
+    padding: 0 30px 10px;
     border-top: 1px solid rgb(200, 200, 200);
 }
 </style>

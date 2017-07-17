@@ -316,11 +316,13 @@ export default {
 .question {
     font-size: 40px;    
     padding-bottom: 20px;
+    font-size: 14px;/*小 bug*/    
 }
 
 .answer {
     color: rgb(120, 120, 120);
     line-height: 50px; 
+    font-size: 13px;/*小 bug*/    
 }
 
 /* 推荐的商品 */

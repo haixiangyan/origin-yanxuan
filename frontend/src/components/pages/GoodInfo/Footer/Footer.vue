@@ -15,12 +15,25 @@
         <div @click.prevent="addToCart" class="yan-add-cart">
             加入购物车
         </div>
+
+        <!-- 模态框 -->
+        <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+            <yan-modal  v-show="isShowModal" :title="'添加到购物车'"></yan-modal>
+        </transition>
     </div>
 </template>
 
 <script>
+// 引入模态框
+import YanModal from '@/components/commons/Modal/Modal';
+
 export default {
     props: ['isBack'],
+    data() {
+        return {
+            isShowModal: false
+        }
+    },
     computed: {
         goodInfo() {
             return this.$store.getters.good;
@@ -31,6 +44,9 @@ export default {
         user() {
             return this.$store.getters.user;
         }
+    },
+    components: {
+        YanModal
     },
     methods: {
         back() {
@@ -59,6 +75,11 @@ export default {
             })
                 .then((res) => {
                     console.log('add to cart successfully!');
+                    this.isShowModal = true;
+
+                    setTimeout(() => {
+                        this.isShowModal = false;
+                    }, 1000)
                 })
                 .catch((err) => {
                     console.log('vue-resource err', err);
