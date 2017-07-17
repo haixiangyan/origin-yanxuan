@@ -95,7 +95,7 @@ router.post('/changeCart', function(req, res, next) {//已测
 		}
 	})
 })
-router.post('/order', function(req, res, next) {
+router.post('/order', function(req, res, next) { //已测
 	var goodsList = req.body.goodsList;
 	var userID = req.body.userID;
 	var address = req.body.address;
@@ -123,7 +123,7 @@ router.post('/order', function(req, res, next) {
 
 })
 
-router.get('/getOrder/:orderID', function(req, res, next) {
+router.get('/getOrder/:orderID', function(req, res, next) {//已测
 	var orderid = req.params.orderID;
 	shopping.getOrder(orderid, function(err, docs) {
 		if(!err) {
@@ -188,7 +188,7 @@ router.post('/confirmGoods', function(req, res, next) {
 })
 router.patch('/makeComment', function(req, res, next) {
 	var form = new multiparty.Form({
-		uploadDir: "./dist/static/commentImage"
+		uploadDir: "/static/commentImage/"
 	})
 	form.parse(req, function(err, fields, files) {
 		var goodsID = fields.goodsID[0];
@@ -198,9 +198,9 @@ router.patch('/makeComment', function(req, res, next) {
 		var type = fields.type[0];
 		var orderID = fileds.orderID[0];
 
-		fs.readdir('/static/commentImage/' + goodsID, function(err, files) {
+		fs.readdir('/static/commentImage/' + goodsID, function(err, files) {//如果该商品还没有人上传评论图片
 			if(err) {
-				fs.mkdir('/static/commentImage/' + goodsID, function(err) {
+				fs.mkdir('/static/commentImage/' + goodsID, function(err) {//新建文件夹存放评论图片
 					if(err) {
 						throw err;
 					}
@@ -208,14 +208,14 @@ router.patch('/makeComment', function(req, res, next) {
 				});
 			}
 		});
-		fs.mkdir(' / static / commentImage / ' + goodsID + ' / ' + commentDate, function(err) {
+		fs.mkdir(' / static / commentImage / ' + goodsID + ' / ' + commentDate, function(err) {//新建存放当前评论图片的文件夹
 			if(err) {
 				throw err;
 			}
 			console.log('make detail dir success.');
 		});
 		var arr = [];
-		for(var i = 0; i < files.picture.length; i++) {
+		for(var i = 0; i < files.picture.length; i++) {//存放图片
 			var picture = files.picture[i].originalFilename;
 			arr.push(picture);
 			fs.rename(files.photo[0].path, '/static/commentImage/' + goodsID + '/' + commentDate + '/' + picture, function(err) {
