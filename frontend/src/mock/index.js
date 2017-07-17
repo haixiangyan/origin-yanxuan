@@ -27,10 +27,10 @@ let data = [].concat(
     homeStatic,
     homeGood,
     category,
-    search
-    // good,
-    // comment,
-    // cart
+    search,
+    good,
+    comment,
+    cart
 );
 
 data.forEach((res) => {

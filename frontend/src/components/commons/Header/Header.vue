@@ -20,7 +20,7 @@
             </router-link>
 
             <!-- 购物车 -->
-            <router-link to="/">
+            <router-link to="/cart">
                 <img src="/static/icons/cart.png" alt="search">
             </router-link>
         </div>

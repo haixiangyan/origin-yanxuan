@@ -1,14 +1,53 @@
 <template>
-  <div class="yan-cart-header">
-    <span class="title">购物车</span>
-
-     <span class="edit">编辑</span> 
-  </div>
+    <div class="yan-cart-header">
+        <span class="title">购物车</span>
+    
+        <span v-show="isEditCart" @click="finishEdit" class="finish">完成</span>
+        <span v-show="!isEditCart" @click="editCart" class="edit">编辑</span>
+    </div>
 </template>
 
 <script>
 export default {
+    computed: {
+        isEditCart() {
+            return this.$store.getters.isEditCart;
+        },
+        user() {
+            return this.$store.getters.user;
+        },
+        cart() {
+            return this.$store.getters.cart;
+        }
+    },
+    methods: {
+        editCart() {
+            this.$store.commit('toggleEditCart');
+        },
+        finishEdit() {
+            let finishArr = this.cart.filter((cartItem) => {
+                return cartItem.select === 1;
+            });
 
+            this.$http({
+                method: 'post',
+                url: `/shop/changeCart`,
+                body: {
+                    userid: this.user.userID,
+                    cartList: finishArr
+                }
+            })
+                .then((res) => {
+                    console.log('delete successfully!');
+                })
+                .catch((err) => {
+                    console.log('vue-resource err', err);
+                });
+
+            this.$store.commit('toggleEditCart');
+            console.log('finish edit')
+        }
+    }
 }
 </script>
 
@@ -29,7 +68,8 @@ export default {
     font-size: 50px;
 }
 
-.edit {
+.edit,
+.finish {
     position: absolute;
     right: 35px;
     font-size: 40px;
