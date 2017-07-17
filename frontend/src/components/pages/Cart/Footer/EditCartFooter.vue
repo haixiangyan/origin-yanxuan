@@ -47,26 +47,6 @@ export default {
             });
         },
         removeCartItems() {
-            let finishArr = this.cart.filter((cartItem) => {
-                return cartItem.select === 0;
-            });
-
-            // 换掉购物车中的商品
-            this.$http({
-                method: 'post',
-                url: `/shop/changeCart`,
-                body: {
-                    userid: this.user.userID,
-                    cartList: finishArr
-                }
-            })
-                .then((res) => {
-                    console.log('delete successfully!');
-                })
-                .catch((err) => {
-                    console.log('vue-resource err', err);
-                });
-
             this.$store.commit('removeCartItems');
         }
     }

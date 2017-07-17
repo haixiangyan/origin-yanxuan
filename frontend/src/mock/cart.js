@@ -10,7 +10,7 @@ export const cart = [{
         data: []
       };
 
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 13; i++) {
         let cartItem = {
           "ID": (i + 1),
           "name": Random.ctitle(7, 9),
