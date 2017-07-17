@@ -66,7 +66,10 @@ function addCart() {
 		var obj = {
 			ID: i,
 			type: "1",
-			number: 1
+			number: 1,
+			price:50,
+			name:"懒人清洁新选择",
+			picture:'/static/img/goodsImage/0/headImage/1.jpg'
 		}
 		arr.push(obj);
 	}
@@ -118,41 +121,47 @@ function addToCart(obj, cb) {
 					break;
 				}
 			}
-
 			if (i == docs.goodsList.length) {
-				console.log(1);
-				var newobj = {
+				goodsModel.findOne({ID:obj.ID},function(err,docs2){
+					var newobj = {
 					ID: obj.ID,
 					type: obj.type,
-					number: obj.number
+					number: obj.number,
+					price:docs2.price,
+					picture:docs2.headImage[0],
+					name:docs2.topName
 				}
 				docs.goodsList.push(newobj);
 				docs.markModified('goodsList');
 				docs.save();
 				cb("success", docs.goodsList);
+				})
+				
 			} else {
-				console.log(2);
 				docs.goodsList[i].number += parseInt(obj.number);
 				docs.save();
 				cb("success", docs.goodsList);
 			}
 		} else {
-			console.log(obj)
-			console.log(3);
-			var newobj = {
-				ID: obj.ID,
-				type: obj.type,
-				number: obj.number
-			}
-			var arr = [];
-			arr.push(newobj);
-			console.log(obj.userID);
-			var cartEntity = new cartModel({
+			goodsModel.findOne({ID:obj.ID},function(err,docs){
+					var newobj = {
+					ID: obj.ID,
+					type: obj.type,
+					number: obj.number,
+					price:docs.price,
+					picture:docs.headImage[0],
+					name:docs.topName
+				}
+				var arr = [];
+			   arr.push(newobj);
+		    	var cartEntity = new cartModel({
 				userID: obj.userID,
 				goodsList: arr
-			});
-			cartEntity.save();
-			cb("success", arr);
+			  });
+			  cartEntity.save();
+			  cb("success", arr);
+			})
+
 		}
 
 	})
@@ -225,7 +234,10 @@ function changeCartList(userID, cartList, cb) {
 }
 
 function makeOrder(obj, cb) {
+	console.log(obj);
 	var i;
+	var flag=false;
+	var arr=[];
 	for (i = 0; i < obj.goodsList.length; i++) {
 		var newobj = obj.goodsList[i];
 		goodsModel.findOne({
@@ -238,13 +250,15 @@ function makeOrder(obj, cb) {
 						break;
 					}
 				}
-				if (docs.inventory[j] > 0) {
-					docsinventory[j] -= 1;
-					docs.sale += 1;
+				if (docs.inventory[j] > newobj.number) {
+					docs.newobj.numberinventory[j] -= newobj.number;
+					docs.sale += newobj.number;
 					docs.markModified('inventory');
-					docs.save();
+					docs.save(); 
+					 arr.push(i);
 				} else {
-					break;
+					flag=true;
+                  
 				}
 			}else{
 				cb("error", "1");//没找到商品
@@ -252,9 +266,9 @@ function makeOrder(obj, cb) {
 
 		})
 	}
-	if (i < obj.goodsList.length) { //有些商品库存不够，返回错误
-		for (var k = 0; k < i; k++) {
-			var newobj = obj.goodsList[i];
+	if (flag==true) { //有些商品库存不够，返回错误
+		for (var k = 0; k < arr.length; k++) {
+			var newobj = obj.goodsList[arr[k]];
 			goodsModel.findOne({ID:newobj.ID}, function(err, docs) {
 				var j;
 				for (j = 0; j < docs.type.length; j++) {
@@ -262,13 +276,13 @@ function makeOrder(obj, cb) {
 						break;
 					}
 				}
-				docs.inventory[j] += 1;
-				docs.sale -= 1;
+				docs.inventory[j] += newobj.number;
+				docs.sale -= newobj.number;
 				docs.markModified('inventory');
 				docs.save();
 			})
 		}
-		cb("error", obj.goodsList[i].ID);
+		cb("error", "2");
 	} else {
 		var order = new Date().getTime() + obj.userID;
 		var orderEntity = new orderModel({

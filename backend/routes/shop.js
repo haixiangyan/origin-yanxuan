@@ -32,7 +32,6 @@ router.post('/addToCart', function(req, res, next) {//已测
 		number: number,
 		userID: userID
 	};
-	console.log(obj)
 	shopping.addToCart(obj, function(err, docs) {
 		if(err == "success") {
 			res.json({
@@ -97,7 +96,7 @@ router.post('/changeCart', function(req, res, next) {//已测
 	})
 })
 router.post('/order', function(req, res, next) {
-	var goodsList = req.body.goodList;
+	var goodsList = req.body.goodsList;
 	var userID = req.body.userID;
 	var address = req.body.address;
 	var totalFee = req.body.totalFee;
