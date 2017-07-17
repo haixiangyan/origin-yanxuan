@@ -41,7 +41,7 @@ export default {
                 },
                 {
                     title: '购物车',
-                    url: '/',
+                    url: '/cart',
                     className: 'fa fa-shopping-cart fa-2x',
                     img: '/static/icons/cart.png',
                     activeImg: '/static/icons/active-cart.png'

@@ -38,6 +38,14 @@ export default {
             console.log('id', this.$route.params.goodId);
             console.log('type', this.goodInfo.type[this.selection.type]);
             console.log('num', this.selection.num);
+            
+            this.$store.commit('addToCart', {
+                cartItem: {
+                    id: this.$route.params.goodId,
+                    number: this.selection.num,
+                    type: this.goodInfo.type[this.selection.type]
+                }
+            });
         }
     }
 }

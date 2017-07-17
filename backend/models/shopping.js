@@ -105,6 +105,7 @@ function getCart(userID, cb) {
 		userID: userID
 	}, function(err, docs) {
 		if (docs) {
+			console.log(docs.goodsList);
 			cb("success", docs.goodsList);
 		} else {
 			cb("err", "");

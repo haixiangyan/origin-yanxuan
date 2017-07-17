@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import cart from './modules/cart.js';
-
 import navbar from './modules/navbar.js';
 import menu from './modules/menu.js';
 
@@ -11,6 +9,9 @@ import search from './modules/search.js';
 
 // 商品详情
 import good from './modules/good.js';
+
+// 购物车
+import cart from './modules/cart.js';
 
 Vue.use(Vuex);
 
@@ -25,7 +26,7 @@ const store = new Vuex.Store({
         navbar,
         menu,
         good,
-        search
+        search,
     }
 });
 
