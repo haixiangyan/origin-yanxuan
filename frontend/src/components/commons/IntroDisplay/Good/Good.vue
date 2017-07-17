@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="`/#/good-info/${good.ID}`" class="yan-display-good-wrapper">
+    <router-link :to="`/good-info/${good.ID}`" class="yan-display-good-wrapper">
         <div class="yan-display-img-wrapper">
             <!--商品的图片-->
             <img class="yan-display-good-img" :src="good.headImage">
