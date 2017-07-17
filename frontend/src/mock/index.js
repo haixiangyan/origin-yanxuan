@@ -26,10 +26,10 @@ let data = [].concat(
     home,
     homeStatic,
     homeGood,
-    category,
-    search,
-    good,
-    comment,
+    // category,
+    // search,
+    // good,
+    // comment,
     // cart
 
 );
