@@ -48,7 +48,10 @@ function addOrder() {
 		goodsList: [{
 			ID: "123",
 			number: 1,
-			type: "Asd"
+			type: "Asd",
+			price:50,
+			name:"懒人清洁新选择",
+			picture:'/static/img/goodsImage/0/headImage/1.jpg'
 		}],
 		expressNumber: 123123,
 		expressCompany: "saddas",
@@ -234,12 +237,13 @@ function changeCartList(userID, cartList, cb) {
 }
 
 function makeOrder(obj, cb) {
-	console.log(obj);
 	var i;
 	var flag=false;
 	var arr=[];
-	for (i = 0; i < obj.goodsList.length; i++) {
-		var newobj = obj.goodsList[i];
+	var arr2=[];
+	var goodsList=JSON.parse(obj.goodsList);
+	for (i = 0; i < goodsList.length; i++) {
+		var newobj = goodsList[i];
 		goodsModel.findOne({
 			ID: newobj.ID
 		}, function(err, docs) {
@@ -251,17 +255,17 @@ function makeOrder(obj, cb) {
 					}
 				}
 				if (docs.inventory[j] > newobj.number) {
-					docs.newobj.numberinventory[j] -= newobj.number;
-					docs.sale += newobj.number;
+					docs.inventory[j] -=  parseInt(newobj.number) ;
+					docs.sale +=  parseInt(newobj.number) ;
 					docs.markModified('inventory');
 					docs.save(); 
 					 arr.push(i);
 				} else {
 					flag=true;
-                  
+                   arr2.push(newobj.topName);
 				}
 			}else{
-				cb("error", "1");//没找到商品
+				// cb("error", "1");//没找到商品
 			}
 
 		})
@@ -276,25 +280,25 @@ function makeOrder(obj, cb) {
 						break;
 					}
 				}
-				docs.inventory[j] += newobj.number;
-				docs.sale -= newobj.number;
+				docs.inventory[j] +=  parseInt(newobj.number) ;
+				docs.sale -=  parseInt(newobj.number) ;
 				docs.markModified('inventory');
 				docs.save();
 			})
 		}
-		cb("error", "2");
+		cb("error", arr2);
 	} else {
 		var order = new Date().getTime() + obj.userID;
 		var orderEntity = new orderModel({
 			orderID: order,
 			userID: obj.userID,
-			goodsList: obj.goodsList,
+			goodsList: JSON.parse(obj.goodsList),
 			expressNumber: 0,
 			expressCompany: "",
-			address: obj.address,
+			address: JSON.parse(obj.address),
 			orderState: 0,
 			payID: "0",
-			totalFee: obj.totalFee
+			totalFee:parseInt(obj.totalFee) 
 		})
 		orderEntity.save();
 		cb("success", order);

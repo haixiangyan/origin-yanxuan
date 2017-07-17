@@ -106,16 +106,16 @@ router.post('/order', function(req, res, next) {
 		address: address,
 		totalFee: totalFee
 	};
-	shopping.makeOrder(obj, function(req, res, next) {
+	shopping.makeOrder(obj, function(err,docs) {
 		if(err == "success") {
 			res.json({
 				result: "success",
-				orderID: docs[0]
+				orderID: docs
 			})
 		} else {
 			res.json({
 				result: "error",
-				warning: docs[0]
+				warning: docs
 			})
 		}
 
