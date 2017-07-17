@@ -1,5 +1,5 @@
 <template>
-    <div class="yan-usercenter-header-wrapper">
+    <router-link tag="div" :to="`/users/${id}/nav`" class="yan-usercenter-header-wrapper">
         <div class="user-portrait">
             <img :src="thisUser.portrait">
         </div>
@@ -7,7 +7,7 @@
             <span>{{thisUser.userName}}</span>
             <span>普通用户</span>            
         </div>
-    </div>
+    </router-link>
 </template>
 <script>
 
@@ -46,8 +46,8 @@ export default {
 <style scoped>
 .yan-usercenter-header-wrapper{
     width: 92%;
-    padding: 0 4% 0 4%;
-    height: 355px; 
+    padding: 50px 4% 50px 4%;
+    height: 255px;
     margin: 0 auto;
     display: flex;
     justify-content: flex-start;

@@ -1,5 +1,4 @@
 <template>
-    <!--<yan-login-header></yan-login-header>-->
     <div class="yan-login">
         <yan-login-body></yan-login-body>
     </div>
@@ -15,7 +14,6 @@ export default {
         }
     },
     components: {
-        // YanLoginHeader,
         YanLoginBody
     }
 }

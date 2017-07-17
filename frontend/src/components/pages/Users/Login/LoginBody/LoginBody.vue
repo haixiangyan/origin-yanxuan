@@ -59,7 +59,6 @@ export default {
                     console.log('vue-resource then', response.body);
                     this.status = response.body.result;
                     if(this.status === 'success'){
-                        
                         this.$router.push({name: 'User Center', params: { userId: response.body.user.telephone }})
                     }
                 }, response => {
