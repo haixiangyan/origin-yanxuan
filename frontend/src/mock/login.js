@@ -18,4 +18,19 @@ export const login = [{
         }
         return data;
     }
+}, {
+    // path: '/users/' + '13080854540' + '/getUserBassInfo',
+    // path: '/users/' + /[-]*[0-9]*/ + '/getUserBassInfo',
+    path: '/users/13080854540/getUserBassInfo',
+    type: 'get',
+    data(body) {
+        const data = {
+            result: 'success',
+            user: {
+                "userName": "searle",
+                "portrait": "/static/img/loginImage/userHeadPortrait/portrait.png"
+            }
+        }
+        return data;
+    }
 }]
