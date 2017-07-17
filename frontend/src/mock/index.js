@@ -18,6 +18,9 @@ import { good } from './good.js';
 // 商品的评论列表
 import { comment } from './comment.js';
 
+// 购物车
+import { cart } from './cart.js';
+
 let data = [].concat(
     login,
     home,
@@ -26,7 +29,8 @@ let data = [].concat(
     category,
     search,
     good,
-    comment
+    comment,
+    cart
 );
 
 data.forEach((res) => {

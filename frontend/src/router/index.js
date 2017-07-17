@@ -42,6 +42,9 @@ import YanGoodChoose from '@/components/pages/Choose/Choose';
 // 引入商品的评论列表
 import YanCommentList from '@/components/pages/CommentList/CommentList';
 
+// 引入购物车
+import YanCart from '@/components/pages/Cart/Cart';
+
 Vue.use(Router)
 
 export default new Router({
@@ -126,6 +129,11 @@ export default new Router({
       path: '/comment-list/:goodId', // 选择商品的页
       name: 'CommentList',
       component: YanCommentList
+    },
+    {
+      path: '/cart', // 购物车的页
+      name: 'Cart',
+      component: YanCart
     }
   ]
 })
