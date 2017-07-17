@@ -28,3 +28,6 @@ node_modules
 
 # vs-code
 .vscode
+
+# production
+dist
