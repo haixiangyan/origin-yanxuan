@@ -21,7 +21,7 @@ router.get('/cart/:ID', function(req, res, next) {//已测
 	})
 
 });
-router.post('/addToCart', function(req, res, next) {已测
+router.post('/addToCart', function(req, res, next) {//已测
 	var ID = req.body.ID;
 	var Type = req.body.type;
 	var number = req.body.number;

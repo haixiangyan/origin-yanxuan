@@ -62,7 +62,7 @@ function addOrder() {
 
 function addCart() {
 	var arr = [];
-	for(var i = 0; i < 5; i++) {
+	for (var i = 0; i < 5; i++) {
 		var obj = {
 			ID: i,
 			type: "1",
@@ -98,7 +98,7 @@ function getCart(userID, cb) {
 	cartModel.findOne({
 		userID: userID
 	}, function(err, docs) {
-		if(docs) {
+		if (docs) {
 			cb("success", docs.goodsList);
 		} else {
 			cb("err", "");
@@ -111,15 +111,15 @@ function addToCart(obj, cb) {
 	cartModel.findOne({
 		userID: obj.userID
 	}, function(err, docs) {
-		if(docs) {
+		if (docs) {
 			var i;
-			for(i = 0; i < docs.goodsList.length; i++) {
-				if(docs.goodsList[i].ID == obj.ID && docs.goodsList[i].type == obj.type) {
+			for (i = 0; i < docs.goodsList.length; i++) {
+				if (docs.goodsList[i].ID == obj.ID && docs.goodsList[i].type == obj.type) {
 					break;
 				}
 			}
 
-			if(i == docs.goodsList.length) {
+			if (i == docs.goodsList.length) {
 				console.log(1);
 				var newobj = {
 					ID: obj.ID,
@@ -162,15 +162,15 @@ function deleteItemFromCart(userID, goodsID, cb) {
 	cartModel.findOne({
 		userID: userID
 	}, function(err, docs) {
-		if(docs) {
+		if (docs) {
 			var arr = docs.goodsList;
 			var i = 0;
-			for(i = 0; i < arr.length; i++) {
-				if(arr[i].ID == goodsID) {
+			for (i = 0; i < arr.length; i++) {
+				if (arr[i].ID == goodsID) {
 					break;
 				}
 			}
-			if(i == arr.length) {
+			if (i == arr.length) {
 				cb("error", "");
 			} else {
 				arr.splice(i, 1);
@@ -190,12 +190,12 @@ function changeItemInCart(userID, goodsID, type, number, cb) {
 	}, function(err, docs) {
 		var arr = docs.goodsList;
 		var i = 0;
-		for(i = 0; i < arr.length; i++) {
-			if(arr[i].ID == goodsID && arr[i].type == type) {
+		for (i = 0; i < arr.length; i++) {
+			if (arr[i].ID == goodsID && arr[i].type == type) {
 				break;
 			}
 		}
-		if(i == arr.length) {
+		if (i == arr.length) {
 			cb("error", "");
 		} else {
 			arr[i].number = parseInt(number);
@@ -206,13 +206,13 @@ function changeItemInCart(userID, goodsID, type, number, cb) {
 	})
 }
 
-function changeCartList(userID, cartList,cb) {
+function changeCartList(userID, cartList, cb) {
 	console.log(userID);
 	cartModel.findOne({
 		userID: parseInt(userID)
 	}, function(err, docs) {
 		console.log(docs)
-		if(docs) {
+		if (docs) {
 			docs.goodsList = cartList;
 			docs.markModified('goodsList');
 			docs.save();
@@ -226,39 +226,44 @@ function changeCartList(userID, cartList,cb) {
 
 function makeOrder(obj, cb) {
 	var i;
-	for(i = 0; i < obj.goodsList.length; i++) {
+	for (i = 0; i < obj.goodsList.length; i++) {
 		var newobj = obj.goodsList[i];
-		goodsModel.findByID(newobj.ID, function(err, docs) {
-			var goods = docs[0];
-			var j;
-			for(j = 0; j < goods.type.length; j++) {
-				if(obj.type == goods.type[j]) {
-					break;
-				}
-			}
-			if(goods.inventory[j] > 0) {
-				goods.inventory[j] -= 1;
-				goods.sale += 1;
-				docs.markModified('inventory');
-				docs.save();
-			} else {
-				break;
-			}
-		})
-	}
-	if(i < obj.goodsList.length) { //有些商品库存不够，返回错误
-		for(var k = 0; k < i; k++) {
-			var newobj = obj.goodsList[i];
-			goodsModel.findByID(newobj.ID, function(err, docs) {
-				var goods = docs[0];
+		goodsModel.findOne({
+			ID: newobj.ID
+		}, function(err, docs) {
+			if (docs) {
 				var j;
-				for(j = 0; j < goods.type.length; j++) {
-					if(obj.type == goods.type[j]) {
+				for (j = 0; j < docs.type.length; j++) {
+					if (obj.type == docs.type[j]) {
 						break;
 					}
 				}
-				goods.inventory[j] += 1;
-				goods.sale -= 1;
+				if (docs.inventory[j] > 0) {
+					docsinventory[j] -= 1;
+					docs.sale += 1;
+					docs.markModified('inventory');
+					docs.save();
+				} else {
+					break;
+				}
+			}else{
+				cb("error", "1");//没找到商品
+			}
+
+		})
+	}
+	if (i < obj.goodsList.length) { //有些商品库存不够，返回错误
+		for (var k = 0; k < i; k++) {
+			var newobj = obj.goodsList[i];
+			goodsModel.findOne({ID:newobj.ID}, function(err, docs) {
+				var j;
+				for (j = 0; j < docs.type.length; j++) {
+					if (obj.type == docs.type[j]) {
+						break;
+					}
+				}
+				docs.inventory[j] += 1;
+				docs.sale -= 1;
 				docs.markModified('inventory');
 				docs.save();
 			})
