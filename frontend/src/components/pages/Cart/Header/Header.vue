@@ -25,17 +25,15 @@ export default {
             this.$store.commit('toggleEditCart');
         },
         finishEdit() {
-            let finishArr = this.cart.filter((cartItem) => {
-                return cartItem.select === 1;
-            });
+            let data = {
+                    userID: this.user.userID,
+                    cartList: this.cart
+            }
 
             this.$http({
                 method: 'post',
                 url: `/shop/changeCart`,
-                body: {
-                    userid: this.user.userID,
-                    cartList: finishArr
-                }
+                body: JSON.stringify(data)
             })
                 .then((res) => {
                     console.log('delete successfully!');

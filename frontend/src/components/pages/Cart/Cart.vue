@@ -85,7 +85,7 @@ export default {
     top: 0;
     right: 0;
     left: 0;
-    bottom: 0;
+    bottom: 235px;
     overflow: auto;
     background: #f4f4f4; 
 } 

@@ -30,7 +30,8 @@ let data = [].concat(
     search,
     good,
     comment,
-    cart
+    // cart
+
 );
 
 data.forEach((res) => {

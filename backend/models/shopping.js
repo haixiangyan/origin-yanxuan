@@ -226,11 +226,9 @@ function changeItemInCart(userID, goodsID, type, number, cb) {
 }
 
 function changeCartList(userID, cartList, cb) {
-	console.log(userID);
 	cartModel.findOne({
 		userID: parseInt(userID)
 	}, function (err, docs) {
-		console.log(docs)
 		if (docs) {
 			docs.goodsList = cartList;
 			docs.markModified('goodsList');
