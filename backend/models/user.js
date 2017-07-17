@@ -1,11 +1,11 @@
 var mongoose = require('mongoose');
 var db = mongoose.createConnection('localhost', 'YanXuan');
 
-db.on('error', function() {
+db.on('error', function () {
 	console.log("error")
 });
 
-db.once('open', function() {
+db.once('open', function () {
 
 	console.log("user connected");
 	var userschema = new mongoose.Schema({
@@ -28,7 +28,7 @@ db.once('open', function() {
 	//			uname: uname
 	//		}, cb)
 	//	}
-	userschema.statics.findByTelephone = function(telephone, cb) {
+	userschema.statics.findByTelephone = function (telephone, cb) {
 		return this.find({
 			telephone: telephone
 		}, cb)
@@ -36,59 +36,81 @@ db.once('open', function() {
 	userModel = db.model("User", userschema);
 	addUser();
 })
-function addUser(){
-	var userEntity=new userModel({
-		telephone:'1',
-		password:'123456',
-		photo:"/static/img/userImage/1.gif",
-		name:"xu",
-		gender:"man",
-		interest:["1","2","3"],
-		address:["1","2"]
+
+function addUser() {
+	var userEntity = new userModel({
+		telephone: '1',
+		password: '123456',
+		photo: "/static/img/userImage/1.gif",
+		name: "xu",
+		gender: "man",
+		interest: ["1", "2", "3"],
+		address: ["1", "2"]
 	})
-    userEntity.save();
-	
+	userEntity.save();
+
 }
+
 function creatUser(obj, cb) {
-	userModel.findByTelephone(obj.telephone, function(err, docs) {
-		if (docs == "") {
+	userModel.find({
+		telephone: obj.telephone
+	}, function (err, docs) {
+		if (docs.length==0) {
 			var userEntity = new userModel(obj);
 			userEntity.save();
-			cb(err, docs)
+			cb("success","")
 		} else {
-			cb(err, docs);
+			cb("error", "");
 		}
 	})
 }
 
-function changeInformation(obj,cb) {
-	userModel.findByTelephone(obj.telephone, function(err, docs) {
-		if (!err) {
-			docs[0].interest = obj.interest;
-			docs[0].gender = obj.gender;
-			docs[0].address = obj.address;
-			docs[0].name = obj.name;
-			docs[0].photo = obj.photo;
-			docs.save(cb)
+function changeInformation(obj, cb) {
+	userModel.findOne({
+		telephone: obj.telephone
+	}, function (err, docs) {
+		if (docs) {
+			docs.interest = obj.interest;
+			docs.gender = obj.gender;
+			docs.address = obj.address;
+			docs.name = obj.name;
+			docs.photo = obj.photo;
+			docs.markModified('address');
+			docs.markModified('interest');
+			docs.save();
+			cb("success", "")
 		} else {
-			cb(err);
+			cb("error", "")
 		}
 	})
 }
-function checkLogin(obj,cb){
-	userModel.findByTelephone(obj.telephone, function(err, docs) {
-		if (docs.length>0) {
-			if(docs[0].password==obj.password){
-				cb("success",docs[0])
-			}else{
-				cb("error","")
+
+function checkLogin(obj, cb) {
+	userModel.findOne({
+		telephone: obj.telephone
+	}, function (err, docs) {
+		if (docs) {
+			if (docs.password == obj.password) {
+				cb("success", docs)
+			} else {
+				cb("error", "")
 			}
 		} else {
-			cb("notFind","");
+			cb("notFind", "");
 
 		}
 	})
 }
-module.exports.checkLogin=checkLogin;
+function getInformation(telephone,cb){
+   userModel.findOne({telephone:telephone},function(err,docs){
+	   if(docs){
+          cb("success",docs)
+	   }else{
+		   cb("error","")
+	   }
+   })
+}
+module.exports.checkLogin = checkLogin;
 module.exports.creatUser = creatUser;
 module.exports.changeInformation = changeInformation;
+module.exports.getInformation=getInformation;
