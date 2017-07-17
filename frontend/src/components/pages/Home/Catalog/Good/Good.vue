@@ -1,5 +1,5 @@
 <template>
-    <a :href="`/good-info/${good.ID}`" class="yan-catalog-good-wrapper">
+    <router-link :to="`/good-info/${good.ID}`" class="yan-catalog-good-wrapper">
         <!--商品-->
         <div class="yan-good-avatar">
             <img :src="good.headImage" alt="good">
@@ -27,7 +27,7 @@
         <div class="yan-good-price">
             ￥{{good.price}}
         </div>
-    </a>
+    </router-link>
 </template>
 
 <script>
