@@ -32,7 +32,7 @@ export default {
             method: 'post',
             url: `/goods/certainCategory`,
             body: {
-                category: 7
+                category: '饮食'
             }
         })
             .then((res) => {

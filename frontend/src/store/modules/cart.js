@@ -14,8 +14,6 @@ const state = {
   // 选择的地址
   address: {
       receiver: '小明',
-      province: "liaoning",
-      city: "shenyang",
       detail: "广东省佛山市南海区怡翠世嘉",
       province: "liaoning",
       city: 'shenyang',
@@ -196,6 +194,14 @@ const mutations = {
       return cartItem.select === 0;
     });
   },
+
+  // 更新商品
+  updateCartItems(state) {
+    state.cart = state.cart.filter((cartItem) => {
+      return cartItem.select === 1;
+    });
+  },
+
 
   // 立刻购买
   buying(state, payload) {

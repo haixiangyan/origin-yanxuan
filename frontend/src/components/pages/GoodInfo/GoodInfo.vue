@@ -205,8 +205,11 @@ export default {
 
         // 发送请求获取商品的建议
         this.$http({
-            method: 'get',
-            url: `/goods/certainCategory`,
+            method: 'post',
+            url: `/goods/subCategoryGoods`,
+            body: {
+                subCategory: this.goodInfo.subCategory
+            }
         })
             .then((res) => {
                 // 初始化商品
@@ -290,6 +293,7 @@ export default {
 /* 商品的介绍图片 */
 .yan-good-pics img {
     min-width: 100%;
+    margin-top: -10px;
 } 
 
 /* 常见问题 */

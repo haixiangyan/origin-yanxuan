@@ -57,7 +57,7 @@ export default {
 }
 
 .yan-good-avatar img {
-    min-height: 100%;
+    width: 450px;
 }
 
 .yan-ver-label {

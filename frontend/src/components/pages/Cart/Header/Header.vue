@@ -25,8 +25,9 @@ export default {
             this.$store.commit('toggleEditCart');
         },
         finishEdit() {
+
             let data = {
-                userid: this.user.userID,
+                userID: this.user.userID,
                 cartList: this.cart
             }
 
@@ -36,7 +37,8 @@ export default {
                 body: JSON.stringify(data)
             })
                 .then((res) => {
-                    console.log('delete successfully!');
+                    this.$store.commit('updateCartItems');
+                    console.log('finish edit successfully!');
                 })
                 .catch((err) => {
                     console.log('vue-resource err', err);

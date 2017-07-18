@@ -14,7 +14,7 @@ db.once('open', function () {
 	});
 
 	cartModel = db.model("carts", cartSchema);
-	addCart();
+	// addCart();
 	var orderSchema = new mongoose.Schema({
 		orderID: String,
 		userID: String,
@@ -105,6 +105,7 @@ function addComment() {
 		type: "1套装 伸缩杆懒人拖把+懒人抹布 4卷装+40片装 地板清洁湿巾 3包装"
 	})
 	commentEntity.save();
+
 }
 
 function getCart(userID, cb) {
@@ -114,7 +115,7 @@ function getCart(userID, cb) {
 		if (docs) {
 			cb("success", docs.goodsList);
 		} else {
-			cb("err", "");
+			cb("error", "");
 		}
 
 	})
@@ -136,7 +137,7 @@ function addToCart(obj, cb) {
 					var newobj = {
 						ID: obj.ID,
 						type: obj.type,
-						number: obj.number,
+						number: parseInt(obj.number),
 						price: docs2.price,
 						picture: docs2.headImage[0],
 						name: docs2.topName
@@ -149,6 +150,7 @@ function addToCart(obj, cb) {
 
 			} else {
 				docs.goodsList[i].number += parseInt(obj.number);
+				docs.markModified('goodsList');
 				docs.save();
 				cb("success", docs.goodsList);
 			}
@@ -157,7 +159,7 @@ function addToCart(obj, cb) {
 				var newobj = {
 					ID: obj.ID,
 					type: obj.type,
-					number: obj.number,
+					number: parseInt(obj.number) ,
 					price: docs.price,
 					picture: docs.headImage[0],
 					name: docs.topName
@@ -246,7 +248,8 @@ function makeOrder(obj, cb) {
 	var flag = false;
 	var arr = [];
 	var arr2 = [];
-	var goodsList = JSON.parse(obj.goodsList);
+	// var goodsList = JSON.parse(obj.goodsList);
+	var goodsList =obj.goodsList;
 	for (i = 0; i < goodsList.length; i++) {
 		var newobj = goodsList[i];
 		goodsModel.findOne({
@@ -297,10 +300,10 @@ function makeOrder(obj, cb) {
 		var orderEntity = new orderModel({
 			orderID: order,
 			userID: obj.userID,
-			goodsList: JSON.parse(obj.goodsList),
+			goodsList: obj.goodsList,
 			expressNumber: 0,
 			expressCompany: "",
-			address: JSON.parse(obj.address),
+			address: obj.address,
 			orderState: 0,
 			payID: "0",
 			totalFee: parseInt(obj.totalFee)

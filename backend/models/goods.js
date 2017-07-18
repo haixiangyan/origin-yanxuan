@@ -39,7 +39,7 @@ db.once('open', function() {
 		}, cb)
 	}
 	goodsModel = db.model("goods", goodsSchema);
-	addGoods()
+	// addGoods()
 	var categorySchema = new mongoose.Schema({
 		name: String,
 		picture: String,
@@ -242,39 +242,7 @@ function addCategory() {
 		}]
 	})
 	categoryEntity.save();
-	categoryEntity = new categoryModel({
-		name: '家装区',
-		picture: "/static/img/category/家装区/家装区.png",
-		subCategory: [{
-			name: '抱枕',
-			photo: "/static/img/category/家装区/抱枕.png"
-		}, {
-			name: '北欧风格',
-			photo: "/static/img/category/家装区/北欧风格.png"
-		}, {
-			name: '窗帘地毯',
-			photo: "/static/img/category/家装区/窗帘地毯.png"
-		}, {
-			name: '仿真花',
-			photo: "/static/img/category/家装区/仿真花.png"
-		}, {
-			name: '居家收纳',
-			photo: "/static/img/category/家装区/居家收纳.png"
-		}, {
-			name: '轻奢英式',
-			photo: "/static/img/category/家装区/轻奢英式.png"
-		}, {
-			name: '日式风格',
-			photo: "/static/img/category/家装区/日式风格.png"
-		}, {
-			name: '沙发座椅',
-			photo: "/static/img/category/家装区/沙发座椅.png"
-		}, {
-			name: '坐垫',
-			photo: "/static/img/category/家装区/坐垫.png"
-		}]
-	})
-	categoryEntity.save();
+
 	categoryEntity = new categoryModel({
 		name: '居家',
 		picture: "/static/img/category/居家/居家.png",
@@ -344,39 +312,7 @@ function addCategory() {
 		}]
 	})
 	categoryEntity.save();
-	categoryEntity = new categoryModel({
-		name: '推荐区',
-		picture: "/static/img/category/推荐区/推荐区.png",
-		subCategory: [{
-			name: '3C家电',
-			photo: "/static/img/category/推荐区/3C家电.png"
-		}, {
-			name: '999+好评',
-			photo: "/static/img/category/推荐区/999+好评.png"
-		}, {
-			name: '爆品买送',
-			photo: "/static/img/category/推荐区/爆品买送.png"
-		}, {
-			name: '餐厨特价',
-			photo: "/static/img/category/推荐区/餐厨特价.png"
-		}, {
-			name: '超值套餐',
-			photo: "/static/img/category/推荐区/超值套餐.png"
-		}, {
-			name: '丁磊推荐',
-			photo: "/static/img/category/推荐区/丁磊推荐.png"
-		}, {
-			name: '黑凤梨系列',
-			photo: "/static/img/category/推荐区/黑凤梨系列.png"
-		}, {
-			name: '热卖爆品',
-			photo: "/static/img/category/推荐区/热卖爆品.png"
-		}, {
-			name: '拖鞋',
-			photo: "/static/img/category/推荐区/拖鞋.png"
-		}]
-	})
-	categoryEntity.save();
+	
 	categoryEntity = new categoryModel({
 		name: '洗护',
 		picture: "/static/img/category/洗护/洗护.png",
@@ -546,9 +482,10 @@ function addCategory() {
 }
 
 function getGoods(ID, cb) {
-	goodsModel.findByID(ID, function(err, docs) {
-		//		console.log(docs);
-		var obj = docs[0];
+	goodsModel.findOne({ID:ID}, function(err, docs) {
+				console.log(docs);
+		if(docs){
+					var obj = docs;
 		//		console.log(obj);
 		var arr = [];
 		arr.push(obj)
@@ -569,6 +506,10 @@ function getGoods(ID, cb) {
 				cb("success", arr);
 			})
 		})
+		}else{
+			cb("error", "");
+		}
+
 
 	});
 
@@ -638,6 +579,7 @@ function getCategory(cb) {
 }
 
 function getCertainCategory(category, cb) {
+	console.log(category)
 	let arr = [];
 	categoryModel.find({
 		name: category
@@ -703,11 +645,12 @@ function getCertainSubCategoryGoods(category, cb) {
 }
 
 function search(key, cb) {
-
+   console.log(key);
 	var arr = [];
 	goodsModel.find({}, function(err, docs) {
 		for(var i = 0; i < docs.length; i++) {
 			var obj = docs[i];
+			console.log(obj);
 			if(obj.topName.indexOf(key) != -1 || obj.subName.indexOf(key) != -1 || obj.category.indexOf(key) != -1 || obj.subCategory.indexOf(key) != -1) {
 				var newobj = {
 					ID: docs[i].ID,
