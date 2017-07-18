@@ -9,9 +9,9 @@
     <!-- 商品的介绍 -->
     <div class="yan-item-intro">
       <!-- 商品的图片 -->
-      <div class="yan-item-pic">
+      <router-link tag="div" :to="`/good-info/${cartItem.ID}`" class="yan-item-pic">
         <img :src="cartItem.picture" alt="cart item">
-      </div>
+      </router-link>
 
       <!-- 商品的描术 -->
       <div class="yan-item-spec">

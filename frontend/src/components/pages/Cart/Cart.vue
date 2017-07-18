@@ -4,7 +4,7 @@
         <yan-cart-header></yan-cart-header>
 
         <!-- 购物车的子项 -->
-        <yan-cart-item v-show="!isEditCart" v-for="(cartItem, index) in cartItems" :index="index" :key="index" :cartItem="cartItem"></yan-cart-item> 
+        <yan-cart-item :isShowCheck="true" v-show="!isEditCart" v-for="(cartItem, index) in cartItems" :index="index" :key="index" :cartItem="cartItem"></yan-cart-item> 
 
         <!-- 购物车的编辑项 -->
         <yan-edit-item v-show="isEditCart" v-for="(cartItem, index) in cartItems" :index="index" :key="index" :cartItem="cartItem"></yan-edit-item>
@@ -44,6 +44,9 @@ export default {
         },
         isEditCart() {
             return this.$store.getters.isEditCart;
+        },
+        user() {
+            return this.$store.getters.user;
         }
     },
     components: {
@@ -55,10 +58,10 @@ export default {
         YanTabBar
     },
     mounted() {
-        // 发送请求，获取商品的专题精选
+        // 发送请求，获取商品的购物车
         this.$http({
             method: 'get',
-            url: `/shop/cart/1`
+            url: `/shop/cart/${this.user.userID}`
         })
             .then((res) => {
                 // 初始化购物车的商品

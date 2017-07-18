@@ -45,6 +45,9 @@ import YanCommentList from '@/components/pages/CommentList/CommentList';
 // 引入购物车
 import YanCart from '@/components/pages/Cart/Cart';
 
+// 引入订单详情页
+import YanOrder from '@/components/pages/Order/Order';
+
 Vue.use(Router)
 
 export default new Router({
@@ -134,6 +137,11 @@ export default new Router({
       path: '/cart', // 购物车的页
       name: 'Cart',
       component: YanCart
+    },
+    {
+      path: '/order', // 订单详情页
+      name: 'Order',
+      component: YanOrder
     }
   ]
 })

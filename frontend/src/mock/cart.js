@@ -67,5 +67,34 @@ export const cart = [{
 
       return result;
     },
+  },
+  {
+    path: '/shop/order', // 生成订单
+    type: 'post',
+    data(option) {
+      console.log('order created mock', option);
+
+      let result = {
+        result: 'success',
+        data: {}
+      };
+
+      return result;
+    },
+  },
+  {
+    path: '/goods/order', // 立即生成订单
+    type: 'post',
+    data(option) {
+
+      console.log('order created right now mock', option);
+
+      let result = {
+        result: 'success',
+        data: {}
+      };
+
+      return result;
+    },
   }
 ]

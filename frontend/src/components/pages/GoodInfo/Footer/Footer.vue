@@ -7,9 +7,9 @@
         </router-link>
     
         <!-- 立即购买 -->
-        <router-link tag="div" to="/" class="yan-buy">
+        <div @click="buying" class="yan-buy">
             立即购买
-        </router-link>
+        </div>
     
         <!-- 加入购物车 -->
         <div @click.prevent="addToCart" class="yan-add-cart">
@@ -51,6 +51,26 @@ export default {
     methods: {
         back() {
             this.$router.go(-1);
+        },
+        // 立刻购买
+        buying() {
+            console.log(this.goodInfo)
+            let tempGoodInfo = {
+                name: this.goodInfo.topName,
+                ID: this.goodInfo.ID,
+                price: this.goodInfo.price,
+                select: 0,
+                number: this.selection.num,
+                type: this.goodInfo.type[this.selection.type],
+                picture: this.goodInfo.headImage[0]
+            }
+
+            this.$store.commit('buying', {
+                goodInfo: tempGoodInfo
+            });
+
+            // 跳转到订单详情页
+            this.$router.push('/order');
         },
         addToCart() {
             // 将商品加入购物车
