@@ -10,6 +10,8 @@ import YanUsersRegister from '@/components/pages/Users/Register/Register'
 import YanUserCenter from '@/components/pages/Users/Users'
 import YanUserCenterNav from '@/components/pages/Users/UserCenter/PersonalInformation/Nav'
 import YanUserCenterInfo from '@/components/pages/Users/UserCenter/PersonalInformation/Info'
+import YanUserCenterInfoInterest from '@/components/pages/Users/UserCenter/PersonalInformation/Info/InterestCategory'
+
 
 Vue.use(Router)
 
@@ -48,6 +50,11 @@ export default new Router({
             path: '/users/info/:userId',
             name: 'User Center Info',
             component: YanUserCenterInfo
-        }
+        },
+        {
+            path: '/users/interestCategory/:userId',
+            name: 'User Center Info Interest Category',
+            component: YanUserCenterInfoInterest
+        },
     ]
 })

@@ -34,7 +34,6 @@ export default {
                    
     },
     mounted(){
-
         this.$http({
             method: 'get',
             url: '/users/getInformation/'+this.userId

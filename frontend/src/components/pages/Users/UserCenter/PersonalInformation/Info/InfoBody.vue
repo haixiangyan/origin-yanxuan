@@ -1,35 +1,35 @@
 <template>
     <div class="info-body">
         <div class="img">
-            <img :src="user.photo" alt="">
+            <img :src="mountedUser.photo" alt="">
         </div>
         <ul>
             <li class="list-item">
                 <span>用户ID</span>
-                <span>{{user.telephone}}</span>
+                <span>{{mountedUser.telephone}}</span>
             </li>
             <li class="list-item">
                 <span>昵称</span>
-                <input type="text" :value="user.name">
+                <input type="text" :value="mountedUser.name" v-model="mountedUser.name">
             </li>
             <li class="list-item">
                 <span>性别</span>
                 <div class="list-item-sex">
-                    <input type="radio" name="sex" v-if="user.gender==='male'" checked>
-                    <input type="radio" name="sex" v-else>
-                    <label for="male">男</label>
-                    <input type="radio" name="sex" v-if="user.gender==='female'" checked>
-                    <input type="radio" name="sex" v-else>
-                    <label for="female">女</label>
+                    <input type="radio" name="sex" value="man" v-model="mountedUser.gender" v-if="mountedUser.gender==='man'" checked>
+                    <input type="radio" name="sex" value="man" v-model="mountedUser.gender" v-else>
+                    <label for="man">男</label>
+                    <input type="radio" name="sex" value="woman" v-model="mountedUser.gender" v-if="mountedUser.gender==='woman'" checked>
+                    <input type="radio" name="sex" value="woman" v-model="mountedUser.gender" v-else>
+                    <label for="woman">女</label>
                 </div>
             </li>
             <li class="list-item">
                 <span>地址</span>
-                <span>{{user.address[0]}}</span>
+                <input type="text" :value="mountedUser.address[0].address" v-model="mountedUser.address[0].address">
             </li>
         </ul>
 
-        <router-link tag="div" to="/users/interestCategory" class="info-body-li">
+        <router-link tag="div" :to="`/users/interestCategory/${id}`" class="info-body-li">
             <div class="info-body-li-left">
                 <span>感兴趣的分类</span>
             </div>
@@ -42,7 +42,7 @@
             <div class="info-body-select-cancle">
                 取消
             </div>
-            <div class="info-body-select-confirm">
+            <div class="info-body-select-confirm" v-on:click="submit()">
                 保存
             </div>
         </div>
@@ -55,10 +55,34 @@ export default {
     props: ['id'],
     data() {
         return{
-
+            mountedUser : {
+                "_id": "",
+                "telephone": "",
+                "password": "",
+                "__v": 0,
+                "address": [{ name: "", telephone: "", address: "" }],
+                "interest": [""],
+                "name": '',
+                "gender": "",
+                "photo": ""
+            }
         }
     },
     methods:{
+        submit(){
+            console.log(this.mountedUser);
+            this.$http.post('/users/changeInformation', this.mountedUser).then(response => {
+                console.log('vue-resource then', response.body);
+                this.status = response.body.result;
+                if(this.status === 'success'){
+                    //this.$router.push({name: 'User Center', params: { userId: response.body.user.telephone }})
+
+                }
+            }, response => {
+                // error callback
+                console.log('vue-resource err', response.err);
+            });
+        }
     },
     computed:{
         user() {
@@ -66,7 +90,8 @@ export default {
         }
     },
     mounted(){
-        console.log('info page',this.user);
+        this.mountedUser = this.user;
+        console.log('info page',this.mountedUser);
     }
 }
 </script>

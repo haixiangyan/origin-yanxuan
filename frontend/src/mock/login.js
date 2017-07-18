@@ -35,14 +35,15 @@ export const login = [{
                 "name": "xu",
                 "gender": "man",
                 "__v": 0,
-                "address": [
-                    "1",
-                    "2"
-                ],
+                "address": [{
+                    name: "xukangqi",
+                    telephone: "123124",
+                    address: "辽宁省沈阳市东北大学"
+                }],
                 "interest": [
-                    "1",
-                    "2",
-                    "3"
+                    "内衣裤袜",
+                    "洗护用品",
+                    "办公文具"
                 ]
             }
         }
