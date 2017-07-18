@@ -79,11 +79,11 @@
         </div>
 
         <!-- 商品的推荐 -->
-        <div class="yan-suggest-goods">
+         <div class="yan-suggest-goods">
             <yan-title class="yan-title" :title="'大家都在看'"></yan-title>
 
             <yan-catalog :catalog="suggestGoods" :more="suggestGoods.data.length % 2 !== 0"></yan-catalog>
-        </div>
+        </div> 
 
         <yan-good-footer></yan-good-footer>
 
@@ -154,7 +154,9 @@ export default {
                             `
                 },
             ],
-            suggestGoods: {}
+            suggestGoods: {
+                data: []
+            }
         }
     }, 
     computed: {
@@ -213,7 +215,7 @@ export default {
         })
             .then((res) => {
                 // 初始化商品
-                this.suggestGoods = res.body.data[0]
+                this.suggestGoods = res.body.data[0];
             })
             .catch((err) => {
                 console.log('vue-resource err', err);

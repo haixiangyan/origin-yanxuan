@@ -13,6 +13,9 @@ import good from './modules/good.js';
 // 购物车
 import cart from './modules/cart.js';
 
+// 地址
+import address from './modules/address.js';
+
 // 临时的用户信息
 import tempUser from './modules/tempUser.js';
 
@@ -30,6 +33,7 @@ const store = new Vuex.Store({
         menu,
         good,
         search,
+        address,        
         tempUser,
     }
 });

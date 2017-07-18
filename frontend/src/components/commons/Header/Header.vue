@@ -22,7 +22,7 @@
             <!-- 购物车 -->
             <router-link to="/cart">
                 <img src="/static/icons/cart.png" alt="search">
-                <yan-badge :num="cartNum"></yan-badge>
+                <yan-badge :num="displayCartNum"></yan-badge>
             </router-link>
         </div>
     </div>
@@ -34,8 +34,8 @@ import YanBadge from '@/components/commons/Badge/Badge';
 
 export default {
     computed: {
-        cartNum() {
-            return this.$store.getters.cartNum;
+        displayCartNum() {
+            return this.$store.getters.displayCartNum;
         }
     },
     components: {

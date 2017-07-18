@@ -9,6 +9,8 @@ const state = {
   deliver: 10,
   // 运费的上限
   limitDeliver: 88,
+  // 购物车的商品总数（头部图标）
+  displayCartNum: 0,
   // 优惠
   discount: 4,
   // 选择的地址
@@ -35,6 +37,7 @@ const getters = {
   address: state => state.address,
   tempCartItem: state => state.tempCartItem,
   isBuying: state => state.isBuying,
+  displayCartNum: state => state.displayCartNum,
   // 是否全选
   isSelectAllCartItems: state => {
     let selectAllState = true
@@ -138,7 +141,19 @@ const actions = {
 const mutations = {
   // 将商品加入购物车
   addToCart(state, payload) {
-    state.cart.push(payload.cartItem);
+    let isExist = false;
+    state.cart.forEach((cartItem) => {
+      if (cartItem.ID === payload.cartItem.ID) {
+        isExist = true;
+        // 增加商品的数量
+        cartItem.number = cartItem.number + payload.cartItem.number;
+      }
+    })
+
+    // 如果不存在，则推入数组里
+    if (!isExist) {
+      state.cart.push(payload.cartItem);
+    }
   },
 
   // 初始化购物车
@@ -202,7 +217,6 @@ const mutations = {
     });
   },
 
-
   // 立刻购买
   buying(state, payload) {
     state.isBuying = true;
@@ -213,6 +227,23 @@ const mutations = {
   resetBuying(state) {
     state.isBuying = false;
     state.tempCartItem = []
+  },
+
+  // 增加购物车的数量
+  addDisplayCartNum(state) {
+    state.displayCartNum ++;
+  },
+
+  // 减少购物车的商品的数量
+  subDisplayCartNum(state) {
+    if (state.displayCartNum !== 1) {
+      displayCartNum --;
+    }
+  },
+
+  // 选择地址
+  selectAddress(state, payload) {
+    state.address = payload.address;
   }
 }
 
