@@ -71,7 +71,7 @@ export default {
     methods:{
         submit(){
             console.log(this.mountedUser);
-            this.$http.post('/users/changeInformation', this.mountedUser).then(response => {
+            this.$http.patch('/users/changeInformation', this.mountedUser).then(response => {
                 console.log('vue-resource then', response.body);
                 this.status = response.body.result;
                 if(this.status === 'success'){

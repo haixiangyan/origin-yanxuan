@@ -32,7 +32,10 @@ export default {
     props: ['id'],
     data() {
         return{
-            interestedList:[],
+            interestedList:[{
+                title: '',
+                interested: false
+            }],
             items:[
                 {
                     title:'床品被枕',
@@ -113,7 +116,7 @@ export default {
                     this.user.interest.push(element.title);
                 }
             })
-            this.$http.post('/users/changeInformation', this.user
+            this.$http.patch('/users/changeInformation', this.user
             ).then(response => {
                 console.log('vue-resource then', response.body);
                 this.status = response.body.result;
@@ -133,11 +136,14 @@ export default {
         }
     },
     mounted(){
+
+        this.interestedList = [];
         this.items.forEach(function(element) {
             this.interestedList.push({
                 title: element.title,
                 interested: this.user.interest.includes(element.title)
             });
+            
         }, this);
 
         console.log(this.interestedList); 

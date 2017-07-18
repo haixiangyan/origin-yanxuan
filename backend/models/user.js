@@ -95,6 +95,7 @@ function changeInformation(obj, cb) {
 }
 
 function checkLogin(obj, cb) {
+	console.log(obj); 
 	userModel.findOne({
 		telephone: obj.telephone
 	}, function (err, docs) {

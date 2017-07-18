@@ -1,6 +1,6 @@
 import Mock from 'mockjs';
 
-import { login } from './front-page.js';
+// import { login } from './front-page.js';
 
 // 主页面
 import { home, homeStatic } from './home-intro.js';
@@ -20,7 +20,8 @@ import { comment } from './comment.js';
 
 // 购物车
 import { cart } from './cart.js';
-
+import { login } from './login.js'
+import { topic } from './topic.js'
 let data = [].concat(
     // login,
     // home,
@@ -31,12 +32,11 @@ let data = [].concat(
     // good,
     // comment,
     // cart
+)
 
-import { login } from './login.js'
-import { topic } from './topic.js'
-let data = [].concat(
-    login, topic
-);
+// let data = [].concat(
+//     login, topic
+// );
 
 data.forEach((res) => {
     Mock.mock(res.path, res.type, res.data);

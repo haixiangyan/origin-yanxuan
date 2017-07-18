@@ -52,7 +52,7 @@ export default {
                 // POST /
                 this.$http.post('/users/login',
                     {
-                        email: this.form.name,
+                        telephone: this.form.name,
                         password: this.form.password
                     }
                 ).then(response => {

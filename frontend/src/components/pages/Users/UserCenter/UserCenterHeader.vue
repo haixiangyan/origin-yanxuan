@@ -40,7 +40,7 @@ export default {
         })
         .then((res) => {
             console.log('vue-resource then', '/users/getInformation/'+this.userId , res.body);
-            this.thisUser = res.body.user;
+            this.thisUser = res.body.data;
             this.$store.commit('initUser', {
                 user: this.thisUser
             });
