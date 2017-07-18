@@ -21,4 +21,31 @@ export const login = [{
         }
         return data;
     }
+}, {
+    path: '/users/getInformation/18805862675',
+    type: 'get',
+    data(body) {
+        const data = {
+            result: 'success',
+            user: {
+                "_id": "596c602df31dea029c81bc58",
+                "telephone": "1",
+                "password": "123456",
+                "photo": "/static/img/loginImage/userHeadPortrait/portrait.png",
+                "name": "xu",
+                "gender": "man",
+                "__v": 0,
+                "address": [
+                    "1",
+                    "2"
+                ],
+                "interest": [
+                    "1",
+                    "2",
+                    "3"
+                ]
+            }
+        }
+        return data;
+    }
 }]

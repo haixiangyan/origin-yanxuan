@@ -40,12 +40,12 @@ export default new Router({
             component: YanUserCenter,
         },
         {
-            path: '/users/:userId/nav',
+            path: '/users/nav/:userId',
             name: 'User Center Nav',
             component: YanUserCenterNav
         },
         {
-            path: '/users/:userId/info',
+            path: '/users/info/:userId',
             name: 'User Center Info',
             component: YanUserCenterInfo
         }

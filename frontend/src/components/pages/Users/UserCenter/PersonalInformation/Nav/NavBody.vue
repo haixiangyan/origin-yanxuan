@@ -1,6 +1,6 @@
 <template>
     <div class="nav-body">
-        <router-link tag="div" :to="`/users/${id}/info`" class="nav-body-li">
+        <router-link tag="div" :to="`/users/info/${id}`" class="nav-body-li">
             <div class="nav-body-li-name">
                 <span>个人信息</span>
             </div>

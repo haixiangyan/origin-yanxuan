@@ -1,10 +1,10 @@
 <template>
-    <router-link tag="div" :to="`/users/${id}/nav`" class="yan-usercenter-header-wrapper">
+    <router-link tag="div" :to="`/users/nav/${id}`" class="yan-usercenter-header-wrapper">
         <div class="user-portrait">
-            <img :src="thisUser.portrait">
+            <img :src="thisUser.photo">
         </div>
         <div class="user-name">
-            <span>{{thisUser.userName}}</span>
+            <span>{{thisUser.name}}</span>
             <span>普通用户</span>            
         </div>
     </router-link>
@@ -18,8 +18,15 @@ export default {
         return {
             userId: this.id,
             thisUser: {
-                userName: '',
-                portrait: ''
+                _id: "",
+                telephone: "",
+                password: "",
+                photo: "",
+                name: "",
+                gender: "",
+                __v: 0,
+                address: [],
+                interest: []
             }
         }
     },
@@ -30,11 +37,14 @@ export default {
 
         this.$http({
             method: 'get',
-            url: '/users/'+this.userId+'/getUserBassInfo'
+            url: '/users/getInformation/'+this.userId
         })
         .then((res) => {
-            console.log('vue-resource then', res.body);
+            console.log('vue-resource then', '/users/getInformation/'+this.userId , res.body);
             this.thisUser = res.body.user;
+            this.$store.commit('initUser', {
+                user: this.thisUser
+            });
         })
         .catch((err) => {
             console.log('vue-resource err', err);

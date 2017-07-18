@@ -2,12 +2,15 @@ import * as types from '../mutations_types.js'
 
 const state = {
     user: {
-        telephone: 0,
+        _id: '',
+        telephone: '',
         password: '',
-        address: [],
-        interest: [],
         photo: '',
-        gender: ''
+        name: '',
+        gender: '',
+        __v: '',
+        address: [],
+        interest: []
     }
 }
 
@@ -21,6 +24,7 @@ const actions = {
 
 const mutations = {
     initUser(state, payload) {
+        console.log('mutations', 'initUser');
         state.user = payload.user;
     },
     editUser(state, payload) {
