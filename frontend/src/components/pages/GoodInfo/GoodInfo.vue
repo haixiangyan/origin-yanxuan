@@ -82,7 +82,7 @@
         <div class="yan-suggest-goods">
             <yan-title class="yan-title" :title="'大家都在看'"></yan-title>
 
-            <yan-catalog :catalog="suggestGoods" :more="true"></yan-catalog>
+            <yan-catalog :catalog="suggestGoods" :more="suggestGoods.data.length % 2 !== 0"></yan-catalog>
         </div>
 
         <yan-good-footer></yan-good-footer>

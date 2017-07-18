@@ -49,19 +49,12 @@ export default {
                     address: this.address,
                     userID: this.user.userID,
                     totalFee: this.ordeTotalPrice,
-
                     goodsID: this.selectedCartItems[0].ID,
                     type: this.selectedCartItems[0].type,
                     number: this.selectedCartItems[0].number,
-                    address:{
-                        "receiver":"abc",
-                        "province":"liaoning",
-                        "city":"shenyang",
-                        "detail":"",
-                        "telephone":""
-                    },
+                    address: this.address,
                     totalFee: this.ordeTotalPrice,
-                    userID: this.user.userID,
+                    userID: this.user.userID
                 };
 
                 url = '/goods/order'
@@ -71,7 +64,7 @@ export default {
                     goodsList: this.selectedCartItems,
                     address: this.address,
                     totalFee: this.ordeTotalPrice,
-                    userID: this.user.userID,
+                    userID: this.user.userID
                 };
 
                 url = '/shop/order'

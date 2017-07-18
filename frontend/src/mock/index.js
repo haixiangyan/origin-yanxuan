@@ -31,7 +31,6 @@ let data = [].concat(
     good,
     comment,
     cart
-
 );
 
 data.forEach((res) => {
