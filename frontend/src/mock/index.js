@@ -22,7 +22,7 @@ import { comment } from './comment.js';
 import { cart } from './cart.js';
 
 let data = [].concat(
-    login,
+    // login,
     // home,
     homeStatic,
     // homeGood,
@@ -32,6 +32,10 @@ let data = [].concat(
     // comment,
     // cart
 
+import { login } from './login.js'
+import { topic } from './topic.js'
+let data = [].concat(
+    login, topic
 );
 
 data.forEach((res) => {

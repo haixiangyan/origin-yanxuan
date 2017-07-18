@@ -16,6 +16,10 @@ import cart from './modules/cart.js';
 // 临时的用户信息
 import tempUser from './modules/tempUser.js';
 
+
+import user from './modules/user.js'
+
+
 Vue.use(Vuex);
 
 const state = {
@@ -30,7 +34,7 @@ const store = new Vuex.Store({
         menu,
         good,
         search,
-        tempUser,
+        user
     }
 });
 

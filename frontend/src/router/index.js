@@ -27,6 +27,7 @@ import YanFood from '@/components/pages/Home/Food/Food';
 import YanInterest from '@/components/pages/Home/Interest/Interest';
 
 // 引入专题的组件
+<<<<<<< HEAD
 import YanTopic from '@/components/pages/Topic/Topic';
 
 // 引入分类的组件
@@ -47,10 +48,18 @@ import YanCart from '@/components/pages/Cart/Cart';
 
 // 引入订单详情页
 import YanOrder from '@/components/pages/Order/Order';
+import YanUsersLogin from '@/components/pages/Users/Login/Login';
+import YanUsersRegister from '@/components/pages/Users/Register/Register';
+import YanUserCenter from '@/components/pages/Users/Users';
+import YanUserCenterNav from '@/components/pages/Users/UserCenter/PersonalInformation/Nav'
+import YanUserCenterInfo from '@/components/pages/Users/UserCenter/PersonalInformation/Info'
+import YanUserCenterInfoInterest from '@/components/pages/Users/UserCenter/PersonalInformation/Info/InterestCategory'
+
 
 Vue.use(Router)
 
 export default new Router({
+<<<<<<< HEAD
   // mode: 'history',
   routes: [{
       path: '/',
@@ -145,3 +154,47 @@ export default new Router({
     }
   ]
 })
+=======
+    mode: 'history',
+    routes: [{
+            path: '/',
+            name: 'Hello',
+            component: Template
+        },
+        {
+            path: '/topic',
+            name: 'Topic',
+            component: YanTopic
+        },
+        {
+            path: '/login',
+            name: 'Login',
+            component: YanUsersLogin
+        }, {
+            path: '/register',
+            name: 'Register',
+            component: YanUsersRegister
+        },
+        {
+            path: '/users/:userId',
+            name: 'User Center',
+            component: YanUserCenter,
+        },
+        {
+            path: '/users/nav/:userId',
+            name: 'User Center Nav',
+            component: YanUserCenterNav
+        },
+        {
+            path: '/users/info/:userId',
+            name: 'User Center Info',
+            component: YanUserCenterInfo
+        },
+        {
+            path: '/users/interestCategory/:userId',
+            name: 'User Center Info Interest Category',
+            component: YanUserCenterInfoInterest
+        },
+    ]
+})
+>>>>>>> f1c9a5fc127f36e455dcc48dbb60f5876c63415e

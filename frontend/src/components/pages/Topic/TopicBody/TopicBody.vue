@@ -1,37 +1,243 @@
 <template>
-  <div>
-    {{msg}}
-    <li v-for="(topic, index) in topics" :key="index">{{topic.name}}</li>
-  </div>
+	<div class="yan-topic-body">
+		<a class="yan-topic-body-item" v-for="(item, index) in body_items" :key="index">
+			<div class="yan-topic-body-item-header">
+				<div class="yan-topic-body-item-header-avatar">
+					<img :src="item.avatar_url" />
+				</div>
+				<div class="yan-topic-body-item-header-author">{{item.author}}</div>
+			</div>
+			<div class="yan-topic-body-item-img-container" >
+				<div class="left" :style="{'background-image': `url(${item.left_img_url})`}">
+				</div>
+				<div class="right" v-if="item.hasRight">
+					<div class="right-img" :style="{'background-image': `url(${item.right_img_url1})`}">
+					</div>
+					<div class="right-img" :style="{'background-image': `url(${item.right_img_url2})`}">
+					</div>
+				</div>
+				<div class="i-icon">
+					<span class="eye"></span>
+					<span class="view-num">{{item.view_num}}</span>
+				</div>
+			</div>
+			<div class="yan-topic-body-item-topic-info">
+				<div class="title">
+					<div>{{item.info_title}}</div>
+					<div class="price" v-if="!item.hasRight">
+						<span>{{item.price}}</span>
+						<span>元起</span>
+					</div>
+				</div>
+				<div class="subtitle">{{item.info_subtitle}}</div>
+			</div>
+		</a>
+		<i class="toToTop" v-on:click="goToTop()" ref="toTopSpan" v-bind:style="{display: appear, opacity: opa}"></i>
+	</div>
 </template>
 
 <script>
 export default {
     data() {
+		scroll:0;
         return {
             msg: 'Topic body',
-            topics: []
+            body_items: [],
+			appear: 'none',
+			opa: 0
         }
     },
+	methods: {
+		goToTop(){
+			document.body.scrollTop = 0
+			document.documentElement.scrollTop = 0
+		},
+
+		showIconGoToTop(){
+			this.scroll = document.body.scrollTop;
+			let screenHeight = document.documentElement.clientHeight;
+			// console.log(document.documentElement.offsetHeight);
+			if(this.scroll > screenHeight){
+				this.appear = 'block';
+				this.opa = (this.scroll - screenHeight) > 100 ? 1 : (this.scroll - screenHeight) / 100; 
+			}else{
+				this.appear = 'none';
+				this.opa = 0; 
+			}
+		},
+		getMoreItems(){
+			let scrollHeight = document.body.scrollHeight;
+			let currentHeight = document.body.scrollTop + document.documentElement.clientHeight;
+			if(currentHeight >= scrollHeight-1){
+				//发送请求，获取更多数据
+				this.$http({
+					method: 'get',
+					url:'/topic-body-more-items'
+				}).then((res)=>{
+					console.log('vue-more-resource then', res.body);
+					this.body_items = this.body_items.concat(res.body.items);
+					console.log(this.body_items);
+				}).catch((err) => {
+					console.log('vue-resource err', err);
+				})
+			}
+		}
+	},
     mounted() {
         // 发送请求，获取数据
-      this.$http({
-        method: 'get',
-        url: '/test'
-      })
-        .then((res) => {
-          console.log('vue-resource then', res.body);
-          this.topics = res.body.goods;
-        })
-        .catch((err) => {
-          console.log('vue-resource err', err);
-        });
+		this.$http({
+			method: 'get',
+			url: '/topic-body-items'
+		})
+			.then((res) => {
+			console.log('vue-resource then', res.body);
+			this.body_items = res.body.items;
+			})
+			.catch((err) => {
+			console.log('vue-resource err', err);
+		});
+		// 
+		window.addEventListener('scroll', this.showIconGoToTop);
+		window.addEventListener('scroll', this.getMoreItems);
     }
 }
+
+
 </script>
 
 <style scoped>
 div {
     font-size: 50px;
+}
+.yan-topic-body-item{
+	display: block;
+	margin-bottom: 30px;
+	background-color: #fff;
+}
+
+.yan-topic-body-item-header{
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: left;
+	align-items: center;
+	padding: 30px 40px;
+}
+
+.yan-topic-body-item-header-avatar{
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	overflow: hidden;
+	margin-right: 20px;
+}
+.yan-topic-body-item-header-avatar img{
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+
+.yan-topic-body-item-header-author{
+	font-size: 36px;
+	text-align: center;
+}
+
+.yan-topic-body-item-img-container{
+	display: flex;
+	justify-content: space-between;
+	flex-flow: row nowrap;
+	width: 100%;
+	overflow: hidden;
+	position: relative;
+}
+
+
+.yan-topic-body-item-img-container .left{
+	flex: 2.6;
+	height: 540px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	margin-right: 6px;;
+}
+
+.yan-topic-body-item-img-container .right{
+	flex: 1;
+	height: 540px;
+	background-size: 100%;
+	display: flex;
+	flex-flow: column wrap;
+}
+.right .right-img{
+	flex: 1;
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+.right .right-img:first-child{
+	margin-bottom: 6px;
+}
+
+.yan-topic-body-item-img-container .i-icon{
+	position: absolute;
+	text-align: right;
+	bottom: 0;
+	right: 0;
+	background: url(http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/rbGradient-049c62dfb5.png) no-repeat;
+	background-size: cover;
+	width: 120px;
+	height: 50px;
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	vertical-align: middle;
+	/*align-items: center;*/
+}
+.i-icon .eye{
+	/*flex: 1;*/
+	width: 30px;
+	height: 20px;
+	background: url(http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/topicEye-b71328754f.png) no-repeat;
+	background-size: 100%;
+}
+
+ .i-icon .view-num{
+	/*flex: 3;*/
+	color: #fff;
+	font-size: 26px;
+}
+
+.yan-topic-body-item-topic-info{
+	overflow: hidden;
+	padding: 40px 40px 80px;
+}
+
+.yan-topic-body-item-topic-info .title{
+	font-size: 48px;
+	color: #333;
+	margin-bottom: 20px;
+	display:flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+}
+
+.title .price{
+	color: #b4282d;
+}
+
+.yan-topic-body-item-topic-info .subtitle{
+	font-size: 36px;
+	color: #7f7f7f;
+	line-height: 1.3;
+}
+
+.toToTop{
+	position: fixed;
+	right: 40px;
+	bottom: 160px;
+	height: 100px;
+	width: 100px;
+	background-image: url(http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/goToTop-7a19216f77.png);
+	background-size: 100%;
+	z-index: 2;
 }
 </style>

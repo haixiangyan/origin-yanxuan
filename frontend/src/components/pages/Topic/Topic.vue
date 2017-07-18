@@ -1,7 +1,6 @@
 <template>
-    <div>
+    <div class="topic">
         <yan-topic-header></yan-topic-header>
-
         <yan-topic-body></yan-topic-body>
     </div>
 </template>
@@ -25,5 +24,7 @@ export default {
 </script>
 
 <style scoped>
-
+.topic{
+    background-color: #f4f4f4;
+}
 </style>
