@@ -47,10 +47,6 @@ export default {
             });
         },
         removeCartItems() {
-            let finishArr = this.cart.filter((cartItem) => {
-                return cartItem.select === 0;
-            });
-
             this.$store.commit('removeCartItems');
         }
     }

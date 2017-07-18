@@ -26,8 +26,8 @@ export default {
         },
         finishEdit() {
             let data = {
-                    userID: this.user.userID,
-                    cartList: this.cart
+                userid: this.user.userID,
+                cartList: this.cart
             }
 
             this.$http({

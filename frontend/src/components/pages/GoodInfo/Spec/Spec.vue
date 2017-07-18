@@ -34,6 +34,7 @@ export default {
 .info-title {
   padding: 45px 0 30px;
   font-size: 38px;
+  font-size: 14px; /*小 bug*/
 }
 
 /* 每个参数的样式 */

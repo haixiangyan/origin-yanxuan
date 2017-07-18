@@ -57,7 +57,10 @@ const getters = {
     });
 
     return sum;
-  }
+  },
+  
+  // 返回购物车的商品总数
+  cartNum: state => state.cart.length
 }
 
 const actions = {

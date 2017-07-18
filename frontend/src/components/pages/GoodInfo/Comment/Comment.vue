@@ -67,6 +67,7 @@ export default {
   padding-top: 25px;
   color: rgb(127, 127, 127);
   font-size: 32px;
+  font-size: 12px; /*小 bug*/
 }
 
 /* 评论内容区 */
@@ -75,6 +76,10 @@ export default {
   word-break: break-all;
   word-wrap: break-word;
   line-height: 45px;
+}
+
+.yan-good-comment-content p {
+    font-size: 14px; /*小 bug*/
 }
 
 /* 图片 */
