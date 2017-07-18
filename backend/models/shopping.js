@@ -248,7 +248,8 @@ function makeOrder(obj, cb) {
 	var flag = false;
 	var arr = [];
 	var arr2 = [];
-	var goodsList = JSON.parse(obj.goodsList);
+	// var goodsList = JSON.parse(obj.goodsList);
+	var goodsList =obj.goodsList;
 	for (i = 0; i < goodsList.length; i++) {
 		var newobj = goodsList[i];
 		goodsModel.findOne({
@@ -299,10 +300,10 @@ function makeOrder(obj, cb) {
 		var orderEntity = new orderModel({
 			orderID: order,
 			userID: obj.userID,
-			goodsList: JSON.parse(obj.goodsList),
+			goodsList: obj.goodsList,
 			expressNumber: 0,
 			expressCompany: "",
-			address: JSON.parse(obj.address),
+			address: obj.address,
 			orderState: 0,
 			payID: "0",
 			totalFee: parseInt(obj.totalFee)
