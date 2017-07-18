@@ -1,7 +1,7 @@
 <template>
   <div class="yan-cart-item">
     <!-- 勾选框 -->
-    <div @click="select" class="yan-item-check">
+    <div v-if="isShowCheck" @click="select" class="yan-item-check">
       <i v-show="cartItem.select === 0" class="fa fa-circle-o" aria-hidden="true"></i>
       <i v-show="cartItem.select === 1" class="fa fa-check-circle-o" aria-hidden="true"></i>
     </div>
@@ -9,9 +9,9 @@
     <!-- 商品的介绍 -->
     <div class="yan-item-intro">
       <!-- 商品的图片 -->
-      <div class="yan-item-pic">
+      <router-link tag="div" :to="`/good-info/${cartItem.ID}`" class="yan-item-pic">
         <img :src="cartItem.picture" alt="cart item">
-      </div>
+      </router-link>
 
       <!-- 商品的描术 -->
       <div class="yan-item-spec">
@@ -37,7 +37,7 @@
 
 <script>
 export default {
-  props: ['cartItem', 'index'],
+  props: ['cartItem', 'index', 'isShowCheck'],
   methods: {
     select() {
       this.$store.commit('selectCart', {

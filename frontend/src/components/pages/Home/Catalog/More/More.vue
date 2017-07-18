@@ -1,20 +1,17 @@
 <template>
-    <a @click.prevent="more" class="yan-catalog-more">
+    <router-link to="/search"  class="yan-catalog-more">
         <div class="yan-catalog-text">更多{{title}}好物</div>
         <div>
             <i class="fa fa-chevron-right" aria-hidden="true"></i>
         </div>
-    </a>
+    </router-link>
 </template>
 
 <script>
 export default {
     props: ['name', 'title'],
     methods: {
-        more() {
-            // 发送请求..
-            console.log(this.name);
-        }
+        
     }
 }
 </script>

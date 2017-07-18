@@ -4,12 +4,40 @@ const state = {
   // 购物车的商品数组
   cart: [],
   // 是否编辑购物车
-  isEditCart: false
+  isEditCart: false,
+  // 运费
+  deliver: 10,
+  // 运费的上限
+  limitDeliver: 88,
+  // 优惠
+  discount: 4,
+  // 选择的地址
+  address: {
+      receiver: '小明',
+      province: "liaoning",
+      city: "shenyang",
+      detail: "广东省佛山市南海区怡翠世嘉",
+      province: "liaoning",
+      city: 'shenyang',
+      telephone: '123456789',
+      isDefault: true,
+  },
+  // 立刻购买
+  tempCartItem: [],
+  // 判断是否立刻购买
+  isBuying: false
 }
 
 const getters = {
   cart: state => state.cart,
   isEditCart: state => state.isEditCart,
+  deliver: state => state.deliver,
+  discount: state => state.discount,
+  limitDeliver: state => state.limitDeliver,
+  address: state => state.address,
+  tempCartItem: state => state.tempCartItem,
+  isBuying: state => state.isBuying,
+  // 是否全选
   isSelectAllCartItems: state => {
     let selectAllState = true
 
@@ -25,6 +53,8 @@ const getters = {
 
     return selectAllState;
   },
+
+  // 选中购物车的商品数量
   selectCartItemNum: state => {
     let num = 0;
     state.cart.forEach((cartItem) => {
@@ -35,6 +65,8 @@ const getters = {
 
     return num;
   },
+
+  // 商品是否已经选中
   isSelected: state => {
     let selectState = false;
 
@@ -47,7 +79,12 @@ const getters = {
     return selectState;
   },
 
+  // 购物车的总价
   totalPrice: state => {
+    if (state.isBuying) {
+      return state.tempCartItem[0].price;
+    }
+
     let sum = 0;
 
     state.cart.forEach((cartItem) => {
@@ -58,9 +95,42 @@ const getters = {
 
     return sum;
   },
+
+  // 订单的总价
+  ordeTotalPrice: state => {
+    let sum = 0;
+
+    if (state.isBuying) {
+      sum = state.tempCartItem[0].price;
+    }
+    else {
+      state.cart.forEach((cartItem) => {
+        if (cartItem.select === 1) {
+          sum = sum + cartItem.price * cartItem.number;
+        }
+      });
+    }
+
+    // 加上运费
+    sum = (sum > state.limitDeliver) ? sum : sum + state.deliver;
+
+    // 减去优惠
+    sum = sum - state.discount;
+
+    return sum;
+  },
   
   // 返回购物车的商品总数
-  cartNum: state => state.cart.length
+  cartNum: state => state.cart.length,
+
+  // 返回选中的商品
+  selectedCartItems: state => {
+    let tempCartItems = state.cart.filter((cartItem) => {
+      return cartItem.select === 1;
+    });
+
+    return tempCartItems;
+  },
 }
 
 const actions = {
@@ -125,8 +195,19 @@ const mutations = {
     state.cart = state.cart.filter((cartItem) => {
       return cartItem.select === 0;
     });
-  }
+  },
 
+  // 立刻购买
+  buying(state, payload) {
+    state.isBuying = true;
+    state.tempCartItem[0] = (payload.goodInfo);
+  },
+
+  // 重置立刻购买
+  resetBuying(state) {
+    state.isBuying = false;
+    state.tempCartItem = []
+  }
 }
 
 export default {

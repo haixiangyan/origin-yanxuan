@@ -10,9 +10,9 @@
         </div>
 
         <!-- 下单 -->
-        <div @click="makeOrder" :class="['yan-delete', {'active-delete': isSelected}]">
+        <router-link tag="div" to="/order" :class="['yan-delete', {'active-delete': isSelected}]">
             下单
-        </div>
+        </router-link>
 
     </div>
 </template>
@@ -32,6 +32,9 @@ export default {
         },
         totalPrice() {
             return this.$store.getters.totalPrice;
+        },
+        user() {
+            return this.$store.getters.user;
         }
     },
     methods: {
@@ -44,24 +47,6 @@ export default {
             this.$store.commit('toggleAllCartItems', {
                 state: 0
             });
-        },
-        makeOrder() {
-            console.log('make order');
-            // 下单
-            this.$http({
-                method: 'post',
-                url: `/shop/order`,
-                body: {
-                    userid: this.user.userID,
-                    cartList: finishArr
-                }
-            })
-                .then((res) => {
-                    console.log('delete successfully!');
-                })
-                .catch((err) => {
-                    console.log('vue-resource err', err);
-                });
         }
     }
 }
