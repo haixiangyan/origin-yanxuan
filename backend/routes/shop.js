@@ -81,6 +81,7 @@ router.post('/changeNumebr', function(req, res, next) {//已测，输入修改�
 	})
 })
 router.post('/changeCart', function(req, res, next) {//已测
+	
 	var cartList =  req.body.cartList;
 	var userid = req.body.userID;
 	shopping.changeCartList(userid, cartList, function(err, docs) {
