@@ -72,7 +72,7 @@ export default {
 
 .yan-display-good-img {
     display: inline-block;
-    max-height: 100%;
+    width: 340px;
     background: rgb(244, 244, 244);
 }
 

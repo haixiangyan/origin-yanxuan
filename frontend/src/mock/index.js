@@ -23,14 +23,14 @@ import { cart } from './cart.js';
 
 let data = [].concat(
     login,
-    home,
+    // home,
     homeStatic,
-    homeGood,
-    category,
-    search,
-    good,
-    comment,
-    cart
+    // homeGood,
+    // category,
+    // search,
+    // good,
+    // comment,
+    // cart
 
 );
 

@@ -125,6 +125,13 @@ const mutations = {
     state.cart = state.cart.filter((cartItem) => {
       return cartItem.select === 0;
     });
+  },
+
+  // 更新商品
+  updateCartItems(state) {
+    state.cart = state.cart.filter((cartItem) => {
+      return cartItem.select === 1;
+    });
   }
 
 }

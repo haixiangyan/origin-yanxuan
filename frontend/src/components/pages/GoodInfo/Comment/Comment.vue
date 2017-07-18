@@ -67,7 +67,8 @@ export default {
   padding-top: 25px;
   color: rgb(127, 127, 127);
   font-size: 32px;
-  font-size: 12px; /*小 bug*/
+  /*小 bug*/
+  /*font-size: 12px; */
 }
 
 /* 评论内容区 */
@@ -79,7 +80,8 @@ export default {
 }
 
 .yan-good-comment-content p {
-    font-size: 14px; /*小 bug*/
+    /*小 bug*/
+    /*font-size: 14px; */
 }
 
 /* 图片 */
