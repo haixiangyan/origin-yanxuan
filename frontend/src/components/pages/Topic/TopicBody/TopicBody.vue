@@ -72,12 +72,14 @@ export default {
 			let currentHeight = document.body.scrollTop + document.documentElement.clientHeight;
 			if(currentHeight >= scrollHeight-1){
 				//加载更多的数据items
-				if(this.currentLoad.length+4>this.body_items.length){
-					this.currentLoad = this.currentLoad.concat(this.body_items.slice(this.page*4, this.body_items.length));
-				}else{
-					this.currentLoad = this.currentLoad.concat(this.body_items.slice(this.page*4,this.page*4 + 4));
-					this.page++;
-				}
+				setTimeout(()=>{
+					if(this.currentLoad.length+4>this.body_items.length){
+						this.currentLoad = this.currentLoad.concat(this.body_items.slice(this.page*4, this.body_items.length));
+					}else{
+						this.currentLoad = this.currentLoad.concat(this.body_items.slice(this.page*4,this.page*4 + 4));
+						this.page++;
+					}
+				},1000);
 			}
 		}
 	},
