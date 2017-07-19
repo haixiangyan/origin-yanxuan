@@ -21,17 +21,24 @@ import { comment } from './comment.js';
 // 购物车
 import { cart } from './cart.js';
 
+// 地址
+import { address } from './address.js';
+
+// 用户查看的订单
+import { orderInfo } from './orderInfo.js';
+
 let data = [].concat(
     login,
-    // home,
+    home,
     homeStatic,
-    // homeGood,
-    // category,
-    // search,
-    // good,
-    // comment,
-    // cart
-
+    homeGood,
+    category,
+    search,
+    good,
+    comment,
+    cart,
+    address,
+    orderInfo
 );
 
 data.forEach((res) => {

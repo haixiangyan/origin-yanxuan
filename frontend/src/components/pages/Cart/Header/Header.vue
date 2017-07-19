@@ -2,8 +2,8 @@
     <div class="yan-cart-header">
         <span class="title">购物车</span>
     
-        <span v-show="isEditCart" @click="finishEdit" class="finish">完成</span>
-        <span v-show="!isEditCart" @click="editCart" class="edit">编辑</span>
+        <span v-show="isEditCart && cart.length !== 0" @click="finishEdit" class="finish">完成</span>
+        <span v-show="!isEditCart && cart.length !== 0" @click="editCart" class="edit">编辑</span>
     </div>
 </template>
 

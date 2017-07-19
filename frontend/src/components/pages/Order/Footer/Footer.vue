@@ -49,7 +49,6 @@ export default {
                     address: this.address,
                     userID: this.user.userID,
                     totalFee: this.ordeTotalPrice,
-
                     goodsID: this.selectedCartItems[0].ID,
                     type: this.selectedCartItems[0].type,
                     number: this.selectedCartItems[0].number,

@@ -3,7 +3,7 @@
     
         <img class="yan-home-clothes-header" :src="headerImg" alt="headerImage">
     
-        <yan-catalog class="yan-clothes-catalog" :more="clothesInfo.length % 2 === 0" v-for="(catalogInfo, index) in clothesInfo" :key="index" :catalog="catalogInfo"></yan-catalog>  
+        <yan-catalog class="yan-clothes-catalog" :more="clothesInfo.length % 2 !== 0" v-for="(catalogInfo, index) in clothesInfo" :key="index" :catalog="catalogInfo"></yan-catalog>  
     </div>
 </template>
 
