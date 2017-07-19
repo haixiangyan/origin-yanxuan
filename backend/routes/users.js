@@ -170,9 +170,9 @@ router.post('/addAddress', function (req, res, next) {
 		}
 	})
 }) ;
-router.post('/deleteAddress', function (req, res, next) {
-	var userID = req.body.userID;
-	var index = parseInt(req.body.index);
+router.delete('/address/:userID/:index', function (req, res, next) {
+	var userID = req.params.userID;
+	var index = parseInt(req.params.index);
 	user.deleteAddress(userID, index, function (err, docs) {
 		if (err == "success") {
 			res.json({
