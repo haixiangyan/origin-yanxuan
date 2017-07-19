@@ -13,7 +13,7 @@
             </div>
     
             <!-- 收件人的基本地址 -->
-            <div class="form-item">
+            <div @click="pickAddress" class="form-item">
                 <input v-model="basicAddress" type="text" placeholder="省份、城市、县区" disabled>
             </div>
     
@@ -30,22 +30,36 @@
             <span>设为默认地址</span>
         </div>
 
+        <!-- 地址选择组件 -->
+        <div class="select-address">
+            <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+                <div class="shadow" @click="dismiss" v-show="isShowDistPicker"></div>
+            </transition>
+            <transition enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
+                <yan-dist-picker v-on:confirm="confirmAddress" v-show="isShowDistPicker"></yan-dist-picker>
+            </transition>
+        </div>
+
         <!-- 脚注 -->
         <yan-address-form-footer :addressForm="address"></yan-address-form-footer>
     </div>
 </template>
 
 <script>
+// 引入选择地区的组件
+import YanDistPicker from '@/components/pages/AddressForm/Area/Area';
 // 引入脚注
 import YanAddressFormFooter from '@/components/pages/AddressForm/Footer/Footer';
 
 export default {
     data() {
         return {
+            isShowDistPicker: false,
             addressForm: {
                 receiver: '',
                 province: '',
                 city: '',
+                town: '',
                 detail: '',
                 telephone: '',
                 isDefault: false
@@ -64,16 +78,31 @@ export default {
                 return '';
             }
             else {
-                return `${this.address.province} ${this.address.city}`;
+                return `${this.address.province} ${this.address.city} ${this.address.town}`;
             }
         }
     },
     components: {
+        YanDistPicker,
         YanAddressFormFooter
     },
     methods: {
         toggleDefault() {
             this.address.isDefault = !this.address.isDefault;
+        },
+        pickAddress() {
+            this.isShowDistPicker = true;
+        },
+        confirmAddress(address) {
+            // 确认地址
+            this.isShowDistPicker = false;
+            // 获取地址
+            this.address.province = address.province;
+            this.address.city = address.city;
+            this.address.town = address.town;
+        },
+        dismiss() {
+            this.isShowDistPicker = false;
         }
     }
 }
@@ -87,6 +116,15 @@ export default {
     right: 0;
     bottom: 0;
     background: rgb(244, 244, 244);
+}
+
+.shadow {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.4)
 }
 
 /* 表单的内容 */

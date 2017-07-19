@@ -53,6 +53,14 @@ import YanAddressList from '@/components/pages/AddressList/AddressList';
 // 引入修改地址的组件
 import YanAddressForm from '@/components/pages/AddressForm/AddressForm';
 
+// 引入用户查看订单的页
+import YanOrderInfo from '@/components/pages/OrderList/OrderInfo/OrderInfo';
+// 引入订单列表
+import YanOrderList from '@/components/pages/OrderList/OrderList';
+
+// 引入选择地址的组件
+import YanArea from '@/components/pages/AddressForm/Area/Area';
+
 Vue.use(Router)
 
 export default new Router({
@@ -155,8 +163,18 @@ export default new Router({
     },
     {
       path: '/address-form', // 地址的表单
-      name: 'YanAddressForm',
+      name: 'AddressForm',
       component: YanAddressForm
-    }
+    },
+    {
+      path: '/order-list', // 查看订单列表的页
+      name: 'OrderInfo',
+      component: YanOrderList
+    },
+    {
+      path: '/order-info/:orderId', // 查看某个订单的页
+      name: 'OrderList',
+      component: YanOrderInfo
+    },
   ]
 })

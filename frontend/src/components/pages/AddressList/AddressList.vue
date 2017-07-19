@@ -7,7 +7,13 @@
             <!-- 彩色边框 -->
             <yan-color-border></yan-color-border>
     
-            <yan-address-item v-for="(address, index) in addressList" :key="index" :address="address"></yan-address-item>
+            <yan-address-item 
+                v-for="(address, index) in addressList" 
+                v-on:removeAddress="removeAddress"
+                :index="index" 
+                :key="index" 
+                :address="address">
+            </yan-address-item>
         </div>
     
         <!-- 脚注添加地址的按钮 -->
@@ -31,17 +37,29 @@ export default {
             addressList: []
         };
     },
+    computed: {
+        user() {
+            return this.$store.getters.user;
+        }
+    },
     components: {
         YanHeader,
         YanAddressItem,
         YanColorBorder,
         YanAddressListFooter
     },
+    methods: {
+        removeAddress(index) {
+            this.addressList = this.addressList.filter((address, index) => {
+                return address.index = index;
+            });
+        }
+    },
     mounted() {
         // 发送请求，获取地址信息
         this.$http({
             method: 'get',
-            url: `/address`
+            url: `/users/Address/${this.user.userID}`
         })
             .then((res) => {
                 this.addressList = res.body.data;

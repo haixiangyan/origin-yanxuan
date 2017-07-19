@@ -208,14 +208,14 @@ export default {
         // 发送请求获取商品的建议
         this.$http({
             method: 'post',
-            url: `/goods/subCategoryGoods`,
+            url: `/goods/search`,
             body: {
-                subCategory: this.goodInfo.subCategory
+                key: this.goodInfo.category
             }
         })
             .then((res) => {
                 // 初始化商品
-                this.suggestGoods = res.body.data[0];
+                this.suggestGoods.data = res.body.data;
             })
             .catch((err) => {
                 console.log('vue-resource err', err);

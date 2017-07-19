@@ -17,15 +17,23 @@
     </div>
 
     <!-- 编辑 -->
-    <div @click.stop="toEditAddress" class="yan-address-more">
-      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+    <div class="yan-address-more">
+      <!-- 编辑地址 -->
+      <i @click.stop="toEditAddress" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+      <!-- 删除地址 -->
+      <i @click.stop="removeAddress" class="fa fa-trash-o" aria-hidden="true"></i>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['address'],
+  props: ['address', 'index'],
+  computed: {
+    user() {
+      return this.$store.getters.user;
+    }
+  },
   methods: {
     selectAddress() {
       // 改变收件的地址
@@ -40,10 +48,26 @@ export default {
       // 开启编辑状态
       this.$store.commit('trickEditState');
       this.$store.commit('getEditAddress', {
-          editAddress: this.address
-      })
+          editAddress: this.address,
+          editAddressIndex: this.index
+      });
 
       this.$router.push('/address-form');
+    },
+    removeAddress() {
+
+      // 发送请求删除地址
+      this.$http({
+            method: 'delete',
+            url: `/users/address/${this.user.userID}/${this.index}`
+        })
+            .then((res) => {
+                // 更改前端地址
+                this.$emit('removeAddress', this.index);
+            })
+            .catch((err) => {
+                console.log('vue-resource err', err);
+            });
     }
   }
 }
@@ -112,5 +136,20 @@ export default {
 
 .yan-address-more img {
   width: 60px;
+}
+
+.yan-address-more i {
+  font-size: 40px;
+}
+
+/* 编辑地址 */
+.fa-pencil-square-o {
+  padding-right: 20px;
+  color: #666;
+}
+
+/* 删除地址 */
+.fa-trash-o {
+  color: rgb(180, 40, 45);
 }
 </style>

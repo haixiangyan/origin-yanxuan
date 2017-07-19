@@ -4,10 +4,12 @@ const state = {
     receiver: '',
     province: '',
     city: '',
+    town: '',
     detail: '',
     telephone: '',
     isDefault: false
   },
+  editAddressIndex: 0,
   isEditAddress: false
 }
 
@@ -31,15 +33,21 @@ const mutations = {
       receiver: '',
       province: '',
       city: '',
+      town: '',
       detail: '',
       telephone: '',
       isDefault: false
     };
+    state.editAddressIndex = 0;
   },
 
   // 开启编辑的状态
   trickEditState(state) {
     state.isEditAddress = true;
+  },
+
+  // 删除地址
+  removeAddress(state, payload) {
   }
 }
 

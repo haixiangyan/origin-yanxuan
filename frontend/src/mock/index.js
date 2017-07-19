@@ -24,6 +24,9 @@ import { cart } from './cart.js';
 // 地址
 import { address } from './address.js';
 
+// 用户查看的订单
+import { orderInfo } from './orderInfo.js';
+
 let data = [].concat(
     login,
     home,
@@ -34,7 +37,8 @@ let data = [].concat(
     good,
     comment,
     cart,
-    address
+    address,
+    orderInfo
 );
 
 data.forEach((res) => {

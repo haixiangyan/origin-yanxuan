@@ -16,6 +16,9 @@
 export default {
     props: ['addressForm'],
     computed: {
+        user() {
+            return this.$store.getters.user;
+        },
         isEditAddress() {
             return this.$store.getters.isEditAddress;
         },
@@ -28,11 +31,38 @@ export default {
             // 判断是否为编辑
             if (this.isEditAddress) {
                 // 编辑，发送请求，修改地址
-                console.log('发送编辑地址的请求');
+                this.$http({
+                    method: 'post',
+                    url: `/users/changeAddress`,
+                    body: {
+                        userID: this.user.userID,
+                        index: this.index,
+                        address: this.addressForm
+                    }
+                })
+                    .then((res) => {
+
+                    })
+                    .catch((err) => {
+                        console.log('vue-resource err', err);
+                    });
             }
             else {
                 // 新增地址，发送请求，新增地址
-                console.log('发送新增地址的请求');
+                this.$http({
+                    method: 'post',
+                    url: `/users/addAddress`,
+                    body: {
+                        userID: this.user.userID,
+                        address: this.addressForm
+                    }
+                })
+                    .then((res) => {
+
+                    })
+                    .catch((err) => {
+                        console.log('vue-resource err', err);
+                    });
             }
 
             // 最终修改前端的地址
