@@ -30,8 +30,21 @@ export default {
             }
         }
     },
-    methods:{
-                   
+    methods:{  
+        loadPersonalInfo(data){
+            this.thisUser = data;
+            if(this.thisUser.name === ''){
+                this.thisUser.name = '用户'+this.thisUser.telephone;
+            }
+
+            if(this.thisUser.photo === ''){
+                this.thisUser.photo = '/static/img/loginImage/userHeadPortrait/default.png';
+            }
+
+            this.$store.commit('initUser', {
+                user: this.thisUser
+            });
+        }        
     },
     mounted(){
         this.$http({
@@ -40,10 +53,7 @@ export default {
         })
         .then((res) => {
             console.log('vue-resource then', '/users/getInformation/'+this.userId , res.body);
-            this.thisUser = res.body.data;
-            this.$store.commit('initUser', {
-                user: this.thisUser
-            });
+            this.loadPersonalInfo(res.body.data);
         })
         .catch((err) => {
             console.log('vue-resource err', err);
@@ -83,11 +93,14 @@ export default {
     width: 600px;
     margin-left: 35px;
     font-size: 36px;
-    color: rgb(127, 127, 127);
+    color: rgb(127, 127, 127); 
 }
+.user-name span{
+    color: rgb(127, 127, 127); 
+}
+
 .user-name span:first-child{
-    font-size: 50px;
-    font-style: bold;
+    font-size: 45px;
     color: white;
     margin-bottom: 18px;
 }

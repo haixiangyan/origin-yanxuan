@@ -38,11 +38,12 @@ export const login = [{
             result: 'success',
             data: {
                 "_id": "596c602df31dea029c81bc58",
-                "telephone": "1",
+                "telephone": "18805862675",
                 "password": "123456",
-                // "photo": "/static/img/loginImage/userHeadPortrait/portrait.png",
-                "photo": "/static/img/loginImage/userHeadPortrait/1.gif",
-                "name": "xu",
+                // "photo": "/static/img/loginImage/userHeadPortrait/1.gif",
+                "photo": "",
+                // "name": "xu",
+                "name": "",
                 "gender": "man",
                 "__v": 0,
                 "address": [{

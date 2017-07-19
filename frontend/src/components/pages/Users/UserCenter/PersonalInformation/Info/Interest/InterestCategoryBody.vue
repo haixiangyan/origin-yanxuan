@@ -32,72 +32,8 @@ export default {
     props: ['id'],
     data() {
         return{
-            interestedList:[{
-                title: '',
-                interested: false
-            }],
-            items:[
-                {
-                    title:'床品被枕',
-                    source:'/static/img/loginImage/interest/床品被枕.png'
-                }, 
-                {
-                    title:'餐厨用品',
-                    source:'/static/img/loginImage/interest/餐厨用品.png'
-                },
-                {
-                    title:'居家神器',
-                    source:'/static/img/loginImage/interest/居家神器.png'
-                },
-                {
-                    title:'家居家饰',
-                    source:'/static/img/loginImage/interest/家居家饰.png'
-                },
-                {
-                    title:'鞋靴外搭',
-                    source:'/static/img/loginImage/interest/鞋靴外搭.png'
-                },
-                {
-                    title:'内衣裤袜',
-                    source:'/static/img/loginImage/interest/内衣裤袜.png'
-                },
-                {
-                    title:'箱包差旅',
-                    source:'/static/img/loginImage/interest/箱包差旅.png'
-                },
-                {
-                    title:'洗护用品',
-                    source:'/static/img/loginImage/interest/洗护用品.png'
-                },
-                {
-                    title:'办公文具',
-                    source:'/static/img/loginImage/interest/办公文具.png'
-                },
-                {
-                    title:'茶点零食',
-                    source:'/static/img/loginImage/interest/茶点零食.png'
-                },
-                {
-                    title:'宠物用品',
-                    source:'/static/img/loginImage/interest/宠物用品.png'
-                },
-                {
-                    title:'运动音乐',
-                    source:'/static/img/loginImage/interest/运动音乐.png'
-                },
-                {
-                    title:'母婴用品',
-                    source:'/static/img/loginImage/interest/母婴用品.png'
-                },
-                {
-                    title:'车载用品',
-                    source:'/static/img/loginImage/interest/车载用品.png'
-                },
-                {
-                    title:'智能硬件',
-                    source:'/static/img/loginImage/interest/智能硬件.png'
-                }
-            ]
+            interestedList:[],
+            items:[]
         }
     },
     methods:{
@@ -136,8 +72,69 @@ export default {
         }
     },
     mounted(){
-
-        this.interestedList = [];
+        console.log(this.interestedList); 
+        console.log(this.items);
+        this.items.push(
+            {
+                title:'床品被枕',
+                source:'/static/img/loginImage/interest/床品被枕.png'
+            }, 
+            {
+                title:'餐厨用品',
+                source:'/static/img/loginImage/interest/餐厨用品.png'
+            },
+            {
+                title:'居家神器',
+                source:'/static/img/loginImage/interest/居家神器.png'
+            },
+            {
+                title:'家居家饰',
+                source:'/static/img/loginImage/interest/家居家饰.png'
+            },
+            {
+                title:'鞋靴外搭',
+                source:'/static/img/loginImage/interest/鞋靴外搭.png'
+            },
+            {
+                title:'内衣裤袜',
+                source:'/static/img/loginImage/interest/内衣裤袜.png'
+            },
+            {
+                title:'箱包差旅',
+                source:'/static/img/loginImage/interest/箱包差旅.png'
+            },
+            {
+                title:'洗护用品',
+                source:'/static/img/loginImage/interest/洗护用品.png'
+            },
+            {
+                title:'办公文具',
+                source:'/static/img/loginImage/interest/办公文具.png'
+            },
+            {
+                title:'茶点零食',
+                source:'/static/img/loginImage/interest/茶点零食.png'
+            },
+            {
+                title:'宠物用品',
+                source:'/static/img/loginImage/interest/宠物用品.png'
+            },
+            {
+                title:'运动音乐',
+                source:'/static/img/loginImage/interest/运动音乐.png'
+            },
+            {
+                title:'母婴用品',
+                source:'/static/img/loginImage/interest/母婴用品.png'
+            },
+            {
+                title:'车载用品',
+                source:'/static/img/loginImage/interest/车载用品.png'
+            },
+            {
+                title:'智能硬件',
+                source:'/static/img/loginImage/interest/智能硬件.png'
+            });
         this.items.forEach(function(element) {
             this.interestedList.push({
                 title: element.title,

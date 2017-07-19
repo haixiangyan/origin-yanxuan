@@ -1,7 +1,14 @@
 <template>
     <div class="info-body">
-        <div class="img">
+         <div class="img">
             <img :src="mountedUser.photo" alt="">
+            <div id="dd" class="avatar-uploader" v-on:click="saveLocal">
+                <input id="inputUpload" class="avatar-upload" v-on:change="uploadFile" type="file" name="file" required /> 
+                <img v-if="`${imageUrl}!==''`" :src="imageUrl" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon">
+                    <div class="avatar-prompt">更换头像</div>
+                </i>
+            </div>
         </div>
         <ul>
             <li class="list-item">
@@ -36,7 +43,7 @@
             <div class="info-body-li-right">
                 <div><img class="render" src="/static/img/loginImage/render.png" alt=""></div>
             </div>
-        </router-link >
+        </router-link > 
 
         <div class="info-body-select">
             <div class="info-body-select-cancle">
@@ -49,12 +56,12 @@
     </div>
 </template> 
 <script>
-
 //<router-link tag="" to="/hom"></router-link>
 export default {
     props: ['id'],
     data() {
         return{
+            imageUrl: '',
             mountedUser : {
                 "_id": "",
                 "telephone": "",
@@ -65,13 +72,29 @@ export default {
                 "name": '',
                 "gender": "",
                 "photo": ""
-            }
+            },
+            file: null
         }
     },
     methods:{
+        saveLocal(){
+            document.getElementById('inputUpload').click();
+        },
         submit(){
+            let userForm = new FormData();
+            userForm.append('telephone', this.mountedUser.telephone);
+            userForm.append('address', this.mountedUser.address);
+            userForm.append('interest', this.mountedUser.interest);
+            userForm.append('name', this.mountedUser.name);
+            userForm.append('gender', this.mountedUser.gender);
+            userForm.append('photo', this.file);
             console.log(this.mountedUser);
-            this.$http.patch('/users/changeInformation', this.mountedUser).then(response => {
+            this.$http({
+                method: 'post',
+                url: '/users/changeInformation',
+                body: userForm
+            })
+                .then(response => {
                 console.log('vue-resource then', response.body);
                 this.status = response.body.result;
                 if(this.status === 'success'){
@@ -82,6 +105,29 @@ export default {
                 // error callback
                 console.log('vue-resource err', response.err);
             });
+        },
+        uploadFile (e) {
+        // uploadFile (res, file) {
+            // this.imageUrl = URL.createObjectURL(file.raw);
+            // console.log(this.imageUrl   );
+            let file = e.target.files[0];
+            console.log(file);
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function()
+            {
+                // document.getElementById("dd").innerHTML += "<img src='"+reader.result+"'>";
+                this.imageUrl = reader.result;
+                console.log(typeof reader.result);
+            };
+            console.log('this.imageUrl' +this.imageUrl);
+            let supportedTypes = ['image/jpg', 'image/jpeg', 'image/png'];
+            if (file && supportedTypes.indexOf(file.type) >= 0) {
+                this.file = file;
+            } else {
+                alert('文件格式只支持：jpg、jpeg 和 png');
+                this.clearFile();
+            }
         }
     },
     computed:{
@@ -97,7 +143,47 @@ export default {
 </script>
 
 <style scoped>
-.info-body .img{
+.avatar-uploader .avatar-upload {
+    width: 200px;
+    height: 200px;
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: absolute;
+    overflow: hidden;
+    z-index: -1; 
+  }
+  /* .avatar-uploader .el-upload:hover {
+    border-color: #20a0ff;
+  } */
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 200px;
+    height: 200px;
+    line-height: 200px;
+    text-align: center;
+    position: relative;
+
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+    z-index: 3; 
+  }
+
+.avatar-uploader .avatar-prompt{
+    position: absolute; 
+    font-size: 32px;
+    width: 200px;
+    height: 200px;
+     bottom: -40px;  
+    z-index: 2;
+}
+
+
+ .info-body .img{
     margin-top: 30px;
     margin-bottom: 30px;
     display: flex;
@@ -132,13 +218,11 @@ ul li{
 ul li span,input[type="text"]{
     display: block;
     height: 150px;
-    /* text-align: center; */
     line-height: 150px;
 }
 
 ul li span:first-child{
     flex: 1;
-    /* width: 200px; */
 }
 ul li span:last-child{
     flex: 3;
@@ -152,8 +236,6 @@ ul li input[type="text"]{
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    /* user-select: text; */
-    /* cursor: auto; */
 }
 input:focus {
     outline:none;
@@ -181,13 +263,14 @@ ul li label[for="male"]{
 .info-body-li{
     background-color: white;
     height: 150px;
-    margin-top: 50px;
+    margin-top: 30px;
     width: 90%;
     padding: 0 5% 0 5%;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 2px solid #f4f4f4;
 }
 
 .info-body-li .info-body-li-left{
@@ -212,8 +295,10 @@ ul li label[for="male"]{
 .info-body-li-right img.render{
     width: 60px;
     height: 60px;
-}
+} 
 .info-body-select{
+    position: fixed;
+    bottom: 0;
     background-color: white;
     height: 150px;
     margin-top: 50px;
@@ -228,10 +313,6 @@ ul li label[for="male"]{
     font-size: 38px;
     line-height: 150px;
 }
-
-/* .info-body-select .info-body-select-cancel{
-    color: white;
-} */
 
 .info-body-select .info-body-select-confirm{
     background-color: #b4282d;
