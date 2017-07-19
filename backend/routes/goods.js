@@ -138,7 +138,6 @@ router.post('/subCategoryGoods',function(req,res,next){
 })
 router.post('/search',function(req,res,next){
 	var keyword= req.body.key;
-	console.log(keyword);
 	goods.search(keyword,function(err,docs){
 		if(err=="success"){
 			res.json({

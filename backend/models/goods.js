@@ -2,10 +2,10 @@ var mongoose = require('mongoose');
 
 var db = mongoose.createConnection('localhost', 'YanXuan');
 
-db.on('error', function() {
+db.on('error', function () {
 	console.log("error")
 });
-db.once('open', function() {
+db.once('open', function () {
 
 	console.log("goods connected");
 	var goodsSchema = new mongoose.Schema({
@@ -28,12 +28,12 @@ db.once('open', function() {
 		manufacturer: String,
 		label: Array
 	});
-	goodsSchema.methods.findByID = function(cb) {
+	goodsSchema.methods.findByID = function (cb) {
 		return this.model("goods").find({
 			ID: this.ID
 		}, cb)
 	}
-	goodsSchema.statics.findByID = function(ID, cb) {
+	goodsSchema.statics.findByID = function (ID, cb) {
 		return this.find({
 			ID: ID
 		}, cb)
@@ -129,7 +129,7 @@ function addGoods() {
 }
 
 function addTopic() {
-	for(var i = 0; i < 10; i++) {
+	for (var i = 0; i < 10; i++) {
 		var topicEntity = new topicModel({
 			topicID: i,
 			writer: "餐厨组：锅锅",
@@ -312,7 +312,7 @@ function addCategory() {
 		}]
 	})
 	categoryEntity.save();
-	
+
 	categoryEntity = new categoryModel({
 		name: '洗护',
 		picture: "/static/img/category/洗护/洗护.png",
@@ -482,31 +482,30 @@ function addCategory() {
 }
 
 function getGoods(ID, cb) {
-	goodsModel.findOne({ID:ID}, function(err, docs) {
-				console.log(docs);
-		if(docs){
-					var obj = docs;
-		//		console.log(obj);
-		var arr = [];
-		arr.push(obj)
-		commentModel.find({
-			goodsID: obj.ID
-		}, function(err, docs2) {
-			var newobj = docs2[0];
-			console.log(docs2)
-			arr.push(newobj);
-			userModel.find({
-				telephone: newobj.userID
-			}, function(err, docs3) {
-				var newobj2 = {
-					customerPicture: docs3[0].photo,
-					customerName: docs3[0].name
-				}
-				arr.push(newobj2)
-				cb("success", arr);
+	goodsModel.findOne({
+		ID: ID
+	}, function (err, docs) {
+		if (docs) {
+			var obj = docs;
+			var arr = [];
+			arr.push(obj)
+			commentModel.find({
+				goodsID: obj.ID
+			}, function (err, docs2) {
+				var newobj = docs2[0];
+				arr.push(newobj);
+				userModel.find({
+					telephone: newobj.userID
+				}, function (err, docs3) {
+					var newobj2 = {
+						customerPicture: docs3[0].photo,
+						customerName: docs3[0].name
+					}
+					arr.push(newobj2)
+					cb("success", arr);
+				})
 			})
-		})
-		}else{
+		} else {
 			cb("error", "");
 		}
 
@@ -535,8 +534,8 @@ function getGoodsByDate(cb) {
 
 function getGoodsByAllType(cb) {
 	let arr = [];
-	categoryModel.find({}, function(err, docs) {
-		for(let i = 0; i < docs.length; i++) {
+	categoryModel.find({}, function (err, docs) {
+		for (let i = 0; i < docs.length; i++) {
 			let obj = {
 				name: "",
 				data: []
@@ -547,10 +546,10 @@ function getGoodsByAllType(cb) {
 				category: categoryName
 			});
 			queryGoods.limit(7);
-			goodsModel.find(queryGoods, function(err, docs2) {
+			goodsModel.find(queryGoods, function (err, docs2) {
 				let goodsArr = []
 				let goods;
-				for(let j = 0; j < docs2.length; j++) {
+				for (let j = 0; j < docs2.length; j++) {
 					let goods = {
 						ID: docs2[j].ID,
 						topName: docs2[j].topName,
@@ -565,7 +564,7 @@ function getGoodsByAllType(cb) {
 				}
 				obj.data = goodsArr;
 				arr.push(obj);
-				if(arr.length == docs.length - 1) {
+				if (arr.length == docs.length - 1) {
 					cb("success", arr)
 				}
 			})
@@ -579,13 +578,12 @@ function getCategory(cb) {
 }
 
 function getCertainCategory(category, cb) {
-	console.log(category)
 	let arr = [];
 	categoryModel.find({
 		name: category
-	}, function(err, docs) {
+	}, function (err, docs) {
 		let subCategoryArr = docs[0].subCategory;
-		for(let i = 0; i < subCategoryArr.length; i++) {
+		for (let i = 0; i < subCategoryArr.length; i++) {
 			let obj = {
 				name: "",
 				data: []
@@ -597,10 +595,10 @@ function getCertainCategory(category, cb) {
 			});
 			queryGoods.limit(7);
 			let goodsArr = [];
-			goodsModel.find(queryGoods, function(err, docs2) {
+			goodsModel.find(queryGoods, function (err, docs2) {
 				let goodsArr = []
 				let goods;
-				for(let j = 0; j < docs2.length; j++) {
+				for (let j = 0; j < docs2.length; j++) {
 					let goods = {
 						ID: docs2[j].ID,
 						topName: docs2[j].topName,
@@ -614,7 +612,7 @@ function getCertainCategory(category, cb) {
 				}
 				obj.data = goodsArr;
 				arr.push(obj);
-				if(arr.length == subCategoryArr.length - 1) {
+				if (arr.length == subCategoryArr.length - 1) {
 					cb("success", arr)
 				}
 			})
@@ -627,8 +625,8 @@ function getCertainSubCategoryGoods(category, cb) {
 	var arr = [];
 	goodsModel.find({
 		subCategory: category
-	}, function(err, docs) {
-		for(var i = 0; i < docs.length; i++) {
+	}, function (err, docs) {
+		for (var i = 0; i < docs.length; i++) {
 			let goods = {
 				ID: docs[i].ID,
 				topName: docs[i].topName,
@@ -645,13 +643,11 @@ function getCertainSubCategoryGoods(category, cb) {
 }
 
 function search(key, cb) {
-   console.log(key);
 	var arr = [];
-	goodsModel.find({}, function(err, docs) {
-		for(var i = 0; i < docs.length; i++) {
+	goodsModel.find({}, function (err, docs) {
+		for (var i = 0; i < docs.length; i++) {
 			var obj = docs[i];
-			console.log(obj);
-			if(obj.topName.indexOf(key) != -1 || obj.subName.indexOf(key) != -1 || obj.category.indexOf(key) != -1 || obj.subCategory.indexOf(key) != -1) {
+			if (obj.topName.indexOf(key) != -1 || obj.subName.indexOf(key) != -1 || obj.category.indexOf(key) != -1 || obj.subCategory.indexOf(key) != -1) {
 				var newobj = {
 					ID: docs[i].ID,
 					topName: docs[i].topName,
@@ -663,11 +659,11 @@ function search(key, cb) {
 				}
 				arr.push(newobj);
 			}
-			if(arr.length > 10) {
+			if (arr.length > 10) {
 				break;
 			}
 		}
-		if(arr.length > 0) {
+		if (arr.length > 0) {
 			cb("success", arr)
 		} else {
 			cb("error", "")
@@ -680,24 +676,23 @@ function showTopic(cb) {
 }
 
 function makeOrder(obj, cb) {
-	goodsModel.findOne({ID:obj.goodsID}, function(err, docs) {
-//		console.log(docs)
-        
-		if(docs) {
-			var inventory=[];
-			inventory=docs.inventory;
-			for(i = 0; i < docs.type.length; i++) {
-				if(obj.type == docs.type[i]) {
+	goodsModel.findOne({
+		ID: obj.goodsID
+	}, function (err, docs) {
+		if (docs) {
+			var inventory = [];
+			inventory = docs.inventory;
+			for (i = 0; i < docs.type.length; i++) {
+				if (obj.type == docs.type[i]) {
 					break;
 				}
 			}
-			if(docs.inventory[i] > obj.number) {
+			if (docs.inventory[i] > obj.number) {
 				inventory[i] -= obj.number;
-				console.log(inventory);
-				docs.inventory=inventory;
-              docs.markModified('inventory');
+				docs.inventory = inventory;
+				docs.markModified('inventory');
 				docs.save();
-				
+
 				var arr = [];
 				var newobj = {
 					ID: obj.goodsID,
@@ -733,26 +728,26 @@ function getComment(goodsID, cb) {
 	var arr2 = [];
 	commentModel.find({
 		goodsID: goodsID
-	}, function(err, docs) {
-		for(var i = 0; i < docs.length; i++) {
+	}, function (err, docs) {
+		for (var i = 0; i < docs.length; i++) {
 			var newobj = docs[i];
 			arr.push(newobj)
 			userModel.find({
-					telephone: newobj.userID
-				}, function(err, docs3) {
-					var newobj2 = {
-						customerPicture: docs3[0].photo,
-						customerName: docs3[0].name
+				telephone: newobj.userID
+			}, function (err, docs3) {
+				var newobj2 = {
+					customerPicture: docs3[0].photo,
+					customerName: docs3[0].name
+				}
+				//				var newobj3={comment:newobj,customer:newobj2};
+				arr2.push(newobj2);
+				if (arr.length == docs.length && arr2.length == docs.length) {
+					var obj = {
+						comment: arr,
+						user: arr2
 					}
-					//				var newobj3={comment:newobj,customer:newobj2};
-					arr2.push(newobj2);
-					if(arr.length == docs.length && arr2.length == docs.length) {
-						var obj = {
-							comment: arr,
-							user: arr2
-						}
-						cb("success", obj)
-					}
+					cb("success", obj)
+				}
 			});
 		}
 	})
