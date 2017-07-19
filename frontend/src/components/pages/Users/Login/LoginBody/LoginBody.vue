@@ -15,10 +15,10 @@
         </div>
         <div class="auxiliary form-item" >
             <div class="register">
-                <a href='/register'>注册账号</a>
+                <router-link to="register">注册账号</router-link>
             </div>
             <div class="forgetPw">
-                <a>忘记密码</a>
+                <router-link to="">忘记密码</router-link>
             </div>
         </div>
 

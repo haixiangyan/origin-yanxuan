@@ -2,6 +2,15 @@ const Mock = require('mockjs');
 const Random = Mock.Random;
 
 export const login = [{
+    path: '/users/register',
+    type: 'post',
+    data(body) {
+        const data = {
+            result: 'success',
+        }
+        return data;
+    }
+}, {
     path: '/users/login',
     type: 'post',
     data(body) {
