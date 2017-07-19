@@ -106,5 +106,54 @@ router.post('/login', function (req, res, next) {
 		}
 	})
 })
+router.post('/changeAddress', function (req, res, next) {
+	var userID = req.body.userID;
+	var index=req.body.index;
+	var obj=req.body.address;
+    user.changeAddress(userID,index,obj,function(err,docs){
+		if (err == "success") {
+				res.json({
+					result: "success",
+					data:docs
+				})
+			} else {
+				res.json({
+					result: "error"
+				})
+			}
+	})
+})
 
+router.post('/addAddress', function (req, res, next) {
+	var userID = req.body.userID;
+	var address = req.body.address;
+    user.addAddress(userID,addAddress,function(err,docs){
+		if (err == "success") {
+				res.json({
+					result: "success",
+					data:docs
+				})
+			} else {
+				res.json({
+					result: "error"
+				})
+			}
+	})
+})
+router.post('/deleteAddress', function (req, res, next) {
+	var userID = req.body.userID;
+	var index = req.body.index;
+    user.getAddress(userID,index,function(err,docs){
+		if (err == "success") {
+				res.json({
+					result: "success",
+					data:docs
+				})
+			} else {
+				res.json({
+					result: "error"
+				})
+			}
+	})
+})
 module.exports = router;

@@ -23,6 +23,7 @@ db.once('open', function () {
 		expressCompany: String,
 		address: Array,
 		orderState: Number,
+		orderDate:String,
 		payID: String,
 		totalFee: Number
 	});
@@ -59,10 +60,12 @@ function addOrder() {
 			province: "liaoning",
 			city: "shenyang",
 			town: "hunnan",
-			detailinfortion: "Neu",
-			recevier: "xu",
-			telephone: "123124"
+			detail: "Neu",
+			receiver: "xu",
+			telephone: "123124",
+			isDefault:false
 		}],
+		orderDate:new Date().getTime,
 		orderState: 0,
 		payID: "",
 		totalFee: 50
@@ -306,6 +309,7 @@ function makeOrder(obj, cb) {
 			address: obj.address,
 			orderState: 0,
 			payID: "0",
+			orderDate: new Date().getTime(),
 			totalFee: parseInt(obj.totalFee)
 		})
 		orderEntity.save();
@@ -317,7 +321,11 @@ function getOrder(orderid, cb) {
 	orderModel.find({
 		orderID: orderid
 	}, cb);
-
+}
+function getCustomerOrder(userid, cb) {
+	orderModel.find({
+		userID: userid
+	}, cb);
 }
 
 function pay(orderid, payid, cb) {

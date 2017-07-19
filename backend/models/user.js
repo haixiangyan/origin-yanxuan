@@ -122,7 +122,92 @@ function getInformation(telephone, cb) {
 		}
 	})
 }
+
+function getAddress(userid, cb) {
+	userModel.findOne({
+		telephone: userid
+	}, function (err, docs) {
+		if (docs) {
+			cb("success", docs.address)
+		} else {
+			cb("error", "")
+		}
+	})
+}
+
+function changeAddress(userid, index, obj, cb) {
+	userModel.findOne({
+		telephone: userid
+	}, function (err, docs) {
+		if (docs) {
+			if (obj.isDefault == true) {
+				for (var i = 0; i < docs.address.length; i++) {
+					docs.address[i].isDefault = false;
+				}
+				docs.address[index] = obj;
+				docs.markModified("address");
+				cb("success", docs.address)
+			} else {
+				docs.address[index] = obj;
+				docs.markModified("address");
+				cb("success", docs.address)
+			}
+
+		} else {
+			cb("error", "")
+		}
+	})
+}
+
+function addAddress(userid, obj, cb) {
+	userModel.findOne({
+		telephone: userid
+	}, function (err, docs) {
+		if (docs) {
+			if (obj.isDefault == true) {
+				for (var i = 0; i < docs.address.length; i++) {
+					docs.address[i].isDefault = false;
+				}
+				docs.address.push(obj);
+				docs.markModified("address");
+				cb("success", docs.address)
+			} else {
+				docs.address.push(obj);
+				docs.markModified("address");
+				cb("success", docs.address)
+			}
+		} else {
+			cb("error", "")
+		}
+	})
+}
+
+function deleteAddress(userid, index, cb) {
+	userModel.findOne({
+		telephone: userid
+	}, function (err, docs) {
+		if (docs) {
+			var arr = [];
+			for (var i = 0; i < docs.address.length; i++) {
+				if (i == index) {
+					continue;
+				} else {
+					arr.push(docs.address[i]);
+				}
+			}
+			docs.address = arr;
+			docs.markModified("address");
+			cb("success", docs.address)
+		} else {
+			cb("error", "")
+		}
+	})
+}
 module.exports.checkLogin = checkLogin;
 module.exports.creatUser = creatUser;
 module.exports.changeInformation = changeInformation;
 module.exports.getInformation = getInformation;
+module.exports.getAddress = getAddress;
+module.exports.changeAddress = changeAddress;
+module.exports.addAddress = addAddress;
+module.exports.deleteAddress = deleteAddress;
