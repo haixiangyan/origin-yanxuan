@@ -23,6 +23,8 @@
           <!-- 数字选笃 -->
           <div class="yan-item-price">
             <span>&yen;{{orderGoodItem.price}}</span>
+
+            <span @click="toComment" class="yan-to-comment">去评价</span>
           </div>
       </div>
     </div>
@@ -38,6 +40,14 @@ export default {
         index: this.index,
         state: this.cartItem.select === 0 ? 1 : 0
       })
+    },
+    // 去往添加评论
+    toComment() {
+      this.$store.commit('setCommentOrderInfo', {
+          commentOrderInfo: this.orderGoodItem
+      });
+
+      this.$router.push('/add-comment');
     }
   }
 }
@@ -107,6 +117,18 @@ export default {
 
 /* 商品的价格 */
 .yan-item-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-size: 38px;
+}
+
+.yan-to-comment {
+    align-self: flex-end;
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: 2px solid rgb(180, 40, 45);
+    font-size: 28px;
+    color: rgb(180, 40, 45);
 }
 </style>

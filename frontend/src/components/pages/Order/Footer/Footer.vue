@@ -86,6 +86,8 @@ export default {
                         // 清除选中的商品
                         this.$store.commit('removeCartItems');
                     }
+                    // 跳转到支付页面
+                    this.$router.push('/pay');
                 })
                 .catch((err) => {
                     console.log('vue-resource err', err);

@@ -22,7 +22,7 @@
             <!-- 购物车 -->
             <router-link to="/cart">
                 <img src="/static/icons/cart.png" alt="search">
-                <yan-badge :num="displayCartNum"></yan-badge>
+                <yan-badge v-show="displayCartNum!==0" :num="displayCartNum"></yan-badge>
             </router-link>
         </div>
     </div>
