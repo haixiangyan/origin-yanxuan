@@ -7,7 +7,8 @@ export const orderInfo = [{
   data(option) {
     let result = {
       result: 'success',
-      data: {
+      order: { 
+        "orderDate": new Date().getTime(),
         "orderID": "1",
         "userID": "1",
         "expressNumber": 123123,

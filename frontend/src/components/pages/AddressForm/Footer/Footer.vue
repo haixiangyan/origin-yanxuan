@@ -22,6 +22,9 @@ export default {
         isEditAddress() {
             return this.$store.getters.isEditAddress;
         },
+        index() {
+            return this.$store.getters.editAddressIndex;
+        }
     },
     methods: {
         cancel() {
@@ -34,11 +37,11 @@ export default {
                 this.$http({
                     method: 'post',
                     url: `/users/changeAddress`,
-                    body: {
+                    body: JSON.stringify({
                         userID: this.user.userID,
                         index: this.index,
                         address: this.addressForm
-                    }
+                    })
                 })
                     .then((res) => {
 
@@ -52,10 +55,10 @@ export default {
                 this.$http({
                     method: 'post',
                     url: `/users/addAddress`,
-                    body: {
+                    body: JSON.stringify({
                         userID: this.user.userID,
                         address: this.addressForm
-                    }
+                    })
                 })
                     .then((res) => {
 
@@ -69,6 +72,8 @@ export default {
             this.$store.commit('getEditAddress', {
                 editAddress: this.addressForm
             });
+
+            this.$router.go(-1);
         }
     },
     beforeDestroy() {

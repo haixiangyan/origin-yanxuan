@@ -139,7 +139,7 @@ router.get('/Address/:userID', function (req, res, next) {
 router.post('/changeAddress', function (req, res, next) {
 	var userID = req.body.userID;
 	var index = parseInt(req.body.index);
-	var obj = JSON.parse(req.body.address);
+	var obj = req.body.address;
 	user.changeAddress(userID, index, obj, function (err, docs) {
 		if (err == "success") {
 			res.json({
@@ -156,7 +156,7 @@ router.post('/changeAddress', function (req, res, next) {
 
 router.post('/addAddress', function (req, res, next) {
 	var userID = req.body.userID;
-	var address = JSON.parse(req.body.address);
+	var address =req.body.address;
 	user.addAddress(userID, address, function (err, docs) {
 		if (err == "success") {
 			res.json({

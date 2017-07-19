@@ -128,7 +128,7 @@ router.post('/order', function(req, res, next) { //已测
 
 })
 
-router.get('/getOrder/:orderID', function(req, res, next) {//已测
+router.get('/order/:orderID', function(req, res, next) {//已测
 	var orderid = req.params.orderID;
 	shopping.getOrder(orderid, function(err, docs) {
 		if(!err) {
@@ -144,7 +144,7 @@ router.get('/getOrder/:orderID', function(req, res, next) {//已测
 	})
 
 })
-router.get('/getCustomerOrder/:userID', function(req, res, next) {//已测
+router.get('/customerOrder/:userID', function(req, res, next) {//已测
 	var orderid = req.params.userID;
 	shopping.getCustomerOrder(orderid, function(err, docs) {
 		if(err=="success") {

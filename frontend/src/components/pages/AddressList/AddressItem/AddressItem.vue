@@ -12,7 +12,7 @@
       <!-- 用户的其他信息（地址，电话） -->
       <div class="yan-user-spec">
         <div class="user-tel">{{address.telephone}}</div>
-        <div class="user-address">{{address.detail}}</div>
+        <div class="user-address">{{`${address.province}${address.city}${address.town}${address.detail}`}}</div>
       </div>
     </div>
 

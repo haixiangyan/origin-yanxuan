@@ -1,7 +1,7 @@
 <template>
   <div class="yan-dist-picker">
     <!-- 地址选择器 -->
-    <v-distpicker v-on:selected="selected" class="picker" type="mobile"></v-distpicker>
+    <v-distpicker id="dist-picker" v-on:selected="selected" class="picker" type="mobile"></v-distpicker>
     
     <!-- 确认按钮 -->
     <div class="yan-dist-picker-confirm" @click="confirm">
@@ -48,21 +48,21 @@ export default {
 }
 
 /* 选择地址的头部 */
-.address-header[data-v-a078dc08] {
+#dist-picker .address-header[data-v-a078dc08] {
     border: 1px solid rgb(200, 200, 200);
 }
 
-.address-header ul li[data-v-a078dc08] {
+#dist-picker .address-header ul li[data-v-a078dc08] {
     padding: 35px;
 }
 
 /* 选择地址的内容 */
-.address-container ul[data-v-a078dc08] {
+#dist-picker .address-container ul[data-v-a078dc08] {
     height: 500px;
     overflow: auto;
 }
 
-.address-container ul li[data-v-a078dc08] {
+#dist-picker .address-container ul li[data-v-a078dc08] {
     padding: 35px;
     font-size: 36px;
 }

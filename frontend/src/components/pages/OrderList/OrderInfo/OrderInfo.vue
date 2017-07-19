@@ -4,7 +4,7 @@
         <div class="yan-order-header">
             <!-- 下单时间 -->
             <div class="order-date">
-                下单时间：2017-07-18 14:45:31
+                下单时间：{{orderDate}}
             </div>
             <!-- 订单编号 -->
             <div class="order-id">
@@ -33,7 +33,7 @@
             </div>
 
             <div class="user-address">
-                {{orderInfo.address[0].detail}}
+                {{`${orderInfo.address[0].province}${orderInfo.address[0].city}${orderInfo.address[0].town}${orderInfo.address[0].detail}`}}
             </div>
 
             <!-- 商品价格 -->
@@ -80,6 +80,12 @@ export default {
             }
         }
     },
+    computed: {
+        orderDate() {
+            let date = new Date(Number.parseInt(this.orderInfo.orderDate));
+            return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+        }
+    },
     components: {
         YanOrderGood
     },
@@ -90,7 +96,7 @@ export default {
             url: `/shop/order/${this.$route.params.orderId}`
         })
             .then((res) => {
-                this.orderInfo = res.body.data;
+                this.orderInfo = res.body.order;
             })
             .catch((err) => {
                 console.log('vue-resource err', err);

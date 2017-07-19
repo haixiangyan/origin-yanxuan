@@ -64,8 +64,120 @@ function addOrder() {
 			telephone: "123124",
 			isDefault:false
 		}],
-		orderDate:new Date().getTime,
+		orderDate:""+new Date().getTime,
 		orderState: 0,
+		payID: "",
+		totalFee: 50
+	})
+	orderEntity.save();
+	var orderEntity = new orderModel({
+		orderID: "123",
+		userID: "1",
+		goodsList: [{
+			ID: "123",
+			number: 1,
+			type: "Asd",
+			price: 50,
+			name: "懒人清洁新选择",
+			picture: '/static/img/goodsImage/0/headImage/1.jpg'
+		}],
+		expressNumber: 123123,
+		expressCompany: "saddas",
+		address: [{
+			province: "liaoning",
+			city: "shenyang",
+			town: "hunnan",
+			detail: "Neu",
+			receiver: "xu",
+			telephone: "123124",
+			isDefault:false
+		}],
+		orderDate:""+new Date().getTime,
+		orderState: 1,
+		payID: "",
+		totalFee: 50
+	})
+	orderEntity.save();
+	var orderEntity = new orderModel({
+		orderID: "12334",
+		userID: "1",
+		goodsList: [{
+			ID: "123",
+			number: 1,
+			type: "Asd",
+			price: 50,
+			name: "懒人清洁新选择",
+			picture: '/static/img/goodsImage/0/headImage/1.jpg'
+		}],
+		expressNumber: 123123,
+		expressCompany: "saddas",
+		address: [{
+			province: "liaoning",
+			city: "shenyang",
+			town: "hunnan",
+			detail: "Neu",
+			receiver: "xu",
+			telephone: "123124",
+			isDefault:false
+		}],
+		orderDate:""+new Date().getTime,
+		orderState: 2,
+		payID: "",
+		totalFee: 50
+	})
+	orderEntity.save();
+	var orderEntity = new orderModel({
+		orderID: "12376",
+		userID: "1",
+		goodsList: [{
+			ID: "123",
+			number: 1,
+			type: "Asd",
+			price: 50,
+			name: "懒人清洁新选择",
+			picture: '/static/img/goodsImage/0/headImage/1.jpg'
+		}],
+		expressNumber: 123123,
+		expressCompany: "saddas",
+		address: [{
+			province: "liaoning",
+			city: "shenyang",
+			town: "hunnan",
+			detail: "Neu",
+			receiver: "xu",
+			telephone: "123124",
+			isDefault:false
+		}],
+		orderDate:""+new Date().getTime,
+		orderState: 3,
+		payID: "",
+		totalFee: 50
+	})
+	orderEntity.save();
+		var orderEntity = new orderModel({
+		orderID: "1278",
+		userID: "1",
+		goodsList: [{
+			ID: "123",
+			number: 1,
+			type: "Asd",
+			price: 50,
+			name: "懒人清洁新选择",
+			picture: '/static/img/goodsImage/0/headImage/1.jpg'
+		}],
+		expressNumber: 123123,
+		expressCompany: "saddas",
+		address: [{
+			province: "liaoning",
+			city: "shenyang",
+			town: "hunnan",
+			detail: "Neu",
+			receiver: "xu",
+			telephone: "123124",
+			isDefault:false
+		}],
+		orderDate:""+new Date().getTime,
+		orderState: 4,
 		payID: "",
 		totalFee: 50
 	})

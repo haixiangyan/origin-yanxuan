@@ -17,6 +17,7 @@ const getters = {
   editAddress: state => state.editAddress,
   // 是否正要编辑地址
   isEditAddress: state => state.isEditAddress,
+  editAddressIndex: state => state.editAddressIndex,
 }
 
 const mutations = {
@@ -24,6 +25,7 @@ const mutations = {
   // 获取正在编辑的地址
   getEditAddress(state, payload) {
     state.editAddress = payload.editAddress;
+    state.editAddressIndex = payload.editAddressIndex;
   },
 
   // 重置编辑的状态

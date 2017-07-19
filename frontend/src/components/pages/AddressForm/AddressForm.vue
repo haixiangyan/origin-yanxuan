@@ -142,6 +142,8 @@ export default {
 .form-item input {
     width: 95%;
     outline: none;
+    border: none;
+    background: #fff;
 }
 
 /* 设置默认的地址 */
