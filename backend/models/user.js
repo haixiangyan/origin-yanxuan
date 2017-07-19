@@ -7,6 +7,7 @@ db.on('error', function () {
 
 db.once('open', function () {
 
+
 	console.log("user connected");
 	var userschema = new mongoose.Schema({
 		telephone: String,
@@ -29,6 +30,7 @@ db.once('open', function () {
 	//		}, cb)
 	//	}
 	userschema.statics.findByTelephone = function (telephone, cb) {
+
 		return this.find({
 			telephone: telephone
 		}, cb)
@@ -86,6 +88,7 @@ function creatUser(obj, cb) {
 			cb("success", "")
 		} else {
 			cb("error", "");
+
 		}
 	})
 }
@@ -236,3 +239,4 @@ module.exports.getAddress = getAddress;
 module.exports.changeAddress = changeAddress;
 module.exports.addAddress = addAddress;
 module.exports.deleteAddress = deleteAddress;
+

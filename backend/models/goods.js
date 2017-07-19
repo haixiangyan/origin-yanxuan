@@ -7,6 +7,7 @@ db.on('error', function () {
 });
 db.once('open', function () {
 
+
 	console.log("goods connected");
 	var goodsSchema = new mongoose.Schema({
 		ID: Number,
@@ -34,12 +35,15 @@ db.once('open', function () {
 		}, cb)
 	}
 	goodsSchema.statics.findByID = function (ID, cb) {
+
+
 		return this.find({
 			ID: ID
 		}, cb)
 	}
 	goodsModel = db.model("goods", goodsSchema);
 	// addGoods()
+
 	var categorySchema = new mongoose.Schema({
 		name: String,
 		picture: String,
@@ -141,6 +145,39 @@ function addTopic() {
 			price: parseInt(Math.random() * 100)
 		})
 		topicEntity.save();
+	//	addCategory();
+}
+}
+
+function addGoods() {
+	for (var i = 0; i < 100; i++) {
+		var goodsEntity = new goodsModel({
+			ID: i,
+			price: 10 * i + 5,
+			chara: "二种可选",
+			topName: "懒人清洁新选择",
+			subName: "高效清洁组合",
+			shortDescription: ['a', 'a', 'a', 'a', 'a', 'a'],
+			shortDescriptionImage: ['a', 'a', 'a', 'a', 'a', 'a'],
+			headImage: ['/static/img/goodsImage/1.png', 'a', 'a', 'a', 'a'],
+			type: ['a', 'a', 'a', 'a', 'a', 'a'],
+			inventory: 999,
+			description: ['a', 'a', 'a', 'a', 'a', 'a'],
+			information: ['a', 'a', 'a', 'a', 'a', 'a'],
+			sale: parseInt(Math.random() * 100),
+			category: parseInt(i / 8),
+			subCategory: i + 100,
+			date: new Date().getTime(),
+			manufacturer: "ck",
+			label: [{
+				title: "爆品",
+				type: "1"
+			}, {
+				title: "新品",
+				type: "2"
+			}]
+		})
+		goodsEntity.save();
 	}
 }
 
@@ -535,6 +572,7 @@ function getGoodsByDate(cb) {
 function getGoodsByAllType(cb) {
 	let arr = [];
 	categoryModel.find({}, function (err, docs) {
+
 		for (let i = 0; i < docs.length; i++) {
 			let obj = {
 				name: "",
@@ -547,6 +585,7 @@ function getGoodsByAllType(cb) {
 			});
 			queryGoods.limit(7);
 			goodsModel.find(queryGoods, function (err, docs2) {
+
 				let goodsArr = []
 				let goods;
 				for (let j = 0; j < docs2.length; j++) {
@@ -582,6 +621,7 @@ function getCertainCategory(category, cb) {
 	categoryModel.find({
 		name: category
 	}, function (err, docs) {
+
 		let subCategoryArr = docs[0].subCategory;
 		for (let i = 0; i < subCategoryArr.length; i++) {
 			let obj = {
@@ -596,6 +636,7 @@ function getCertainCategory(category, cb) {
 			queryGoods.limit(7);
 			let goodsArr = [];
 			goodsModel.find(queryGoods, function (err, docs2) {
+
 				let goodsArr = []
 				let goods;
 				for (let j = 0; j < docs2.length; j++) {
@@ -626,6 +667,7 @@ function getCertainSubCategoryGoods(category, cb) {
 	goodsModel.find({
 		subCategory: category
 	}, function (err, docs) {
+
 		for (var i = 0; i < docs.length; i++) {
 			let goods = {
 				ID: docs[i].ID,
@@ -752,6 +794,7 @@ function getComment(goodsID, cb) {
 		}
 	})
 }
+
 module.exports.getCategory = getCategory;
 module.exports.getGoods = getGoods;
 module.exports.getGoodsBySale = getGoodsBySale;
@@ -763,3 +806,4 @@ module.exports.search = search;
 module.exports.showTopic = showTopic;
 module.exports.makeOrder = makeOrder;
 module.exports.getComment = getComment;
+

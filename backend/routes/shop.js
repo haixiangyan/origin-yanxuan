@@ -10,11 +10,13 @@ router.get('/cart/:ID', function(req, res, next) {//已测
 	shopping.getCart(ID, function(err, docs) {
 		if(err=='success') {
 			res.json({
+
 				result: "success",
 				data: docs
 			})
 		} else {
 			res.json({
+
 				result: "error"
 			})
 		}
@@ -22,6 +24,7 @@ router.get('/cart/:ID', function(req, res, next) {//已测
 
 });
 router.post('/addToCart', function(req, res, next) {//已测
+
 	var ID = req.body.ID;
 	var Type = req.body.type;
 	var number = req.body.number;
@@ -40,6 +43,7 @@ router.post('/addToCart', function(req, res, next) {//已测
 			})
 		} else {
 			res.json({
+
 				result: "error"
 			})
 		}
@@ -263,4 +267,5 @@ router.patch('/makeComment', function(req, res, next) {
 		})
 	})
 })
+
 module.exports = router;

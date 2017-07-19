@@ -9,9 +9,14 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var goods = require('./routes/goods');
 var shop =require('./routes/shop');
+<<<<<<< HEAD
 
 // 引入 h5 history 模式的中间件
 var history = require('connect-history-api-fallback');
+=======
+// 配置 cors
+//var cors = require('cors');
+>>>>>>> b286ffabce9ee9baff3b999e583e69502b5852bc
 
 var app = express();
 //app.get();
@@ -29,7 +34,11 @@ app.set('view engine', 'jade');
 //}));
 
 // 解决 history 模式的问题（非常重要！！！）
+<<<<<<< HEAD
 // app.use(history());
+=======
+//app.use(require('connect-history-api-fallback')())
+>>>>>>> b286ffabce9ee9baff3b999e583e69502b5852bc
 
 app.use(logger('dev'));
 app.use(bodyParser.json());

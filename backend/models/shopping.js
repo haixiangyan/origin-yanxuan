@@ -14,7 +14,6 @@ db.once('open', function () {
 	});
 
 	cartModel = db.model("carts", cartSchema);
-	// addCart();
 	var orderSchema = new mongoose.Schema({
 		orderID: String,
 		userID: String,
@@ -93,6 +92,25 @@ function addCart() {
 	cartEntity.save();
 
 }
+
+
+//function addCart() {
+//	var arr = [];
+//	for (var i = 0; i < 20; i++) {
+//		var obj = {
+//			ID: i,
+//			type: "1",
+//			number: 1
+//		}
+//		arr.push(obj);
+//	}
+//	var cartEntity = new cartModel({
+//		userID: 0,
+//		goodsList: arr
+//	});
+//	cartEntity.save();
+//
+//}
 //function addOrder(){
 //	
 //}
@@ -216,6 +234,7 @@ function changeItemInCart(userID, goodsID, type, number, cb) {
 		var i = 0;
 		for (i = 0; i < arr.length; i++) {
 			if (arr[i].ID == goodsID && arr[i].type == type) {
+
 				break;
 			}
 		}
@@ -418,3 +437,4 @@ module.exports.deliverGoods = deliverGoods;
 module.exports.confirmGoods = confirmGoods;
 module.exports.deliverComment = deliverComment;
 module.exports.getCustomerOrder=getCustomerOrder;
+
