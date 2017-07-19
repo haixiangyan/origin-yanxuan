@@ -106,10 +106,29 @@ router.post('/login', function (req, res, next) {
 		}
 	})
 })
+
+
+router.get('/Address/:userID', function (req, res, next) {
+	var userID = req.params.userID;
+    user.getAddress(userID,function(err,docs){
+		if (err == "success") {
+				res.json({
+					result: "success",
+					data:docs
+				})
+			} else {
+				res.json({
+					result: "error"
+				})
+			}
+	})
+})
+
+
 router.post('/changeAddress', function (req, res, next) {
 	var userID = req.body.userID;
-	var index=req.body.index;
-	var obj=req.body.address;
+	var index=parseInt(req.body.index);
+	var obj=JSON.parse(req.body.address);
     user.changeAddress(userID,index,obj,function(err,docs){
 		if (err == "success") {
 				res.json({
@@ -126,8 +145,8 @@ router.post('/changeAddress', function (req, res, next) {
 
 router.post('/addAddress', function (req, res, next) {
 	var userID = req.body.userID;
-	var address = req.body.address;
-    user.addAddress(userID,addAddress,function(err,docs){
+	var address =JSON.parse(req.body.address);
+    user.addAddress(userID,address,function(err,docs){
 		if (err == "success") {
 				res.json({
 					result: "success",
@@ -142,8 +161,8 @@ router.post('/addAddress', function (req, res, next) {
 })
 router.post('/deleteAddress', function (req, res, next) {
 	var userID = req.body.userID;
-	var index = req.body.index;
-    user.getAddress(userID,index,function(err,docs){
+	var index = parseInt(req.body.index) ;
+    user.deleteAddress(userID,index,function(err,docs){
 		if (err == "success") {
 				res.json({
 					result: "success",

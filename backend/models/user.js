@@ -45,7 +45,23 @@ function addUser() {
 		name: "xu",
 		gender: "man",
 		interest: ["1", "2", "3"],
-		address: ["1", "2"]
+		address: [{
+			province: "liaoning",
+			city: "shenyang",
+			town: "hunnan",
+			detail: "Neu",
+			receiver: "xu",
+			telephone: "123124",
+            isDefault:false
+		}, {
+			province: "liaoning",
+			city: "shenyang",
+			town: "hunnan",
+			detail: "Neu",
+			receiver: "xu",
+			telephone: "123124",
+            isDefault:false
+		}]
 	})
 	userEntity.save();
 
@@ -141,15 +157,21 @@ function changeAddress(userid, index, obj, cb) {
 	}, function (err, docs) {
 		if (docs) {
 			if (obj.isDefault == true) {
+				console.log(1);
 				for (var i = 0; i < docs.address.length; i++) {
 					docs.address[i].isDefault = false;
 				}
 				docs.address[index] = obj;
 				docs.markModified("address");
+				docs.save();
 				cb("success", docs.address)
 			} else {
+				console.log(obj);
+				console.log(2);
 				docs.address[index] = obj;
 				docs.markModified("address");
+				docs.save();
+				console.log(docs.address);
 				cb("success", docs.address)
 			}
 
@@ -170,10 +192,12 @@ function addAddress(userid, obj, cb) {
 				}
 				docs.address.push(obj);
 				docs.markModified("address");
+				docs.save();
 				cb("success", docs.address)
 			} else {
 				docs.address.push(obj);
 				docs.markModified("address");
+				docs.save();
 				cb("success", docs.address)
 			}
 		} else {
@@ -197,6 +221,7 @@ function deleteAddress(userid, index, cb) {
 			}
 			docs.address = arr;
 			docs.markModified("address");
+			docs.save();
 			cb("success", docs.address)
 		} else {
 			cb("error", "")
