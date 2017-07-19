@@ -140,6 +140,22 @@ router.get('/getOrder/:orderID', function(req, res, next) {//已测
 	})
 
 })
+router.get('/getCustomerOrder/:userID', function(req, res, next) {//已测
+	var orderid = req.params.userID;
+	shopping.getCustomerOrder(orderid, function(err, docs) {
+		if(err=="success") {
+			res.json({
+				result: "success",
+				order: docs
+			})
+		} else {
+			res.json({
+				result: "error"
+			})
+		}
+	})
+
+})
 router.post('/pay', function(req, res, next) {
 	var payID = req.body.payID;
 	var orderID = req.body.orderID;

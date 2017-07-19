@@ -325,7 +325,13 @@ function getOrder(orderid, cb) {
 function getCustomerOrder(userid, cb) {
 	orderModel.find({
 		userID: userid
-	}, cb);
+	},function(err,docs){
+		if(docs.length>0){
+           cb("success",docs)
+		}else{
+          cb("error","")
+		}
+	});
 }
 
 function pay(orderid, payid, cb) {
@@ -411,3 +417,4 @@ module.exports.pay = pay;
 module.exports.deliverGoods = deliverGoods;
 module.exports.confirmGoods = confirmGoods;
 module.exports.deliverComment = deliverComment;
+module.exports.getCustomerOrder=getCustomerOrder;
