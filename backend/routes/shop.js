@@ -207,65 +207,109 @@ router.post('/confirmGoods', function (req, res, next) {
 		}
 	})
 })
-router.patch('/comment', function (req, res, next) {
+router.post('/comment', function (req, res, next) {
 	var form = new multiparty.Form({
-		uploadDir: "/static/commentImage/"
+		uploadDir: "./dist/static/img/commentImage/"
 	})
 	form.parse(req, function (err, fields, files) {
-
+		console.log(fields.files[0].originalFilename);
 		var goodsID = fields.goodsID[0];
+		console.log(goodsID + "    ")
 		var userID = fields.userID[0];
+		console.log(userID + "    ")
 		var content = fields.content[0];
-		var commentDate = fields.ommentDate[0];
+		console.log(content + "    ")
+		var commentDate = fields.commentDate[0];
+		console.log(commentDate + "    ")
 		var type = fields.type[0];
-		var orderID = fileds.orderID[0];
-
-		fs.readdir('/static/commentImage/' + goodsID, function (err, files) { //如果该商品还没有人上传评论图片
+		console.log(type + "    ")
+		var orderID = fields.orderID[0];
+		console.log(orderID + "    ")
+		fs.readdir('./dist/static/img/commentImage/' + goodsID, function (err, files) { //如果该商品还没有人上传评论图片
 			if (err) {
-				fs.mkdir('/static/commentImage/' + goodsID, function (err) { //新建文件夹存放评论图片
+				fs.mkdir('./dist/static/img/commentImage/' + goodsID, function (err) { //新建文件夹存放评论图片
 					if (err) {
 						throw err;
 					}
 					console.log('make dir success.');
+					fs.mkdir('./dist/static/img/commentImage/' + goodsID + '/' + commentDate, function (err) { //新建存放当前评论图片的文件夹
+						if (err) {
+							throw err;
+						}
+						console.log('make detail dir success.');
+						var arr = [];
+						for (var i = 0; i < files.picture.length; i++) { //存放图片
+							var picture = files.picture[i].originalFilename;
+							arr.push(picture);
+							fs.rename(files.photo[0].path, '/static/commentImage/' + goodsID + '/' + commentDate + '/' + picture, function (err) {
+								console.log(err)
+							})
+
+						}
+						var obj = {
+							goodsID: goodsID,
+							userID: userID,
+							orderID: orderID,
+							content: content,
+							commentDate: commentDate,
+							type: type,
+							picture: arr
+						}
+						shopping.deliverComment(obj, function (err, docs) {
+							if (err == "success") {
+								res.json({
+									result: "success"
+								})
+							} else {
+								res.json({
+									result: "error"
+								})
+							}
+						})
+					});
+
+				});
+			} else {
+				fs.mkdir('./dist/static/img/commentImage/' + goodsID + '/' + commentDate, function (err) { //新建存放当前评论图片的文件夹
+					if (err) {
+						throw err;
+					}
+					console.log('make detail dir success.');
+					var arr = [];
+					console.log(JSON.stringify(files));
+					for (var i = 0; i < files.picture.length; i++) { //存放图片
+						var picture = files.picture[i].originalFilename;
+						arr.push(picture);
+						fs.rename(files.photo[0].path, '/static/commentImage/' + goodsID + '/' + commentDate + '/' + picture, function (err) {
+							console.log(err)
+						})
+
+					}
+					var obj = {
+						goodsID: goodsID,
+						userID: userID,
+						orderID: orderID,
+						content: content,
+						commentDate: commentDate,
+						type: type,
+						picture: arr
+					}
+					shopping.deliverComment(obj, function (err, docs) {
+						if (err == "success") {
+							res.json({
+								result: "success"
+							})
+						} else {
+							res.json({
+								result: "error"
+							})
+						}
+					})
 				});
 			}
 		});
-		fs.mkdir(' / static / commentImage / ' + goodsID + ' / ' + commentDate, function (err) { //新建存放当前评论图片的文件夹
-			if (err) {
-				throw err;
-			}
-			console.log('make detail dir success.');
-		});
-		var arr = [];
-		for (var i = 0; i < files.picture.length; i++) { //存放图片
-			var picture = files.picture[i].originalFilename;
-			arr.push(picture);
-			fs.rename(files.photo[0].path, '/static/commentImage/' + goodsID + '/' + commentDate + '/' + picture, function (err) {
-				console.log(err)
-			})
 
-		}
 
-		var obj = {
-			goodsID: goodsID,
-			userID: userID,
-			orderID: orderID,
-			content: content,
-			commentDate: commentDate,
-			type: type,
-			picture: arr
-		}
-		shopping.deliverComment(obj, function (err, docs) {
-			if (err == "success") {
-				res.json({
-					result: "success"
-				})
-			} else {
-				res.json({
-					result: "error"
-				})
-			}
-		})
 	})
 })
 

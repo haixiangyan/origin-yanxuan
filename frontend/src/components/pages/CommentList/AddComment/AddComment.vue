@@ -78,11 +78,7 @@ export default {
                 '好',
                 '非常好'
             ],
-            commentImages: [
-                '/static/img/cart/cartItem.png',
-                '/static/img/cart/cartItem.png',
-                '/static/img/cart/cartItem.png',
-            ],
+            commentImages: [],
             files: [],
             uploadSrc: '',
             content: '',
@@ -122,15 +118,20 @@ export default {
             data.append('goodsID', this.commentOrderInfo.ID);
             data.append('userID', this.user.userID);
             data.append('content', this.content);
-            data.append('type', this.type);
+            data.append('type', this.commentOrderInfo.type);
             data.append('orderID', this.commentOrderID);
+            data.append('commentDate', new Date().getTime());
 
             this.$http({
-                method: 'patch',
-                url: `/comment`
+                method: 'post',
+                url: `/shop/comment`,
+                body: data,
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             })
                 .then((res) => {
-                    this.$router.push('/order-list');
+                    // this.$router.push('/order-list');
                 })
                 .catch((err) => {
                 console.log('vue-resource err', err);

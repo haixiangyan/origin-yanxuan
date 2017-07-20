@@ -32,7 +32,7 @@ router.post('/register', function (req, res, next) {
 
 router.post('/changeInformation', function (req, res, next) {
 	var form = new multiparty.Form({
-		uploadDir: "/static/temp/"
+		uploadDir: "./dist/static/img/userImage/"
 	})
 	form.parse(req, function (err, fields, files) {
 		var telephone = fields.telephone[0];
@@ -42,9 +42,9 @@ router.post('/changeInformation', function (req, res, next) {
 		var name = fields.name[0];
 		if (files) {
 			var photo = files.photo[0].originalFilename;
-			fs.exists("/static/userImage/" + files.photo[0].originalFilename, function (exists) {
+			fs.exists("./dist/static/img/userImage/" + files.photo[0].originalFilename, function (exists) {
 				if (!exists) {
-					fs.rename(files.photo[0].path, "/static/userImage/" + files.photo[0].originalFilename, function (err) {
+					fs.rename(files.photo[0].path, "./dist/static/img/userImage/" + files.photo[0].originalFilename, function (err) {
 						console.log(err)
 					})
 				} else {

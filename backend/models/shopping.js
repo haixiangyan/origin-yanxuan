@@ -71,7 +71,7 @@ function addOrder() {
 	})
 	orderEntity.save();
 	var orderEntity = new orderModel({
-		orderID: "123",
+		orderID: "1235446",
 		userID: "1",
 		goodsList: [{
 			ID: "123",
@@ -81,8 +81,8 @@ function addOrder() {
 			name: "懒人清洁新选择",
 			picture: '/static/img/goodsImage/0/headImage/1.jpg'
 		}],
-		expressNumber: 123123,
-		expressCompany: "saddas",
+		expressNumber:810874175279,
+		expressCompany: "圆通",
 		address: [{
 			province: "liaoning",
 			city: "shenyang",
@@ -109,8 +109,8 @@ function addOrder() {
 			name: "懒人清洁新选择",
 			picture: '/static/img/goodsImage/0/headImage/1.jpg'
 		}],
-		expressNumber: 123123,
-		expressCompany: "saddas",
+		expressNumber:810874175279,
+		expressCompany: "圆通",
 		address: [{
 			province: "liaoning",
 			city: "shenyang",

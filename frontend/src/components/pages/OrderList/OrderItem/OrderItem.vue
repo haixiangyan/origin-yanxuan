@@ -16,9 +16,11 @@
 
         <!-- 订单的功能 -->
         <div class="yan-order-func">
-            <span v-if="orderItem.orderState + 1 === 1" class="yan-to-pay">去付款</span>
-            <a :href="expressUrl" v-if="orderItem.orderState + 1 === 2" class="yan-check">查看物流</a>
-            <span @click="confirmExpress" v-if="orderItem.orderState + 1 === 3" class="yan-confirm-order">确认收货</span>
+            <div>
+                <span v-if="orderItem.orderState + 1 === 1" class="yan-to-pay">去付款</span>
+                <a :href="expressUrl" v-if="orderItem.orderState + 1 === 3" class="yan-check">查看物流</a>
+                <span @click="confirmExpress" v-if="orderItem.orderState + 1 === 3" class="yan-confirm-order">确认收货</span>
+            </div>
         </div>
     </div>
 </template>
@@ -28,7 +30,6 @@ export default {
     props: ['orderItem'],
     data() {
         return {
-            expressUrl: `https://m.kuaidi100.com/index_all.html?type=yuantong&postid=810874175279&callbackurl=http://localhost:8080`
         }
     },
     computed: {
@@ -36,6 +37,9 @@ export default {
             return this.orderItem.goodsList.filter((good, index) => {
                 return index < 4;
             })
+        },
+        expressUrl() {
+            return `https://m.kuaidi100.com/index_all.html?type=${this.orderItem.expressCompany}&postid=${this.orderItem.expressNumber}`;
         }
     },
     methods: {
@@ -92,11 +96,16 @@ export default {
     padding: 20px 10px;
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
+}
+
+.yan-order-func div {
+    display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .yan-confirm-order{
-    align-self: flex-end;
     padding: 17px 40px;
     border-radius: 50px;
     border: 2px solid rgb(180, 40, 45);
