@@ -83,7 +83,7 @@ export default {
                 '/static/img/cart/cartItem.png',
                 '/static/img/cart/cartItem.png',
             ],
-            files: [],
+            fileFormData: {},
             uploadSrc: '',
             content: '',
         }
@@ -113,21 +113,20 @@ export default {
         },
         selectSrc(uploadSrc) {
             this.commentImages.push(uploadSrc.src);
-            this.files.push(uploadSrc.fileInfo);
+            this.fileFormData = uploadSrc.fileFormData;
         },
         publish() {
             // 生成表单数据
-            let data = new FormData();
-            data.append('files', this.files);
-            data.append('goodsID', this.commentOrderInfo.ID);
-            data.append('userID', this.user.userID);
-            data.append('content', this.content);
-            data.append('type', this.type);
-            data.append('orderID', this.commentOrderID);
+            this.fileFormData.append('goodsID', this.commentOrderInfo.ID);
+            this.fileFormData.append('userID', this.user.userID);
+            this.fileFormData.append('content', this.content);
+            this.fileFormData.append('type', this.type);
+            this.fileFormData.append('orderID', this.commentOrderID);
 
             this.$http({
                 method: 'patch',
-                url: `/comment`
+                url: `/comment`,
+                body: this.fileFormData
             })
                 .then((res) => {
                     this.$router.push('/order-list');

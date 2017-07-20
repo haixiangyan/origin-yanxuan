@@ -1,6 +1,14 @@
 <template>
   <div v-show="curNum !== totalNum" class="yan-empty-images">
-    <input ref="uploadInput" @change="selectFile" class="upload"  type="file">
+    <form class="upload" enctype="multipart/form-data" ref="uploadForm">
+        <input v-for="(cur, index) in totalNum" 
+            v-show="curNum === index+1"
+            ref="uploadInput" 
+            :key="index"
+            @change="selectFile" 
+            name="picture"
+            type="file">
+    </form>
 
     <img src="/static/icons/video.png" alt="video">
 
@@ -17,10 +25,12 @@ export default {
     props: ['curNum', 'totalNum'],
     methods: {
         selectFile(event) {
+            // 获取表单的内容
+            let fileFormData = new FormData(this.$refs.uploadForm);
             let file = event.target.files[0];
             this.$emit('selectSrc', {
                 src: window.URL.createObjectURL(file),
-                fileInfo: file
+                fileFormData: fileFormData
             });
         }
     }
@@ -29,10 +39,15 @@ export default {
 
 <style scoped>
 .upload {
-    opacity: 0;
+    opacity: 0; 
     position: absolute;
     width: 150px;
     height: 150px;
+}
+
+.upload input {
+    width: 100%;
+    height: 100%;
 }
 
 .yan-empty-images {
