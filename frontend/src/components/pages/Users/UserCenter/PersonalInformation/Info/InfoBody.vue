@@ -85,6 +85,9 @@ export default {
             this.$store.commit('initHistoryUser', {
                 historyUser: this.mountedUser
             });
+            this.$store.commit('editFile', {
+                file: null
+            });
             
             this.$router.push({name: 'User Center Info Interest Category', params: { userId: this.id }});
         },
@@ -139,7 +142,6 @@ export default {
             let supportedTypes = ['image/jpg', 'image/jpeg', 'image/png'];
             if (tempFile && supportedTypes.indexOf(tempFile.type) >= 0) {
                 this.previewImg(tempFile);
-                console.log(this.file);
             } else {
                 alert('文件格式只支持：jpg、jpeg 和 png');
                 this.clearFile();
@@ -172,9 +174,9 @@ export default {
                 historyUser: null
             });
         }
-        console.log('info page',this.mountedUser);
-        if(this.historyFile !== null){
-            this.previewImg(this.historyFile)
+        console.log('info page', this.file);
+        if(this.file !== null){
+            this.previewImg(this.file)
             this.$store.commit('editHistoryFile', {
                 historyFile: null
             });

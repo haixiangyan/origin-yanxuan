@@ -13,10 +13,15 @@ const state = {
         interest: []
     },
     historyUser: {
+        _id: '',
         telephone: '',
+        password: '',
+        photo: '',
         name: '',
         gender: '',
+        __v: '',
         address: [],
+        interest: []
     },
     file: null,
     historyFile: null
@@ -40,10 +45,11 @@ const mutations = {
     },
     initHistoryUser(state, payload) {
         console.log('mutations', 'initUser');
-        state.historyUser.telephone = payload.historyUser.telephone;
-        state.historyUser.name = payload.historyUser.name;
-        state.historyUser.gender = payload.historyUser.gender;
-        state.historyUser.address = payload.historyUser.address;
+        state.historyUser = payload.historyUser;
+        // state.historyUser.telephone = payload.historyUser.telephone;
+        // state.historyUser.name = payload.historyUser.name;
+        // state.historyUser.gender = payload.historyUser.gender;
+        // state.historyUser.address = payload.historyUser.address;
     },
     editUser(state, payload) {
         state.user.id = payload.id;
