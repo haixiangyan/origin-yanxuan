@@ -36,30 +36,26 @@ router.post('/changeInformation', function (req, res, next) {
 	})
 	form.parse(req, function (err, fields, files) {
 		var telephone = fields.telephone[0];
-		var address = fields.address[0];
-		var interest = fields.interest[0];
+		var interest = fields.interest[0].split(',');
+		// var interest = JSON.parse(fields.interest[0]) ;
+		console.log(interest);
 		var gender = fields.gender[0];
 		var name = fields.name[0];
-		if (files) {
+
+		console.log(files.photo[0].originalFilename);
+		if (files.photo[0].originalFilename) {
 			var photo = files.photo[0].originalFilename;
-			fs.exists("/static/userImage/" + files.photo[0].originalFilename, function (exists) {
-				if (!exists) {
-					fs.rename(files.photo[0].path, "./dist/static/img/userImage/" + files.photo[0].originalFilename, function (err) {
-						console.log(err)
-					})
-				} else {
-					//do something
-				}
+			fs.rename(files.photo[0].path, "./dist/static/img/userImage/" + files.photo[0].originalFilename, function (err) {
+				console.log(err)
 			})
-		}
-		var obj = {
+			var obj = {
 			telephone: telephone,
 			interest: interest,
 			gender: gender,
 			name: name,
-			photo: photo,
-			address: address
+			photo: "/static/img/userImage/"+photo,
 		}
+		console.log(obj);
 		user.changeInformation(obj, function (err, docs) {
 			if (err == "success") {
 				res.json({
@@ -71,9 +67,32 @@ router.post('/changeInformation', function (req, res, next) {
 				})
 			}
 		})
+
+		}else{
+			var obj = {
+			telephone: telephone,
+			interest:  interest,
+			gender: gender,
+			name: name,
+			photo: "",
+		}
+		console.log(obj);
+		user.changeInformation(obj, function (err, docs) {
+			if (err == "success") {
+				res.json({
+					result: "success",
+				})
+			} else {
+				res.json({
+					result: "error"
+				})
+			}
+		})
+		}
+		
 	})
-});
- router.get('/getInformation/:telephone', function (req, res, next) {
+})
+router.get('/getInformation/:telephone', function (req, res, next) {
 	var tel = req.params.telephone;
 	user.getInformation(tel, function (err, docs) {
 		if (err == "success") {

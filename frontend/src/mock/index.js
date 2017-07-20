@@ -1,6 +1,10 @@
 import Mock from 'mockjs';
 
+<<<<<<< HEAD
 import { login } from './front-page.js';
+=======
+// import { login } from './front-page.js';
+>>>>>>> login
 
 // 主页面
 import { home, homeStatic } from './home-intro.js';
@@ -17,7 +21,8 @@ import { good } from './good.js';
 
 // 商品的评论列表
 import { comment } from './comment.js';
-
+import { login } from './login.js'
+import { topic } from './topic.js'
 // 购物车
 import { cart } from './cart.js';
 
@@ -40,6 +45,7 @@ let data = [].concat(
     address,
     orderInfo
 );
+
 
 data.forEach((res) => {
     Mock.mock(res.path, res.type, res.data);

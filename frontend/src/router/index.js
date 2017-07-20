@@ -47,6 +47,13 @@ import YanCart from '@/components/pages/Cart/Cart';
 
 // 引入订单详情页
 import YanOrder from '@/components/pages/Order/Order';
+import YanUsersLogin from '@/components/pages/Users/Login/Login';
+import YanUsersRegister from '@/components/pages/Users/Register/Register';
+import YanUserCenter from '@/components/pages/Users/Users';
+import YanUserCenterNav from '@/components/pages/Users/UserCenter/PersonalInformation/Nav'
+import YanUserCenterInfo from '@/components/pages/Users/UserCenter/PersonalInformation/Info'
+import YanUserCenterInfoInterest from '@/components/pages/Users/UserCenter/PersonalInformation/Info/InterestCategory'
+
 
 // 引入地址的组件
 import YanAddressList from '@/components/pages/AddressList/AddressList';
@@ -175,6 +182,34 @@ export default new Router({
       path: '/order-info/:orderId', // 查看某个订单的页
       name: 'OrderList',
       component: YanOrderInfo
+    }, {
+      path: '/login',
+      name: 'Login',
+      component: YanUsersLogin
+    }, {
+      path: '/register',
+      name: 'Register',
+      component: YanUsersRegister
+    },
+    {
+      path: '/users/:userId',
+      name: 'User Center',
+      component: YanUserCenter,
+    },
+    {
+      path: '/users/nav/:userId',
+      name: 'User Center Nav',
+      component: YanUserCenterNav
+    },
+    {
+      path: '/users/info/:userId',
+      name: 'User Center Info',
+      component: YanUserCenterInfo
+    },
+    {
+      path: '/users/interestCategory/:userId',
+      name: 'User Center Info Interest Category',
+      component: YanUserCenterInfoInterest
     },
   ]
 })

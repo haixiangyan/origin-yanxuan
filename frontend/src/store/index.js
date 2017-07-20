@@ -19,6 +19,10 @@ import address from './modules/address.js';
 // 临时的用户信息
 import tempUser from './modules/tempUser.js';
 
+
+import user from './modules/user.js'
+
+
 Vue.use(Vuex);
 
 const state = {
@@ -35,6 +39,7 @@ const store = new Vuex.Store({
         search,
         address,        
         tempUser,
+        user
     }
 });
 

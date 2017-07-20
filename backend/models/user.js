@@ -98,15 +98,24 @@ function changeInformation(obj, cb) {
 		telephone: obj.telephone
 	}, function (err, docs) {
 		if (docs) {
-			docs.interest = obj.interest;
-			docs.gender = obj.gender;
-			docs.address = obj.address;
-			docs.name = obj.name;
-			docs.photo = obj.photo;
-			docs.markModified('address');
-			docs.markModified('interest');
-			docs.save();
-			cb("success", "")
+			if (obj.photo) {
+				docs.interest = obj.interest;
+				docs.gender = obj.gender;
+				docs.name = obj.name;
+				docs.photo = obj.photo;
+				docs.markModified('interest');
+				docs.save();
+				cb("success", "")
+			} else {
+				docs.interest = obj.interest;
+				docs.gender = obj.gender;
+				docs.address = obj.address;
+				docs.name = obj.name;
+				docs.markModified('interest');
+				docs.save();
+				cb("success", "")
+			}
+
 		} else {
 			cb("error", "")
 		}
@@ -114,6 +123,7 @@ function changeInformation(obj, cb) {
 }
 
 function checkLogin(obj, cb) {
+	console.log(obj);
 	userModel.findOne({
 		telephone: obj.telephone
 	}, function (err, docs) {
