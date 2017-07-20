@@ -5,8 +5,11 @@
     
         <!-- 订单详情页的内容 -->
         <div class="order-content">
+            <!-- 彩色边框 -->
+            <yan-color-border></yan-color-border>
+
             <!-- 地址部分 -->
-            <div class="yan-order-address">
+            <div @click="toAddressList" class="yan-order-address">
                 <yan-address-item :address="address"></yan-address-item>
             </div>
 
@@ -36,6 +39,8 @@
 <script>
 // 引入头部组件
 import YanHeader from '@/components/commons/Header/Header';
+// 引入彩色的边框
+import YanColorBorder from '@/components/commons/ColorBorder/ColorBorder'
 // 引入地址
 import YanAddressItem from '@/components/pages/Order/AddressItem/AddressItem';
 // 引入订单详情
@@ -62,10 +67,16 @@ export default {
     },
     components: {
         YanHeader,
+        YanColorBorder,
         YanAddressItem,
         YanOrderSpec,
         YanOrderGoodItem,
         YanOrderFooter
+    },
+    methods: {
+        toAddressList() {
+            this.$router.push('/address-list');
+        }
     }
 }
 </script>

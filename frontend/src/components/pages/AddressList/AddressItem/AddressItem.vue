@@ -1,5 +1,5 @@
 <template>
-  <div class="yan-address-item">
+  <div @click="selectAddress" class="yan-address-item">
 
     <!-- 地址的内容 -->
     <div class="yan-addresss-content">
@@ -16,16 +16,60 @@
       </div>
     </div>
 
-    <!-- 更多 -->
+    <!-- 编辑 -->
     <div class="yan-address-more">
-      <img src="/static/icons/more.png" alt="more">
+      <!-- 编辑地址 -->
+      <i @click.stop="toEditAddress" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+      <!-- 删除地址 -->
+      <i @click.stop="removeAddress" class="fa fa-trash-o" aria-hidden="true"></i>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['address']
+  props: ['address', 'index'],
+  computed: {
+    user() {
+      return this.$store.getters.user;
+    }
+  },
+  methods: {
+    selectAddress() {
+      // 改变收件的地址
+      this.$store.commit('selectAddress', {
+        address: this.address
+      });
+
+      // 返回到购物车的页面
+      this.$router.push('/order');
+    },
+    toEditAddress() {
+      // 开启编辑状态
+      this.$store.commit('trickEditState');
+      this.$store.commit('getEditAddress', {
+          editAddress: this.address,
+          editAddressIndex: this.index
+      });
+
+      this.$router.push('/address-form');
+    },
+    removeAddress() {
+
+      // 发送请求删除地址
+      this.$http({
+            method: 'delete',
+            url: `/users/address/${this.user.userID}/${this.index}`
+        })
+            .then((res) => {
+                // 更改前端地址
+                this.$emit('removeAddress', this.index);
+            })
+            .catch((err) => {
+                console.log('vue-resource err', err);
+            });
+    }
+  }
 }
 </script>
 
@@ -35,6 +79,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid rgb(200, 200, 200);
 }
 
 /* 地址的内容 */
@@ -91,5 +136,20 @@ export default {
 
 .yan-address-more img {
   width: 60px;
+}
+
+.yan-address-more i {
+  font-size: 40px;
+}
+
+/* 编辑地址 */
+.fa-pencil-square-o {
+  padding-right: 20px;
+  color: #666;
+}
+
+/* 删除地址 */
+.fa-trash-o {
+  color: rgb(180, 40, 45);
 }
 </style>

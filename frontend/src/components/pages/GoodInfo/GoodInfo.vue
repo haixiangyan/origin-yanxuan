@@ -79,11 +79,11 @@
         </div>
 
         <!-- 商品的推荐 -->
-        <div class="yan-suggest-goods">
+         <div class="yan-suggest-goods">
             <yan-title class="yan-title" :title="'大家都在看'"></yan-title>
 
-            <yan-catalog :catalog="suggestGoods" :more="true"></yan-catalog>
-        </div>
+            <yan-catalog :catalog="suggestGoods" :more="suggestGoods.data.length % 2 !== 0"></yan-catalog>
+        </div> 
 
         <yan-good-footer></yan-good-footer>
 
@@ -154,7 +154,9 @@ export default {
                             `
                 },
             ],
-            suggestGoods: {}
+            suggestGoods: {
+                data: []
+            }
         }
     }, 
     computed: {
@@ -206,14 +208,14 @@ export default {
         // 发送请求获取商品的建议
         this.$http({
             method: 'post',
-            url: `/goods/subCategoryGoods`,
+            url: `/goods/search`,
             body: {
-                subCategory: this.goodInfo.subCategory
+                key: this.goodInfo.category
             }
         })
             .then((res) => {
                 // 初始化商品
-                this.suggestGoods = res.body.data[0]
+                this.suggestGoods.data = res.body.data;
             })
             .catch((err) => {
                 console.log('vue-resource err', err);

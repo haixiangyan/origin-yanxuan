@@ -82,6 +82,9 @@ export default {
                 }
             });
 
+            // 更新头部的数字
+            this.$store.commit('addDisplayCartNum');
+
             // 发送请求，加入到购物车
             this.$http({
                 method: 'POST',
