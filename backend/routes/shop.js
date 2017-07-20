@@ -207,7 +207,7 @@ router.post('/confirmGoods', function(req, res, next) {
 		}
 	})
 })
-router.patch('/makeComment', function(req, res, next) {
+router.patch('/comment', function(req, res, next) {
 	var form = new multiparty.Form({
 		uploadDir: "/static/commentImage/"
 	})
