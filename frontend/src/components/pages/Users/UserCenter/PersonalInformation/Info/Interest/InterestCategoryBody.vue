@@ -52,24 +52,29 @@ export default {
                     this.user.interest.push(element.title);
                 }
             })
+            //只有interest一项是更改的
             let userForm = new FormData();
             userForm.append('telephone', this.user.telephone);
             userForm.append('address', this.user.address);
             userForm.append('interest', this.user.interest);
             userForm.append('name', this.user.name);
             userForm.append('gender', this.user.gender);
-            if(this.user.photo == '/static/img/loginImage/userHeadPortrait/default.png'){
-                userForm.append('photo', 
-                    new File([""], ''));
-            }else{
-                userForm.append('photo', 
-                    new File([""], this.user.photo));
-            }
+                userForm.append('photo', new File([""], ''));
+            // if(this.user.photo == '/static/img/loginImage/userHeadPortrait/default.png'){
+            //     userForm.append('photo', 
+            //         new File([""], ''));
+            // }else{
+            //     userForm.append('photo', 
+            //         new File([""], this.user.photo));
+            // }
             console.log(userForm);
             this.$http({
                 method: 'patch',
                 url: '/users/changeInformation',
-                body: userForm
+                body: userForm,
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             }).then(response => {
                 console.log('vue-resource then', response.body);
                 this.status = response.body.result;

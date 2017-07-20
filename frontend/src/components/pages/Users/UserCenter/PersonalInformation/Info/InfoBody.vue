@@ -82,6 +82,10 @@ export default {
             this.$store.commit('editHistoryFile', {
                 historyFile: this.file
             });
+            this.$store.commit('initHistoryUser', {
+                historyUser: this.mountedUser
+            });
+            
             this.$router.push({name: 'User Center Info Interest Category', params: { userId: this.id }});
         },
         submit(){
@@ -91,23 +95,26 @@ export default {
             userForm.append('interest', this.mountedUser.interest);
             userForm.append('name', this.mountedUser.name);
             userForm.append('gender', this.mountedUser.gender);
-            if(this.mountedUser.photo == '/static/img/loginImage/userHeadPortrait/default.png'){
-                userForm.append('photo', 
-                    new File([""], ''));
-            }else{
+            if(this.file){
                 userForm.append('photo', this.file);
+            }else{
+                userForm.append('photo', new File([""], ''));
             }
             console.log(userForm);
             this.$http({
                 method: 'patch',
                 url: '/users/changeInformation',
-                body: userForm
+                body: userForm,
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             })
                 .then(response => {
                 console.log('vue-resource then', response.body);
                 this.status = response.body.result;
                 if(this.status === 'success'){
                     //this.$router.push({name: 'User Center', params: { userId: response.body.user.telephone }})
+                    //提示成功
                 }
             }, response => {
                 // error callback
@@ -148,12 +155,24 @@ export default {
         },
         historyFile(){
             return this.$store.getters.historyFile;
+        },
+        historyUser(){
+            return this.$store.getters.historyUser;
         }
     },
     mounted(){
+        console.log(this.historyUser);
+        console.log(this.user);
         this.mountedUser = this.user;
+        if(this.historyUser.telephone !== ''){
+            this.mountedUser.name = this.historyUser.name;
+            this.mountedUser.gender = this.historyUser.gender;
+            this.mountedUser.address = this.historyUser.address;
+            this.$store.commit('cleanHistoryUser', {
+                historyUser: null
+            });
+        }
         console.log('info page',this.mountedUser);
-        console.log(this.historyFile);
         if(this.historyFile !== null){
             this.previewImg(this.historyFile)
             this.$store.commit('editHistoryFile', {
