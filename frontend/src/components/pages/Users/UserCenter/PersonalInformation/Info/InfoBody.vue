@@ -30,10 +30,10 @@
                     <label for="woman">女</label>
                 </div>
             </li>
-            <li class="list-item">
+            <!--<li class="list-item">
                 <span>地址</span>
                 <input type="text" :value="mountedUser.address[0].address" v-model="mountedUser.address[0].address">
-            </li>
+            </li>-->
         </ul>
 
         <div v-on:click="routeToInterest()" class="info-body-li">
@@ -91,7 +91,7 @@ export default {
         submit(){
             let userForm = new FormData();
             userForm.append('telephone', this.mountedUser.telephone);
-            userForm.append('address', this.mountedUser.address);
+            // userForm.append('address', this.mountedUser.address);
             userForm.append('interest', this.mountedUser.interest);
             userForm.append('name', this.mountedUser.name);
             userForm.append('gender', this.mountedUser.gender);

@@ -51,15 +51,15 @@ export default {
                 if(element.interested){
                     this.user.interest.push(element.title);
                 }
-            })
+            }, this);
             //只有interest一项是更改的
             let userForm = new FormData();
             userForm.append('telephone', this.user.telephone);
-            userForm.append('address', this.user.address);
+            // userForm.append('address', this.user.address);
             userForm.append('interest', this.user.interest);
             userForm.append('name', this.user.name);
             userForm.append('gender', this.user.gender);
-                userForm.append('photo', new File([""], ''));
+            userForm.append('photo', new File([""], ''));
             // if(this.user.photo == '/static/img/loginImage/userHeadPortrait/default.png'){
             //     userForm.append('photo', 
             //         new File([""], ''));
@@ -160,6 +160,7 @@ export default {
                 title:'智能硬件',
                 source:'/static/img/loginImage/interest/智能硬件.png'
             });
+            console.log('mounted: ' + this.user);
         this.items.forEach(function(element) {
             this.interestedList.push({
                 title: element.title,

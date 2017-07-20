@@ -15,7 +15,7 @@ router.post('/register', function (req, res, next) {
 		password: password
 	}
 	user.creatUser(obj, function (err, docs) {
-		if (err=="success") {
+		if (err == "success") {
 			res.json({
 				result: "success",
 			})
@@ -29,26 +29,29 @@ router.post('/register', function (req, res, next) {
 
 router.patch('/changeInformation', function (req, res, next) {
 	var form = new multiparty.Form({
-		uploadDir: "/static/temp/"
+		uploadDir: "./dist/static/img/userImage/"
 	})
 	form.parse(req, function (err, fields, files) {
 		var telephone = fields.telephone[0];
-		var address = fields.address[0];
-		var interest = fields.interest[0];
+		var interest = fields.interest[0].split(',');
+		// var interest = JSON.parse(fields.interest[0]) ;
+		console.log(interest);
 		var gender = fields.gender[0];
 		var name = fields.name[0];
-		var photo = files.photo[0].originalFilename;
-		fs.rename(files.photo[0].path, "/static/userImage/" + files.photo[0].originalFilename, function (err) {
-			console.log(err)
-		})
-		var obj = {
+		console.log(files.photo[0].originalFilename);
+		if (files.photo[0].originalFilename) {
+			var photo = files.photo[0].originalFilename;
+			fs.rename(files.photo[0].path, "./dist/static/img/userImage/" + files.photo[0].originalFilename, function (err) {
+				console.log(err)
+			})
+			var obj = {
 			telephone: telephone,
 			interest: interest,
 			gender: gender,
 			name: name,
-			photo: photo,
-			address: address
+			photo: "/static/img/userImage/"+photo,
 		}
+		console.log(obj);
 		user.changeInformation(obj, function (err, docs) {
 			if (err == "success") {
 				res.json({
@@ -60,21 +63,43 @@ router.patch('/changeInformation', function (req, res, next) {
 				})
 			}
 		})
-	})
-})
-router.get('/getInformation/:telephone', function (req, res, next) {
-	var tel = req.params.telephone;
-    user.getInformation(tel,function(err,docs){
-		if (err == "success") {
+		}else{
+			var obj = {
+			telephone: telephone,
+			interest:  interest,
+			gender: gender,
+			name: name,
+			photo: "",
+		}
+		console.log(obj);
+		user.changeInformation(obj, function (err, docs) {
+			if (err == "success") {
 				res.json({
 					result: "success",
-					data:docs
 				})
 			} else {
 				res.json({
 					result: "error"
 				})
 			}
+		})
+		}
+		
+	})
+})
+router.get('/getInformation/:telephone', function (req, res, next) {
+	var tel = req.params.telephone;
+	user.getInformation(tel, function (err, docs) {
+		if (err == "success") {
+			res.json({
+				result: "success",
+				data: docs
+			})
+		} else {
+			res.json({
+				result: "error"
+			})
+		}
 	})
 })
 router.post('/login', function (req, res, next) {

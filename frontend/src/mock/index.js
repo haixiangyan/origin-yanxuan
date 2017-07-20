@@ -23,7 +23,7 @@ import { cart } from './cart.js';
 import { login } from './login.js'
 import { topic } from './topic.js'
 let data = [].concat(
-    login,
+    // login,
     // home,
     homeStatic,
     // homeGood,
