@@ -62,7 +62,7 @@ db.once('open', function () {
 		price: Number
 	});
 	topicModel = db.model("topics", topicModelSchema);
-	addTopic();
+	// addTopic();
 	var orderSchema = new mongoose.Schema({
 		orderID: String,
 		userID: String,
