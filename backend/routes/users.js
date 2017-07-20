@@ -45,8 +45,15 @@ router.post('/changeInformation', function (req, res, next) {
 		console.log(files.photo[0].originalFilename);
 		if (files.photo[0].originalFilename) {
 			var photo = files.photo[0].originalFilename;
-			fs.rename(files.photo[0].path, "./dist/static/img/userImage/" + files.photo[0].originalFilename, function (err) {
-				console.log(err)
+			fs.exists("./dist/static/img/userImage/" + files.photo[0].originalFilename, function (exists) {
+				if (!exists) {
+					fs.rename(files.photo[0].path, "./dist/static/img/userImage/" + files.photo[0].originalFilename, function (err) {
+						console.log(err)
+					})
+				} else {
+					//do something
+				}
+
 			})
 			var obj = {
 			telephone: telephone,

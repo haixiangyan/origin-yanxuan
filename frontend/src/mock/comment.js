@@ -43,4 +43,21 @@ export const comment = [{
 
     return result;
   }
+},
+{
+  path: '/shop/comment',   // 添加评论
+  type: 'patch',
+  data(option) {
+    let result = {
+      result: 'success',
+      data: {
+        comment: [],
+        user: []
+      }
+    };
+
+    console.log('add comment successfully');
+
+    return result;
+  }
 }]

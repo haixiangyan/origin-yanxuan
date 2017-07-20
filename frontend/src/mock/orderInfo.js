@@ -66,7 +66,7 @@ export const orderInfo = [{
         "userID": "1",
         "expressNumber": 123123,
         "expressCompany": Random.cname(4, 6),
-        "orderState": 1,
+        "orderState": 2,
         "payID": "",
         "totalFee": 50,
         "address": [{
@@ -205,6 +205,19 @@ export const orderInfo = [{
       }
     ]
     };
+
+    return result;
+  }
+},{
+  path: '/shop/confirmGoods',
+  type: 'post',
+  data(option) {
+    let result = {
+      result: 'success',
+      data: []
+    };
+
+    console.log('confirm order successfully');
 
     return result;
   }

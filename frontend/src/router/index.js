@@ -41,6 +41,8 @@ import YanGoodInfo from '@/components/pages/GoodInfo/GoodInfo';
 import YanGoodChoose from '@/components/pages/Choose/Choose';
 // 引入商品的评论列表
 import YanCommentList from '@/components/pages/CommentList/CommentList';
+// 引入添加商品评论的组件
+import YanAddComment from '@/components/pages/CommentList/AddComment/AddComment';
 
 // 引入购物车
 import YanCart from '@/components/pages/Cart/Cart';
@@ -67,6 +69,9 @@ import YanOrderList from '@/components/pages/OrderList/OrderList';
 
 // 引入选择地址的组件
 import YanArea from '@/components/pages/AddressForm/Area/Area';
+
+// 引入支付的页面
+import YanPay from '@/components/pages/Pay/Pay';
 
 Vue.use(Router)
 
@@ -211,5 +216,15 @@ export default new Router({
       name: 'User Center Info Interest Category',
       component: YanUserCenterInfoInterest
     },
+    {
+      path: '/pay',
+      name: 'Pay',
+      component: YanPay   // 支付页面
+    },
+    {
+      path: '/add-comment',
+      name: 'AddComment',
+      component: YanAddComment  // 添加评论
+    }
   ]
 })

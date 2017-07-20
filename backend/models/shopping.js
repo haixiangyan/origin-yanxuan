@@ -22,7 +22,7 @@ db.once('open', function () {
 		expressCompany: String,
 		address: Array,
 		orderState: Number,
-		orderDate:String,
+		orderDate: String,
 		payID: String,
 		totalFee: Number
 	});
@@ -62,16 +62,16 @@ function addOrder() {
 			detail: "Neu",
 			receiver: "xu",
 			telephone: "123124",
-			isDefault:false
+			isDefault: false
 		}],
-		orderDate:""+new Date().getTime,
+		orderDate: "" + new Date().getTime,
 		orderState: 0,
 		payID: "",
 		totalFee: 50
 	})
 	orderEntity.save();
 	var orderEntity = new orderModel({
-		orderID: "123",
+		orderID: "1235446",
 		userID: "1",
 		goodsList: [{
 			ID: "123",
@@ -81,8 +81,8 @@ function addOrder() {
 			name: "懒人清洁新选择",
 			picture: '/static/img/goodsImage/0/headImage/1.jpg'
 		}],
-		expressNumber: 123123,
-		expressCompany: "saddas",
+		expressNumber: 810874175279,
+		expressCompany: "圆通",
 		address: [{
 			province: "liaoning",
 			city: "shenyang",
@@ -90,9 +90,9 @@ function addOrder() {
 			detail: "Neu",
 			receiver: "xu",
 			telephone: "123124",
-			isDefault:false
+			isDefault: false
 		}],
-		orderDate:""+new Date().getTime,
+		orderDate: "" + new Date().getTime,
 		orderState: 1,
 		payID: "",
 		totalFee: 50
@@ -109,8 +109,8 @@ function addOrder() {
 			name: "懒人清洁新选择",
 			picture: '/static/img/goodsImage/0/headImage/1.jpg'
 		}],
-		expressNumber: 123123,
-		expressCompany: "saddas",
+		expressNumber: 810874175279,
+		expressCompany: "圆通",
 		address: [{
 			province: "liaoning",
 			city: "shenyang",
@@ -118,9 +118,9 @@ function addOrder() {
 			detail: "Neu",
 			receiver: "xu",
 			telephone: "123124",
-			isDefault:false
+			isDefault: false
 		}],
-		orderDate:""+new Date().getTime,
+		orderDate: "" + new Date().getTime,
 		orderState: 2,
 		payID: "",
 		totalFee: 50
@@ -146,15 +146,15 @@ function addOrder() {
 			detail: "Neu",
 			receiver: "xu",
 			telephone: "123124",
-			isDefault:false
+			isDefault: false
 		}],
-		orderDate:""+new Date().getTime,
+		orderDate: "" + new Date().getTime,
 		orderState: 3,
 		payID: "",
 		totalFee: 50
 	})
 	orderEntity.save();
-		var orderEntity = new orderModel({
+	var orderEntity = new orderModel({
 		orderID: "1278",
 		userID: "1",
 		goodsList: [{
@@ -174,10 +174,38 @@ function addOrder() {
 			detail: "Neu",
 			receiver: "xu",
 			telephone: "123124",
-			isDefault:false
+			isDefault: false
 		}],
-		orderDate:""+new Date().getTime,
-		orderState: 4,
+		orderDate: "" + new Date().getTime,
+		orderState: 3,
+		payID: "",
+		totalFee: 50
+	})
+	orderEntity.save();
+	var orderEntity = new orderModel({
+		orderID: "1278678",
+		userID: "1",
+		goodsList: [{
+			ID: "123",
+			number: 1,
+			type: "Asd",
+			price: 50,
+			name: "懒人清洁新选择",
+			picture: '/static/img/goodsImage/0/headImage/1.jpg'
+		}],
+		expressNumber: 123123,
+		expressCompany: "saddas",
+		address: [{
+			province: "liaoning",
+			city: "shenyang",
+			town: "hunnan",
+			detail: "Neu",
+			receiver: "xu",
+			telephone: "123124",
+			isDefault: false
+		}],
+		orderDate: "" + new Date().getTime,
+		orderState: 3,
 		payID: "",
 		totalFee: 50
 	})
@@ -266,7 +294,9 @@ function addToCart(obj, cb) {
 				}
 			}
 			if (i == docs.goodsList.length) {
-				goodsModel.findOne({ ID: obj.ID }, function (err, docs2) {
+				goodsModel.findOne({
+					ID: obj.ID
+				}, function (err, docs2) {
 					var newobj = {
 						ID: obj.ID,
 						type: obj.type,
@@ -288,11 +318,13 @@ function addToCart(obj, cb) {
 				cb("success", docs.goodsList);
 			}
 		} else {
-			goodsModel.findOne({ ID: obj.ID }, function (err, docs) {
+			goodsModel.findOne({
+				ID: obj.ID
+			}, function (err, docs) {
 				var newobj = {
 					ID: obj.ID,
 					type: obj.type,
-					number: parseInt(obj.number) ,
+					number: parseInt(obj.number),
 					price: docs.price,
 					picture: docs.headImage[0],
 					name: docs.topName
@@ -383,7 +415,7 @@ function makeOrder(obj, cb) {
 	var arr = [];
 	var arr2 = [];
 	// var goodsList = JSON.parse(obj.goodsList);
-	var goodsList =obj.goodsList;
+	var goodsList = obj.goodsList;
 	for (i = 0; i < goodsList.length; i++) {
 		var newobj = goodsList[i];
 		goodsModel.findOne({
@@ -415,7 +447,9 @@ function makeOrder(obj, cb) {
 	if (flag == true) { //有些商品库存不够，返回错误
 		for (var k = 0; k < arr.length; k++) {
 			var newobj = obj.goodsList[arr[k]];
-			goodsModel.findOne({ ID: newobj.ID }, function (err, docs) {
+			goodsModel.findOne({
+				ID: newobj.ID
+			}, function (err, docs) {
 				var j;
 				for (j = 0; j < docs.type.length; j++) {
 					if (obj.type == docs.type[j]) {
@@ -453,14 +487,15 @@ function getOrder(orderid, cb) {
 		orderID: orderid
 	}, cb);
 }
+
 function getCustomerOrder(userid, cb) {
 	orderModel.find({
 		userID: userid
-	},function(err,docs){
-		if(docs.length>0){
-           cb("success",docs)
-		}else{
-          cb("error","")
+	}, function (err, docs) {
+		if (docs.length > 0) {
+			cb("success", docs)
+		} else {
+			cb("error", "")
 		}
 	});
 }
@@ -502,23 +537,23 @@ function deliverComment(obj, cb) {
 	orderModel.findOne({
 		orderID: obj.orderID
 	}, function (err, docs) {
-		if(docs){
+		if (docs) {
 			docs.orderState = 4;
-		docs.save();
-		var commentEntity = new commentModel({
-			goodsID: obj.goodsID,
-			userID: obj.userID,
-			content: obj.content,
-			picture: obj.picture,
-			commentDate: obj.commentDate,
-			type: obj.type
-		})
-		commentEntity.save();
-		cb("success", "");
-		}else{
+			docs.save();
+			var commentEntity = new commentModel({
+				goodsID: obj.goodsID,
+				userID: obj.userID,
+				content: obj.content,
+				picture: obj.picture,
+				commentDate: obj.commentDate,
+				type: obj.type
+			})
+			commentEntity.save();
+			cb("success", "");
+		} else {
 			cb("error", "");
 		}
-		
+
 	})
 }
 
@@ -526,14 +561,14 @@ function confirmGoods(orderid, cb) {
 	orderModel.findOne({
 		orderID: orderid
 	}, function (err, docs) {
-		if(docs){		
-		docs.orderState = 3;
-		docs.save();
-		cb("success", "");
-		}else{
+		if (docs) {
+			docs.orderState = 3;
+			docs.save();
+			cb("success", "");
+		} else {
 			cb("error", "");
 		}
-		
+
 	})
 }
 
@@ -548,5 +583,4 @@ module.exports.pay = pay;
 module.exports.deliverGoods = deliverGoods;
 module.exports.confirmGoods = confirmGoods;
 module.exports.deliverComment = deliverComment;
-module.exports.getCustomerOrder=getCustomerOrder;
-
+module.exports.getCustomerOrder = getCustomerOrder;
