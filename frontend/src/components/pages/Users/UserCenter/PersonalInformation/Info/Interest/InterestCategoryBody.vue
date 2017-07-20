@@ -52,13 +52,29 @@ export default {
                     this.user.interest.push(element.title);
                 }
             })
-            this.$http.patch('/users/changeInformation', this.user
-            ).then(response => {
+            let userForm = new FormData();
+            userForm.append('telephone', this.user.telephone);
+            userForm.append('address', this.user.address);
+            userForm.append('interest', this.user.interest);
+            userForm.append('name', this.user.name);
+            userForm.append('gender', this.user.gender);
+            if(this.user.photo == '/static/img/loginImage/userHeadPortrait/default.png'){
+                userForm.append('photo', 
+                    new File([""], ''));
+            }else{
+                userForm.append('photo', 
+                    new File([""], this.user.photo));
+            }
+            console.log(userForm);
+            this.$http({
+                method: 'patch',
+                url: '/users/changeInformation',
+                body: userForm
+            }).then(response => {
                 console.log('vue-resource then', response.body);
                 this.status = response.body.result;
                 if(this.status === 'success'){
                     //this.$router.push({name: 'User Center', params: { userId: response.body.user.telephone }})
-
                 }
             }, response => {
                 // error callback
@@ -69,11 +85,15 @@ export default {
     computed:{
         user() {
             return this.$store.getters.user;
+        },
+        file(){
+            return this.$store.getters.file;
+        },
+        historyFile(){
+            return this.$store.getters.historyFile;
         }
     },
     mounted(){
-        console.log(this.interestedList); 
-        console.log(this.items);
         this.items.push(
             {
                 title:'床品被枕',
@@ -142,8 +162,8 @@ export default {
             });
             
         }, this);
-
-        console.log(this.interestedList); 
+        console.log(this.historyFile);
+        //错误关闭会导致信息页面显示不正确.
     }
 }
 </script>

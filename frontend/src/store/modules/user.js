@@ -11,11 +11,15 @@ const state = {
         __v: '',
         address: [],
         interest: []
-    }
+    },
+    file: null,
+    historyFile: null
 }
 
 const getters = {
-    user: state => state.user
+    user: state => state.user,
+    file: state => state.file,
+    historyFile: state => state.historyFile,
 }
 
 const actions = {
@@ -28,8 +32,14 @@ const mutations = {
         state.user = payload.user;
     },
     editUser(state, payload) {
-        stase.user.id = payload.id;
-    }
+        state.user.id = payload.id;
+    },
+    editFile(state, payload) {
+        state.file = payload.file;
+    },
+    editHistoryFile(state, payload) {
+        state.historyFile = payload.historyFile;
+    },
 }
 
 /*

@@ -4,8 +4,8 @@
             <img :src="mountedUser.photo" alt="">
             <div id="dd" class="avatar-uploader" v-on:click="saveLocal">
                 <input id="inputUpload" class="avatar-upload" v-on:change="uploadFile" type="file" name="file" required /> 
-                <img v-if="`${imageUrl}!==''`" :src="imageUrl" class="avatar">
-                <i v-else class="el-icon-plus avatar-uploader-icon">
+                <img  id="previewImg" src="" class="avatar" style="display:none">
+                <i id="afterUploadImg" class="el-icon-plus avatar-uploader-icon" style="display: block">
                     <div class="avatar-prompt">更换头像</div>
                 </i>
             </div>
@@ -36,14 +36,14 @@
             </li>
         </ul>
 
-        <router-link tag="div" :to="`/users/interestCategory/${id}`" class="info-body-li">
+        <div v-on:click="routeToInterest()" class="info-body-li">
             <div class="info-body-li-left">
                 <span>感兴趣的分类</span>
             </div>
             <div class="info-body-li-right">
                 <div><img class="render" src="/static/img/loginImage/render.png" alt=""></div>
             </div>
-        </router-link > 
+        </div> 
 
         <div class="info-body-select">
             <div class="info-body-select-cancle">
@@ -61,7 +61,6 @@ export default {
     props: ['id'],
     data() {
         return{
-            imageUrl: '',
             mountedUser : {
                 "_id": "",
                 "telephone": "",
@@ -72,13 +71,18 @@ export default {
                 "name": '',
                 "gender": "",
                 "photo": ""
-            },
-            file: null
+            }
         }
     },
     methods:{
         saveLocal(){
             document.getElementById('inputUpload').click();
+        },
+        routeToInterest(){
+            this.$store.commit('editHistoryFile', {
+                historyFile: this.file
+            });
+            this.$router.push({name: 'User Center Info Interest Category', params: { userId: this.id }});
         },
         submit(){
             let userForm = new FormData();
@@ -87,10 +91,15 @@ export default {
             userForm.append('interest', this.mountedUser.interest);
             userForm.append('name', this.mountedUser.name);
             userForm.append('gender', this.mountedUser.gender);
-            userForm.append('photo', this.file);
-            console.log(this.mountedUser);
+            if(this.mountedUser.photo == '/static/img/loginImage/userHeadPortrait/default.png'){
+                userForm.append('photo', 
+                    new File([""], ''));
+            }else{
+                userForm.append('photo', this.file);
+            }
+            console.log(userForm);
             this.$http({
-                method: 'post',
+                method: 'patch',
                 url: '/users/changeInformation',
                 body: userForm
             })
@@ -99,31 +108,31 @@ export default {
                 this.status = response.body.result;
                 if(this.status === 'success'){
                     //this.$router.push({name: 'User Center', params: { userId: response.body.user.telephone }})
-
                 }
             }, response => {
                 // error callback
                 console.log('vue-resource err', response.err);
             });
         },
-        uploadFile (e) {
-        // uploadFile (res, file) {
-            // this.imageUrl = URL.createObjectURL(file.raw);
-            // console.log(this.imageUrl   );
-            let file = e.target.files[0];
-            console.log(file);
-            var reader = new FileReader();
-            reader.readAsDataURL(file);
+        previewImg(tempFile){
+            let reader = new FileReader();
+            reader.readAsDataURL(tempFile);
             reader.onload = function()
             {
-                // document.getElementById("dd").innerHTML += "<img src='"+reader.result+"'>";
-                this.imageUrl = reader.result;
-                console.log(typeof reader.result);
+                document.getElementById('previewImg').style.display = 'block';
+                document.getElementById('previewImg').setAttribute('src', reader.result);
+                document.getElementById('afterUploadImg').style.display = 'none';
             };
-            console.log('this.imageUrl' +this.imageUrl);
+            this.$store.commit('editFile', {
+                file: tempFile
+            });
+        },
+        uploadFile (e) {
+            let tempFile = e.target.files[0];
             let supportedTypes = ['image/jpg', 'image/jpeg', 'image/png'];
-            if (file && supportedTypes.indexOf(file.type) >= 0) {
-                this.file = file;
+            if (tempFile && supportedTypes.indexOf(tempFile.type) >= 0) {
+                this.previewImg(tempFile);
+                console.log(this.file);
             } else {
                 alert('文件格式只支持：jpg、jpeg 和 png');
                 this.clearFile();
@@ -133,11 +142,30 @@ export default {
     computed:{
         user() {
             return this.$store.getters.user;
+        },
+        file() {
+            return this.$store.getters.file;
+        },
+        historyFile(){
+            return this.$store.getters.historyFile;
         }
     },
     mounted(){
         this.mountedUser = this.user;
         console.log('info page',this.mountedUser);
+        console.log(this.historyFile);
+        if(this.historyFile !== null){
+            this.previewImg(this.historyFile)
+            this.$store.commit('editHistoryFile', {
+                historyFile: null
+            });
+        }
+    },
+    destroyed(){
+        console.log('destoryed');
+        this.$store.commit('editFile', {
+            file: null
+        });
     }
 }
 </script>
@@ -198,6 +226,10 @@ export default {
     border-radius: 50%;
     width: 200px;
     height: 200px;
+    margin-right: 30px;
+}
+.info-body .img>img{
+    margin-right: 30px;
 }
 
 ul{

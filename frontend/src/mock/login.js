@@ -60,4 +60,13 @@ export const login = [{
         }
         return data;
     }
+}, {
+    path: '/users/changeInformation',
+    type: 'patch',
+    data(body) {
+        const data = {
+            result: 'success'
+        }
+        return data;
+    }
 }]
