@@ -78,12 +78,9 @@ export default {
                 '好',
                 '非常好'
             ],
-            commentImages: [
-                '/static/img/cart/cartItem.png',
-                '/static/img/cart/cartItem.png',
-                '/static/img/cart/cartItem.png',
-            ],
             fileFormData: {},
+            commentImages: [],
+            files: [],
             uploadSrc: '',
             content: '',
         }
@@ -122,14 +119,18 @@ export default {
             this.fileFormData.append('content', this.content);
             this.fileFormData.append('type', this.type);
             this.fileFormData.append('orderID', this.commentOrderID);
+            this.fileFormData.append('commentDate', new Date().getTime());
 
             this.$http({
-                method: 'patch',
-                url: `/comment`,
-                body: this.fileFormData
+                method: 'post',
+                url: `/shop/comment`,
+                body: this.fileFormData,
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             })
                 .then((res) => {
-                    this.$router.push('/order-list');
+                    // this.$router.push('/order-list');
                 })
                 .catch((err) => {
                 console.log('vue-resource err', err);

@@ -10,7 +10,7 @@
 			<div class="yan-topic-body-item-img-container" >
 				<div class="left" :style="{'background-image': `url(${item.picture[0]})`}">
 				</div>
-				<div class="right" v-if="item.picture[1]!==''">
+				<div class="right" v-if="item.picture.length>1">
 					<div class="right-img" :style="{'background-image': `url(${item.picture[1]})`}">
 					</div>
 					<div class="right-img" :style="{'background-image': `url(${item.picture[2]})`}">

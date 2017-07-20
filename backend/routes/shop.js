@@ -5,10 +5,10 @@ var multiparty = require("multiparty")
 var fs = require("fs");
 var path = require('path');
 
-router.get('/cart/:ID', function(req, res, next) {//已测
+router.get('/cart/:ID', function (req, res, next) { //已测
 	var ID = req.params.ID;
-	shopping.getCart(ID, function(err, docs) {
-		if(err=='success') {
+	shopping.getCart(ID, function (err, docs) {
+		if (err == 'success') {
 			res.json({
 
 				result: "success",
@@ -23,7 +23,7 @@ router.get('/cart/:ID', function(req, res, next) {//已测
 	})
 
 });
-router.post('/addToCart', function(req, res, next) {//已测
+router.post('/addToCart', function (req, res, next) { //已测
 
 	var ID = req.body.ID;
 	var Type = req.body.type;
@@ -35,8 +35,8 @@ router.post('/addToCart', function(req, res, next) {//已测
 		number: number,
 		userID: userID
 	};
-	shopping.addToCart(obj, function(err, docs) {
-		if(err == "success") {
+	shopping.addToCart(obj, function (err, docs) {
+		if (err == "success") {
 			res.json({
 				result: "success",
 				cartList: docs
@@ -50,11 +50,11 @@ router.post('/addToCart', function(req, res, next) {//已测
 
 	})
 });
-router.delete('/cart/:userID/:ID', function(req, res, next) {//已测
+router.delete('/cart/:userID/:ID', function (req, res, next) { //已测
 	var goodsID = req.params.ID;
 	var userID = req.params.userID;
-	shopping.deleteItemFromCart(userID, goodsID, function(err, docs) {
-		if(err == "error") {
+	shopping.deleteItemFromCart(userID, goodsID, function (err, docs) {
+		if (err == "error") {
 			res.json({
 				result: "error"
 			})
@@ -66,13 +66,13 @@ router.delete('/cart/:userID/:ID', function(req, res, next) {//已测
 		}
 	})
 })
-router.post('/changeNumebr', function(req, res, next) {//已测，输入修改后的数字
+router.post('/changeNumebr', function (req, res, next) { //已测，输入修改后的数字
 	var goodsID = req.body.ID;
 	var userID = req.body.userID;
 	var type = req.body.type;
 	var number = req.body.number;
-	shopping.changeItemInCart(userID, goodsID, type, number, function(err, docs) {
-		if(err == "error") {
+	shopping.changeItemInCart(userID, goodsID, type, number, function (err, docs) {
+		if (err == "error") {
 			res.json({
 				result: "error"
 			})
@@ -84,12 +84,12 @@ router.post('/changeNumebr', function(req, res, next) {//已测，输入修改�
 		}
 	})
 })
-router.post('/changeCart', function(req, res, next) {//已测
+router.post('/changeCart', function (req, res, next) { //已测
 
-	var cartList =  req.body.cartList;
+	var cartList = req.body.cartList;
 	var userid = req.body.userID;
-	shopping.changeCartList(userid, cartList, function(err, docs) {
-		if(err == "error") {
+	shopping.changeCartList(userid, cartList, function (err, docs) {
+		if (err == "error") {
 			res.json({
 				result: "error"
 			})
@@ -100,7 +100,7 @@ router.post('/changeCart', function(req, res, next) {//已测
 		}
 	})
 })
-router.post('/order', function(req, res, next) { //已测
+router.post('/order', function (req, res, next) { //已测
 	var goodsList = req.body.goodsList;
 	var userID = req.body.userID;
 	var address = req.body.address;
@@ -111,8 +111,8 @@ router.post('/order', function(req, res, next) { //已测
 		address: address,
 		totalFee: totalFee
 	};
-	shopping.makeOrder(obj, function(err,docs) {
-		if(err == "success") {
+	shopping.makeOrder(obj, function (err, docs) {
+		if (err == "success") {
 			res.json({
 				result: "success",
 				orderID: docs
@@ -128,10 +128,10 @@ router.post('/order', function(req, res, next) { //已测
 
 })
 
-router.get('/order/:orderID', function(req, res, next) {//已测
+router.get('/order/:orderID', function (req, res, next) { //已测
 	var orderid = req.params.orderID;
-	shopping.getOrder(orderid, function(err, docs) {
-		if(!err) {
+	shopping.getOrder(orderid, function (err, docs) {
+		if (!err) {
 			res.json({
 				result: "success",
 				order: docs[0]
@@ -144,10 +144,10 @@ router.get('/order/:orderID', function(req, res, next) {//已测
 	})
 
 })
-router.get('/customerOrder/:userID', function(req, res, next) {//已测
+router.get('/customerOrder/:userID', function (req, res, next) { //已测
 	var orderid = req.params.userID;
-	shopping.getCustomerOrder(orderid, function(err, docs) {
-		if(err=="success") {
+	shopping.getCustomerOrder(orderid, function (err, docs) {
+		if (err == "success") {
 			res.json({
 				result: "success",
 				order: docs
@@ -160,11 +160,11 @@ router.get('/customerOrder/:userID', function(req, res, next) {//已测
 	})
 
 })
-router.post('/pay', function(req, res, next) {
+router.post('/pay', function (req, res, next) {
 	var payID = req.body.payID;
 	var orderID = req.body.orderID;
-	shopping.pay(orderID, payID, function(err, docs) {
-		if(err == "success") {
+	shopping.pay(orderID, payID, function (err, docs) {
+		if (err == "success") {
 			res.json({
 				result: "success"
 			})
@@ -176,12 +176,12 @@ router.post('/pay', function(req, res, next) {
 	})
 
 })
-router.post('/deliverGoods', function(req, res, next) {
+router.post('/deliverGoods', function (req, res, next) {
 	var orderID = req.body.orderID;
 	var expressCompany = req.body.expressCompany;
 	var expressNumber = req.body.expressNumber;
-	shopping.deliverGoods(orderID, expressCompany, expressNumber, function(err, docs) {
-		if(err == "success") {
+	shopping.deliverGoods(orderID, expressCompany, expressNumber, function (err, docs) {
+		if (err == "success") {
 			res.json({
 				result: "success"
 			})
@@ -193,10 +193,10 @@ router.post('/deliverGoods', function(req, res, next) {
 	})
 
 })
-router.post('/confirmGoods', function(req, res, next) {
+router.post('/confirmGoods', function (req, res, next) {
 	var orderid = req.body.orderID;
-	shopping.confirmGoods(orderid, function(err, docs) {
-		if(err == "success") {
+	shopping.confirmGoods(orderid, function (err, docs) {
+		if (err == "success") {
 			res.json({
 				result: "success"
 			})
@@ -207,64 +207,109 @@ router.post('/confirmGoods', function(req, res, next) {
 		}
 	})
 })
-router.patch('/makeComment', function(req, res, next) {
+router.post('/comment', function (req, res, next) {
 	var form = new multiparty.Form({
-		uploadDir: "/static/commentImage/"
+		uploadDir: "./dist/static/img/commentImage/"
 	})
-	form.parse(req, function(err, fields, files) {
+	form.parse(req, function (err, fields, files) {
+		console.log(fields.files[0].originalFilename);
 		var goodsID = fields.goodsID[0];
+		console.log(goodsID + "    ")
 		var userID = fields.userID[0];
+		console.log(userID + "    ")
 		var content = fields.content[0];
-		var commentDate = fields.ommentDate[0];
+		console.log(content + "    ")
+		var commentDate = fields.commentDate[0];
+		console.log(commentDate + "    ")
 		var type = fields.type[0];
-		var orderID = fileds.orderID[0];
-
-		fs.readdir('/static/commentImage/' + goodsID, function(err, files) {//如果该商品还没有人上传评论图片
-			if(err) {
-				fs.mkdir('/static/commentImage/' + goodsID, function(err) {//新建文件夹存放评论图片
-					if(err) {
+		console.log(type + "    ")
+		var orderID = fields.orderID[0];
+		console.log(orderID + "    ")
+		fs.readdir('./dist/static/img/commentImage/' + goodsID, function (err, files) { //如果该商品还没有人上传评论图片
+			if (err) {
+				fs.mkdir('./dist/static/img/commentImage/' + goodsID, function (err) { //新建文件夹存放评论图片
+					if (err) {
 						throw err;
 					}
 					console.log('make dir success.');
+					fs.mkdir('./dist/static/img/commentImage/' + goodsID + '/' + commentDate, function (err) { //新建存放当前评论图片的文件夹
+						if (err) {
+							throw err;
+						}
+						console.log('make detail dir success.');
+						var arr = [];
+						for (var i = 0; i < files.picture.length; i++) { //存放图片
+							var picture = files.picture[i].originalFilename;
+							arr.push(picture);
+							fs.rename(files.photo[0].path, '/static/commentImage/' + goodsID + '/' + commentDate + '/' + picture, function (err) {
+								console.log(err)
+							})
+
+						}
+						var obj = {
+							goodsID: goodsID,
+							userID: userID,
+							orderID: orderID,
+							content: content,
+							commentDate: commentDate,
+							type: type,
+							picture: arr
+						}
+						shopping.deliverComment(obj, function (err, docs) {
+							if (err == "success") {
+								res.json({
+									result: "success"
+								})
+							} else {
+								res.json({
+									result: "error"
+								})
+							}
+						})
+					});
+
+				});
+			} else {
+				fs.mkdir('./dist/static/img/commentImage/' + goodsID + '/' + commentDate, function (err) { //新建存放当前评论图片的文件夹
+					if (err) {
+						throw err;
+					}
+					console.log('make detail dir success.');
+					var arr = [];
+					console.log(JSON.stringify(files));
+					for (var i = 0; i < files.picture.length; i++) { //存放图片
+						var picture = files.picture[i].originalFilename;
+						arr.push(picture);
+						fs.rename(files.photo[0].path, '/static/commentImage/' + goodsID + '/' + commentDate + '/' + picture, function (err) {
+							console.log(err)
+						})
+
+					}
+					var obj = {
+						goodsID: goodsID,
+						userID: userID,
+						orderID: orderID,
+						content: content,
+						commentDate: commentDate,
+						type: type,
+						picture: arr
+					}
+					shopping.deliverComment(obj, function (err, docs) {
+						if (err == "success") {
+							res.json({
+								result: "success"
+							})
+						} else {
+							res.json({
+								result: "error"
+							})
+						}
+					})
 				});
 			}
 		});
-		fs.mkdir(' / static / commentImage / ' + goodsID + ' / ' + commentDate, function(err) {//新建存放当前评论图片的文件夹
-			if(err) {
-				throw err;
-			}
-			console.log('make detail dir success.');
-		});
-		var arr = [];
-		for(var i = 0; i < files.picture.length; i++) {//存放图片
-			var picture = files.picture[i].originalFilename;
-			arr.push(picture);
-			fs.rename(files.photo[0].path, '/static/commentImage/' + goodsID + '/' + commentDate + '/' + picture, function(err) {
-				console.log(err)
-			})
 
-		}
 
-		var obj = {
-			goodsID: goodsID,
-			userID: userID,
-			orderID:orderID,
-			content: content,
-			commentDate: commentDate,
-			type: type,
-			picture: arr
-		}
-		shopping.deliverComment(obj, function(err, docs) {
-			if(err == "success") {
-			res.json({
-				result: "success"
-			})
-		} else {
-			res.json({
-				result: "error"
-			})
-		}
-		})
 	})
 })
 
