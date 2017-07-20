@@ -2,7 +2,7 @@
   <div v-show="curNum !== totalNum" class="yan-empty-images">
     <form class="upload" enctype="multipart/form-data" ref="uploadForm">
         <input v-for="(cur, index) in totalNum" 
-            v-show="curNum === index+1"
+            v-show="curNum+1 === cur"
             ref="uploadInput" 
             :key="index"
             @change="selectFile" 

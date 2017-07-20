@@ -78,7 +78,7 @@ export default {
                 '好',
                 '非常好'
             ],
-            fileFormData: {},
+            fileFormData: new FormData(),
             commentImages: [],
             files: [],
             uploadSrc: '',
@@ -117,7 +117,7 @@ export default {
             this.fileFormData.append('goodsID', this.commentOrderInfo.ID);
             this.fileFormData.append('userID', this.user.userID);
             this.fileFormData.append('content', this.content);
-            this.fileFormData.append('type', this.type);
+            this.fileFormData.append('type', this.commentOrderInfo.type);
             this.fileFormData.append('orderID', this.commentOrderID);
             this.fileFormData.append('commentDate', new Date().getTime());
 
@@ -130,7 +130,7 @@ export default {
                 }
             })
                 .then((res) => {
-                    // this.$router.push('/order-list');
+                    this.$router.push('/order-list');
                 })
                 .catch((err) => {
                 console.log('vue-resource err', err);

@@ -212,20 +212,13 @@ router.post('/comment', function (req, res, next) {
 		uploadDir: "./dist/static/img/commentImage/"
 	})
 	form.parse(req, function (err, fields, files) {
-		console.log(fields.files[0].originalFilename);
 		var goodsID = fields.goodsID[0];
-		console.log(goodsID + "    ")
 		var userID = fields.userID[0];
-		console.log(userID + "    ")
 		var content = fields.content[0];
-		console.log(content + "    ")
 		var commentDate = fields.commentDate[0];
-		console.log(commentDate + "    ")
 		var type = fields.type[0];
-		console.log(type + "    ")
 		var orderID = fields.orderID[0];
-		console.log(orderID + "    ")
-		fs.readdir('./dist/static/img/commentImage/' + goodsID, function (err, files) { //如果该商品还没有人上传评论图片
+		fs.readdir('./dist/static/img/commentImage/' + goodsID, function (err, file) { //如果该商品还没有人上传评论图片
 			if (err) {
 				fs.mkdir('./dist/static/img/commentImage/' + goodsID, function (err) { //新建文件夹存放评论图片
 					if (err) {
@@ -236,15 +229,21 @@ router.post('/comment', function (req, res, next) {
 						if (err) {
 							throw err;
 						}
+
 						console.log('make detail dir success.');
 						var arr = [];
 						for (var i = 0; i < files.picture.length; i++) { //存放图片
-							var picture = files.picture[i].originalFilename;
-							arr.push(picture);
-							fs.rename(files.photo[0].path, '/static/commentImage/' + goodsID + '/' + commentDate + '/' + picture, function (err) {
-								console.log(err)
-							})
-
+							if (files.picture[i].originalFilename) {
+								var picture = "/static/img/commentImage/" + goodsID + '/' + commentDate + '/' + files.picture[i].originalFilename;
+								arr.push(picture);
+								fs.rename(files.picture[i].path, './dist/static/img/commentImage/' + goodsID + '/' + commentDate + '/' + files.picture[i].originalFilename, function (err) {
+									if(err){
+										console.log(err)
+									}else{
+										//
+									}
+								})
+							}
 						}
 						var obj = {
 							goodsID: goodsID,
@@ -276,13 +275,15 @@ router.post('/comment', function (req, res, next) {
 					}
 					console.log('make detail dir success.');
 					var arr = [];
-					console.log(JSON.stringify(files));
 					for (var i = 0; i < files.picture.length; i++) { //存放图片
-						var picture = files.picture[i].originalFilename;
-						arr.push(picture);
-						fs.rename(files.photo[0].path, '/static/commentImage/' + goodsID + '/' + commentDate + '/' + picture, function (err) {
-							console.log(err)
-						})
+						if (files.picture[i].originalFilename) {
+							var picture = "/static/img/commentImage/" + goodsID + '/' + commentDate + '/' + files.picture[i].originalFilename;
+							arr.push(picture);
+							fs.rename(files.picture[i].path, './dist/static/img/commentImage/' + goodsID + '/' + commentDate + '/' + files.picture[i].originalFilename, function (err) {
+								console.log(err)
+							})
+						}
+
 
 					}
 					var obj = {
