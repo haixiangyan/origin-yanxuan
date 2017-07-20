@@ -18,7 +18,10 @@ export default {
     methods: {
         selectFile(event) {
             let file = event.target.files[0];
-            this.$emit('selectSrc', window.URL.createObjectURL(file));
+            this.$emit('selectSrc', {
+                src: window.URL.createObjectURL(file),
+                fileInfo: file
+            });
         }
     }
 }

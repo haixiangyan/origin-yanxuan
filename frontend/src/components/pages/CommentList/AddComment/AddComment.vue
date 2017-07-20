@@ -7,7 +7,7 @@
 
             <span class="header-title">发表评价</span>
 
-            <span class="publish">发布</span>
+            <span @click="publish" class="publish">发布</span>
         </div>
         
         <!-- 商品详情 -->
@@ -32,7 +32,7 @@
 
         <!-- 评论内容 -->
         <div class="comment">
-            <textarea class="comment-content" cols="30" rows="5" :placeholder="placeholder"></textarea>
+            <textarea v-model="content" class="comment-content" cols="30" rows="5" :placeholder="placeholder"></textarea>
 
             <div class="comment-images">
                 <div class="comment-image-item"
@@ -61,6 +61,8 @@
 <script>
 // 引入评分的组件
 import StarRating from 'vue-star-rating';
+// 引入模态框
+import YanModal from '@/components/commons/Modal/Modal';
 // 引入空图的组件
 import YanEmptyImage from '@/components/pages/CommentList/AddComment/EmptyImage/EmptyImage';
 
@@ -81,13 +83,21 @@ export default {
                 '/static/img/cart/cartItem.png',
                 '/static/img/cart/cartItem.png',
             ],
-            uploadSrc: ''
+            files: [],
+            uploadSrc: '',
+            content: '',
         }
     },
     computed: {
         commentOrderInfo() {
             return this.$store.getters.commentOrderInfo;
         },
+        commentOrderID() {
+            return this.$store.getters.commentOrderID;
+        },
+        user() {
+            return this.$store.getters.user;
+        }
     },
     methods: {
         back() {
@@ -102,11 +112,34 @@ export default {
             })
         },
         selectSrc(uploadSrc) {
-            this.commentImages.push(uploadSrc);
+            this.commentImages.push(uploadSrc.src);
+            this.files.push(uploadSrc.fileInfo);
+        },
+        publish() {
+            // 生成表单数据
+            let data = new FormData();
+            data.append('files', this.files);
+            data.append('goodsID', this.commentOrderInfo.ID);
+            data.append('userID', this.user.userID);
+            data.append('content', this.content);
+            data.append('type', this.type);
+            data.append('orderID', this.commentOrderID);
+
+            this.$http({
+                method: 'patch',
+                url: `/comment`
+            })
+                .then((res) => {
+                    this.$router.push('/order-list');
+                })
+                .catch((err) => {
+                console.log('vue-resource err', err);
+            });
         }
     },
     components: {
         StarRating,
+        YanModal,
         YanEmptyImage
     }
 }

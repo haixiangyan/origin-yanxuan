@@ -1,36 +1,61 @@
 <template>
-    <router-link tag="div" :to="`/order-info/${orderItem.orderID}`" class="yan-order-list-item">
+    <div class="yan-order-list-item">
         <!-- 订单的头部 -->
         <div class="yan-order-item-header">
             <span>订单编号：{{orderItem.orderID}}</span>
         </div>
 
         <!-- 订单的内容 -->
-        <div class="yan-order-content">
+        <router-link tag="div" :to="`/order-info/${orderItem.orderID}`" class="yan-order-content">
             <img 
                 v-for="(good, index) in goodImages"
                 :key="index"
                 :src="good.picture" 
                 alt="good">
-        </div>
+        </router-link>
 
         <!-- 订单的功能 -->
         <div class="yan-order-func">
             <span v-if="orderItem.orderState + 1 === 1" class="yan-to-pay">去付款</span>
-            <span v-if="orderItem.orderState + 1 === 2" class="yan-check">查看物流</span>
-            <span v-if="orderItem.orderState + 1 === 3" class="yan-confirm-order">确认收货</span>
+            <a :href="expressUrl" v-if="orderItem.orderState + 1 === 2" class="yan-check">查看物流</a>
+            <span @click="confirmExpress" v-if="orderItem.orderState + 1 === 3" class="yan-confirm-order">确认收货</span>
         </div>
-    </router-link>
+    </div>
 </template>
 
 <script>
 export default {
     props: ['orderItem'],
+    data() {
+        return {
+            expressUrl: `https://m.kuaidi100.com/index_all.html?type=yuantong&postid=810874175279&callbackurl=http://localhost:8080`
+        }
+    },
     computed: {
         goodImages() {
             return this.orderItem.goodsList.filter((good, index) => {
                 return index < 4;
             })
+        }
+    },
+    methods: {
+        checkExpress() {
+            this.$router.push(this.expressUrl);
+        },
+        confirmExpress() {
+            this.$http({
+                method: 'post',
+                url: `/shop/confirmGoods`,
+                body: JSON.stringify({
+                    orderID: this.orderItem.orderID
+                })
+            })
+                .then((res) => {
+                    this.$router.go(0);
+                })
+                .catch((err) => {
+                console.log('vue-resource err', err);
+            });
         }
     }
 }

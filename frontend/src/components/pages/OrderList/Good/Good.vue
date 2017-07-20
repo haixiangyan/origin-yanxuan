@@ -33,7 +33,7 @@
 
 <script>
 export default {
-  props: ['orderGoodItem'],
+  props: ['orderGoodItem', 'orderID'],
   methods: {
     select() {
       this.$store.commit('selectCart', {
@@ -44,7 +44,8 @@ export default {
     // 去往添加评论
     toComment() {
       this.$store.commit('setCommentOrderInfo', {
-          commentOrderInfo: this.orderGoodItem
+          commentOrderInfo: this.orderGoodItem,
+          orderID: this.orderID
       });
 
       this.$router.push('/add-comment');

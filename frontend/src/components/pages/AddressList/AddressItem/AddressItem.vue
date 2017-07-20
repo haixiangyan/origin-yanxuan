@@ -2,7 +2,7 @@
   <div @click="selectAddress" class="yan-address-item">
 
     <!-- 地址的内容 -->
-    <div class="yan-addresss-content">
+    <div class="yan-address-content">
       <!-- 名字 -->
       <div class="yan-user-name">
         <div class="user-name">{{address.receiver}}</div>
@@ -86,22 +86,27 @@ export default {
 .yan-address-content {
   display: flex;
   align-items: center;
+  justify-content: space-around;
 }
 
 .yan-user-name {
-  display: inline-flex;
-  flex-direction: column;
+   display: inline-flex; 
+   flex-direction: column; 
+   justify-content: center; 
+   align-items: center;
+   width: 110px;
 }
 
 .yan-user-spec {
   display: inline-flex;
   padding-left: 35px;  
+  padding-right: 35px;
   flex-direction: column;
 }
 
 /* 用户的名字 */
 .user-name {
-  margin-bottom: 15px;
+  margin-bottom: 15px; 
 }
 
 /* 默认的地址 */

@@ -20,7 +20,12 @@
                 </div>
             </div>
 
-            <yan-order-good v-for="(orderGoodItem, index) in orderInfo.goodsList" :key="index" :orderGoodItem="orderGoodItem"></yan-order-good>
+            <yan-order-good 
+                v-for="(orderGoodItem, index) in orderInfo.goodsList" 
+                :key="index" 
+                :orderGoodItem="orderGoodItem"
+                :orderID="orderInfo.orderID">
+            </yan-order-good>
         </div>
 
         <!-- 用户个人信息 -->
