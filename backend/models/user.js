@@ -43,7 +43,7 @@ function addUser() {
 	var userEntity = new userModel({
 		telephone: '1',
 		password: '123456',
-		photo: "/static/img/userImage/1.gif",
+		photo: "/static/img/userImage/1.jpg",
 		name: "xu",
 		gender: "man",
 		interest: ["1", "2", "3"],
@@ -56,11 +56,11 @@ function addUser() {
 			telephone: "123124",
             isDefault:false
 		}, {
-			province: "liaoning",
-			city: "shenyang",
-			town: "hunnan",
-			detail: "Neu",
-			receiver: "xu",
+			province: "辽宁省",
+			city: "沈阳市",
+			town: "浑南区",
+			detail: "东北大学浑南校区",
+			receiver: "许康琪",
 			telephone: "123124",
             isDefault:false
 		}]
