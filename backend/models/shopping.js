@@ -28,7 +28,7 @@ db.once('open', function () {
 	});
 
 	orderModel = db.model("orders", orderSchema);
-	addOrder();
+	// addOrder();
 	var commentSchema = new mongoose.Schema({
 		goodsID: Number,
 		userID: String,
@@ -38,7 +38,7 @@ db.once('open', function () {
 		type: String
 	});
 	commentModel = db.model("comments", commentSchema);
-	addComment();
+	// addComment();
 })
 
 function addOrder() {

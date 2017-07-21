@@ -49,7 +49,7 @@ db.once('open', function () {
 		type: String
 	});
 	commentModel = db.model("comments", commentSchema);
-	// addComment();
+	addComment();
 	var topicModelSchema = new mongoose.Schema({
 		topicID: Number,
 		writer: String,
