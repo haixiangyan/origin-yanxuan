@@ -30,7 +30,7 @@ router.post('/register', function (req, res, next) {
 	})
 })
 
-router.post('/changeInformation', function (req, res, next) {
+router.patch('/changeInformation', function (req, res, next) {
 	var form = new multiparty.Form({
 		uploadDir: "./dist/static/img/userImage/"
 	})

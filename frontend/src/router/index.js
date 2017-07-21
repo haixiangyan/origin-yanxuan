@@ -149,41 +149,38 @@ export default new Router({
       component: YanGoodInfo
     },
     {
+      path: 'interest',
+      component: YanInterest
+    },
+ {
       path: '/choose/:goodId', // 选择商品的页
       name: 'GoodChoose',
       component: YanGoodChoose
-    },
-    {
+    }, {
       path: '/comment-list/:goodId', // 选择商品的页
       name: 'CommentList',
       component: YanCommentList
-    },
-    {
+    }, {
       path: '/cart', // 购物车的页
       name: 'Cart',
       component: YanCart
-    },
-    {
+    }, {
       path: '/order', // 订单详情页
       name: 'Order',
       component: YanOrder
-    },
-    {
+    }, {
       path: '/address-list', // 地址的列表
       name: 'AddressList',
       component: YanAddressList
-    },
-    {
+    }, {
       path: '/address-form', // 地址的表单
       name: 'AddressForm',
       component: YanAddressForm
-    },
-    {
+    }, {
       path: '/order-list', // 查看订单列表的页
       name: 'OrderInfo',
       component: YanOrderList
-    },
-    {
+    }, {
       path: '/order-info/:orderId', // 查看某个订单的页
       name: 'OrderList',
       component: YanOrderInfo
@@ -195,36 +192,30 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: YanUsersRegister
-    },
-    {
+    }, {
       path: '/users/:userId',
       name: 'User Center',
       component: YanUserCenter,
-    },
-    {
+    }, {
       path: '/users/nav/:userId',
       name: 'User Center Nav',
       component: YanUserCenterNav
-    },
-    {
+    }, {
       path: '/users/info/:userId',
       name: 'User Center Info',
       component: YanUserCenterInfo
-    },
-    {
+    }, {
       path: '/users/interestCategory/:userId',
       name: 'User Center Info Interest Category',
       component: YanUserCenterInfoInterest
-    },
-    {
+    }, {
       path: '/pay',
       name: 'Pay',
-      component: YanPay   // 支付页面
-    },
-    {
+      component: YanPay // 支付页面
+    }, {
       path: '/add-comment',
       name: 'AddComment',
-      component: YanAddComment  // 添加评论
+      component: YanAddComment // 添加评论
     }
   ]
 })

@@ -19,10 +19,7 @@ import address from './modules/address.js';
 // 评论
 import comment from './modules/comment.js';
 
-// 临时的用户信息
-import tempUser from './modules/tempUser.js';
-
-
+// 用户信息
 import user from './modules/user.js'
 
 
@@ -42,7 +39,6 @@ const store = new Vuex.Store({
         search,
         address,      
         comment,  
-        tempUser,
         user
     }
 });

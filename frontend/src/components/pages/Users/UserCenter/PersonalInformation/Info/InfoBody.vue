@@ -46,7 +46,7 @@
         </div> 
 
         <div class="info-body-select">
-            <div class="info-body-select-cancle">
+            <div class="info-body-select-cancle" v-on:click="cancel()">
                 取消
             </div>
             <div class="info-body-select-confirm" v-on:click="submit()">
@@ -79,14 +79,10 @@ export default {
             document.getElementById('inputUpload').click();
         },
         routeToInterest(){
-            this.$store.commit('editHistoryFile', {
-                historyFile: this.file
-            });
-            this.$store.commit('initHistoryUser', {
-                historyUser: this.mountedUser
-            });
-            
             this.$router.push({name: 'User Center Info Interest Category', params: { userId: this.id }});
+        },
+        cancel(){
+            this.$router.push({name: 'User Center', params: { userId: this.id }});
         },
         submit(){
             let userForm = new FormData();
@@ -100,7 +96,6 @@ export default {
             }else{
                 userForm.append('photo', new File([""], ''));
             }
-            console.log(userForm);
             this.$http({
                 method: 'patch',
                 url: '/users/changeInformation',
@@ -139,7 +134,6 @@ export default {
             let supportedTypes = ['image/jpg', 'image/jpeg', 'image/png'];
             if (tempFile && supportedTypes.indexOf(tempFile.type) >= 0) {
                 this.previewImg(tempFile);
-                console.log(this.file);
             } else {
                 alert('文件格式只支持：jpg、jpeg 和 png');
                 this.clearFile();
@@ -161,10 +155,11 @@ export default {
         }
     },
     mounted(){
-        console.log(this.historyUser);
-        console.log(this.user);
-        this.mountedUser = this.user;
-        if(this.historyUser.telephone !== ''){
+
+        this.mountedUser = JSON.parse(JSON.stringify(this.user))
+
+        if(this.historyUser.telephone != ''){
+
             this.mountedUser.name = this.historyUser.name;
             this.mountedUser.gender = this.historyUser.gender;
             this.mountedUser.address = this.historyUser.address;
@@ -172,19 +167,12 @@ export default {
                 historyUser: null
             });
         }
-        console.log('info page',this.mountedUser);
-        if(this.historyFile !== null){
+        if(this.historyFile){
             this.previewImg(this.historyFile)
             this.$store.commit('editHistoryFile', {
                 historyFile: null
             });
         }
-    },
-    destroyed(){
-        console.log('destoryed');
-        this.$store.commit('editFile', {
-            file: null
-        });
     }
 }
 </script>

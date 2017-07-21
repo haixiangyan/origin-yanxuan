@@ -30,12 +30,16 @@ export default {
             nav_img: '/static/img/loginImage/userHeadPortrait/nav-img.png'
         }
     },
+    computed:{
+        user() {
+            return this.$store.getters.user;
+        },
+    },
     methods:{
                    
     },
     mounted(){
-
-
+        this.nav_img = this.user.photo;
     }
 }
 </script>
