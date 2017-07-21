@@ -47,7 +47,7 @@ function addOrder() {
 		userID: "1",
 		goodsList: [{
 			ID: "123",
-			number: 1,
+			number: 5,
 			type: "Asd",
 			price: 50,
 			name: "懒人清洁新选择",
@@ -64,7 +64,7 @@ function addOrder() {
 			telephone: "123124",
 			isDefault: false
 		}],
-		orderDate: "" + new Date().getTime,
+		orderDate: 1500566400000,
 		orderState: 0,
 		payID: "",
 		totalFee: 50
@@ -75,7 +75,7 @@ function addOrder() {
 		userID: "1",
 		goodsList: [{
 			ID: "123",
-			number: 1,
+			number: 4,
 			type: "Asd",
 			price: 50,
 			name: "懒人清洁新选择",
@@ -92,7 +92,7 @@ function addOrder() {
 			telephone: "123124",
 			isDefault: false
 		}],
-		orderDate: "" + new Date().getTime,
+		orderDate: 1500480000000,
 		orderState: 1,
 		payID: "",
 		totalFee: 50
@@ -103,7 +103,7 @@ function addOrder() {
 		userID: "1",
 		goodsList: [{
 			ID: "123",
-			number: 1,
+			number: 3,
 			type: "Asd",
 			price: 50,
 			name: "懒人清洁新选择",
@@ -120,7 +120,7 @@ function addOrder() {
 			telephone: "123124",
 			isDefault: false
 		}],
-		orderDate: "" + new Date().getTime,
+		orderDate: 1500393600000,
 		orderState: 2,
 		payID: "",
 		totalFee: 50
@@ -131,7 +131,7 @@ function addOrder() {
 		userID: "1",
 		goodsList: [{
 			ID: "123",
-			number: 1,
+			number: 2,
 			type: "Asd",
 			price: 50,
 			name: "懒人清洁新选择",
@@ -148,7 +148,7 @@ function addOrder() {
 			telephone: "123124",
 			isDefault: false
 		}],
-		orderDate: "" + new Date().getTime,
+		orderDate: 1500134400000,
 		orderState: 3,
 		payID: "",
 		totalFee: 50
@@ -176,7 +176,7 @@ function addOrder() {
 			telephone: "123124",
 			isDefault: false
 		}],
-		orderDate: "" + new Date().getTime,
+		orderDate: 1500048000000,
 		orderState: 3,
 		payID: "",
 		totalFee: 50
@@ -187,7 +187,7 @@ function addOrder() {
 		userID: "1",
 		goodsList: [{
 			ID: "123",
-			number: 1,
+			number: 9,
 			type: "Asd",
 			price: 50,
 			name: "懒人清洁新选择",
@@ -204,7 +204,7 @@ function addOrder() {
 			telephone: "123124",
 			isDefault: false
 		}],
-		orderDate: "" + new Date().getTime,
+		orderDate: 1499961600000,
 		orderState: 3,
 		payID: "",
 		totalFee: 50
@@ -488,6 +488,10 @@ function getOrder(orderid, cb) {
 	}, cb);
 }
 
+function getAllOrder(cb) {
+	orderModel.find({}, cb);
+}
+
 function getCustomerOrder(userid, cb) {
 	orderModel.find({
 		userID: userid
@@ -572,6 +576,54 @@ function confirmGoods(orderid, cb) {
 	})
 }
 
+function getRecentSale(cb) {
+	var now = new Date();
+	var arr = [];
+	for (var i = 1; i < 8; i++) {
+		var obj = {
+			time: i,
+			sale: 0
+		}
+		arr.push(obj);
+	}
+	orderModel.find({}, function (err, docs) {
+		for (var i = 0; i < docs.length; i++) {
+			var sale = 0;
+			for (var j = 0; j < docs[i].goodsList.length; j++) {
+				sale += docs[i].goodsList[j].number;
+			}
+			var date = parseInt(docs[i].orderDate);
+			console.log("date  "+date)
+			console.log("now  "+now.getTime())
+			switch (Math.ceil((now.getTime() - date) / 1000 / 60 / 60 / 24)) {
+				case 1:
+					arr[0].sale += sale;
+					break;
+				case 2:
+					arr[1].sale += sale;
+					break;
+				case 3:
+					arr[2].sale += sale;
+					break;
+				case 4:
+					arr[3].sale += sale;
+					break;
+				case 5:
+					arr[4].sale += sale;
+					break;
+				case 6:
+					arr[5].sale += sale;
+					break;
+				case 7:
+					arr[6].sale += sale;
+					break;
+				default:
+					break;
+			}
+		}
+		cb("success", arr);
+	})
+}
 module.exports.getCart = getCart;
 module.exports.addToCart = addToCart;
 module.exports.deleteItemFromCart = deleteItemFromCart;
@@ -584,3 +636,5 @@ module.exports.deliverGoods = deliverGoods;
 module.exports.confirmGoods = confirmGoods;
 module.exports.deliverComment = deliverComment;
 module.exports.getCustomerOrder = getCustomerOrder;
+module.exports.getAllOrder = getAllOrder;
+module.exports.getRecentSale = getRecentSale;

@@ -20,6 +20,21 @@ router.get('/goods/:ID', function (req, res, next) {
 		}
 	})
 })
+
+router.get('/AllGoods', function (req, res, next) {
+	goods.getAllGoods(function (err, docs) {
+		if (!err) {
+			res.json({
+				result: "success",
+				data: docs
+			})
+		} else {
+			res.json({
+				result: "error"
+			})
+		}
+	})
+})
 router.get('/topSale', function (req, res, next) {
 	goods.getGoodsBySale(function (err, docs) {
 		if (!err) {
@@ -215,6 +230,50 @@ router.delete('/goods/:goodsID', function (req, res, next) {
 
 	})
 })
+router.patch('/changeInformation', function (req, res, next) {
+	var obj = req.body.obj;
+	goods.changeInformation(obj, function (err, docs) {
+		if (err == "error") {
+			res.json({
+				result: "error",
+			})
+		} else {
+			res.json({
+				result: "success",
+			})
+		}
 
+	})
+})
+router.get('/sale', function (req, res, next) {
+	goods.getSaleByCategory(function (err, docs) {
+		if (err == "success") {
+			res.json({
+				result: "success",
+				data: docs
+			})
+		} else {
+			res.json({
+				result: "error",
+			})
+		}
 
+	})
+})
+router.get('/certainCategorySale/:category', function (req, res, next) {
+	var category = req.params.category;
+	goods.getCertainCategorySale(category, function (err, docs) {
+		if (err == "success") {
+			res.json({
+				result: "success",
+				data: docs
+			})
+		} else {
+			res.json({
+				result: "success",
+			})
+		}
+
+	})
+})
 module.exports = router;

@@ -37,12 +37,10 @@ router.post('/changeInformation', function (req, res, next) {
 	form.parse(req, function (err, fields, files) {
 		var telephone = fields.telephone[0];
 		var interest = fields.interest[0].split(',');
-		// var interest = JSON.parse(fields.interest[0]) ;
-		console.log(interest);
+
 		var gender = fields.gender[0];
 		var name = fields.name[0];
 
-		console.log(files.photo[0].originalFilename);
 		if (files.photo[0].originalFilename) {
 			var photo = files.photo[0].originalFilename;
 			fs.exists("./dist/static/img/userImage/" + files.photo[0].originalFilename, function (exists) {

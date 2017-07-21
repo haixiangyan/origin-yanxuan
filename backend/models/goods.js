@@ -145,8 +145,8 @@ function addTopic() {
 			price: parseInt(Math.random() * 100)
 		})
 		topicEntity.save();
-	//	addCategory();
-}
+		//	addCategory();
+	}
 }
 
 function addGoods() {
@@ -459,15 +459,113 @@ function getComment(goodsID, cb) {
 		}
 	})
 }
-function deleteGoods(goodsID,cb){
-  
-   goodsModel.findOne({ID:goodsID},function(err,docs){
-	   if(docs){
-            goodsModel.remove({ID:goodsID},cb);
-	   }else{
-		   cb("error","")
-	   }
-   })
+
+function deleteGoods(goodsID, cb) {
+
+	goodsModel.findOne({
+		ID: goodsID
+	}, function (err, docs) {
+		if (docs) {
+			goodsModel.remove({
+				ID: goodsID
+			}, cb);
+		} else {
+			cb("error", "")
+		}
+	})
+}
+
+function changeInformation(obj, cb) {
+	goodsModel.findOne({
+		ID: obj.ID
+	}, function (err, docs) {
+		if (docs) {
+			docs.price = obj.price;
+			docs.chara = obj.chara;
+			docs.topName = obj.topName;
+			docs.subName = obj.subName;
+			docs.type = obj.type;
+			docs.inventory = obj.inventory
+			docs.information = obj.information;
+			docs.sale = obj.sale;
+			docs.category = obj.category;
+			docs.subCategory = obj.subCategory;
+			docs.date = obj.date;
+			docs.manufacturer = obj.manufacturer;
+			docs.label = obj.label;
+			docs.markModified('type');
+			docs.markModified('inventory');
+			docs.markModified('information');
+			docs.markModified('label');
+			docs.save();
+			cb("success", "")
+		} else {
+			cb("error", "")
+		}
+
+	})
+}
+
+function getAllGoods(cb) {
+	goodsModel.find({}, cb)
+}
+
+function getSaleByCategory(cb) {
+	var arr = [];
+	categoryModel.find({}, function (err, docs) {
+		for (var i = 0; i < docs.length; i++) {
+			var name = docs[i].name;
+			goodsModel.find({
+				category: name
+			}, function (err, docs2) {
+				var sale = 0;
+				for (var j = 0; j < docs2.length; j++) {
+					sale += docs2[j].sale;
+				}
+				var obj = {
+					name: docs2[0].category,
+					sale: sale
+				}
+				arr.push(obj);
+				if (arr.length == docs.length) {
+					cb("success", arr);
+				}
+			})
+
+		}
+	})
+}
+
+function getCertainCategorySale(category, cb) {
+
+	categoryModel.findOne({
+		name: category
+	}, function (err, docs) {
+		var arr = [];
+		if (docs) {
+			var subCategory = docs.subCategory;
+			for (var i = 0; i < subCategory.length; i++) {
+				goodsModel.find({
+					subCategory: subCategory[i].name
+				}, function (err, docs2) {
+					var sale = 0;
+					for (var j = 0; j < docs2.length; j++) {
+						sale += docs2[j].sale;
+					}
+					var obj = {
+						name: docs2[0].subCategory,
+						sale: sale
+					}
+					arr.push(obj);
+					if (arr.length == subCategory.length) {
+						cb("success", arr);
+					}
+				})
+			}
+		} else {
+			cb("error", "")
+		}
+	})
 }
 module.exports.getCategory = getCategory;
 module.exports.getGoods = getGoods;
@@ -480,5 +578,8 @@ module.exports.search = search;
 module.exports.showTopic = showTopic;
 module.exports.makeOrder = makeOrder;
 module.exports.getComment = getComment;
-module.exports.deleteGoods=deleteGoods;
-
+module.exports.deleteGoods = deleteGoods;
+module.exports.changeInformation = changeInformation;
+module.exports.getAllGoods = getAllGoods;
+module.exports.getSaleByCategory = getSaleByCategory;
+module.exports.getCertainCategorySale = getCertainCategorySale;

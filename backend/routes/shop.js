@@ -309,9 +309,35 @@ router.post('/comment', function (req, res, next) {
 				});
 			}
 		});
-
-
 	})
 })
 
+router.get('/allOrder', function (req, res, next) {
+	shopping.getAllOrder(function (err, docs) {
+		if (!err) {
+			res.json({
+				result: "success",
+				data:docs
+			})
+		} else {
+			res.json({
+				result: "error"
+			})
+		}
+	})
+})
+router.get('/recentSale', function (req, res, next) {
+	shopping.getRecentSale(function (err, docs) {
+		if (err=="success") {
+			res.json({
+				result: "success",
+				data:docs
+			})
+		} else {
+			res.json({
+				result: "error"
+			})
+		}
+	})
+})
 module.exports = router;
