@@ -20,6 +20,21 @@ export default {
     },
     mounted() {
 
+    },
+    computed:{
+        loginState() {
+            return this.$store.getters.loginState;
+        }
+    },
+    beforeRouteEnter (to, from, next) {
+        next(vm => {
+            vm.$store.commit('setLoginState', {
+                loginState: {
+                    telephone: vm.id,
+                    isLogin: true
+                }
+            });
+        });
     }
 }
 </script>

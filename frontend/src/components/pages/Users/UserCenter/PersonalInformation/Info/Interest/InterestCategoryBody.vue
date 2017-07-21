@@ -16,9 +16,9 @@
         </div>
 
         <div class="info-body-select">
-            <router-link tag="div" :to="`/users/info/${id}`" class="info-body-select-cancle">
+            <div  class="info-body-select-cancle" v-on:click="cancel()">
                 取消
-            </router-link>
+            </div>
             <div class="info-body-select-confirm" v-on:click="submit()">
                 提交
             </div>
@@ -44,6 +44,10 @@ export default {
                 this.interestedList[index].interested = true;
             }
         },
+        cancel(){
+            console.log('cancel', this.historyUser);
+            this.$router.push({name: 'User Center Info', params: { userId: this.id }})
+        },
         submit(){
             //提交用户个人信息
             this.user.interest = [];
@@ -60,13 +64,6 @@ export default {
             userForm.append('name', this.user.name);
             userForm.append('gender', this.user.gender);
             userForm.append('photo', new File([""], ''));
-            // if(this.user.photo == '/static/img/loginImage/userHeadPortrait/default.png'){
-            //     userForm.append('photo', 
-            //         new File([""], ''));
-            // }else{
-            //     userForm.append('photo', 
-            //         new File([""], this.user.photo));
-            // }
             console.log(userForm);
             this.$http({
                 method: 'patch',
@@ -96,6 +93,9 @@ export default {
         },
         historyFile(){
             return this.$store.getters.historyFile;
+        },
+        historyUser(){
+            return this.$store.getters.historyUser;
         }
     },
     mounted(){
@@ -160,16 +160,14 @@ export default {
                 title:'智能硬件',
                 source:'/static/img/loginImage/interest/智能硬件.png'
             });
-            console.log('mounted: ' + this.user);
+
         this.items.forEach(function(element) {
             this.interestedList.push({
                 title: element.title,
                 interested: this.user.interest.includes(element.title)
             });
-            
         }, this);
-        console.log(this.historyFile);
-        //错误关闭会导致信息页面显示不正确.
+
     }
 }
 </script>

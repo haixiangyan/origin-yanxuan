@@ -10,23 +10,34 @@ const state = {
         gender: '',
         __v: '',
         address: [],
-        interest: []
+        interest: [],
+        userID: 0
     },
     historyUser: {
+        _id: '',
         telephone: '',
+        password: '',
+        photo: '',
         name: '',
         gender: '',
+        __v: '',
         address: [],
+        interest: []
     },
     file: null,
-    historyFile: null
+    historyFile: null,
+    loginState: {
+        telephone: '',
+        isLogin: false
+    }
 }
 
 const getters = {
     user: state => state.user,
     file: state => state.file,
     historyFile: state => state.historyFile,
-    historyUser: state => state.historyUser
+    historyUser: state => state.historyUser,
+    loginState: state => state.loginState
 }
 
 const actions = {
@@ -37,16 +48,11 @@ const mutations = {
     initUser(state, payload) {
         console.log('mutations', 'initUser');
         state.user = payload.user;
+        state.user.userID = payload.user.telephone;
     },
     initHistoryUser(state, payload) {
         console.log('mutations', 'initUser');
-        state.historyUser.telephone = payload.historyUser.telephone;
-        state.historyUser.name = payload.historyUser.name;
-        state.historyUser.gender = payload.historyUser.gender;
-        state.historyUser.address = payload.historyUser.address;
-    },
-    editUser(state, payload) {
-        state.user.id = payload.id;
+        state.historyUser = JSON.parse(JSON.stringify(payload.historyUser));
     },
     editFile(state, payload) {
         state.file = payload.file;
@@ -55,8 +61,14 @@ const mutations = {
         state.historyFile = payload.historyFile;
     },
     cleanHistoryUser(state, payload) {
+        console.log('cleanHistoryUser');
         state.historyUser.telephone = '';
     },
+    setLoginState(state, payload) {
+        console.log('setLoginState', payload);
+        state.loginState.telephone = payload.loginState.telephone;
+        state.loginState.isLogin = payload.loginState.isLogin;
+    }
 }
 
 /*

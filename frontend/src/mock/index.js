@@ -1,5 +1,9 @@
 import Mock from 'mockjs';
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> login
 
 // 主页面
 import { home, homeStatic } from './home-intro.js';
