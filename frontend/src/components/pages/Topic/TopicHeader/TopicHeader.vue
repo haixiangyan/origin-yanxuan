@@ -1,12 +1,12 @@
 <template>
     <div class="yan-topic">
 		<div class="yan-topic-header">  
-			<li class="yan-topin-header-box" v-for="(item, index) in header_items" 
+			<router-link tag="li" :to="{ path: '/topic/list', query: { type: index }}" class="yan-topin-header-box" v-for="(item, index) in header_items" 
 				:key="index" :style="{'background-image': `url(${item.img})`}">
 				<span class="yan-topic-header-title"> 
 					{{item.item_name}}
 				</span>
-			</li>
+			</router-link>
 		</div>
     </div>
 </template>

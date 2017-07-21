@@ -73,12 +73,12 @@ export default {
 				//加载更多的数据items
 				setTimeout(()=>{
 					if(this.currentLoad.length+4>this.body_items.length){
-						this.currentLoad = this.currentLoad.concat(this.body_items.slice(this.page*4, this.body_items.length));
+						this.currentLoad = this.currentLoad.concat(this.body_items.slice(this.currentLoad.length, this.body_items.length));
 					}else{
 						this.currentLoad = this.currentLoad.concat(this.body_items.slice(this.page*4,this.page*4 + 4));
 						this.page++;
 					}
-				},1000);
+				},500);
 			}
 		}
 	},
@@ -94,7 +94,6 @@ export default {
 			url: '/goods/topic'
 		})
 		.then((res) => {
-			console.log('vue-resource then', res.body);
 			this.body_items = res.body.data;
 			if(this.body_items.length < 4){
 				this.currentLoad = this.currentLoad.concat(this.body_items.slice(0,this.body_items.length));
@@ -102,6 +101,9 @@ export default {
 				this.currentLoad = this.currentLoad.concat(this.body_items.slice(0,4));
 				this.page++;
 			}
+			this.$store.commit('initTopic', {
+				topic: this.body_items
+			});
 		})
 		.catch((err) => {
 			console.log('vue-resource err', err);
@@ -109,9 +111,6 @@ export default {
 		// 
 		window.addEventListener('scroll', this.getMoreItems);
 
-		this.$store.commit('initTopic', {
-            topic: this.body_items
-        });
     }
 }
 

@@ -1,7 +1,7 @@
 <template>
     <div class="topic">
         <yan-header></yan-header>
-        <yan-topic-list-body :type="type"></yan-topic-body>
+        <yan-topic-list-body :type="type"></yan-topic-list-body>
 
         <!--返回到顶部-->
         <yan-scroll-top></yan-scroll-top>

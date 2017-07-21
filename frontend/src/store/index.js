@@ -25,6 +25,8 @@ import chat from './modules/chat.js';
 // 用户信息
 import user from './modules/user.js'
 
+//专题信息
+import topic from './modules/topic.js'
 
 Vue.use(Vuex);
 
@@ -40,10 +42,11 @@ const store = new Vuex.Store({
         menu,
         good,
         search,
-        address,      
-        comment,  
+        address,
+        comment,
         chat,
-        user
+        user,
+        topic
     }
 });
 

@@ -135,7 +135,7 @@ export default new Router({
             component: YanTopic
         },
         {
-            path: '/topic/list?:type', // 专题路由
+            path: '/topic/list', // 专题路由
             name: 'Topic List',
             component: YanTopicList
         },
