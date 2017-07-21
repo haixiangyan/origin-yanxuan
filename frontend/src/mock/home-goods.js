@@ -16,7 +16,7 @@ export const homeGood = [{
         data: []
       };
 
-      for (let j = 0; j < 7; j++) {
+      for (let j = 0; j < 1; j++) {
         let good = {
           topName: Random.cname(),
           subName: Random.ctitle(),
