@@ -2,7 +2,7 @@ const Mock = require('mockjs');
 const Random = Mock.Random;
 
 export const cart = [{
-    path: '/shop/cart/1', // 获取购物车的列表
+    path: '/shop/cart/-1', // 获取购物车的列表
     type: 'get',
     data(option) {
       let result = {
@@ -96,5 +96,12 @@ export const cart = [{
 
       return result;
     },
+  },
+  {
+    path: '/shop/pay',  // 支付
+    type: 'post',
+    data(option) {
+      console.log('支付成功');
+    }
   }
 ]

@@ -13,8 +13,8 @@ export const orderInfo = [{
         "userID": "1",
         "expressNumber": 123123,
         "expressCompany": Random.cname(4, 6),
-        "orderState": 0,
-        "payID": "",
+        "orderState": 3,
+        "payID": new Date().getTime(),
         "totalFee": 50,
         "address": [{
           "province": Random.province(),
@@ -56,7 +56,7 @@ export const orderInfo = [{
   }
 },
 {
-  path: '/shop/customerOrder/1', // 订单的列表
+  path: '/shop/customerOrder/-1', // 订单的列表
   type: 'get',
   data(option) {
     let result = {
@@ -124,7 +124,7 @@ export const orderInfo = [{
         "userID": "1",
         "expressNumber": 123123,
         "expressCompany": Random.cname(4, 6),
-        "orderState": 1,
+        "orderState": 3,
         "payID": "",
         "totalFee": 50,
         "address": [{

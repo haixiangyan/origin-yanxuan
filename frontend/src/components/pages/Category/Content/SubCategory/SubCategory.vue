@@ -1,5 +1,5 @@
 <template>
-  <div class="yan-sub-category-item">
+  <router-link tag="div" to="/search" class="yan-sub-category-item">
       <!-- 图片 -->
       <div class="yan-item-img">
            <img :src="subCategory.photo" alt=""> 
@@ -9,7 +9,7 @@
       <div class="yan-iten-name">
           {{subCategory.name}}
       </div>
-  </div>
+  </router-link>
 </template>
 
 <script>

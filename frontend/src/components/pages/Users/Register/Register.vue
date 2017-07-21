@@ -22,10 +22,15 @@
                 <a href="//reg.163.com/agreement_game_wap.shtml?20160825">《网络游戏用户隐私保护和个人信息利用政策》</a>
             </div>
         </div>
+
+        <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+            <yan-modal v-show="isShowModal" :title="modalText"></yan-modal>
+        </transition>
     </div>
 </template>
 <script>
-
+// 引入模态框
+import YanModal from '@/components/commons/Modal/Modal';
 
 export default {
     data() {
@@ -34,8 +39,13 @@ export default {
                 name:'',
                 password: '',
                 confirm:''
-            }
+            },
+            modalText: '',
+            isShowModal: false
         }
+    },
+    components: {
+        YanModal
     },
     methods:{
         regist(){
@@ -63,6 +73,18 @@ export default {
             if(this.form.password !== this.form.confirm){
                 //页面跳出一个提示显示 “请确认密码”
                 console.log('请确认密码');
+                this.isShowModal = true;
+                this.modalText = '密码不一致'
+                setTimeout(() => {
+                    this.isShowModal = false;
+                }, 1000);
+            }
+            else if (this.form.name.length !== 11) {
+                this.isShowModal = true;
+                    this.modalText = '电话号码不正确'
+                    setTimeout(() => {
+                        this.isShowModal = false;
+                    }, 1000);
             }else{
                 this.regist();
             }

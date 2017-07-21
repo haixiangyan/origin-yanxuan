@@ -15,17 +15,19 @@ const state = {
   discount: 4,
   // 选择的地址
   address: {
-      receiver: '小明',
-      detail: "广东省佛山市南海区怡翠世嘉",
-      province: "liaoning",
-      city: 'shenyang',
-      telephone: '123456789',
+      receiver: '',
+      detail: "",
+      province: "",
+      city: '',
+      telephone: '',
       isDefault: true,
   },
   // 立刻购买
   tempCartItem: [],
   // 判断是否立刻购买
-  isBuying: false
+  isBuying: false,
+  // 生成订单的ID
+  orderID: -1
 }
 
 const getters = {
@@ -38,6 +40,7 @@ const getters = {
   tempCartItem: state => state.tempCartItem,
   isBuying: state => state.isBuying,
   displayCartNum: state => state.displayCartNum,
+  orderID: state => state.orderID,
   // 是否全选
   isSelectAllCartItems: state => {
     let selectAllState = true
@@ -244,6 +247,11 @@ const mutations = {
   // 选择地址
   selectAddress(state, payload) {
     state.address = payload.address;
+  },
+
+  // 设置订单的ID
+  setOrderID(state, payload) {
+    state.orderID = payload.orderID;
   }
 }
 

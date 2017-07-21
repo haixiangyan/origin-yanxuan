@@ -27,17 +27,17 @@ import { address } from './address.js';
 import { orderInfo } from './orderInfo.js';
 
 let data = [].concat(
-    // login,
-    // home,
+    login,
+    home,
     homeStatic,
-    // homeGood,
-    // category,
-    // search,
-    // good,
-    // comment,
-    // cart,
-    // address,
-    // orderInfo
+    homeGood,
+    category,
+    search,
+    good,
+    comment,
+    cart,
+    address,
+    orderInfo
 );
  
 

@@ -17,7 +17,8 @@
         <!-- 订单的功能 -->
         <div class="yan-order-func">
             <div>
-                <span v-if="orderItem.orderState + 1 === 1" class="yan-to-pay">去付款</span>
+                <span @click="toPay" v-if="orderItem.orderState + 1 === 1" class="yan-to-pay">去付款</span>
+                <span @click="deleteOrder" v-if="orderItem.orderState + 1 === 1" class="yan-to-delete">删除订单</span>
                 <a :href="expressUrl" v-if="orderItem.orderState + 1 === 3" class="yan-check">查看物流</a>
                 <span @click="confirmExpress" v-if="orderItem.orderState + 1 === 3" class="yan-confirm-order">确认收货</span>
             </div>
@@ -60,6 +61,18 @@ export default {
                 .catch((err) => {
                 console.log('vue-resource err', err);
             });
+        },
+        toPay() {
+            // 设置订单编号
+            this.$store.commit('setOrderID', {
+                orderID: this.orderItem.orderID
+            })
+            // 去往支付页面
+            this.$router.push('/pay');
+        },
+        deleteOrder() {
+            // 删除订单
+
         }
     }
 }
@@ -127,5 +140,13 @@ export default {
     border-radius: 50px;
     border: 2px solid rgb(200, 200, 200);
     font-size: 28px;
+}
+
+.yan-to-delete {
+    padding: 17px 40px;
+    border-radius: 50px;
+    border: 2px solid rgb(180, 40, 45);
+    font-size: 28px;
+    color: rgb(180, 40, 45);
 }
 </style>

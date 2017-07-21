@@ -47,6 +47,11 @@ export default {
             ]
         }
     },
+    computed: {
+        orderID() {
+            return this.$store.getters.orderID;
+        }
+    },
     components: {
         YanHeader
     },
@@ -57,10 +62,36 @@ export default {
         toPay() {
             switch(this.selectedIndex) {
                 case 0: 
-                    console.log('你选择了支付宝的方式来付款');
+                    // 发送请求，请求支付宝支付
+                    this.$http({
+                        method: 'post',
+                        url: `/shop/pay`,
+                        body: JSON.stringify({
+                            orderID: this.orderID,
+                            payID: new Date().getTime()
+                        })
+                    })
+                        .then((res) => {
+                            this.$router.push('/order-list');
+                        })
+                        .catch((err) => {
+                        });
                     break;
                 case 1:
-                    console.log('你选择了微信方式来付款');
+                    // 发送请求，请求微信支付
+                    this.$http({
+                        method: 'post',
+                        url: `/shop/pay`,
+                        body: JSON.stringify({
+                            orderID: this.orderID,
+                            payID: new Date().getTime()
+                        })
+                    })
+                        .then((res) => {
+                            this.$router.push('/order-list');
+                        })
+                        .catch((err) => {
+                        });
                     break;
             }
         }

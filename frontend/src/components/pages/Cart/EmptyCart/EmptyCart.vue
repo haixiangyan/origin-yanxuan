@@ -10,14 +10,22 @@
         <!-- 内容 -->
         <div class="content">
             <img src="/static/icons/empty-cart.png" alt="empty">
-            <div>去添加点什么吧</div>
+            <p>去添加点什么吧</p>
+
+            <div v-show="!isLogin" class="yan-cart-login">
+                登录
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-
+    computed: {
+        isLogin() {
+            return this.$store.getters.loginState.isLogin;
+        },
+    }
 }
 </script>
 
@@ -64,7 +72,17 @@ export default {
     width: 300px;
 }
 
-.content div {
+.content p {
     color: #999;
+}
+
+.yan-cart-login {
+    width: 100%;
+    padding: 35px;
+    color: white;
+    background: #b4282d;
+    display: flex;
+    margin-top: 35px;
+    justify-content: center;
 }
 </style>

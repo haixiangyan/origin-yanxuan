@@ -24,7 +24,8 @@
                 v-for="(orderGoodItem, index) in orderInfo.goodsList" 
                 :key="index" 
                 :orderGoodItem="orderGoodItem"
-                :orderID="orderInfo.orderID">
+                :orderID="orderInfo.orderID"
+                :orderState="orderInfo.orderState">
             </yan-order-good>
         </div>
 

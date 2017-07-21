@@ -24,7 +24,7 @@
           <div class="yan-item-price">
             <span>&yen;{{orderGoodItem.price}}</span>
 
-            <span @click="toComment" class="yan-to-comment">去评价</span>
+            <span v-if="orderState === 3" @click="toComment" class="yan-to-comment">去评价</span>
           </div>
       </div>
     </div>
@@ -33,7 +33,7 @@
 
 <script>
 export default {
-  props: ['orderGoodItem', 'orderID'],
+  props: ['orderGoodItem', 'orderID', 'orderState'],
   methods: {
     select() {
       this.$store.commit('selectCart', {

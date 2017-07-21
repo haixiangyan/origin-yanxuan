@@ -10,7 +10,9 @@
 
             <!-- 地址部分 -->
             <div @click="toAddressList" class="yan-order-address">
-                <yan-address-item :address="address"></yan-address-item>
+                <yan-address-item v-show="address.telephone !== ''" :address="address"></yan-address-item> 
+
+                <yan-empty-address v-show="address.telephone === ''"></yan-empty-address>
             </div>
 
             <!-- 订单详情 -->
@@ -47,6 +49,8 @@ import YanAddressItem from '@/components/pages/Order/AddressItem/AddressItem';
 import YanOrderSpec from '@/components/pages/Order/OrderSpec/OrderSpec';
 // 引入订单的商品
 import YanOrderGoodItem from '@/components/pages/Cart/CartItem/CartItem';
+// 引入空的地址组件
+import YanEmptyAddress from '@/components/pages/Order/EmptyAddress/EmptyAddress';
 // 引入脚注组件
 import YanOrderFooter from '@/components/pages/Order/Footer/Footer';
 
@@ -71,6 +75,7 @@ export default {
         YanAddressItem,
         YanOrderSpec,
         YanOrderGoodItem,
+        YanEmptyAddress,
         YanOrderFooter
     },
     methods: {

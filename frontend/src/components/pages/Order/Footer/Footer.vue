@@ -86,6 +86,10 @@ export default {
                         // 清除选中的商品
                         this.$store.commit('removeCartItems');
                     }
+                    // 获取订单ID
+                    this.$store.commit('setOrderID', {
+                        orderID: res.orderID
+                    })
                     // 跳转到支付页面
                     this.$router.push('/pay');
                 })

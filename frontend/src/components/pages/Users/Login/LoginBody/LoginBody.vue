@@ -28,10 +28,14 @@
             <div class="weibo"><img src="/static/img/loginImage/weibo.png">微博</div>
         </div>
 
+        <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+            <yan-modal v-show="isShowModal" :title="'登录失败'"></yan-modal>
+        </transition>
     </div>
 </template>
 <script>
-
+// 引入模态框
+import YanModal from '@/components/commons/Modal/Modal';
 
 export default {
     data() {
@@ -42,7 +46,11 @@ export default {
             },
             status: '',
             errorMeg :'',
+            isShowModal: false
         }
+    },
+    components: {
+        YanModal
     },
     methods:{
         onSubmit(){
@@ -60,6 +68,14 @@ export default {
                     this.status = response.body.result;
                     if(this.status === 'success'){
                         this.$router.push({name: 'User Center', params: { userId: response.body.user.telephone }})
+                    }
+                    else {
+                        // 登录失败
+                        this.isShowModal = true;
+
+                        setTimeout(() => {
+                            this.isShowModal = false;
+                        }, 1000);
                     }
                 }, response => {
                     // error callback
