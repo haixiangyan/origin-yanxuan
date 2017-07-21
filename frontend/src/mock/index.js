@@ -1,10 +1,7 @@
 import Mock from 'mockjs';
 
-<<<<<<< HEAD
-import { login } from './front-page.js';
-=======
 // import { login } from './front-page.js';
->>>>>>> login
+
 
 // 主页面
 import { home, homeStatic } from './home-intro.js';
@@ -34,18 +31,18 @@ import { orderInfo } from './orderInfo.js';
 
 let data = [].concat(
     login,
-    // home,
+    home,
     homeStatic,
-    // homeGood,
-    // category,
-    // search,
-    // good,
-    // comment,
-    // cart,
-    // address,
-    // orderInfo
+    homeGood,
+    category,
+    search,
+    good,
+    comment,
+    cart,
+    address,
+    orderInfo
 );
-
+ 
 
 data.forEach((res) => {
     Mock.mock(res.path, res.type, res.data);
