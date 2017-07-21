@@ -43,6 +43,9 @@ export default {
         },
         user() {
             return this.$store.getters.user;
+        },
+        loginState() {
+            return this.$store.getters.loginState;
         }
     },
     components: {
@@ -54,6 +57,11 @@ export default {
         },
         // 立刻购买
         buying() {
+            if (!this.loginState.isLogin) {
+                this.$router.push('/login');
+                return ;
+            } 
+
             console.log(this.goodInfo)
             let tempGoodInfo = {
                 name: this.goodInfo.topName,
@@ -73,6 +81,11 @@ export default {
             this.$router.push('/order');
         },
         addToCart() {
+            if (!this.loginState.isLogin) {
+                this.$router.push('/login');
+                return ;
+            } 
+
             // 将商品加入购物车
             this.$store.commit('addToCart', {
                 cartItem: {

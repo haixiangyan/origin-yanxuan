@@ -7,7 +7,12 @@
             :class="[{'tab-active':  selectedIndex === index}, 'yan-tabbar-item']">
             <img :src="selectedIndex === index ? tab.activeImg : tab.img" alt="tab">
             <div>{{tab.title}}</div>
-        </router-link>    
+        </router-link>
+
+        <div @click="toUser" :class="[{'tab-active':  selectedIndex === 4}, 'yan-tabbar-item']">
+            <img :src="selectedIndex === 4 ? userTab.activeImg : userTab.img" alt="tab">
+            <div>{{userTab.title}}</div>
+        </div>        
     </div>
 </template>
 
@@ -15,6 +20,14 @@
 
 export default {
     props: ['selectedIndex'],
+    computed: {
+        isLogin() {
+            return this.$store.getters.loginState.isLogin;
+        },
+        user() {
+            return this.$store.getters.user;
+        }
+    },
     data() {
         return {
             tabBarInfo: [
@@ -46,14 +59,26 @@ export default {
                     img: '/static/icons/cart.png',
                     activeImg: '/static/icons/active-cart.png'
                 },
-                {
+            ],
+            userTab: {
                     title: '个人',
-                    url: '/',
+                    url: '/users/0',
                     className: 'fa fa-user-o fa-2x',
                     img: '/static/icons/user.png',
                     activeImg: '/static/icons/active-user.png'
                 }
-            ]
+        }
+    },
+    methods: {
+        toUser() {
+            if(this.isLogin) {
+                // 跳转到用户界面
+                this.$router.push(`/users/${this.user.userID}`);
+            }
+            else {
+                // 跳转到登录界面
+                this.$router.push('/login');
+            }
         }
     }
 }

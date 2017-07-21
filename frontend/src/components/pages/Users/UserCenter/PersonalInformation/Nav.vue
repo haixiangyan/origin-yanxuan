@@ -1,10 +1,13 @@
 <template>
     <div class="yan-usercenter-nav">
+        <yan-header></yan-header>
+
         <yan-user-center-nav-body :id="id"></yan-user-center-nav-body>
     </div>
 </template>
 <script>
-
+// 引入头部
+import YanHeader from '@/components/commons/Header/Header';
 import YanUserCenterNavBody from '@/components/pages/Users/UserCenter/PersonalInformation/Nav/NavBody';
 
 export default {
@@ -14,6 +17,7 @@ export default {
         }
     },
     components:{
+        YanHeader,
         YanUserCenterNavBody
     },
     mounted() {

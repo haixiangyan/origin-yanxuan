@@ -32,7 +32,6 @@
 				<div class="subtitle">{{item.content}}</div>
 			</div>
 		</a>
-		<i class="toToTop" v-on:click="goToTop()" ref="toTopSpan" v-bind:style="{display: appear, opacity: opa}"></i>
 	</div>
 </template>
 

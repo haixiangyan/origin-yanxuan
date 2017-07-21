@@ -40,18 +40,23 @@ export default {
 /* 地址的内容 */
 .yan-address-content {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
 .yan-user-name {
-  display: inline-flex;
-  flex-direction: column;
+   display: inline-flex; 
+   flex-direction: column; 
+   justify-content: center; 
+   align-items: center;
+   width: 110px; 
 }
 
 .yan-user-spec {
-  display: inline-flex;
-  padding-left: 35px;  
-  flex-direction: column;
+   display: inline-flex; 
+   padding-left: 35px;   
+   flex-direction: column; 
+   width: 650px;
 }
 
 /* 用户的名字 */

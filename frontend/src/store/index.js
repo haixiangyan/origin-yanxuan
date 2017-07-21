@@ -19,9 +19,9 @@ import address from './modules/address.js';
 // 评论
 import comment from './modules/comment.js';
 
-
+// 购物车
 import chat from './modules/chat.js';
-// import user from './modules/user.js'
+
 // 用户信息
 import user from './modules/user.js'
 

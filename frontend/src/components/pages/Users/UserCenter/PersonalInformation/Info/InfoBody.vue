@@ -53,10 +53,16 @@
                 保存
             </div>
         </div>
+
+        <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+            <yan-modal v-show="isShowModal" :title="'已提交'"></yan-modal>
+        </transition>
     </div>
 </template> 
 <script>
-//<router-link tag="" to="/hom"></router-link>
+// 引入模态框
+import YanModal from '@/components/commons/Modal/Modal';
+
 export default {
     props: ['id'],
     data() {
@@ -71,8 +77,12 @@ export default {
                 "name": '',
                 "gender": "",
                 "photo": ""
-            }
+            },
+            isShowModal: false
         }
+    },
+    components: {
+        YanModal
     },
     methods:{
         saveLocal(){
@@ -110,6 +120,11 @@ export default {
                 if(this.status === 'success'){
                     //this.$router.push({name: 'User Center', params: { userId: response.body.user.telephone }})
                     //提示成功
+                    this.isShowModal = true;
+                    setTimeout(() => {
+                        this.isShowModal = false;
+                        this.$router.push('/');
+                    }, 1000)
                 }
             }, response => {
                 // error callback
@@ -219,7 +234,7 @@ export default {
 
 
  .info-body .img{
-    margin-top: 30px;
+    margin-top: 116px;
     margin-bottom: 30px;
     display: flex;
     justify-content: center;

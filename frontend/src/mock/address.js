@@ -2,7 +2,7 @@ const Mock = require('mockjs');
 const Random = Mock.Random;
 
 export const address = [{
-    path: '/users/Address/1', // 获取地址
+    path: '/users/Address/-1', // 获取地址
     type: 'get',
     data(option) {
       let result = {

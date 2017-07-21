@@ -1,9 +1,13 @@
 <template>
     <div class="yan-user-center-info-interest">
+        <yan-header></yan-header>
+
         <yan-user-center-info-interest-body :id="id"></yan-user-center-info-interest-body>
     </div>
 </template>
 <script>
+// 引入头部
+import YanHeader from '@/components/commons/Header/Header';
 
 import YanUserCenterInfoInterestBody from '@/components/pages/Users/UserCenter/PersonalInformation/Info/Interest/InterestCategoryBody';
 
@@ -14,6 +18,7 @@ export default {
         }
     },
     components:{
+        YanHeader,
         YanUserCenterInfoInterestBody
     },
     mounted() {

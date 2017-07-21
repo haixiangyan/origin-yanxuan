@@ -48,7 +48,7 @@ export default {
 .nav-body{
     width: 100%;
     height: 300px;
-    margin-top: 30px;;
+    margin-top: 116px;;
     display: flex;
     flex-flow: column nowrap;
     background-color:  white;

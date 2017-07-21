@@ -85,8 +85,8 @@ export default {
 /* 地址的内容 */
 .yan-address-content {
   display: flex;
-  align-items: center;
-  justify-content: space-around;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
 .yan-user-name {
@@ -94,13 +94,13 @@ export default {
    flex-direction: column; 
    justify-content: center; 
    align-items: center;
-   width: 110px;
+   width: 110px; 
 }
 
 .yan-user-spec {
   display: inline-flex;
   padding-left: 35px;  
-  padding-right: 35px;
+  padding-right: 35px;  
   flex-direction: column;
 }
 

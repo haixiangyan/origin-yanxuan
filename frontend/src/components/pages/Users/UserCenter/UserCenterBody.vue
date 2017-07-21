@@ -1,10 +1,10 @@
 <template>
     <div class="yan-usercenter-body">
         <div class="yan-usercenter-body-wrapper" >
-            <div class="entry-item" v-for="(item, index) in items" :key="index">
+            <router-link tag="div" :to="item.url" class="entry-item" v-for="(item, index) in items" :key="index">
                 <div :style="{'background-image': `url(${bgImage})`,'background-position-y': `${item.bgposy}`}"></div>
                 <span class="txt">{{item.txt}}</span>
-            </div>
+            </router-link>
         </div>
         <div v-on:click="logout()" class="yan-usercenter-body-footer">
             <button>退出登录</button>
@@ -22,51 +22,63 @@ export default {
             items:[
                 {
                     txt:"我的订单",
-                    bgposy :"-620px"
+                    bgposy :"-620px",
+                    url: '/order-list'
                 },
                 {
                     txt:"周六一起拼",
-                    bgposy :"-765px"
+                    bgposy :"-765px",
+                    url: '/order-list'
                 },
                 {
                     txt:"售后服务",
-                    bgposy :"-65px"
+                    bgposy :"-65px",
+                    url: '/order-list'
                 },
                 {
                     txt:"优惠券",
-                    bgposy :"-145px"
+                    bgposy :"-145px",
+                    url: '/order-list'
                 },
                 {
                     txt:"优先购",
-                    bgposy :"-845px"
+                    bgposy :"-845px",
+                    url: '/order-list'
                 },
                 {
                     txt:"礼品卡",
-                    bgposy :"-305px"
+                    bgposy :"-305px",
+                    url: '/order-list'
                 },
                 {
                     txt:"会员福利",
-                    bgposy :"-700px"
+                    bgposy :"-700px",
+                    url: '/order-list'
                 },
                 {
                     txt:"地址管理",
-                    bgposy :"10px"
+                    bgposy :"10px",
+                    url: '/order-list'
                 },
                 {
                     txt:"帐号安全",
-                    bgposy :"-930px"
+                    bgposy :"-930px",
+                    url: '/order-list'
                 },
                 {
                     txt:"联系客服",
-                    bgposy :"-460px"
+                    bgposy :"-460px",
+                    url: '/chat'
                 },
                 {
                     txt:"帮助中心",
-                    bgposy :"-380px"
+                    bgposy :"-380px",
+                    url: '/order-list'
                 },
                 {
                     txt:"意见反馈",
-                    bgposy :"-225px"
+                    bgposy :"-225px",
+                    url: '/order-list'
                 }
             ]
         }

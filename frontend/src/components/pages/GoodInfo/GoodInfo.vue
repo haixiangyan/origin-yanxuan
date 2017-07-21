@@ -168,6 +168,9 @@ export default {
         },
         firstAuthor() {
             return this.$store.getters.author;
+        },
+        loginState() {
+            return this.$store.getters.loginState;
         }
     },
     components: {

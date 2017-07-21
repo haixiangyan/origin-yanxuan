@@ -2,11 +2,16 @@
     <div class="yan-usercenter">
         <yan-user-center-header :id="id"></yan-user-center-header>
         <yan-user-center-body :id="id"></yan-user-center-body>
+
+        <yan-tab-bar :selectedIndex="4"></yan-tab-bar>
     </div>
 </template>
 <script>
 import YanUserCenterHeader from '@/components/pages/Users/UserCenter/UserCenterHeader';
 import YanUserCenterBody from '@/components/pages/Users/UserCenter/UserCenterBody';
+
+// 引入 Tabbar
+import YanTabBar from '@/components/commons/TabBar/TabBar';
 
 export default {
     data() {
@@ -16,7 +21,8 @@ export default {
     },
     components: {
         YanUserCenterHeader,
-        YanUserCenterBody
+        YanUserCenterBody,
+        YanTabBar
     },
     mounted() {
 

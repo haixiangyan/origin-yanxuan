@@ -47,16 +47,23 @@ export default {
     outline: none;
 }
 
+.input {
+    padding: 13px;
+    border: 2px solid rgb(204, 213, 216);
+    border-radius: 10px;
+    width: 720px;
+}
+
 .input textarea {
     font-size: 40px;
     width: 100%;;
     outline: none;
     resize: none;
+    border: none;
 }
 
 /* 发送按钮 */
 .send {
-    /* flex-grow: 1; */
     text-align: right;
 }
 

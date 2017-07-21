@@ -1,20 +1,26 @@
 <template>
     <div class="yan-usercenter-info">
+        <yan-header></yan-header>
+
         <yan-user-center-info-body :id="id"></yan-user-center-info-body>
     </div>
 </template>
 <script>
+// 引入头部
+import YanHeader from '@/components/commons/Header/Header';
 
 import YanUserCenterInfoBody from '@/components/pages/Users/UserCenter/PersonalInformation/Info/InfoBody';
 
 export default {
     data() {
         return {
-            id: this.$route.params.userId
+            id: this.$route.params.userId,
+            isShowModal: false
         }
     },
     components:{
-        YanUserCenterInfoBody
+        YanHeader,
+        YanUserCenterInfoBody,
     },
     mounted() {
         console.log(this.id);

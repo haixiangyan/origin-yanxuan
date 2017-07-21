@@ -23,18 +23,27 @@
                 提交
             </div>
         </div>
+        
+        <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+            <yan-modal v-show="isShowModal" :title="'已提交'"></yan-modal>
+        </transition>
     </div>
 </template> 
 <script>
+// 引入模态框
+import YanModal from '@/components/commons/Modal/Modal';
 
-//<router-link tag="" to="/hom"></router-link>
 export default {
     props: ['id'],
     data() {
         return{
             interestedList:[],
-            items:[]
+            items:[],
+            isShowModal: false
         }
+    },
+    components: {
+        YanModal
     },
     methods:{
         selected(index){
@@ -76,6 +85,10 @@ export default {
                 console.log('vue-resource then', response.body);
                 this.status = response.body.result;
                 if(this.status === 'success'){
+                    this.isShowModal = true;
+                    setTimeout(() => {
+                        this.isShowModal = false;
+                    }, 1000);
                     //this.$router.push({name: 'User Center', params: { userId: response.body.user.telephone }})
                 }
             }, response => {
@@ -174,6 +187,7 @@ export default {
 
 <style scoped>
 .interest-body{
+    margin-top: 116px;
     background-color: white;
 }
 .interest-prompt{

@@ -11,7 +11,7 @@ const state = {
         __v: '',
         address: [],
         interest: [],
-        userID: 0
+        userID: -1
     },
     historyUser: {
         _id: '',
