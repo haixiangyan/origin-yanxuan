@@ -6,7 +6,7 @@
                 <span class="txt">{{item.txt}}</span>
             </div>
         </div>
-        <div class="yan-usercenter-body-footer">
+        <div v-on:click="logout()" class="yan-usercenter-body-footer">
             <button>退出登录</button>
         </div>
     </div>
@@ -72,9 +72,22 @@ export default {
         }
     },
     methods:{
-                   
+        logout(){
+            this.$store.commit('setLoginState', {
+                loginState: {
+                    telephone: this.id,
+                    isLogin: false
+                }
+            });
+            this.$router.push({name: 'Home'})
+        }      
     },
     mounted(){
+    },
+    computed:{
+        loginState() {
+            return this.$store.getters.loginState;
+        }
     }
 }
 </script>

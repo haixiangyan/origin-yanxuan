@@ -24,14 +24,19 @@ const state = {
         interest: []
     },
     file: null,
-    historyFile: null
+    historyFile: null,
+    loginState: {
+        telephone: '',
+        isLogin: false
+    }
 }
 
 const getters = {
     user: state => state.user,
     file: state => state.file,
     historyFile: state => state.historyFile,
-    historyUser: state => state.historyUser
+    historyUser: state => state.historyUser,
+    loginState: state => state.loginState
 }
 
 const actions = {
@@ -45,11 +50,7 @@ const mutations = {
     },
     initHistoryUser(state, payload) {
         console.log('mutations', 'initUser');
-        state.historyUser = payload.historyUser;
-        // state.historyUser.telephone = payload.historyUser.telephone;
-        // state.historyUser.name = payload.historyUser.name;
-        // state.historyUser.gender = payload.historyUser.gender;
-        // state.historyUser.address = payload.historyUser.address;
+        state.historyUser = JSON.parse(JSON.stringify(payload.historyUser));
     },
     editUser(state, payload) {
         state.user.id = payload.id;
@@ -61,8 +62,14 @@ const mutations = {
         state.historyFile = payload.historyFile;
     },
     cleanHistoryUser(state, payload) {
+        console.log('cleanHistoryUser');
         state.historyUser.telephone = '';
     },
+    setLoginState(state, payload) {
+        console.log('setLoginState', payload);
+        state.loginState.telephone = payload.loginState.telephone;
+        state.loginState.isLogin = payload.loginState.isLogin;
+    }
 }
 
 /*

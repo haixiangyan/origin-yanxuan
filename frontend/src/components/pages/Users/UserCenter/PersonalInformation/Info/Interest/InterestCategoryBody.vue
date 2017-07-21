@@ -45,19 +45,8 @@ export default {
             }
         },
         cancel(){
-            this.$store.commit('editFile', {
-                file: this.historyFile
-            });
-            console.log('cancel:', this.file);
+            console.log('cancel', this.historyUser);
             this.$router.push({name: 'User Center Info', params: { userId: this.id }})
-            
-            // this.$store.commit('initUser', {
-            //     user: this.historyUser
-            // });
-            // this.$store.commit('cleanHistoryUser', {
-            //     historyUser: null
-            // });
-        
         },
         submit(){
             //提交用户个人信息
@@ -171,15 +160,14 @@ export default {
                 title:'智能硬件',
                 source:'/static/img/loginImage/interest/智能硬件.png'
             });
-            console.log('mounted: ' + this.user);
+
         this.items.forEach(function(element) {
             this.interestedList.push({
                 title: element.title,
                 interested: this.user.interest.includes(element.title)
             });
         }, this);
-        //错误关闭会导致信息页面显示不正确.
-        console.log('this.historyFile'+this.historyFile);
+
     }
 }
 </script>

@@ -18,7 +18,44 @@ export default {
     },
     mounted() {
         console.log(this.id);
-    }
+    },
+    beforeRouteLeave (to, from, next) {
+
+        if(to.path === '/users/interestCategory/' + this.id){
+            this.$store.commit('editHistoryFile', {
+                historyFile: this.$children[0].file
+            });
+            this.$store.commit('initHistoryUser', {
+                historyUser: this.$children[0].mountedUser
+            });
+        }else{
+            this.$store.commit('editHistoryFile', {
+                historyFile: null
+            });
+            this.$store.commit('cleanHistoryUser', {
+                historyUser: null
+            });
+            this.$store.commit('editFile', {
+                file: null
+            });
+        }
+
+        next();
+    },
+    computed:{
+        user() {
+            return this.$store.getters.user;
+        },
+        file() {
+            return this.$store.getters.file;
+        },
+        historyFile(){
+            return this.$store.getters.historyFile;
+        },
+        historyUser(){
+            return this.$store.getters.historyUser;
+        }
+    },
 }
 </script>
 

@@ -58,125 +58,130 @@ import YanUserCenterInfoInterest from '@/components/pages/Users/UserCenter/Perso
 Vue.use(Router)
 
 export default new Router({
-  // mode: 'history',
-  routes: [{
-      path: '/',
-      redirect: '/home/recommend'
-    },
-    {
-      path: '/home', // 首页路由
-      name: 'Home',
-      redirect: '/home/recommend',
-      component: YanHome,
-      children: [{
-          path: 'recommend',
-          component: YanRecommend
+    // mode: 'history',
+    routes: [{
+            path: '/',
+            redirect: '/home/recommend'
         },
         {
-          path: 'household',
-          component: YanHousehold
+            path: '/home', // 首页路由
+            name: 'Home',
+            redirect: '/home/recommend',
+            component: YanHome,
+            children: [{
+                    path: 'recommend',
+                    component: YanRecommend
+                },
+                {
+                    path: 'household',
+                    component: YanHousehold
+                },
+                {
+                    path: 'cook',
+                    component: YanCook
+                },
+                {
+                    path: 'accessories',
+                    component: YanAccessories
+                },
+                {
+                    path: 'clothes',
+                    component: YanClothes
+                },
+                {
+                    path: 'care',
+                    component: YanCare
+                },
+                {
+                    path: 'children',
+                    component: YanChildren
+                },
+                {
+                    path: 'groceries',
+                    component: YanGroceries
+                },
+                {
+                    path: 'food',
+                    component: YanFood
+                },
+                {
+                    path: 'interest',
+                    component: YanInterest
+                }
+            ]
         },
         {
-          path: 'cook',
-          component: YanCook
+            path: '/topic', // 专题路由
+            name: 'Topic',
+            component: YanTopic
         },
         {
-          path: 'accessories',
-          component: YanAccessories
+            path: '/category', // 商品分类的路由
+            name: 'Category',
+            component: YanCategory
         },
         {
-          path: 'clothes',
-          component: YanClothes
+            path: '/search', // 搜索页的路由
+            name: 'Search',
+            component: YanSearch
         },
         {
-          path: 'care',
-          component: YanCare
+            path: '/good-info/:goodId', // 商品详情页
+            name: 'GoodInfo',
+            component: YanGoodInfo
         },
         {
-          path: 'children',
-          component: YanChildren
+            path: '/choose/:goodId', // 选择商品的页
+            name: 'GoodChoose',
+            component: YanGoodChoose
         },
         {
-          path: 'groceries',
-          component: YanGroceries
+            path: '/comment-list/:goodId', // 选择商品的页
+            name: 'CommentList',
+            component: YanCommentList
         },
         {
-          path: 'food',
-          component: YanFood
+            path: '/cart', // 购物车的页
+            name: 'Cart',
+            component: YanCart
         },
         {
-          path: 'interest',
-          component: YanInterest
-        }
-      ]
-    },
-    {
-      path: '/topic', // 专题路由
-      name: 'Topic',
-      component: YanTopic
-    },
-    {
-      path: '/category', // 商品分类的路由
-      name: 'Category',
-      component: YanCategory
-    },
-    {
-      path: '/search', // 搜索页的路由
-      name: 'Search',
-      component: YanSearch
-    },
-    {
-      path: '/good-info/:goodId', // 商品详情页
-      name: 'GoodInfo',
-      component: YanGoodInfo
-    },
-    {
-      path: '/choose/:goodId', // 选择商品的页
-      name: 'GoodChoose',
-      component: YanGoodChoose
-    },
-    {
-      path: '/comment-list/:goodId', // 选择商品的页
-      name: 'CommentList',
-      component: YanCommentList
-    },
-    {
-      path: '/cart', // 购物车的页
-      name: 'Cart',
-      component: YanCart
-    },
-    {
-      path: '/order', // 订单详情页
-      name: 'Order',
-      component: YanOrder
-    }, {
-      path: '/login',
-      name: 'Login',
-      component: YanUsersLogin
-    }, {
-      path: '/register',
-      name: 'Register',
-      component: YanUsersRegister
-    },
-    {
-      path: '/users/:userId',
-      name: 'User Center',
-      component: YanUserCenter,
-    },
-    {
-      path: '/users/nav/:userId',
-      name: 'User Center Nav',
-      component: YanUserCenterNav
-    },
-    {
-      path: '/users/info/:userId',
-      name: 'User Center Info',
-      component: YanUserCenterInfo
-    },
-    {
-      path: '/users/interestCategory/:userId',
-      name: 'User Center Info Interest Category',
-      component: YanUserCenterInfoInterest
-    },
-  ]
+            path: '/order', // 订单详情页
+            name: 'Order',
+            component: YanOrder
+        }, {
+            path: '/login',
+            name: 'Login',
+            component: YanUsersLogin
+        }, {
+            path: '/register',
+            name: 'Register',
+            component: YanUsersRegister
+        },
+        {
+            path: '/users/:userId',
+            name: 'User Center',
+            component: YanUserCenter,
+        },
+        {
+            path: '/users/nav/:userId',
+            name: 'User Center Nav',
+            component: YanUserCenterNav
+        },
+        {
+            path: '/users/info/:userId',
+            name: 'User Center Info',
+            component: YanUserCenterInfo,
+            // beforeEnter: (to, from, next) => {
+            //     console.log(from, to);
+            //     console.log(this);
+            //     next();
+            // }
+        },
+        {
+            path: '/users/interestCategory/:userId',
+            name: 'User Center Info Interest Category',
+            component: YanUserCenterInfoInterest
+        },
+    ]
 })
