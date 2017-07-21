@@ -37,35 +37,16 @@
 
 <script>
 export default {
+    props: ['type'],
     data() {
 		scroll:0;
         return {
-            msg: 'Topic body',
             body_items: [],
 			page: 0,
 			currentLoad: [],
-			appear: 'none',
-			opa: 0
         }
     },
 	methods: {
-		goToTop(){
-			document.body.scrollTop = 0
-			document.documentElement.scrollTop = 0
-		},
-
-		showIconGoToTop(){
-			this.scroll = document.body.scrollTop;
-			let screenHeight = document.documentElement.clientHeight;
-			// console.log(document.documentElement.offsetHeight);
-			if(this.scroll > screenHeight){
-				this.appear = 'block';
-				this.opa = (this.scroll - screenHeight) > 100 ? 1 : (this.scroll - screenHeight) / 100; 
-			}else{
-				this.appear = 'none';
-				this.opa = 0; 
-			}
-		},
 		getMoreItems(){
 			let scrollHeight = document.body.scrollHeight;
 			let currentHeight = document.body.scrollTop + document.documentElement.clientHeight;
@@ -80,39 +61,60 @@ export default {
 					}
 				},1000);
 			}
-		}
+        },
+        getTopicItemsFromServer(){
+            this.$http({
+                method: 'get',
+                url: '/goods/topic'
+            })
+            .then((res) => {
+                console.log('vue-resource then', res.body);
+                this.$store.commit('initTopic', {
+                    topic: res.body.data
+                });
+            })
+            .catch((err) => {
+                console.log('vue-resource err', err);
+            });  
+        }
+	},
+    mounted() {
+        if(this.topic.length){
+            getTopicItemsFromServer();
+        }
+        this.body_items = this.topic.filter(function(item){
+            switch(this.type){
+                case 0:
+                    return item.writer === '丁磊';                
+                break;
+                case 1:
+                    return item.writer === '丁磊';                
+                break;
+                case 2:
+                    return item.writer === '丁磊';                
+                break;
+                case 3:
+                    return item.writer === '丁磊';                
+                break;
+                default:
+                break;
+            }
+        
+        });
+        if(this.body_items.length < 4){
+            this.currentLoad = this.currentLoad.concat(this.body_items.slice(0,this.body_items.length));
+        }else{
+            this.currentLoad = this.currentLoad.concat(this.body_items.slice(0,4));
+            this.page++;
+        }
+		// 
+		window.addEventListener('scroll', this.getMoreItems);
 	},
 	computed:{
         topic() {
             return this.$store.getters.topic;
         }
     },
-    mounted() {
-        // 发送请求，获取数据
-		this.$http({
-			method: 'get',
-			url: '/goods/topic'
-		})
-		.then((res) => {
-			console.log('vue-resource then', res.body);
-			this.body_items = res.body.data;
-			if(this.body_items.length < 4){
-				this.currentLoad = this.currentLoad.concat(this.body_items.slice(0,this.body_items.length));
-			}else{
-				this.currentLoad = this.currentLoad.concat(this.body_items.slice(0,4));
-				this.page++;
-			}
-		})
-		.catch((err) => {
-			console.log('vue-resource err', err);
-		});
-		// 
-		window.addEventListener('scroll', this.getMoreItems);
-
-		this.$store.commit('initTopic', {
-            topic: this.body_items
-        });
-    }
 }
 
 
@@ -243,14 +245,4 @@ div {
 	line-height: 1.5;
 }
 
-.toToTop{
-	position: fixed;
-	right: 40px;
-	bottom: 160px;
-	height: 100px;
-	width: 100px;
-	background-image: url(/static/img/topicImage/components/goToTop.png);
-	background-size: 100%;
-	z-index: 2;
-}
 </style>
