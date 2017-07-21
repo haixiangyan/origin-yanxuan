@@ -1,7 +1,5 @@
 import Mock from 'mockjs';
 
-// import { login } from './front-page.js';
-
 
 // 主页面
 import { home, homeStatic } from './home-intro.js';
@@ -30,17 +28,17 @@ import { address } from './address.js';
 import { orderInfo } from './orderInfo.js';
 
 let data = [].concat(
-    login,
+    // login,
     home,
-    homeStatic,
-    homeGood,
-    category,
-    search,
-    good,
-    comment,
-    cart,
-    address,
-    orderInfo
+    // homeStatic,
+    // homeGood,
+    // category,
+    // search,
+    // good,
+    // comment,
+    // cart,
+    // address,
+    // orderInfo
 );
  
 

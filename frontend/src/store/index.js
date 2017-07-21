@@ -22,8 +22,9 @@ import comment from './modules/comment.js';
 // 临时的用户信息
 import tempUser from './modules/tempUser.js';
 
-
-import user from './modules/user.js'
+// 聊天内容
+import chat from './modules/chat.js';
+// import user from './modules/user.js'
 
 
 Vue.use(Vuex);
@@ -43,7 +44,8 @@ const store = new Vuex.Store({
         address,      
         comment,  
         tempUser,
-        user
+        chat,
+        // user
     }
 });
 

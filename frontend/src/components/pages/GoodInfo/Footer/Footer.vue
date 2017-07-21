@@ -1,10 +1,10 @@
 <template>
     <div class="yan-good-footer">
         <!-- 联系店家 -->
-        <router-link tag="div" to="/" class="yan-contact">
-            <img v-if="!isBack" src="/static/icons/service.png" alt="contact">
+        <div tag="div"  class="yan-contact">
+            <img @click="toService" v-if="!isBack" src="/static/icons/service.png" alt="contact">
             <span @click="back" v-if="isBack">返回</span>
-        </router-link>
+        </div>
     
         <!-- 立即购买 -->
         <div @click="buying" class="yan-buy">
@@ -107,6 +107,9 @@ export default {
                 .catch((err) => {
                     console.log('vue-resource err', err);
                 });
+        },
+        toService() {
+            this.$router.push('/chat');
         }
     }
 }
