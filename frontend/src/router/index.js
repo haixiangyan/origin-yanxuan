@@ -73,6 +73,9 @@ import YanArea from '@/components/pages/AddressForm/Area/Area';
 // 引入支付的页面
 import YanPay from '@/components/pages/Pay/Pay';
 
+// 引入聊天的组件
+import YanChat from '@/components/pages/Chat/Chat';
+
 Vue.use(Router)
 
 export default new Router({
@@ -225,6 +228,11 @@ export default new Router({
       path: '/add-comment',
       name: 'AddComment',
       component: YanAddComment  // 添加评论
+    },
+    {
+      path: '/chat',
+      name: 'Chat',
+      component: YanChat   // 聊天
     }
   ]
 })

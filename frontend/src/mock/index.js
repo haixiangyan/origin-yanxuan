@@ -1,11 +1,5 @@
 import Mock from 'mockjs';
 
-<<<<<<< HEAD
-import { login } from './front-page.js';
-=======
-// import { login } from './front-page.js';
->>>>>>> login
-
 // 主页面
 import { home, homeStatic } from './home-intro.js';
 import { homeGood } from './home-goods.js';
@@ -33,9 +27,9 @@ import { address } from './address.js';
 import { orderInfo } from './orderInfo.js';
 
 let data = [].concat(
-    login,
-    // home,
-    homeStatic,
+    // login,
+    home,
+    // homeStatic,
     // homeGood,
     // category,
     // search,
