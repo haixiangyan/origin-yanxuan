@@ -54,7 +54,6 @@ export default {
             }
         },
         cancel(){
-            console.log('cancel', this.historyUser);
             this.$router.push({name: 'User Center Info', params: { userId: this.id }})
         },
         submit(){
@@ -73,7 +72,6 @@ export default {
             userForm.append('name', this.user.name);
             userForm.append('gender', this.user.gender);
             userForm.append('photo', new File([""], ''));
-            console.log(userForm);
             this.$http({
                 method: 'patch',
                 url: '/users/changeInformation',
@@ -82,18 +80,15 @@ export default {
                     'Content-Type': 'multipart/form-data'
                 }
             }).then(response => {
-                console.log('vue-resource then', response.body);
                 this.status = response.body.result;
                 if(this.status === 'success'){
                     this.isShowModal = true;
                     setTimeout(() => {
                         this.isShowModal = false;
                     }, 1000);
-                    //this.$router.push({name: 'User Center', params: { userId: response.body.user.telephone }})
                 }
             }, response => {
                 // error callback
-                console.log('vue-resource err', response.err);
             });
         }
     },
@@ -232,6 +227,7 @@ export default {
 }
 
 .info-body-select{
+    z-index: 3;
     position: fixed;
     bottom: 0;
     background-color: white;

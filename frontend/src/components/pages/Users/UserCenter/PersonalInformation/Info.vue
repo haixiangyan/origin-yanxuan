@@ -23,16 +23,15 @@ export default {
         YanUserCenterInfoBody,
     },
     mounted() {
-        console.log(this.id);
     },
     beforeRouteLeave (to, from, next) {
 
         if(to.path === '/users/interestCategory/' + this.id){
             this.$store.commit('editHistoryFile', {
-                historyFile: this.$children[0].file
+                historyFile: this.$children[1].file
             });
             this.$store.commit('initHistoryUser', {
-                historyUser: this.$children[0].mountedUser
+                historyUser: this.$children[1].mountedUser
             });
         }else{
             this.$store.commit('editHistoryFile', {

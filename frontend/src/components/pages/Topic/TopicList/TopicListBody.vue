@@ -77,7 +77,6 @@ export default {
 				this.classification(res.body.data);
             })
             .catch((err) => {
-                console.log('vue-resource err', err);
             });  
 		},
 		classification(items){

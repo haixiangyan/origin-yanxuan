@@ -22,7 +22,6 @@ export default {
         YanUserCenterInfoInterestBody
     },
     mounted() {
-        console.log(this.id);
     },
     beforeRouteLeave (to, from, next) {
  

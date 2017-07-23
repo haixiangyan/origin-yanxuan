@@ -21,7 +21,6 @@ export default {
         YanUserCenterNavBody
     },
     mounted() {
-        console.log(this.id);
     }
 }
 </script>

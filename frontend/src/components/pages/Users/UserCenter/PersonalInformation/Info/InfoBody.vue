@@ -123,7 +123,6 @@ export default {
                 }
             }, response => {
                 // error callback
-                console.log('vue-resource err', response.err);
             });
         },
         previewImg(tempFile){

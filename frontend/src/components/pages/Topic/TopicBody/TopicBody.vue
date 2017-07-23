@@ -57,7 +57,7 @@ export default {
 		showIconGoToTop(){
 			this.scroll = document.body.scrollTop;
 			let screenHeight = document.documentElement.clientHeight;
-			// console.log(document.documentElement.offsetHeight);
+			
 			if(this.scroll > screenHeight){
 				this.appear = 'block';
 				this.opa = (this.scroll - screenHeight) > 100 ? 1 : (this.scroll - screenHeight) / 100; 
@@ -106,7 +106,6 @@ export default {
 			});
 		})
 		.catch((err) => {
-			console.log('vue-resource err', err);
 		});
 		// 
 		window.addEventListener('scroll', this.getMoreItems);

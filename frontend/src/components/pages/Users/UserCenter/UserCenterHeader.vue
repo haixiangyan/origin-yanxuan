@@ -52,11 +52,9 @@ export default {
             url: '/users/getInformation/'+this.userId
         })
         .then((res) => {
-            console.log('vue-resource then', '/users/getInformation/'+this.userId , res.body);
             this.loadPersonalInfo(res.body.data);
         })
         .catch((err) => {
-            console.log('vue-resource err', err);
         });
     }
 }
