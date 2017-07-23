@@ -22,14 +22,14 @@ import { comment } from './comment.js';
 import { cart } from './cart.js';
 
 let data = [].concat(
-    login,
-    home,
+    // login,
+    // home,
     homeStatic,
-    homeGood,
-    category,
-    search,
-    good,
-    comment,
+    // homeGood,
+    // category,
+    // search,
+    // good,
+    // comment,
     // cart
 
 );
