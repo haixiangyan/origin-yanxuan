@@ -26,7 +26,6 @@ db.once('open', function () {
 		payID: String,
 		totalFee: Number
 	});
-
 	orderModel = db.model("orders", orderSchema);
 	addOrder();
 	var commentSchema = new mongoose.Schema({
@@ -488,9 +487,7 @@ function getOrder(orderid, cb) {
 	}, cb);
 }
 
-function getAllOrder(cb) {
-	orderModel.find({}, cb);
-}
+
 
 function getCustomerOrder(userid, cb) {
 	orderModel.find({
@@ -519,17 +516,21 @@ function pay(orderid, payid, cb) {
 
 	})
 }
-function deleteOrder(orderid,cb){
-	orderModel.findOne({orderID:orderid},function(err,docs){
+
+function deleteOrder(orderid, cb) {
+	orderModel.findOne({
+		orderID: orderid
+	}, function (err, docs) {
 		if (docs) {
 			orderModel.remove({
-				orderID:orderid
+				orderID: orderid
 			}, cb);
 		} else {
 			cb("error", "")
 		}
 	})
 }
+
 function deliverGoods(orderid, expressCompany, expressNumber, cb) {
 	orderModel.findOne({
 		orderID: orderid
@@ -586,54 +587,7 @@ function confirmGoods(orderid, cb) {
 	})
 }
 
-function getRecentSale(cb) {
-	var now = new Date();
-	var arr = [];
-	for (var i = 1; i < 8; i++) {
-		var obj = {
-			time: i,
-			sale: 0
-		}
-		arr.push(obj);
-	}
-	orderModel.find({}, function (err, docs) {
-		for (var i = 0; i < docs.length; i++) {
-			var sale = 0;
-			for (var j = 0; j < docs[i].goodsList.length; j++) {
-				sale += docs[i].goodsList[j].number;
-			}
-			var date = parseInt(docs[i].orderDate);
-			console.log("date  " + date)
-			console.log("now  " + now.getTime())
-			switch (Math.ceil((now.getTime() - date) / 1000 / 60 / 60 / 24)) {
-				case 1:
-					arr[0].sale += sale;
-					break;
-				case 2:
-					arr[1].sale += sale;
-					break;
-				case 3:
-					arr[2].sale += sale;
-					break;
-				case 4:
-					arr[3].sale += sale;
-					break;
-				case 5:
-					arr[4].sale += sale;
-					break;
-				case 6:
-					arr[5].sale += sale;
-					break;
-				case 7:
-					arr[6].sale += sale;
-					break;
-				default:
-					break;
-			}
-		}
-		cb("success", arr);
-	})
-}
+
 module.exports.getCart = getCart;
 module.exports.addToCart = addToCart;
 module.exports.deleteItemFromCart = deleteItemFromCart;
@@ -645,7 +599,5 @@ module.exports.pay = pay;
 module.exports.deliverGoods = deliverGoods;
 module.exports.confirmGoods = confirmGoods;
 module.exports.deliverComment = deliverComment;
-module.exports.deleteOrder=deleteOrder;
+module.exports.deleteOrder = deleteOrder;
 module.exports.getCustomerOrder = getCustomerOrder;
-module.exports.getAllOrder = getAllOrder;
-module.exports.getRecentSale = getRecentSale;
