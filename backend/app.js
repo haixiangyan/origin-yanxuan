@@ -13,6 +13,7 @@ var shop =require('./routes/shop');
 // 引入 h5 history 模式的中间件
 var history = require('connect-history-api-fallback');
 
+
 var app = express();
 //app.get();
 // view engine setup
@@ -30,6 +31,7 @@ app.set('view engine', 'jade');
 
 // 解决 history 模式的问题（非常重要！！！）
 // app.use(history());
+
 
 app.use(logger('dev'));
 app.use(bodyParser.json());

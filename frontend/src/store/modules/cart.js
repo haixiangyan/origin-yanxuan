@@ -4,12 +4,44 @@ const state = {
   // 购物车的商品数组
   cart: [],
   // 是否编辑购物车
-  isEditCart: false
+  isEditCart: false,
+  // 运费
+  deliver: 10,
+  // 运费的上限
+  limitDeliver: 88,
+  // 购物车的商品总数（头部图标）
+  displayCartNum: 0,
+  // 优惠
+  discount: 4,
+  // 选择的地址
+  address: {
+      receiver: '',
+      detail: "",
+      province: "",
+      city: '',
+      telephone: '',
+      isDefault: true,
+  },
+  // 立刻购买
+  tempCartItem: [],
+  // 判断是否立刻购买
+  isBuying: false,
+  // 生成订单的ID
+  orderID: -1
 }
 
 const getters = {
   cart: state => state.cart,
   isEditCart: state => state.isEditCart,
+  deliver: state => state.deliver,
+  discount: state => state.discount,
+  limitDeliver: state => state.limitDeliver,
+  address: state => state.address,
+  tempCartItem: state => state.tempCartItem,
+  isBuying: state => state.isBuying,
+  displayCartNum: state => state.displayCartNum,
+  orderID: state => state.orderID,
+  // 是否全选
   isSelectAllCartItems: state => {
     let selectAllState = true
 
@@ -25,6 +57,8 @@ const getters = {
 
     return selectAllState;
   },
+
+  // 选中购物车的商品数量
   selectCartItemNum: state => {
     let num = 0;
     state.cart.forEach((cartItem) => {
@@ -35,6 +69,8 @@ const getters = {
 
     return num;
   },
+
+  // 商品是否已经选中
   isSelected: state => {
     let selectState = false;
 
@@ -47,7 +83,12 @@ const getters = {
     return selectState;
   },
 
+  // 购物车的总价
   totalPrice: state => {
+    if (state.isBuying) {
+      return state.tempCartItem[0].price;
+    }
+
     let sum = 0;
 
     state.cart.forEach((cartItem) => {
@@ -57,7 +98,43 @@ const getters = {
     });
 
     return sum;
-  }
+  },
+
+  // 订单的总价
+  ordeTotalPrice: state => {
+    let sum = 0;
+
+    if (state.isBuying) {
+      sum = state.tempCartItem[0].price;
+    }
+    else {
+      state.cart.forEach((cartItem) => {
+        if (cartItem.select === 1) {
+          sum = sum + cartItem.price * cartItem.number;
+        }
+      });
+    }
+
+    // 加上运费
+    sum = (sum > state.limitDeliver) ? sum : sum + state.deliver;
+
+    // 减去优惠
+    sum = sum - state.discount;
+
+    return sum;
+  },
+  
+  // 返回购物车的商品总数
+  cartNum: state => state.cart.length,
+
+  // 返回选中的商品
+  selectedCartItems: state => {
+    let tempCartItems = state.cart.filter((cartItem) => {
+      return cartItem.select === 1;
+    });
+
+    return tempCartItems;
+  },
 }
 
 const actions = {
@@ -67,7 +144,19 @@ const actions = {
 const mutations = {
   // 将商品加入购物车
   addToCart(state, payload) {
-    state.cart.push(payload.cartItem);
+    let isExist = false;
+    state.cart.forEach((cartItem) => {
+      if (cartItem.ID === payload.cartItem.ID) {
+        isExist = true;
+        // 增加商品的数量
+        cartItem.number = cartItem.number + payload.cartItem.number;
+      }
+    })
+
+    // 如果不存在，则推入数组里
+    if (!isExist) {
+      state.cart.push(payload.cartItem);
+    }
   },
 
   // 初始化购物车
@@ -122,8 +211,48 @@ const mutations = {
     state.cart = state.cart.filter((cartItem) => {
       return cartItem.select === 0;
     });
-  }
+  },
 
+  // 更新商品
+  updateCartItems(state) {
+    state.cart = state.cart.filter((cartItem) => {
+      return cartItem.select === 1;
+    });
+  },
+
+  // 立刻购买
+  buying(state, payload) {
+    state.isBuying = true;
+    state.tempCartItem[0] = (payload.goodInfo);
+  },
+
+  // 重置立刻购买
+  resetBuying(state) {
+    state.isBuying = false;
+    state.tempCartItem = []
+  },
+
+  // 增加购物车的数量
+  addDisplayCartNum(state) {
+    state.displayCartNum ++;
+  },
+
+  // 减少购物车的商品的数量
+  subDisplayCartNum(state) {
+    if (state.displayCartNum !== 1) {
+      displayCartNum --;
+    }
+  },
+
+  // 选择地址
+  selectAddress(state, payload) {
+    state.address = payload.address;
+  },
+
+  // 设置订单的ID
+  setOrderID(state, payload) {
+    state.orderID = payload.orderID;
+  }
 }
 
 export default {

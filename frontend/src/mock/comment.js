@@ -2,7 +2,7 @@ const Mock = require('mockjs');
 const Random = Mock.Random;
 
 export const comment = [{
-  path: '/shop/comment/1',
+  path: '/goods/comment/1',
   type: 'get',
   data(option) {
     let result = {
@@ -40,6 +40,23 @@ export const comment = [{
 
       result.data.user.push(user);
     }
+
+    return result;
+  }
+},
+{
+  path: '/shop/comment',   // 添加评论
+  type: 'patch',
+  data(option) {
+    let result = {
+      result: 'success',
+      data: {
+        comment: [],
+        user: []
+      }
+    };
+
+    console.log('add comment successfully');
 
     return result;
   }

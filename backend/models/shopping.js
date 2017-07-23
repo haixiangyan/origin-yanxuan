@@ -14,7 +14,6 @@ db.once('open', function () {
 	});
 
 	cartModel = db.model("carts", cartSchema);
-	addCart();
 	var orderSchema = new mongoose.Schema({
 		orderID: String,
 		userID: String,
@@ -23,6 +22,7 @@ db.once('open', function () {
 		expressCompany: String,
 		address: Array,
 		orderState: Number,
+		orderDate: String,
 		payID: String,
 		totalFee: Number
 	});
@@ -38,12 +38,124 @@ db.once('open', function () {
 		type: String
 	});
 	commentModel = db.model("comments", commentSchema);
-	addComment();
+	// addComment();
 })
 
 function addOrder() {
 	var orderEntity = new orderModel({
 		orderID: "123",
+		userID: "1",
+		goodsList: [{
+			ID: "123",
+			number: 5,
+			type: "Asd",
+			price: 50,
+			name: "懒人清洁新选择",
+			picture: '/static/img/goodsImage/0/headImage/1.jpg'
+		}],
+		expressNumber: 123123,
+		expressCompany: "saddas",
+		address: [{
+			province: "辽宁省",
+			city: "沈阳市",
+			town: "浑南区",
+			detail: "东北大学",
+			receiver: "许康琪",
+			telephone: "123124",
+			isDefault: false
+		}],
+		orderDate: 1500566400000,
+		orderState: 0,
+		payID: "",
+		totalFee: 50
+	})
+	orderEntity.save();
+	var orderEntity = new orderModel({
+		orderID: "1235446",
+		userID: "1",
+		goodsList: [{
+			ID: "123",
+			number: 4,
+			type: "Asd",
+			price: 50,
+			name: "懒人清洁新选择",
+			picture: '/static/img/goodsImage/0/headImage/1.jpg'
+		}],
+		expressNumber: 810874175279,
+		expressCompany: "圆通",
+		address: [{
+			province: "辽宁省",
+			city: "沈阳市",
+			town: "浑南区",
+			detail: "东北大学",
+			receiver: "许康琪",
+			telephone: "123124",
+			isDefault: false
+		}],
+		orderDate: 1500480000000,
+		orderState: 1,
+		payID: "",
+		totalFee: 50
+	})
+	orderEntity.save();
+	var orderEntity = new orderModel({
+		orderID: "12334",
+		userID: "1",
+		goodsList: [{
+			ID: "123",
+			number: 3,
+			type: "Asd",
+			price: 50,
+			name: "懒人清洁新选择",
+			picture: '/static/img/goodsImage/0/headImage/1.jpg'
+		}],
+		expressNumber: 810874175279,
+		expressCompany: "圆通",
+		address: [{
+			province: "辽宁省",
+			city: "沈阳市",
+			town: "浑南区",
+			detail: "东北大学",
+			receiver: "许康琪",
+			telephone: "123124",
+			isDefault: false
+		}],
+		orderDate: 1500393600000,
+		orderState: 2,
+		payID: "",
+		totalFee: 50
+	})
+	orderEntity.save();
+	var orderEntity = new orderModel({
+		orderID: "12376",
+		userID: "1",
+		goodsList: [{
+			ID: "123",
+			number: 2,
+			type: "Asd",
+			price: 50,
+			name: "懒人清洁新选择",
+			picture: '/static/img/goodsImage/0/headImage/1.jpg'
+		}],
+		expressNumber: 123123,
+		expressCompany: "saddas",
+		address: [{
+			province: "辽宁省",
+			city: "沈阳市",
+			town: "浑南区",
+			detail: "东北大学",
+			receiver: "许康琪",
+			telephone: "123124",
+			isDefault: false
+		}],
+		orderDate: 1500134400000,
+		orderState: 3,
+		payID: "",
+		totalFee: 50
+	})
+	orderEntity.save();
+	var orderEntity = new orderModel({
+		orderID: "1278",
 		userID: "1",
 		goodsList: [{
 			ID: "123",
@@ -56,14 +168,44 @@ function addOrder() {
 		expressNumber: 123123,
 		expressCompany: "saddas",
 		address: [{
-			province: "liaoning",
-			city: "shenyang",
-			town: "hunnan",
-			detailinfortion: "Neu",
-			recevier: "xu",
-			telephone: "123124"
+			province: "辽宁省",
+			city: "沈阳市",
+			town: "浑南区",
+			detail: "东北大学",
+			receiver: "许康琪",
+			telephone: "123124",
+			isDefault: false
 		}],
-		orderState: 0,
+		orderDate: 1500048000000,
+		orderState: 3,
+		payID: "",
+		totalFee: 50
+	})
+	orderEntity.save();
+	var orderEntity = new orderModel({
+		orderID: "1278678",
+		userID: "1",
+		goodsList: [{
+			ID: "123",
+			number: 9,
+			type: "Asd",
+			price: 50,
+			name: "懒人清洁新选择",
+			picture: '/static/img/goodsImage/0/headImage/1.jpg'
+		}],
+		expressNumber: 123123,
+		expressCompany: "saddas",
+		address: [{
+			province: "辽宁省",
+			city: "沈阳市",
+			town: "浑南区",
+			detail: "东北大学",
+			receiver: "许康琪",
+			telephone: "123124",
+			isDefault: false
+		}],
+		orderDate: 1499961600000,
+		orderState: 3,
 		payID: "",
 		totalFee: 50
 	})
@@ -90,6 +232,25 @@ function addCart() {
 	cartEntity.save();
 
 }
+
+
+//function addCart() {
+//	var arr = [];
+//	for (var i = 0; i < 20; i++) {
+//		var obj = {
+//			ID: i,
+//			type: "1",
+//			number: 1
+//		}
+//		arr.push(obj);
+//	}
+//	var cartEntity = new cartModel({
+//		userID: 0,
+//		goodsList: arr
+//	});
+//	cartEntity.save();
+//
+//}
 //function addOrder(){
 //	
 //}
@@ -105,6 +266,7 @@ function addComment() {
 		type: "1套装 伸缩杆懒人拖把+懒人抹布 4卷装+40片装 地板清洁湿巾 3包装"
 	})
 	commentEntity.save();
+
 }
 
 function getCart(userID, cb) {
@@ -114,7 +276,7 @@ function getCart(userID, cb) {
 		if (docs) {
 			cb("success", docs.goodsList);
 		} else {
-			cb("err", "");
+			cb("error", "");
 		}
 
 	})
@@ -132,11 +294,13 @@ function addToCart(obj, cb) {
 				}
 			}
 			if (i == docs.goodsList.length) {
-				goodsModel.findOne({ ID: obj.ID }, function (err, docs2) {
+				goodsModel.findOne({
+					ID: obj.ID
+				}, function (err, docs2) {
 					var newobj = {
 						ID: obj.ID,
 						type: obj.type,
-						number: obj.number,
+						number: parseInt(obj.number),
 						price: docs2.price,
 						picture: docs2.headImage[0],
 						name: docs2.topName
@@ -149,15 +313,18 @@ function addToCart(obj, cb) {
 
 			} else {
 				docs.goodsList[i].number += parseInt(obj.number);
+				docs.markModified('goodsList');
 				docs.save();
 				cb("success", docs.goodsList);
 			}
 		} else {
-			goodsModel.findOne({ ID: obj.ID }, function (err, docs) {
+			goodsModel.findOne({
+				ID: obj.ID
+			}, function (err, docs) {
 				var newobj = {
 					ID: obj.ID,
 					type: obj.type,
-					number: obj.number,
+					number: parseInt(obj.number),
 					price: docs.price,
 					picture: docs.headImage[0],
 					name: docs.topName
@@ -211,6 +378,7 @@ function changeItemInCart(userID, goodsID, type, number, cb) {
 		var i = 0;
 		for (i = 0; i < arr.length; i++) {
 			if (arr[i].ID == goodsID && arr[i].type == type) {
+
 				break;
 			}
 		}
@@ -246,7 +414,8 @@ function makeOrder(obj, cb) {
 	var flag = false;
 	var arr = [];
 	var arr2 = [];
-	var goodsList = JSON.parse(obj.goodsList);
+	// var goodsList = JSON.parse(obj.goodsList);
+	var goodsList = obj.goodsList;
 	for (i = 0; i < goodsList.length; i++) {
 		var newobj = goodsList[i];
 		goodsModel.findOne({
@@ -278,7 +447,9 @@ function makeOrder(obj, cb) {
 	if (flag == true) { //有些商品库存不够，返回错误
 		for (var k = 0; k < arr.length; k++) {
 			var newobj = obj.goodsList[arr[k]];
-			goodsModel.findOne({ ID: newobj.ID }, function (err, docs) {
+			goodsModel.findOne({
+				ID: newobj.ID
+			}, function (err, docs) {
 				var j;
 				for (j = 0; j < docs.type.length; j++) {
 					if (obj.type == docs.type[j]) {
@@ -297,12 +468,13 @@ function makeOrder(obj, cb) {
 		var orderEntity = new orderModel({
 			orderID: order,
 			userID: obj.userID,
-			goodsList: JSON.parse(obj.goodsList),
+			goodsList: obj.goodsList,
 			expressNumber: 0,
 			expressCompany: "",
-			address: JSON.parse(obj.address),
+			address: obj.address,
 			orderState: 0,
 			payID: "0",
+			orderDate: new Date().getTime(),
 			totalFee: parseInt(obj.totalFee)
 		})
 		orderEntity.save();
@@ -314,7 +486,22 @@ function getOrder(orderid, cb) {
 	orderModel.find({
 		orderID: orderid
 	}, cb);
+}
 
+function getAllOrder(cb) {
+	orderModel.find({}, cb);
+}
+
+function getCustomerOrder(userid, cb) {
+	orderModel.find({
+		userID: userid
+	}, function (err, docs) {
+		if (docs.length > 0) {
+			cb("success", docs)
+		} else {
+			cb("error", "")
+		}
+	});
 }
 
 function pay(orderid, payid, cb) {
@@ -332,7 +519,17 @@ function pay(orderid, payid, cb) {
 
 	})
 }
-
+function deleteOrder(orderid,cb){
+	orderModel.findOne({orderID:orderid},function(err,docs){
+		if (docs) {
+			orderModel.remove({
+				orderID:orderid
+			}, cb);
+		} else {
+			cb("error", "")
+		}
+	})
+}
 function deliverGoods(orderid, expressCompany, expressNumber, cb) {
 	orderModel.findOne({
 		orderID: orderid
@@ -354,23 +551,23 @@ function deliverComment(obj, cb) {
 	orderModel.findOne({
 		orderID: obj.orderID
 	}, function (err, docs) {
-		if(docs){
+		if (docs) {
 			docs.orderState = 4;
-		docs.save();
-		var commentEntity = new commentModel({
-			goodsID: obj.goodsID,
-			userID: obj.userID,
-			content: obj.content,
-			picture: obj.picture,
-			commentDate: obj.commentDate,
-			type: obj.type
-		})
-		commentEntity.save();
-		cb("success", "");
-		}else{
+			docs.save();
+			var commentEntity = new commentModel({
+				goodsID: obj.goodsID,
+				userID: obj.userID,
+				content: obj.content,
+				picture: obj.picture,
+				commentDate: obj.commentDate,
+				type: obj.type
+			})
+			commentEntity.save();
+			cb("success", "");
+		} else {
 			cb("error", "");
 		}
-		
+
 	})
 }
 
@@ -378,17 +575,65 @@ function confirmGoods(orderid, cb) {
 	orderModel.findOne({
 		orderID: orderid
 	}, function (err, docs) {
-		if(docs){		
-		docs.orderState = 3;
-		docs.save();
-		cb("success", "");
-		}else{
+		if (docs) {
+			docs.orderState = 3;
+			docs.save();
+			cb("success", "");
+		} else {
 			cb("error", "");
 		}
-		
+
 	})
 }
 
+function getRecentSale(cb) {
+	var now = new Date();
+	var arr = [];
+	for (var i = 1; i < 8; i++) {
+		var obj = {
+			time: i,
+			sale: 0
+		}
+		arr.push(obj);
+	}
+	orderModel.find({}, function (err, docs) {
+		for (var i = 0; i < docs.length; i++) {
+			var sale = 0;
+			for (var j = 0; j < docs[i].goodsList.length; j++) {
+				sale += docs[i].goodsList[j].number;
+			}
+			var date = parseInt(docs[i].orderDate);
+			console.log("date  " + date)
+			console.log("now  " + now.getTime())
+			switch (Math.ceil((now.getTime() - date) / 1000 / 60 / 60 / 24)) {
+				case 1:
+					arr[0].sale += sale;
+					break;
+				case 2:
+					arr[1].sale += sale;
+					break;
+				case 3:
+					arr[2].sale += sale;
+					break;
+				case 4:
+					arr[3].sale += sale;
+					break;
+				case 5:
+					arr[4].sale += sale;
+					break;
+				case 6:
+					arr[5].sale += sale;
+					break;
+				case 7:
+					arr[6].sale += sale;
+					break;
+				default:
+					break;
+			}
+		}
+		cb("success", arr);
+	})
+}
 module.exports.getCart = getCart;
 module.exports.addToCart = addToCart;
 module.exports.deleteItemFromCart = deleteItemFromCart;
@@ -400,3 +645,7 @@ module.exports.pay = pay;
 module.exports.deliverGoods = deliverGoods;
 module.exports.confirmGoods = confirmGoods;
 module.exports.deliverComment = deliverComment;
+module.exports.deleteOrder=deleteOrder;
+module.exports.getCustomerOrder = getCustomerOrder;
+module.exports.getAllOrder = getAllOrder;
+module.exports.getRecentSale = getRecentSale;

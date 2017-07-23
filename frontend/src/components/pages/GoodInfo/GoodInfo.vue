@@ -79,11 +79,11 @@
         </div>
 
         <!-- 商品的推荐 -->
-        <div class="yan-suggest-goods">
+         <div class="yan-suggest-goods">
             <yan-title class="yan-title" :title="'大家都在看'"></yan-title>
 
-            <yan-catalog :catalog="suggestGoods" :more="true"></yan-catalog>
-        </div>
+            <yan-catalog :catalog="suggestGoods" :more="suggestGoods.data.length % 2 !== 0"></yan-catalog>
+        </div> 
 
         <yan-good-footer></yan-good-footer>
 
@@ -154,7 +154,9 @@ export default {
                             `
                 },
             ],
-            suggestGoods: {}
+            suggestGoods: {
+                data: []
+            }
         }
     }, 
     computed: {
@@ -166,6 +168,9 @@ export default {
         },
         firstAuthor() {
             return this.$store.getters.author;
+        },
+        loginState() {
+            return this.$store.getters.loginState;
         }
     },
     components: {
@@ -199,22 +204,27 @@ export default {
                     author: res.body.data[2]
                 })
             })
-            .catch((err) => {
-                console.log('vue-resource err', err);
-            });
-
-        // 发送请求获取商品的建议
-        this.$http({
-            method: 'get',
-            url: `/goods/certainCategory`,
-        })
-            .then((res) => {
-                // 初始化商品
-                this.suggestGoods = res.body.data[0]
+            .then(() => {
+                // 发送请求获取商品的建议
+                this.$http({
+                    method: 'post',
+                    url: `/goods/search`,
+                    body: {
+                        key: this.goodInfo.category
+                    }
+                })
+                    .then((res) => {
+                        // 初始化商品
+                        this.suggestGoods.data = res.body.data;
+                    })
+                    .catch((err) => {
+                        console.log('vue-resource err', err);
+                    });
             })
             .catch((err) => {
                 console.log('vue-resource err', err);
             });
+
     }
 }
 </script>
@@ -290,6 +300,7 @@ export default {
 /* 商品的介绍图片 */
 .yan-good-pics img {
     min-width: 100%;
+    margin-top: -10px;
 } 
 
 /* 常见问题 */
@@ -316,11 +327,13 @@ export default {
 .question {
     font-size: 40px;    
     padding-bottom: 20px;
+    font-size: 14px;/*小 bug*/    
 }
 
 .answer {
     color: rgb(120, 120, 120);
     line-height: 50px; 
+    font-size: 13px;/*小 bug*/    
 }
 
 /* 推荐的商品 */

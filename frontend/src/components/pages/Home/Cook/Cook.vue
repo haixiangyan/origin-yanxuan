@@ -3,7 +3,7 @@
     
         <img class="yan-home-cook-header" :src="headerImg" alt="headerImage">
     
-        <yan-catalog class="yan-cook-catalog" v-for="(catalogInfo, index) in cookInfo" :key="index" :catalog="catalogInfo"></yan-catalog>  
+        <yan-catalog class="yan-cook-catalog" :more="cookInfo.length % 2 !== 0" v-for="(catalogInfo, index) in cookInfo" :key="index" :catalog="catalogInfo"></yan-catalog>  
     </div>
 </template>
 
@@ -32,7 +32,7 @@ export default {
             method: 'post',
             url: `/goods/certainCategory`,
             body: {
-                category: 1
+                category: '餐厨'
             }
         })
             .then((res) => {

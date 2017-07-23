@@ -1,9 +1,9 @@
 <template>
     <div class="yan-cart-header">
-        <span class="title">购物车</span>
+        <span class="yan-cart-title">购物车</span>
     
-        <span v-show="isEditCart" @click="finishEdit" class="finish">完成</span>
-        <span v-show="!isEditCart" @click="editCart" class="edit">编辑</span>
+        <span v-show="isEditCart && cart.length !== 0" @click="finishEdit" class="yan-cart-finish">完成</span>
+        <span v-show="!isEditCart && cart.length !== 0" @click="editCart" class="yan-cart-edit">编辑</span>
     </div>
 </template>
 
@@ -25,9 +25,10 @@ export default {
             this.$store.commit('toggleEditCart');
         },
         finishEdit() {
+
             let data = {
-                    userID: this.user.userID,
-                    cartList: this.cart
+                userID: this.user.userID,
+                cartList: this.cart
             }
 
             this.$http({
@@ -36,7 +37,8 @@ export default {
                 body: JSON.stringify(data)
             })
                 .then((res) => {
-                    console.log('delete successfully!');
+                    this.$store.commit('updateCartItems');
+                    console.log('finish edit successfully!');
                 })
                 .catch((err) => {
                     console.log('vue-resource err', err);
@@ -62,12 +64,12 @@ export default {
     z-index: 5;
 }
 
-.title {
+.yan-cart-title {
     font-size: 50px;
 }
 
-.edit,
-.finish {
+.yan-cart-edit,
+.yan-cart-finish {
     position: absolute;
     right: 35px;
     font-size: 40px;

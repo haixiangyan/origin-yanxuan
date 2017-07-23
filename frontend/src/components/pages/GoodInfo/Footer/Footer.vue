@@ -1,26 +1,39 @@
 <template>
     <div class="yan-good-footer">
         <!-- 联系店家 -->
-        <router-link tag="div" to="/" class="yan-contact">
-            <img v-if="!isBack" src="/static/icons/service.png" alt="contact">
+        <div tag="div"  class="yan-contact">
+            <img @click="toService" v-if="!isBack" src="/static/icons/service.png" alt="contact">
             <span @click="back" v-if="isBack">返回</span>
-        </router-link>
+        </div>
     
         <!-- 立即购买 -->
-        <router-link tag="div" to="/" class="yan-buy">
+        <div @click="buying" class="yan-buy">
             立即购买
-        </router-link>
+        </div>
     
         <!-- 加入购物车 -->
         <div @click.prevent="addToCart" class="yan-add-cart">
             加入购物车
         </div>
+
+        <!-- 模态框 -->
+        <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+            <yan-modal  v-show="isShowModal" :title="'添加到购物车'"></yan-modal>
+        </transition>
     </div>
 </template>
 
 <script>
+// 引入模态框
+import YanModal from '@/components/commons/Modal/Modal';
+
 export default {
     props: ['isBack'],
+    data() {
+        return {
+            isShowModal: false
+        }
+    },
     computed: {
         goodInfo() {
             return this.$store.getters.good;
@@ -30,13 +43,48 @@ export default {
         },
         user() {
             return this.$store.getters.user;
+        },
+        loginState() {
+            return this.$store.getters.loginState;
         }
+    },
+    components: {
+        YanModal
     },
     methods: {
         back() {
             this.$router.go(-1);
         },
+        // 立刻购买
+        buying() {
+            if (!this.loginState.isLogin) {
+                this.$router.push('/login');
+                return ;
+            } 
+
+            let tempGoodInfo = {
+                name: this.goodInfo.topName,
+                ID: this.goodInfo.ID,
+                price: this.goodInfo.price,
+                select: 0,
+                number: this.selection.num,
+                type: this.goodInfo.type[this.selection.type],
+                picture: this.goodInfo.headImage[0]
+            }
+
+            this.$store.commit('buying', {
+                goodInfo: tempGoodInfo
+            });
+
+            // 跳转到订单详情页
+            this.$router.push('/order');
+        },
         addToCart() {
+            if (!this.loginState.isLogin) {
+                this.$router.push('/login');
+                return ;
+            } 
+
             // 将商品加入购物车
             this.$store.commit('addToCart', {
                 cartItem: {
@@ -45,6 +93,9 @@ export default {
                     type: this.goodInfo.type[this.selection.type]
                 }
             });
+
+            // 更新头部的数字
+            this.$store.commit('addDisplayCartNum');
 
             // 发送请求，加入到购物车
             this.$http({
@@ -58,11 +109,18 @@ export default {
                 },
             })
                 .then((res) => {
-                    console.log('add to cart successfully!');
+                    this.isShowModal = true;
+
+                    setTimeout(() => {
+                        this.isShowModal = false;
+                    }, 1000)
                 })
                 .catch((err) => {
                     console.log('vue-resource err', err);
                 });
+        },
+        toService() {
+            this.$router.push('/chat');
         }
     }
 }

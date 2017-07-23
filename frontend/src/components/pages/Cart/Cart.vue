@@ -4,15 +4,18 @@
         <yan-cart-header></yan-cart-header>
 
         <!-- 购物车的子项 -->
-        <yan-cart-item v-show="!isEditCart" v-for="(cartItem, index) in cartItems" :index="index" :key="index" :cartItem="cartItem"></yan-cart-item> 
+        <yan-cart-item :isShowCheck="true" v-show="!isEditCart" v-for="(cartItem, index) in cartItems" :index="index" :key="index" :cartItem="cartItem"></yan-cart-item>  
 
         <!-- 购物车的编辑项 -->
-        <yan-edit-item v-show="isEditCart" v-for="(cartItem, index) in cartItems" :index="index" :key="index" :cartItem="cartItem"></yan-edit-item>
+        <yan-edit-item v-show="isEditCart" v-for="(cartItem, index) in cartItems" :index="index" :key="index" :cartItem="cartItem"></yan-edit-item> 
+
+        <!-- 空的购物车的组件 -->
+        <yan-empty-cart v-show="cartItems.length === 0"></yan-empty-cart>
 
         <!-- 编辑脚注 -->
-         <yan-edit-cart-footer v-show="isEditCart"></yan-edit-cart-footer>  
+        <yan-edit-cart-footer v-show="isEditCart && cartItems.length !== 0"></yan-edit-cart-footer>  
 
-         <yan-make-order-footer v-show="!isEditCart"></yan-make-order-footer> 
+        <yan-make-order-footer v-show="!isEditCart && cartItems.length !== 0"></yan-make-order-footer> 
 
         <!-- tab bar -->
         <yan-tab-bar :selectedIndex="3"></yan-tab-bar>
@@ -26,6 +29,8 @@ import YanCartHeader from '@/components/pages/Cart/Header/Header';
 import YanCartItem from '@/components/pages/Cart/CartItem/CartItem';
 // 引入修改购物车的组件
 import YanEditItem from '@/components/pages/Cart/EditItem/EditItem';
+// 引入空的购物车的组件
+import YanEmptyCart from '@/components/pages/Cart/EmptyCart/EmptyCart';
 // 引入编辑的脚注
 import YanEditCartFooter from '@/components/pages/Cart/Footer/EditCartFooter';
 // 引入下单的脚注
@@ -44,21 +49,25 @@ export default {
         },
         isEditCart() {
             return this.$store.getters.isEditCart;
+        },
+        user() {
+            return this.$store.getters.user;
         }
     },
     components: {
         YanCartHeader,
         YanEditItem,
         YanCartItem,
+        YanEmptyCart,
         YanEditCartFooter,
         YanMakeOrderFooter,
         YanTabBar
     },
     mounted() {
-        // 发送请求，获取商品的专题精选
+        // 发送请求，获取商品的购物车
         this.$http({
             method: 'get',
-            url: `/shop/cart/1`
+            url: `/shop/cart/${this.user.userID}`
         })
             .then((res) => {
                 // 初始化购物车的商品

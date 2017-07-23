@@ -1,6 +1,8 @@
 const state = {
     // 商品详情
     good: {
+        headImage: [],
+        description: [],
         shortDescription: [],
         shortDescriptionImage: []
     },

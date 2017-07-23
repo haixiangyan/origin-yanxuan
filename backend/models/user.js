@@ -7,6 +7,7 @@ db.on('error', function () {
 
 db.once('open', function () {
 
+
 	console.log("user connected");
 	var userschema = new mongoose.Schema({
 		telephone: String,
@@ -29,6 +30,7 @@ db.once('open', function () {
 	//		}, cb)
 	//	}
 	userschema.statics.findByTelephone = function (telephone, cb) {
+
 		return this.find({
 			telephone: telephone
 		}, cb)
@@ -41,11 +43,27 @@ function addUser() {
 	var userEntity = new userModel({
 		telephone: '1',
 		password: '123456',
-		photo: "/static/img/userImage/1.gif",
+		photo: "/static/img/userImage/1.jpg",
 		name: "xu",
 		gender: "man",
 		interest: ["1", "2", "3"],
-		address: ["1", "2"]
+		address: [{
+			province: "liaoning",
+			city: "shenyang",
+			town: "hunnan",
+			detail: "Neu",
+			receiver: "xu",
+			telephone: "123124",
+            isDefault:false
+		}, {
+			province: "辽宁省",
+			city: "沈阳市",
+			town: "浑南区",
+			detail: "东北大学浑南校区",
+			receiver: "许康琪",
+			telephone: "123124",
+            isDefault:false
+		}]
 	})
 	userEntity.save();
 
@@ -70,6 +88,7 @@ function creatUser(obj, cb) {
 			cb("success", "")
 		} else {
 			cb("error", "");
+
 		}
 	})
 }
@@ -79,15 +98,24 @@ function changeInformation(obj, cb) {
 		telephone: obj.telephone
 	}, function (err, docs) {
 		if (docs) {
-			docs.interest = obj.interest;
-			docs.gender = obj.gender;
-			docs.address = obj.address;
-			docs.name = obj.name;
-			docs.photo = obj.photo;
-			docs.markModified('address');
-			docs.markModified('interest');
-			docs.save();
-			cb("success", "")
+			if (obj.photo) {
+				docs.interest = obj.interest;
+				docs.gender = obj.gender;
+				docs.name = obj.name;
+				docs.photo = obj.photo;
+				docs.markModified('interest');
+				docs.save();
+				cb("success", "")
+			} else {
+				docs.interest = obj.interest;
+				docs.gender = obj.gender;
+				docs.address = obj.address;
+				docs.name = obj.name;
+				docs.markModified('interest');
+				docs.save();
+				cb("success", "")
+			}
+
 		} else {
 			cb("error", "")
 		}
@@ -95,6 +123,7 @@ function changeInformation(obj, cb) {
 }
 
 function checkLogin(obj, cb) {
+	console.log(obj);
 	userModel.findOne({
 		telephone: obj.telephone
 	}, function (err, docs) {
@@ -122,7 +151,102 @@ function getInformation(telephone, cb) {
 		}
 	})
 }
+
+function getAddress(userid, cb) {
+	userModel.findOne({
+		telephone: userid
+	}, function (err, docs) {
+		if (docs) {
+			cb("success", docs.address)
+		} else {
+			cb("error", "")
+		}
+	})
+}
+
+function changeAddress(userid, index, obj, cb) {
+	userModel.findOne({
+		telephone: userid
+	}, function (err, docs) {
+		if (docs) {
+			if (obj.isDefault == true) {
+				console.log(1);
+				for (var i = 0; i < docs.address.length; i++) {
+					docs.address[i].isDefault = false;
+				}
+				docs.address[index] = obj;
+				docs.markModified("address");
+				docs.save();
+				cb("success", docs.address)
+			} else {
+				console.log(obj);
+				console.log(2);
+				docs.address[index] = obj;
+				docs.markModified("address");
+				docs.save();
+				console.log(docs.address);
+				cb("success", docs.address)
+			}
+
+		} else {
+			cb("error", "")
+		}
+	})
+}
+
+function addAddress(userid, obj, cb) {
+	userModel.findOne({
+		telephone: userid
+	}, function (err, docs) {
+		if (docs) {
+			if (obj.isDefault == true) {
+				for (var i = 0; i < docs.address.length; i++) {
+					docs.address[i].isDefault = false;
+				}
+				docs.address.push(obj);
+				docs.markModified("address");
+				docs.save();
+				cb("success", docs.address)
+			} else {
+				docs.address.push(obj);
+				docs.markModified("address");
+				docs.save();
+				cb("success", docs.address)
+			}
+		} else {
+			cb("error", "")
+		}
+	})
+}
+
+function deleteAddress(userid, index, cb) {
+	userModel.findOne({
+		telephone: userid
+	}, function (err, docs) {
+		if (docs) {
+			var arr = [];
+			for (var i = 0; i < docs.address.length; i++) {
+				if (i == index) {
+					continue;
+				} else {
+					arr.push(docs.address[i]);
+				}
+			}
+			docs.address = arr;
+			docs.markModified("address");
+			docs.save();
+			cb("success", docs.address)
+		} else {
+			cb("error", "")
+		}
+	})
+}
 module.exports.checkLogin = checkLogin;
 module.exports.creatUser = creatUser;
 module.exports.changeInformation = changeInformation;
 module.exports.getInformation = getInformation;
+module.exports.getAddress = getAddress;
+module.exports.changeAddress = changeAddress;
+module.exports.addAddress = addAddress;
+module.exports.deleteAddress = deleteAddress;
+

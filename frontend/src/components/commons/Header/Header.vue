@@ -22,14 +22,25 @@
             <!-- 购物车 -->
             <router-link to="/cart">
                 <img src="/static/icons/cart.png" alt="search">
+                <yan-badge v-show="displayCartNum!==0" :num="displayCartNum"></yan-badge>
             </router-link>
         </div>
     </div>
 </template>
 
 <script>
-export default {
+// 引入 badge
+import YanBadge from '@/components/commons/Badge/Badge';
 
+export default {
+    computed: {
+        displayCartNum() {
+            return this.$store.getters.displayCartNum;
+        }
+    },
+    components: {
+        YanBadge
+    }
 }
 </script>
 
@@ -59,6 +70,11 @@ img {
 /* 头部标题 */
 .yan-header-title {
     font-size: 45px;
+}
+
+/* 标题的尾部 */
+.yan-header-footer {
+    position: relative;
 }
 </style>
 

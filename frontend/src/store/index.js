@@ -13,8 +13,18 @@ import good from './modules/good.js';
 // 购物车
 import cart from './modules/cart.js';
 
-// 临时的用户信息
-import tempUser from './modules/tempUser.js';
+// 地址
+import address from './modules/address.js';
+
+// 评论
+import comment from './modules/comment.js';
+
+// 购物车
+import chat from './modules/chat.js';
+
+// 用户信息
+import user from './modules/user.js'
+
 
 Vue.use(Vuex);
 
@@ -30,7 +40,10 @@ const store = new Vuex.Store({
         menu,
         good,
         search,
-        tempUser,
+        address,      
+        comment,  
+        chat,
+        user
     }
 });
 
