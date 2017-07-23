@@ -44,25 +44,17 @@ function addUser() {
 		telephone: '1',
 		password: '123456',
 		photo: "/static/img/userImage/1.jpg",
-		name: "xu",
+		name: "xukangqi",
 		gender: "man",
 		interest: ["1", "2", "3"],
 		address: [{
-			province: "liaoning",
-			city: "shenyang",
-			town: "hunnan",
-			detail: "Neu",
-			receiver: "xu",
-			telephone: "123124",
-            isDefault:false
-		}, {
 			province: "辽宁省",
 			city: "沈阳市",
 			town: "浑南区",
-			detail: "东北大学浑南校区",
+			detail: "东北大学",
 			receiver: "许康琪",
-			telephone: "123124",
-            isDefault:false
+			telephone: "18805862675",
+			isDefault: false
 		}]
 	})
 	userEntity.save();

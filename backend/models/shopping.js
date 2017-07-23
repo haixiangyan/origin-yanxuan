@@ -42,71 +42,71 @@ db.once('open', function () {
 
 function addOrder() {
 	var orderEntity = new orderModel({
-		orderID: "123",
+		orderID: "15005664000001",
 		userID: "1",
 		goodsList: [{
-			ID: "123",
-			number: 5,
-			type: "Asd",
-			price: 50,
-			name: "懒人清洁新选择",
-			picture: '/static/img/goodsImage/0/headImage/1.jpg'
+			ID: "1083009",
+			number: 1,
+			type: "妖姬蓝",
+			price: 299,
+			name: "海洋之心永生花",
+			picture: '/static/img/goodsImage/1083009/headImage/76e5c820f6bb71a26517ffa01f499871.png'
 		}],
-		expressNumber: 123123,
-		expressCompany: "saddas",
+		expressNumber:0,
+		expressCompany: "",
 		address: [{
 			province: "辽宁省",
 			city: "沈阳市",
 			town: "浑南区",
 			detail: "东北大学",
 			receiver: "许康琪",
-			telephone: "123124",
+			telephone: "18805862675",
 			isDefault: false
 		}],
 		orderDate: 1500566400000,
 		orderState: 0,
 		payID: "",
-		totalFee: 50
+		totalFee: 299
 	})
 	orderEntity.save();
 	var orderEntity = new orderModel({
-		orderID: "1235446",
+		orderID: "15004800000001",
 		userID: "1",
 		goodsList: [{
-			ID: "123",
-			number: 4,
-			type: "Asd",
-			price: 50,
-			name: "懒人清洁新选择",
-			picture: '/static/img/goodsImage/0/headImage/1.jpg'
+			ID: "1083009",
+			number: 1,
+			type: "妖姬蓝",
+			price: 299,
+			name: "海洋之心永生花",
+			picture: '/static/img/goodsImage/1083009/headImage/76e5c820f6bb71a26517ffa01f499871.png'
 		}],
-		expressNumber: 810874175279,
-		expressCompany: "圆通",
+		expressNumber: 0,
+		expressCompany: "",
 		address: [{
 			province: "辽宁省",
 			city: "沈阳市",
 			town: "浑南区",
 			detail: "东北大学",
 			receiver: "许康琪",
-			telephone: "123124",
+			telephone: "18805862675",
 			isDefault: false
 		}],
 		orderDate: 1500480000000,
 		orderState: 1,
-		payID: "",
-		totalFee: 50
+		payID: "1500480000000",
+		totalFee: 299
 	})
 	orderEntity.save();
 	var orderEntity = new orderModel({
-		orderID: "12334",
+		orderID: "15003936000001",
 		userID: "1",
 		goodsList: [{
-			ID: "123",
-			number: 3,
-			type: "Asd",
-			price: 50,
-			name: "懒人清洁新选择",
-			picture: '/static/img/goodsImage/0/headImage/1.jpg'
+			ID: "1083009",
+			number: 1,
+			type: "妖姬蓝",
+			price: 299,
+			name: "海洋之心永生花",
+			picture: '/static/img/goodsImage/1083009/headImage/76e5c820f6bb71a26517ffa01f499871.png'
 		}],
 		expressNumber: 810874175279,
 		expressCompany: "圆通",
@@ -121,94 +121,39 @@ function addOrder() {
 		}],
 		orderDate: 1500393600000,
 		orderState: 2,
-		payID: "",
-		totalFee: 50
+		payID: "1500393600000",
+		totalFee: 299
 	})
 	orderEntity.save();
 	var orderEntity = new orderModel({
-		orderID: "12376",
+		orderID: "15001344000001",
 		userID: "1",
 		goodsList: [{
-			ID: "123",
-			number: 2,
-			type: "Asd",
-			price: 50,
-			name: "懒人清洁新选择",
-			picture: '/static/img/goodsImage/0/headImage/1.jpg'
+			ID: "1083009",
+			number: 1,
+			type: "妖姬蓝",
+			price: 299,
+			name: "海洋之心永生花",
+			picture: '/static/img/goodsImage/1083009/headImage/76e5c820f6bb71a26517ffa01f499871.png'
 		}],
-		expressNumber: 123123,
-		expressCompany: "saddas",
+		expressNumber: 810874175279,
+		expressCompany: "圆通",
 		address: [{
 			province: "辽宁省",
 			city: "沈阳市",
 			town: "浑南区",
 			detail: "东北大学",
 			receiver: "许康琪",
-			telephone: "123124",
+			telephone: "18805862675",
 			isDefault: false
 		}],
 		orderDate: 1500134400000,
 		orderState: 3,
-		payID: "",
-		totalFee: 50
+		payID: "1500134400000",
+		totalFee: 299
 	})
 	orderEntity.save();
-	var orderEntity = new orderModel({
-		orderID: "1278",
-		userID: "1",
-		goodsList: [{
-			ID: "123",
-			number: 1,
-			type: "Asd",
-			price: 50,
-			name: "懒人清洁新选择",
-			picture: '/static/img/goodsImage/0/headImage/1.jpg'
-		}],
-		expressNumber: 123123,
-		expressCompany: "saddas",
-		address: [{
-			province: "辽宁省",
-			city: "沈阳市",
-			town: "浑南区",
-			detail: "东北大学",
-			receiver: "许康琪",
-			telephone: "123124",
-			isDefault: false
-		}],
-		orderDate: 1500048000000,
-		orderState: 3,
-		payID: "",
-		totalFee: 50
-	})
-	orderEntity.save();
-	var orderEntity = new orderModel({
-		orderID: "1278678",
-		userID: "1",
-		goodsList: [{
-			ID: "123",
-			number: 9,
-			type: "Asd",
-			price: 50,
-			name: "懒人清洁新选择",
-			picture: '/static/img/goodsImage/0/headImage/1.jpg'
-		}],
-		expressNumber: 123123,
-		expressCompany: "saddas",
-		address: [{
-			province: "辽宁省",
-			city: "沈阳市",
-			town: "浑南区",
-			detail: "东北大学",
-			receiver: "许康琪",
-			telephone: "123124",
-			isDefault: false
-		}],
-		orderDate: 1499961600000,
-		orderState: 3,
-		payID: "",
-		totalFee: 50
-	})
-	orderEntity.save();
+
 }
 
 function addCart() {

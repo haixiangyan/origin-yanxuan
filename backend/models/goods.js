@@ -464,9 +464,6 @@ function getComment(goodsID, cb) {
 	})
 }
 
-
-
-
 module.exports.getCategory = getCategory;
 module.exports.getGoods = getGoods;
 module.exports.getGoodsBySale = getGoodsBySale;
