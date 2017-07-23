@@ -26,7 +26,7 @@ import YanInterest from '@/components/pages/Home/Interest/Interest';
 
 // 引入专题的组件
 import YanTopic from '@/components/pages/Topic/Topic';
-
+import YanTopicList from '@/components/pages/Topic/TopicList/TopicList'
 // 引入分类的组件
 import YanCategory from '@/components/pages/Category/Category';
 
@@ -77,151 +77,156 @@ import YanChat from '@/components/pages/Chat/Chat';
 Vue.use(Router)
 
 export default new Router({
-  // mode: 'history',
-  routes: [{
-      path: '/',
-      redirect: '/home/recommend'
-    },
-    {
-      path: '/home', // 首页路由
-      name: 'Home',
-      redirect: '/home/recommend',
-      component: YanHome,
-      children: [{
-          path: 'recommend',
-          component: YanRecommend
+    // mode: 'history',
+    routes: [{
+            path: '/',
+            redirect: '/home/recommend'
         },
         {
-          path: 'household',
-          component: YanHousehold
+            path: '/home', // 首页路由
+            name: 'Home',
+            redirect: '/home/recommend',
+            component: YanHome,
+            children: [{
+                    path: 'recommend',
+                    component: YanRecommend
+                },
+                {
+                    path: 'household',
+                    component: YanHousehold
+                },
+                {
+                    path: 'cook',
+                    component: YanCook
+                },
+                {
+                    path: 'accessories',
+                    component: YanAccessories
+                },
+                {
+                    path: 'clothes',
+                    component: YanClothes
+                },
+                {
+                    path: 'care',
+                    component: YanCare
+                },
+                {
+                    path: 'children',
+                    component: YanChildren
+                },
+                {
+                    path: 'groceries',
+                    component: YanGroceries
+                },
+                {
+                    path: 'food',
+                    component: YanFood
+                },
+                {
+                    path: 'interest',
+                    component: YanInterest
+                }
+            ]
         },
         {
-          path: 'cook',
-          component: YanCook
+            path: '/topic', // 专题路由
+            name: 'Topic',
+            component: YanTopic
         },
         {
-          path: 'accessories',
-          component: YanAccessories
+            path: '/topic/list', // 专题路由
+            name: 'Topic List',
+            component: YanTopicList
         },
         {
-          path: 'clothes',
-          component: YanClothes
+            path: '/category', // 商品分类的路由
+            name: 'Category',
+            component: YanCategory
         },
         {
-          path: 'care',
-          component: YanCare
+            path: '/search', // 搜索页的路由
+            name: 'Search',
+            component: YanSearch
         },
         {
-          path: 'children',
-          component: YanChildren
+            path: '/good-info/:goodId', // 商品详情页
+            name: 'GoodInfo',
+            component: YanGoodInfo
         },
         {
-          path: 'groceries',
-          component: YanGroceries
+            path: 'interest',
+            component: YanInterest
         },
         {
-          path: 'food',
-          component: YanFood
+            path: '/choose/:goodId', // 选择商品的页
+            name: 'GoodChoose',
+            component: YanGoodChoose
+        }, {
+            path: '/comment-list/:goodId', // 选择商品的页
+            name: 'CommentList',
+            component: YanCommentList
+        }, {
+            path: '/cart', // 购物车的页
+            name: 'Cart',
+            component: YanCart
+        }, {
+            path: '/order', // 订单详情页
+            name: 'Order',
+            component: YanOrder
+        }, {
+            path: '/address-list', // 地址的列表
+            name: 'AddressList',
+            component: YanAddressList
+        }, {
+            path: '/address-form', // 地址的表单
+            name: 'AddressForm',
+            component: YanAddressForm
+        }, {
+            path: '/order-list', // 查看订单列表的页
+            name: 'OrderInfo',
+            component: YanOrderList
+        }, {
+            path: '/order-info/:orderId', // 查看某个订单的页
+            name: 'OrderList',
+            component: YanOrderInfo
+        }, {
+            path: '/login',
+            name: 'Login',
+            component: YanUsersLogin
+        }, {
+            path: '/register',
+            name: 'Register',
+            component: YanUsersRegister
+        }, {
+            path: '/users/:userId',
+            name: 'User Center',
+            component: YanUserCenter,
+        }, {
+            path: '/users/nav/:userId',
+            name: 'User Center Nav',
+            component: YanUserCenterNav
+        }, {
+            path: '/users/info/:userId',
+            name: 'User Center Info',
+            component: YanUserCenterInfo
+        }, {
+            path: '/users/interestCategory/:userId',
+            name: 'User Center Info Interest Category',
+            component: YanUserCenterInfoInterest
+        }, {
+            path: '/pay',
+            name: 'Pay',
+            component: YanPay // 支付页面
+        }, {
+            path: '/add-comment',
+            name: 'AddComment',
+            component: YanAddComment // 添加评论
         },
         {
-          path: 'interest',
-          component: YanInterest
+            path: '/chat',
+            name: 'Chat',
+            component: YanChat // 聊天
         }
-      ]
-    },
-    {
-      path: '/topic', // 专题路由
-      name: 'Topic',
-      component: YanTopic
-    },
-    {
-      path: '/category', // 商品分类的路由
-      name: 'Category',
-      component: YanCategory
-    },
-    {
-      path: '/search', // 搜索页的路由
-      name: 'Search',
-      component: YanSearch
-    },
-    {
-      path: '/good-info/:goodId', // 商品详情页
-      name: 'GoodInfo',
-      component: YanGoodInfo
-    },
-    {
-      path: 'interest',
-      component: YanInterest
-    },
- {
-      path: '/choose/:goodId', // 选择商品的页
-      name: 'GoodChoose',
-      component: YanGoodChoose
-    }, {
-      path: '/comment-list/:goodId', // 选择商品的页
-      name: 'CommentList',
-      component: YanCommentList
-    }, {
-      path: '/cart', // 购物车的页
-      name: 'Cart',
-      component: YanCart
-    }, {
-      path: '/order', // 订单详情页
-      name: 'Order',
-      component: YanOrder
-    }, {
-      path: '/address-list', // 地址的列表
-      name: 'AddressList',
-      component: YanAddressList
-    }, {
-      path: '/address-form', // 地址的表单
-      name: 'AddressForm',
-      component: YanAddressForm
-    }, {
-      path: '/order-list', // 查看订单列表的页
-      name: 'OrderInfo',
-      component: YanOrderList
-    }, {
-      path: '/order-info/:orderId', // 查看某个订单的页
-      name: 'OrderList',
-      component: YanOrderInfo
-    }, {
-      path: '/login',
-      name: 'Login',
-      component: YanUsersLogin
-    }, {
-      path: '/register',
-      name: 'Register',
-      component: YanUsersRegister
-    }, {
-      path: '/users/:userId',
-      name: 'User Center',
-      component: YanUserCenter,
-    }, {
-      path: '/users/nav/:userId',
-      name: 'User Center Nav',
-      component: YanUserCenterNav
-    }, {
-      path: '/users/info/:userId',
-      name: 'User Center Info',
-      component: YanUserCenterInfo
-    }, {
-      path: '/users/interestCategory/:userId',
-      name: 'User Center Info Interest Category',
-      component: YanUserCenterInfoInterest
-    }, {
-      path: '/pay',
-      name: 'Pay',
-      component: YanPay // 支付页面
-    }, {
-      path: '/add-comment',
-      name: 'AddComment',
-      component: YanAddComment  // 添加评论
-    },
-    {
-      path: '/chat',
-      name: 'Chat',
-      component: YanChat   // 聊天
-    }
-  ]
+    ]
 })

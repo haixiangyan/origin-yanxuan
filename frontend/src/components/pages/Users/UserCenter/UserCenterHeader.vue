@@ -33,12 +33,12 @@ export default {
     methods:{  
         loadPersonalInfo(data){
             this.thisUser = data;
-            if(this.thisUser.name === ''){
+            if(!this.thisUser.name){
                 this.thisUser.name = '用户'+this.thisUser.telephone;
             }
 
-            if(this.thisUser.photo === ''){
-                this.thisUser.photo = '/static/img/loginImage/userHeadPortrait/iu_avatar.jpg';
+            if(!this.thisUser.photo ){
+                this.thisUser.photo = '/static/img/loginImage/userHeadPortrait/default.png';
             }
 
             this.$store.commit('initUser', {
@@ -52,11 +52,9 @@ export default {
             url: '/users/getInformation/'+this.userId
         })
         .then((res) => {
-            console.log('vue-resource then', '/users/getInformation/'+this.userId , res.body);
             this.loadPersonalInfo(res.body.data);
         })
         .catch((err) => {
-            console.log('vue-resource err', err);
         });
     }
 }

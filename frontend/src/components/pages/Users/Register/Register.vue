@@ -49,7 +49,6 @@ export default {
     },
     methods:{
         regist(){
-                console.log('password');
                   // POST /
                 this.$http.post('/users/register',
                     {
@@ -57,7 +56,6 @@ export default {
                         password: this.form.password
                     }
                 ).then(response => {
-                    console.log('vue-resource then', response.body);
                     let result = response.body.result;
                     if(result === 'success'){
                         this.$router.push({name: 'Login'});
@@ -65,7 +63,6 @@ export default {
 
                 }, response => {
                     // error callback
-                    console.log('vue-resource err', response.err);
                 });
         },
 

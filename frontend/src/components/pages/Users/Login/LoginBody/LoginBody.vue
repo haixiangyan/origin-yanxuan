@@ -56,7 +56,6 @@ export default {
         onSubmit(){
             
             if(this.form.password != '' && this.form.password){
-                console.log('password');
                 // POST /
                 this.$http.post('/users/login',
                     {
@@ -64,7 +63,6 @@ export default {
                         password: this.form.password
                     }
                 ).then(response => {
-                    console.log('vue-resource then', response.body);
                     this.status = response.body.result;
                     if(this.status === 'success'){
                         this.$router.push({name: 'User Center', params: { userId: response.body.user.telephone }})
@@ -79,7 +77,6 @@ export default {
                     }
                 }, response => {
                     // error callback
-                    console.log('vue-resource err', response.err);
                 });
             }
         }

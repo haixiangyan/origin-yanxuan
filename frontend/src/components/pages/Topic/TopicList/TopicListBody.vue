@@ -37,40 +37,22 @@
 
 <script>
 export default {
+    props: ['type'],
     data() {
 		scroll:0;
         return {
-            msg: 'Topic body',
             body_items: [],
 			page: 0,
 			currentLoad: [],
-			appear: 'none',
-			opa: 0
         }
     },
 	methods: {
-		goToTop(){
-			document.body.scrollTop = 0
-			document.documentElement.scrollTop = 0
-		},
-
-		showIconGoToTop(){
-			this.scroll = document.body.scrollTop;
-			let screenHeight = document.documentElement.clientHeight;
-			
-			if(this.scroll > screenHeight){
-				this.appear = 'block';
-				this.opa = (this.scroll - screenHeight) > 100 ? 1 : (this.scroll - screenHeight) / 100; 
-			}else{
-				this.appear = 'none';
-				this.opa = 0; 
-			}
-		},
 		getMoreItems(){
+			//当滑动到最下的时候，显示更多的项目
 			let scrollHeight = document.body.scrollHeight;
 			let currentHeight = document.body.scrollTop + document.documentElement.clientHeight;
 			if(currentHeight >= scrollHeight-1){
-				//加载更多的数据items
+				//加载更多的数据items，500ms模拟网络延迟
 				setTimeout(()=>{
 					if(this.currentLoad.length+4>this.body_items.length){
 						this.currentLoad = this.currentLoad.concat(this.body_items.slice(this.currentLoad.length, this.body_items.length));
@@ -78,45 +60,76 @@ export default {
 						this.currentLoad = this.currentLoad.concat(this.body_items.slice(this.page*4,this.page*4 + 4));
 						this.page++;
 					}
-				},500);
+				},1000);
 			}
-		}
-	},
-	computed:{
-        topic() {
-            return this.$store.getters.topic;
-        }
-    },
-    mounted() {
-        // 发送请求，获取数据
-		this.$http({
-			method: 'get',
-			url: '/goods/topic'
-		})
-		.then((res) => {
-			this.body_items = res.body.data;
+		},
+		//如果用户直接访问此地址，可以获得同 /topic 访问的同样的结果
+        getTopicItemsFromServer(){
+            this.$http({
+                method: 'get',
+                url: '/goods/topic'
+            })
+            .then((res) => {
+                this.$store.commit('initTopic', {
+                    topic: res.body.data
+				});
+				//根据不同的页面加载不同的内容
+				this.classification(res.body.data);
+            })
+            .catch((err) => {
+            });  
+		},
+		classification(items){
+			this.body_items = items.filter((item)=>{
+				//分成四类，写固定
+				switch(this.type.toString()){
+					case "2":
+						return item.writer !== '丁磊' && item.writer !== '严选推荐' && item.writer !== '明星商品';                
+					break;
+					case "0":
+						return item.writer === '丁磊';                
+					break;
+					case "1":
+						return item.writer === '严选推荐';                
+					break;
+					case "3":
+						return item.writer === '明星商品';                
+					break;
+					default:
+					break;
+				}
+			}); 
+			//初始页面显示默认为4个
 			if(this.body_items.length < 4){
 				this.currentLoad = this.currentLoad.concat(this.body_items.slice(0,this.body_items.length));
 			}else{
 				this.currentLoad = this.currentLoad.concat(this.body_items.slice(0,4));
 				this.page++;
 			}
-			this.$store.commit('initTopic', {
-				topic: this.body_items
-			});
-		})
-		.catch((err) => {
-		});
-		// 
+		}
+	},
+    mounted() {
+        if(!this.topic.length){
+            this.getTopicItemsFromServer();
+        }else{
+			this.classification(this.topic);
+		}
 		window.addEventListener('scroll', this.getMoreItems);
-
-    }
+	},
+	computed:{
+        topic() {
+            return this.$store.getters.topic;
+        }
+    },
 }
 
 
 </script>
 
 <style scoped>
+.yan-topic-body{
+	margin-top: 117px;
+}
 div {
     font-size: 50px;
 }
@@ -241,14 +254,4 @@ div {
 	line-height: 1.5;
 }
 
-.toToTop{
-	position: fixed;
-	right: 40px;
-	bottom: 160px;
-	height: 100px;
-	width: 100px;
-	background-image: url(/static/img/topicImage/components/goToTop.png);
-	background-size: 100%;
-	z-index: 2;
-}
 </style>

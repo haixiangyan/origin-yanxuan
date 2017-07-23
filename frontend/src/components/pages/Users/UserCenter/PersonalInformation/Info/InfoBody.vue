@@ -30,10 +30,6 @@
                     <label for="woman">女</label>
                 </div>
             </li>
-            <!--<li class="list-item">
-                <span>地址</span>
-                <input type="text" :value="mountedUser.address[0].address" v-model="mountedUser.address[0].address">
-            </li>-->
         </ul>
 
         <div v-on:click="routeToInterest()" class="info-body-li">
@@ -115,7 +111,6 @@ export default {
                 }
             })
                 .then(response => {
-                console.log('vue-resource then', response.body);
                 this.status = response.body.result;
                 if(this.status === 'success'){
                     //this.$router.push({name: 'User Center', params: { userId: response.body.user.telephone }})
@@ -128,7 +123,6 @@ export default {
                 }
             }, response => {
                 // error callback
-                console.log('vue-resource err', response.err);
             });
         },
         previewImg(tempFile){
