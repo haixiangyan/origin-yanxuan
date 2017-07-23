@@ -14,7 +14,6 @@ const actions = {
 
 const mutations = {
     initTopic(state, payload) {
-        console.log('mutations', 'initTopic');
         state.topic = payload.topic;
     },
 }

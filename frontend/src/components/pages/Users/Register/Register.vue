@@ -39,7 +39,6 @@ export default {
     },
     methods:{
         regist(){
-                console.log('password');
                   // POST /
                 this.$http.post('/users/register',
                     {
@@ -47,7 +46,6 @@ export default {
                         password: this.form.password
                     }
                 ).then(response => {
-                    console.log('vue-resource then', response.body);
                     let result = response.body.result;
                     if(result === 'success'){
                         this.$router.push({name: 'Login'});
@@ -62,7 +60,6 @@ export default {
         onSubmit(){
             if(this.form.password !== this.form.confirm){
                 //页面跳出一个提示显示 “请确认密码”
-                console.log('请确认密码');
             }else{
                 this.regist();
             }

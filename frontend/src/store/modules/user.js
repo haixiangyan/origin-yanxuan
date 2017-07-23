@@ -33,11 +33,21 @@ const state = {
 }
 
 const getters = {
-    user: state => state.user,
-    file: state => state.file,
+    user: state => {
+        // 从session里拿
+        state.user = JSON.parse(sessionStorage.getItem('user'))
+        return state.user;
+    },
+    file: state => {
+        state.file = sessionStorage.getItem('file');
+        return state.file;
+    },
     historyFile: state => state.historyFile,
     historyUser: state => state.historyUser,
-    loginState: state => state.loginState
+    loginState: state => {
+        state.loginState = sessionStorage.getItem('loginState');
+        return state.loginState
+    }
 }
 
 const actions = {
@@ -46,28 +56,28 @@ const actions = {
 
 const mutations = {
     initUser(state, payload) {
-        console.log('mutations', 'initUser');
         state.user = payload.user;
         state.user.userID = payload.user.telephone;
+        //放进session里
+        sessionStorage.setItem('user', JSON.stringify(state.user));
     },
     initHistoryUser(state, payload) {
-        console.log('mutations', 'initUser');
         state.historyUser = JSON.parse(JSON.stringify(payload.historyUser));
     },
     editFile(state, payload) {
         state.file = payload.file;
+        sessionStorage.setItem('file', state.file);
     },
     editHistoryFile(state, payload) {
         state.historyFile = payload.historyFile;
     },
     cleanHistoryUser(state, payload) {
-        console.log('cleanHistoryUser');
         state.historyUser.telephone = '';
     },
     setLoginState(state, payload) {
-        console.log('setLoginState', payload);
         state.loginState.telephone = payload.loginState.telephone;
         state.loginState.isLogin = payload.loginState.isLogin;
+        sessionStorage.setItem('loginState', state.loginState);
     }
 }
 
