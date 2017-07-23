@@ -191,21 +191,27 @@ function getGoods(ID, cb) {
 			var obj = docs;
 			var arr = [];
 			arr.push(obj)
-			commentModel.find({
+			commentModel.findOne({
 				goodsID: obj.ID
 			}, function (err, docs2) {
-				var newobj = docs2[0];
-				arr.push(newobj);
-				userModel.find({
-					telephone: newobj.userID
-				}, function (err, docs3) {
-					var newobj2 = {
-						customerPicture: docs3[0].photo,
-						customerName: docs3[0].name
-					}
-					arr.push(newobj2)
-					cb("success", arr);
-				})
+				console.log(docs2)
+				if (docs2) {
+					var newobj = docs2;
+					arr.push(newobj);
+					userModel.find({
+						telephone: newobj.userID
+					}, function (err, docs3) {
+						var newobj2 = {
+							customerPicture: docs3[0].photo,
+							customerName: docs3[0].name
+						}
+						arr.push(newobj2)
+						cb("success", arr);
+					})
+				}else{
+					cb("error", "");
+				}
+
 			})
 		} else {
 			cb("error", "");
@@ -406,8 +412,8 @@ function makeOrder(obj, cb) {
 					ID: obj.goodsID,
 					type: obj.type,
 					number: obj.number,
-					picture:obj.picture,
-					price:obj.price
+					picture: obj.picture,
+					price: obj.price
 				}
 				console.log(newobj)
 				arr.push(newobj);
@@ -420,6 +426,7 @@ function makeOrder(obj, cb) {
 					expressCompany: "",
 					address: obj.address,
 					orderState: 0,
+					orderDate: new Date().getTime(),
 					payID: "0",
 					totalFee: obj.totalFee
 				})
@@ -475,5 +482,3 @@ module.exports.search = search;
 module.exports.showTopic = showTopic;
 module.exports.makeOrder = makeOrder;
 module.exports.getComment = getComment;
-
-
