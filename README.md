@@ -25,9 +25,31 @@
     └── static // 静态资源
 ```
 
-## 如何运行
+## Mock 数据的说明
 
-#### 后台
+现在默认没有开启 Mock 的数据，用的都是数据库的数据。如果想直接运行前端的代码（*npm run dev*），则需要开启 Mock 数据。
+
+- 开启 Mock 数据的方式:
+
+在目录：Yanxuan/frontend/src/mock/index.js中，将注释的内容去除注释即可开启 Mock 假数据模式。
+
+- 关闭 Mock 数据的方式:
+
+在目录：Yanxuan/frontend/src/mock/index.js中，将注释的内容开启注释即可关闭 Mock 假数据模式。
+
+## 构建打包
+
+```
+$ cd frontend // 进入后端目录
+
+$ npm install // 安装依赖
+
+$ npm run build // 开启构建
+```
+
+## 运行
+
+#### 后台运行网站
 
 ```
 $ cd backend  // 进入后端目录
@@ -37,7 +59,7 @@ $ npm install // 安装依赖
 $ npm start   // 开启服务器
 ```
 
-#### 前台
+#### 前台运行网站（注意：这里要使用 mock 的数据，要开启 Mock）
 
 ```
 $ cd frontend // 进入后端目录
@@ -46,6 +68,14 @@ $ npm install // 安装依赖
 
 $ npm run dev // 开启服务器
 ```
+
+## 文档
+
+#### 后台文档
+Yanxuan/backend/docs/...
+
+#### 前端文档
+Yanxuan/frontend/docs/...
 
 ## 参考资料
 
@@ -59,9 +89,13 @@ $ npm run dev // 开启服务器
 
 - [Vue-Resource 官方文档](https://github.com/pagekit/vue-resource)
 
-#### Mint UI
+- [v-Distpicker 地址选择器](https://www.awesomes.cn/repo/jcc/v-distpicker)
 
-- [Mint UI 官方文档](http://mint-ui.github.io/docs/#/zh-cn2)
+- [vue-star-rating](https://www.ctolib.com/vue-star-rating.html)
+
+#### Element UI
+
+- [Element UI 官方文档](http://element.eleme.io/#/zh-CN/component/installation)
 
 #### Express.js
 

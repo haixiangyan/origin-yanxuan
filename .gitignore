@@ -27,11 +27,11 @@ build/Release
 node_modules
 
 # vs-code
-<<<<<<< HEAD
 .vscode
 
 # production
 dist
-=======
-.vscode
->>>>>>> b286ffabce9ee9baff3b999e583e69502b5852bc
+
+# Mac
+.DS_Store
+
