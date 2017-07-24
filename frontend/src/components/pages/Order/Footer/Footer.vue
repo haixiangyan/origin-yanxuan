@@ -27,9 +27,6 @@ export default {
         address() {
             return this.$store.getters.address;
         },
-        ordeTotalPrice() {
-            return this.$store.getters.ordeTotalPrice;
-        },
         selectedCartItems() {
             return (this.$store.getters.isBuying) ? this.$store.getters.tempCartItem : this.$store.getters.selectedCartItems;
         },

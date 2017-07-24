@@ -28,16 +28,16 @@ import { orderInfo } from './orderInfo.js';
 
 let data = [].concat(
     homeStatic,
-    login,
-    home,
-    homeGood,
-    category,
-    search,
-    good,
-    comment,
-    cart,
-    address,
-    orderInfo
+    // login,
+    // home,
+    // homeGood,
+    // category,
+    // search,
+    // good,
+    // comment,
+    // cart,
+    // address,
+    // orderInfo
 );
  
 

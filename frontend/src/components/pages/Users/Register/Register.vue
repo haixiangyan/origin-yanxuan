@@ -57,24 +57,47 @@ export default {
     },
     methods: {
         sendCode() {
+            let isTimeout = true;
+            this.isShowModal = true;
+            this.modalText = '正在发送';
+
             // 发送验证码
             Bmob.Sms.requestSmsCode({ "mobilePhoneNumber": this.form.name })
                 .then((obj) => {
-                this.isShowModal = true;
-                this.modalText = '发送成功';
+                    console.log('send success')
+                        
+                    this.isShowModal = true;
+                    this.modalText = '发送成功';
 
-                setTimeout(() => {
-                    this.isShowModal = false;
-                }, 1000);
+                    isTimeout = false;
 
-            },  (err) => {
-                this.isShowModal = true;
-                this.modalText = '发送失败';
+                    setTimeout(() => {
+                        this.isShowModal = false;
+                    }, 1000);
 
-                setTimeout(() => {
-                    this.isShowModal = false;
-                }, 1000);
-            })
+                },(err) => {
+                    console.log('send fail')
+                    
+                    this.isShowModal = true;
+                    this.modalText = '发送失败';
+
+                    isTimeout = false;
+
+                    setTimeout(() => {
+                        this.isShowModal = false;
+                    }, 1000);
+                });
+
+            // 如果超时则显示超时的提示
+            setTimeout(() => {
+                if (isTimeout) {
+                    this.isShowModal = true;
+                    this.modalText = '发送超时';
+                    setTimeout(() => {
+                        this.isShowModal = false;
+                    }, 1000)
+                }
+            }, 10000);
         },
         regist() {
             // POST /

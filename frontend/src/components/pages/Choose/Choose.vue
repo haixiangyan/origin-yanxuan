@@ -9,7 +9,7 @@
       <div class="yan-choose-header">
         <!-- 商品的图片 -->
         <div class="good-img">
-          <img src="/static/img/good/choose/choose.png" alt="choose">
+          <img :src="goodInfo.headImage[0]" alt="choose">
         </div>
   
         <div class="choose-hint">
@@ -118,12 +118,11 @@ export default {
 
 /* 商品图片 */
 .good-img {
-  background: #f4f4f4;
   margin-right: 30px;
 }
 
 .good-img img {
-  min-width: 220px;
+  width: 220px;
 }
 
 /* 选中商品的提示 */

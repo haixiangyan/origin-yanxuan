@@ -2855,6 +2855,15 @@ function addComment() {
 		"commentDate": "1500016391003",
 		"type": ["透明茶2件装"]
 	})
+	commentEntity.save();
+	var commentEntity = new commentModel({
+		"goodsID": 1245027,
+		"userID": 1,
+		"content": "质感棒！真的是实惠，好便宜，我一周五天上班的衣服都在严选买的，很不错的购物体验！满分",
+		"picture": ["/static/img/commentImage/1245027/1500448216614/2eacdb0e461dda08905a815699464b25.jpg", "/static/img/commentImage/1245027/1500448216614/4d66b4de1836ea9fafb012a9e883685b.jpg", "/static/img/commentImage/1245027/1500448216614/7cc0de296fcee2e7420c3f33ca4f79c4.jpg"],
+		"commentDate": "1500448216614",
+		"type": ["深蓝色", "XL(180/100A)"]
+	})
 	commentEntity.save()
 	var commentEntity = new commentModel({
 		"goodsID": 1152026,
@@ -3064,14 +3073,15 @@ function addComment() {
 	})
 	commentEntity.save()
 	var commentEntity = new commentModel({
-		"goodsID": 1076015,
+		"goodsID": 1076016,
 		"userID": 1,
-		"content": "很快啊",
-		"picture": ["/static/img/commentImage/1076015/1497857602504/0ce1432bc2d27a09d1ea20cede60c5ba.jpg"],
-		"commentDate": "1497857602504",
-		"type": ["电子卡"]
+		"content": "我想还可以吧！",
+		"picture": ["/static/img/commentImage/1076016/1484069461611/d4dec4703ed00e6214b9ed3b42b57019.jpg"],
+		"commentDate": "1484069461611",
+		"type": ["实体卡"]
 	})
 	commentEntity.save()
+
 
 }
 
@@ -3814,7 +3824,7 @@ function addGoods() {
 		"shortDescription": ["流线弧度", "轻松手握", "低音劲风", "两档可调", "配备底座", "方便两用"],
 		"shortDescriptionImage": ["/static/img/goodsImage/1154005/shortdescriptionImage/cd1516308d32e94adfa70e16f388d73e.jpg", "/static/img/goodsImage/1154005/shortdescriptionImage/09c4da8807f4b9ffe6f449f491b96252.jpg", "/static/img/goodsImage/1154005/shortdescriptionImage/48926ebab0589285b14dfcc28981d272.jpg"],
 		"headImage": ["/static/img/goodsImage/1154005/headImage/103376fb9bf6b7e28ea58f3e34244120.png", "/static/img/goodsImage/1154005/headImage/e46bc25e9f46e9c7414cb69c0a31cd02.jpg", "/static/img/goodsImage/1154005/headImage/6012a2c96665560b57d9efc005a38ec9.jpg", "/static/img/goodsImage/1154005/headImage/f1d3c022d16fdff92325a9137a39e19a.jpg", "/static/img/goodsImage/1154005/headImage/92a3b3df61740ab31050f63c58225923.jpg"],
-		"types": ["深邃黑", "樱花粉", "本白"],
+		"type": ["深邃黑", "樱花粉", "本白"],
 		"chara": "3色可选",
 		"description": ["/static/img/goodsImage/1154005/description/801b728431ad01e17e7630baf920b148.jpg", "/static/img/goodsImage/1154005/description/679e17e238f5796b36e380aeaebfe169.jpg", "/static/img/goodsImage/1154005/description/67583a6c276ee93426f87a213c804210.jpg", "/static/img/goodsImage/1154005/description/48c717dc2bc85be094c4ac4f267bb698.jpg", "/static/img/goodsImage/1154005/description/ea902c8757615ea036257f7d0d069490.jpg", "/static/img/goodsImage/1154005/description/8a4dfa83be4eef4df8fbce0f708e521d.jpg", "/static/img/goodsImage/1154005/description/07910b21e6d22c021439a9f7c0c89750.jpg", "/static/img/goodsImage/1154005/description/a60f6a7cd06a63c296ba68574712c344.jpg", "/static/img/goodsImage/1154005/description/67249599d4e99662b4122d67e9f9c4dc.jpg", "/static/img/goodsImage/1154005/description/25df0214dd716b4b545bfc7370466864.jpg", "/static/img/goodsImage/1154005/description/308557bdc692ba9b1ec674193a5bb854.jpg", "/static/img/goodsImage/1154005/description/e2ed9102ea0a67eb806a553babfe7b75.jpg", "/static/img/goodsImage/1154005/description/adbcf9ba819648f770191b9a1ef240a6.jpg", "/static/img/goodsImage/1154005/description/92569ae401f7be22e30a4503418cf42d.jpg", "/static/img/goodsImage/1154005/description/42423067de8b112d3cb91db62793591d.jpg", "/static/img/goodsImage/1154005/description/0ab7036bcf0e30a522b0c58ad14b4730.jpg", "/static/img/goodsImage/1154005/description/2035aef0900c6b859f4f7f6abef0761e.jpg", "/static/img/goodsImage/1154005/description/cc7d71d31fc11c65f31fa89688cebf61.jpg", "/static/img/goodsImage/1154005/description/fff141031001155b9f106b7dca5ce8c2.jpg", "/static/img/goodsImage/1154005/description/5dea739e972cd4f5c8154e39b7d499f9.jpg", "/static/img/goodsImage/1154005/description/8fd4808197cf773546242af5f7b08d92.jpg", "/static/img/goodsImage/1154005/description/bd58c6cddbeaa5d447908caf7cf5a303.jpg", "/static/img/goodsImage/1154005/description/c569caa2838af7388b745994c9749adc.jpg", "/static/img/goodsImage/1154005/description/a803362b1f5472b0528dd399d656ae97.jpg", "/static/img/goodsImage/1154005/description/5ab8853c86da2c5de8d7ec2580ff572f.jpg", "/static/img/goodsImage/1154005/description/3243f6f99faf83782326cf49bb02f24b.jpg", "/static/img/goodsImage/1154005/description/adc01227f8dfd192bd1bbae92e3e0155.jpg", "/static/img/goodsImage/1154005/description/5d7ccf2489447972e89682a466a047bd.jpg", "/static/img/goodsImage/1154005/description/09d21771149e322197002f1924b88021.jpg", "/static/img/goodsImage/1154005/description/e9d03b7969d6964903cd954152786f46.jpg", "/static/img/goodsImage/1154005/description/93993fbe8c28fb41f374f0d8e9531ed7.jpg", "/static/img/goodsImage/1154005/description/32b14d2f4f8a5e1450ea30fd0a0f30fd.jpg", "/static/img/goodsImage/1154005/description/e0eaf438c447ba73056773162f200842.jpg", "/static/img/goodsImage/1154005/description/97981f3265322f33d714296238882666.jpg", "/static/img/goodsImage/1154005/description/2e1dc738f34722bff8c885d28f25a66e.jpg", "/static/img/goodsImage/1154005/description/3d86f8ff0f0b17b0cccbdfadb3ec7f2c.jpg", "/static/img/goodsImage/1154005/description/1661f81224d9be9ca8325d10d3cebf7b.jpg", "/static/img/goodsImage/1154005/description/c184917098d138dcff478504a20d1c20.jpg", "/static/img/goodsImage/1154005/description/54d6227ce968cd9f7480fee5b4a1a36a.jpg", "/static/img/goodsImage/1154005/description/dee504c1a7ee23d8e3eb00349f485b2f.jpg", "/static/img/goodsImage/1154005/description/a3893374ce15e5a6dfcc43757449f2ef.jpg", "/static/img/goodsImage/1154005/description/4db8d4d648836a35ec759fbfceedab30.jpg", "/static/img/goodsImage/1154005/description/cf99e95a3688d12f289afba72cef68f6.jpg", "/static/img/goodsImage/1154005/description/caa8b2fb8d86a42e2430a62cec4f8ed7.jpg", "/static/img/goodsImage/1154005/description/43adabd457eaba8151cca4a79c37bc86.jpg", "/static/img/goodsImage/1154005/description/9ab4c327139e576d44f9d50784ac8254.jpg"],
 		"inventory": [453, 383, 858],
@@ -5020,7 +5030,7 @@ function addGoods() {
 		"type": ["59cm（新生儿礼盒适合0-3个月宝宝）", "66cm（百天礼盒适合3-6个月宝宝）"],
 		"chara": "2色可选",
 		"description": ["/static/img/goodsImage/1125026/description/2f285a3816b6b6f95941ec06ee063635.jpg", "/static/img/goodsImage/1125026/description/2e82a43abd58555dc09e3d33ec75d755.jpg", "/static/img/goodsImage/1125026/description/48be216b81db6c1f03fe834844040a98.jpg", "/static/img/goodsImage/1125026/description/f41ac24d0df55aea28b7016b72047800.jpg", "/static/img/goodsImage/1125026/description/031e42d38ed545f4f5d1f163015f6f91.jpg", "/static/img/goodsImage/1125026/description/978c82d328c0b7d9b0343a612aecafe1.jpg", "/static/img/goodsImage/1125026/description/4e64fbef8dfef65dcf88f01dd4df1e93.jpg", "/static/img/goodsImage/1125026/description/03618f3c7d9663a0edf67baceb3d6d55.jpg", "/static/img/goodsImage/1125026/description/aec0b5fee64a1e1218f056231e913c1b.jpg", "/static/img/goodsImage/1125026/description/5bc6c15b391d850edcc7232ad917d710.jpg", "/static/img/goodsImage/1125026/description/fbdc2e2c0dd1e1facd6a737f0f77e39c.jpg", "/static/img/goodsImage/1125026/description/9040a4c9c7027a18da3cfb5af2dac693.jpg", "/static/img/goodsImage/1125026/description/9b5c59778b086a2e657d4205fb34d00e.jpg", "/static/img/goodsImage/1125026/description/a880bb699c777558a1806a31d0ee2ad0.jpg", "/static/img/goodsImage/1125026/description/288675be0cff8c7142df28be66f75065.jpg", "/static/img/goodsImage/1125026/description/0d0c12076ce5b60c1d73f9b41fe59b33.jpg", "/static/img/goodsImage/1125026/description/73d3a1677f86474d040347ade311ef07.jpg", "/static/img/goodsImage/1125026/description/1b87305de409af8858867939919b9486.jpg", "/static/img/goodsImage/1125026/description/c41bebb2d432eba191dafac1dd60a57c.jpg", "/static/img/goodsImage/1125026/description/c4b613b1f133531ea8b05d8570fd13aa.jpg", "/static/img/goodsImage/1125026/description/bc1ffd417535bce66e25e2e5377036f9.jpg", "/static/img/goodsImage/1125026/description/f415d0782d9e634b7529daa05901b569.jpg", "/static/img/goodsImage/1125026/description/0409cb15dc226b04fe460f806779d874.jpg", "/static/img/goodsImage/1125026/description/c5ef4c34ad50dd6c958794c03b12a474.jpg", "/static/img/goodsImage/1125026/description/07315ef63041c356bdac70e86ab687a0.jpg", "/static/img/goodsImage/1125026/description/f9565223b49a43deedc4b978c2d43a3e.jpg", "/static/img/goodsImage/1125026/description/2ad21cf00c364cd8477686dffe60a3f6.jpg", "/static/img/goodsImage/1125026/description/80c3e4eb6c42a6ae5b4e07c2aba8fac3.jpg", "/static/img/goodsImage/1125026/description/527a6208cd49ede0ff8ba4a9a2335826.jpg", "/static/img/goodsImage/1125026/description/e87c2adba2ad435b24e9f46fd620e100.jpg", "/static/img/goodsImage/1125026/description/9070ba3369635cad62321a22caf4156f.jpg", "/static/img/goodsImage/1125026/description/960d9e42022d1d51c529900a1298ac1f.jpg", "/static/img/goodsImage/1125026/description/1d74d7693e2498b71ba21ba42d3c9a28.jpg", "/static/img/goodsImage/1125026/description/74a17841d8394a99a6bd143146ae3573.jpg", "/static/img/goodsImage/1125026/description/8d822d8344816788866eae5825247dac.jpg", "/static/img/goodsImage/1125026/description/b6ddce95d2f3fa47a77a9f25cbc5a077.jpg", "/static/img/goodsImage/1125026/description/1c7345d3a703b8a19956faed31c5d302.jpg", "/static/img/goodsImage/1125026/description/154df4baa29a5f7c1bf6b18ddd7689ac.jpg", "/static/img/goodsImage/1125026/description/4d096d4dd81c4dc4d1d89e4d8908be66.jpg", "/static/img/goodsImage/1125026/description/3fc8e54eda63e1d42cd1de247bac2a6a.jpg", "/static/img/goodsImage/1125026/description/87b42ab850b2777c982daf9a8382bdbf.jpg", "/static/img/goodsImage/1125026/description/8ec8c4223f87e10b1ca69a2765945bcc.jpg", "/static/img/goodsImage/1125026/description/69f471e3ed5b6986f8f826f2218365c3.jpg", "/static/img/goodsImage/1125026/description/405aba9b359b1eddf1d22114225d834b.jpg", "/static/img/goodsImage/1125026/description/71d6533a5214218f825ccd23cb054725.jpg", "/static/img/goodsImage/1125026/description/2fd11f0db4bbe2a6d41cf9c2ec467011.jpg", "/static/img/goodsImage/1125026/description/b6f7a12779b592611c62085a8e6358b0.jpg", "/static/img/goodsImage/1125026/description/dd6edb427af64c6649e0095ccd642fb2.jpg", "/static/img/goodsImage/1125026/description/3af0dd0ac94c07748b445863a499b00b.jpg", "/static/img/goodsImage/1125026/description/f5f69e68a9910a073e36e760c040c522.jpg", "/static/img/goodsImage/1125026/description/9087f94bec151b94dabbb92f526d0a29.jpg", "/static/img/goodsImage/1125026/description/2c5d55cafcc64ab3457568bf92ce2757.jpg", "/static/img/goodsImage/1125026/description/3dc5ae2bf671d9116796a62a522390fe.jpg", "/static/img/goodsImage/1125026/description/9ad818efb09ceecf4bf65f4589df08c4.jpg", "/static/img/goodsImage/1125026/description/2f2a637ab38a05d6050948c3287827cd.jpg", "/static/img/goodsImage/1125026/description/d57b29a2d5474faccade920571cc91a4.jpg", "/static/img/goodsImage/1125026/description/6271ef83f9eaff0b9aebc0fcc8091565.jpg", "/static/img/goodsImage/1125026/description/408e2fb68bfb84086d6c16332ead8d1a.jpg", "/static/img/goodsImage/1125026/description/f03357da08cc91ce3a98ae98544dccb2.jpg", "/static/img/goodsImage/1125026/description/5b2f436a7352180fce134661845757b5.jpg"],
-		"inventory": [125, 923],
+		"inventory": [237, 37],
 		"information": [{
 			"attrName": "安全类别",
 			"attrValue": "GB31701-2015 A类 婴幼儿用品"
@@ -5036,10 +5046,10 @@ function addGoods() {
 			"type": ""
 		}],
 		"manufacture": "Carters制造商",
-		"sale": 68,
-		"date": "1500341108792",
-		"category": "服装",
-		"subCategory": "婴童服饰"
+		"sale": 543,
+		"date": "1500793395612",
+		"category": "婴童",
+		"subCategory": "婴幼儿服饰"
 	})
 	goodsEntity.save();
 	var goodsEntity = new goodsModel({
@@ -5582,10 +5592,10 @@ function addGoods() {
 		"shortDescription": ["防水处理", "一甩即干", "结实伞骨", "不易刮伤", "心形图案", "柔和清爽"],
 		"shortDescriptionImage": ["/static/img/goodsImage/1129017/shortdescriptionImage/114bb1b520f4036a8e9549f73fbc3937.jpg", "/static/img/goodsImage/1129017/shortdescriptionImage/0a6f802faedc001dd87c7955caa6b2a4.jpg", "/static/img/goodsImage/1129017/shortdescriptionImage/8b862fb6ba3e2e6a30df1e07a5997ac0.jpg"],
 		"headImage": ["/static/img/goodsImage/1129017/headImage/ad7bf36752b56fb118f612c0310853ff.png", "/static/img/goodsImage/1129017/headImage/6ce6a8649e952e36318b0f25e8c55d71.jpg", "/static/img/goodsImage/1129017/headImage/9a02b1ed4beb0e479b240a80bd31c2c8.jpg", "/static/img/goodsImage/1129017/headImage/837cf5206d9e5a9e911bbabb8e17fbf9.jpg", "/static/img/goodsImage/1129017/headImage/50b520a010aab1fccfed9380126b792d.jpg"],
-		"type": ["粉色", "灰色"],
+		"types": ["粉色", "灰色"],
 		"chara": "2色可选",
 		"description": ["/static/img/goodsImage/1129017/description/c1ed100a6a31eb8e3a5b313426fb90f5.jpg", "/static/img/goodsImage/1129017/description/e4f643423dd9a39e9d684cd69608de14.jpg", "/static/img/goodsImage/1129017/description/881eb8d4f13d03554ed7d52124dc2acd.jpg", "/static/img/goodsImage/1129017/description/66325496be9621f2949d8cb9a23b5d75.jpg", "/static/img/goodsImage/1129017/description/e2fba959192843d715b5ded42c8a0c90.jpg", "/static/img/goodsImage/1129017/description/f6a8764a35c79dcb934507a44e0f316e.jpg", "/static/img/goodsImage/1129017/description/7f0001f0ae6c1434e6e6ccc3931519d5.jpg", "/static/img/goodsImage/1129017/description/8e89a8701d836d0bc14279fac9893418.jpg", "/static/img/goodsImage/1129017/description/21842e61db042c7085c1d974082ffd6f.jpg", "/static/img/goodsImage/1129017/description/adf983867a6d72f8b36708044a5b705f.jpg", "/static/img/goodsImage/1129017/description/b6d3131e67bc6b8d35a04d75fabae934.jpg", "/static/img/goodsImage/1129017/description/de75ce8b6cbd01b6ef96dd00f7ee2e39.jpg", "/static/img/goodsImage/1129017/description/cd4da327c34dbe385e4ae44807cec738.jpg", "/static/img/goodsImage/1129017/description/ec06a8b4da67860df1b1b62022cb41b0.jpg", "/static/img/goodsImage/1129017/description/2721fb69d67ed207f8bdf59068fc2c09.jpg", "/static/img/goodsImage/1129017/description/f472604368a446d74303fcb81f5ce2c6.jpg", "/static/img/goodsImage/1129017/description/12fb95d88d89feb7a12833738d982c9a.jpg", "/static/img/goodsImage/1129017/description/5fbea15b4077b9477ffd628f40882363.jpg", "/static/img/goodsImage/1129017/description/73d8295c25f6616744aab653ba18808a.jpg", "/static/img/goodsImage/1129017/description/52043ea256035a5a6a90ade7832ff62f.jpg", "/static/img/goodsImage/1129017/description/3c0b17782e1b093082c1fe59d71b27eb.jpg", "/static/img/goodsImage/1129017/description/03565d7671260629feabfaa03981b0ac.jpg", "/static/img/goodsImage/1129017/description/2bc8085f2c6ea71da650e038e2351958.jpg", "/static/img/goodsImage/1129017/description/2710ed2d88a17823a1791a9d1568f2cd.jpg", "/static/img/goodsImage/1129017/description/0d510f6d0c68c646716d9d6ccf77af54.jpg", "/static/img/goodsImage/1129017/description/4ff2f77b8db9508e74d12754b3c17721.jpg", "/static/img/goodsImage/1129017/description/a8bda78d3039530f7ea78178249734a1.jpg", "/static/img/goodsImage/1129017/description/9a78aaf9f0e946be687bc29783efb078.jpg", "/static/img/goodsImage/1129017/description/dd1717fc4500ce3e57404ea666004f0a.jpg", "/static/img/goodsImage/1129017/description/42cc029ccd973bcc1e29024f71cad3c5.jpg", "/static/img/goodsImage/1129017/description/aad84dcc701dde0703c6ee6701bde10f.jpg", "/static/img/goodsImage/1129017/description/f61d4ea157673daba75a560d4d206056.jpg", "/static/img/goodsImage/1129017/description/6d821406a5449a75e85cbd9663597841.jpg", "/static/img/goodsImage/1129017/description/1f42ff00364423b66a2120a81b35e16d.jpg", "/static/img/goodsImage/1129017/description/c4b4633a4f79a8ab6d4e75cf39ea9e70.jpg", "/static/img/goodsImage/1129017/description/ffa3f303bbcc9d84ca52a934103c5d28.jpg", "/static/img/goodsImage/1129017/description/0ebeb2dd3a56736f1b9a04c7521605c8.jpg", "/static/img/goodsImage/1129017/description/50520fc17f46d94964f51786133840e8.jpg", "/static/img/goodsImage/1129017/description/f7516f33f993a6483a592c7d1c1c8e00.jpg", "/static/img/goodsImage/1129017/description/aeba486c3165e4d82db52dbf45589eb2.jpg", "/static/img/goodsImage/1129017/description/fa93fa97355a770e2d8900c4a5014178.jpg", "/static/img/goodsImage/1129017/description/6dc06826c0951931c152ed9cbffcce14.jpg", "/static/img/goodsImage/1129017/description/a75327f151df3ea3c476907221173e38.jpg", "/static/img/goodsImage/1129017/description/6aa9e620a9e4c792ed0c24b3a5d9ef46.jpg", "/static/img/goodsImage/1129017/description/526dae6376b93c3ffa22de480397b8d3.jpg", "/static/img/goodsImage/1129017/description/d68276591b4112c326cec6439f503cc1.jpg", "/static/img/goodsImage/1129017/description/3b0253e2435f44342724ae88fc6bc6ff.jpg", "/static/img/goodsImage/1129017/description/1570cb55f0e6199b0105ef303a6f2e0c.jpg", "/static/img/goodsImage/1129017/description/9cc7caec277fe0ea9d437300c9a6a074.jpg", "/static/img/goodsImage/1129017/description/bea7a1e9b168c52bf51a51fc3680a55e.jpg", "/static/img/goodsImage/1129017/description/c7f9480a383630c77c48336f94b37cc6.jpg", "/static/img/goodsImage/1129017/description/4d5c5a1cfe2c00bad48cc938fafe1be3.jpg", "/static/img/goodsImage/1129017/description/7f40725bc5b74a298c12d02912d00d72.jpg"],
-		"inventory": [771, 68],
+		"inventory": [562, 522],
 		"information": [{
 			"attrName": "伞骨材质：",
 			"attrValue": "铁/玻璃纤维"
@@ -5601,8 +5611,8 @@ function addGoods() {
 			"type": ""
 		}],
 		"manufacture": "WPC制造商",
-		"sale": 660,
-		"date": "1500341172651",
+		"sale": 111,
+		"date": "1500796373354",
 		"category": "杂货",
 		"subCategory": "出行用品"
 	})
@@ -6454,6 +6464,64 @@ function addGoods() {
 		"date": "1500341254039",
 		"category": "志趣",
 		"subCategory": "阴阳师"
+	})
+	goodsEntity.save();
+	var goodsEntity = new goodsModel({
+		"ID": 1006032,
+		"price": 78,
+		"topName": "夏日甜心公仔抱枕",
+		"subName": "精准走线，自由靠卧",
+		"shortDescription": ["精准走线", "自由靠卧", "自由靠卧", "精准走线", "精准走线", "自由靠卧"],
+		"shortDescriptionImage": ["/static/img/goodsImage/1006032/shortdescriptionImage/ef07fb5df81971c750d802b2dee93ca0.jpg", "/static/img/goodsImage/1006032/shortdescriptionImage/c67edd6c5cc196f417928afe6144595c.jpg", "/static/img/goodsImage/1006032/shortdescriptionImage/2778ad9202c8bc4e897d8c6ba9c7d9de.jpg"],
+		"headImage": ["/static/img/goodsImage/1006032/headImage/329945d25afdf6cd372a1aadcbb4aadd.png", "/static/img/goodsImage/1006032/headImage/ef07fb5df81971c750d802b2dee93ca0.jpg", "/static/img/goodsImage/1006032/headImage/c67edd6c5cc196f417928afe6144595c.jpg", "/static/img/goodsImage/1006032/headImage/2778ad9202c8bc4e897d8c6ba9c7d9de.jpg", "/static/img/goodsImage/1006032/headImage/d750aceee8b3b964b8f25801226aac0b.jpg"],
+		"type": ["抱枕"],
+		"chara": "1色可选",
+		"description": ["/static/img/goodsImage/1006032/description/d5321b014faf8ef0e65bab57d67d00d9.jpg", "/static/img/goodsImage/1006032/description/de5473cda07faed9316f3e0274b4bd4f.jpg", "/static/img/goodsImage/1006032/description/c8a32debdb9f8ded3d1d8b39e671f36b.jpg", "/static/img/goodsImage/1006032/description/cac5e69cc591f3707291895fb31f41eb.jpg", "/static/img/goodsImage/1006032/description/1beb3fb2ace933a98fe5fcb29815c557.jpg", "/static/img/goodsImage/1006032/description/75f4f4ff1b291493e6b4fdfeff409fd8.jpg", "/static/img/goodsImage/1006032/description/95adde008156a2995d5b614293870301.jpg", "/static/img/goodsImage/1006032/description/36e47eb8926ce81674365f27e4cd9af0.jpg"],
+		"inventory": [683],
+		"information": [{
+			"attrName": "填充物成分",
+			"attrValue": "100%聚酯纤维"
+		}, {
+			"attrName": "尺寸",
+			"attrValue": "33*40*20cm"
+		}, {
+			"attrName": "重量",
+			"attrValue": "约610g"
+		}],
+		"label": [{
+			"title": "",
+			"type": ""
+		}],
+		"manufacture": "",
+		"sale": 941,
+		"date": "1500800721272",
+		"category": "志趣",
+		"subCategory": "夏日甜心"
+	})
+	goodsEntity.save();
+
+	var goodsEntity = new goodsModel({
+		"ID": 1076016,
+		"price": 100,
+		"topName": "严选礼品卡 100元面值",
+		"subName": "高档、精致、省心的礼赠佳品",
+		"shortDescription": ["精准走线", "自由靠卧", "自由靠卧", "精准走线", "精准走线", "自由靠卧"],
+		"shortDescriptionImage": ["/static/img/goodsImage/1076015/shortdescriptionImage/067ef946824ae052a52999a28c5690ad.jpg", "/static/img/goodsImage/1076015/shortdescriptionImage/5dcb0626754c50717f3bdc6d076d0e3f.jpg", "/static/img/goodsImage/1076015/shortdescriptionImage/1360a509fd868dd4127331e1baccb807.jpg"],
+		"headImage": ["/static/img/goodsImage/1076015/headImage/e1d87f845a5773665bd7042d28cbf11a.png", "/static/img/goodsImage/1076015/headImage/067ef946824ae052a52999a28c5690ad.jpg", "/static/img/goodsImage/1076015/headImage/5dcb0626754c50717f3bdc6d076d0e3f.jpg", "/static/img/goodsImage/1076015/headImage/1360a509fd868dd4127331e1baccb807.jpg", "/static/img/goodsImage/1076015/headImage/1be7e27efd1047bd130a89672a1746b6.jpg"],
+		"type": ["电子卡", "实体卡"],
+		"chara": "2色可选",
+		"description": ["/static/img/goodsImage/1076015/description/20b5e18a14eb0affdc395d29bd113d71.jpg", "/static/img/goodsImage/1076015/description/56256da6310030460e5be60cc7319b04.jpg", "/static/img/goodsImage/1076015/description/a870f1dd4804f234ee091d944797a2aa.jpg", "/static/img/goodsImage/1076015/description/6b850852210eb191576644f08364a772.jpg", "/static/img/goodsImage/1076015/description/8c80f14e947e6e935c30f756f20c9562.jpg", "/static/img/goodsImage/1076015/description/4dab7fa231b7729b1b61a08f0ff0364b.jpg", "/static/img/goodsImage/1076015/description/7a9fe1bd3469d4598007c970ea6e1222.jpg", "/static/img/goodsImage/1076015/description/33501101c55f248ec27d247b6cd66cd0.jpg", "/static/img/goodsImage/1076015/description/8e74349bb2d91d6dbbe31200261c345a.jpg", "/static/img/goodsImage/1076015/description/fcdb1d2aec8e2a67cedb2108006a9998.jpg", "/static/img/goodsImage/1076015/description/1a10d19ba8326466b4fff9ddddfdad37.jpg", "/static/img/goodsImage/1076015/description/1607f9867542c44cadb8b7d72bc1e097.jpg", "/static/img/goodsImage/1076015/description/e8979a9dc7f6ccee294f4c44b81e294e.jpg", "/static/img/goodsImage/1076015/description/b45e1b72ecf8e11c7716633c0c5d4311.jpg", "/static/img/goodsImage/1076015/description/b3ba804a3311efd690ad9e99bf961a27.jpg", "/static/img/goodsImage/1076015/description/cd54160a8b7eb47a7868d55d25395535.jpg", "/static/img/goodsImage/1076015/description/ca1c98049e3b902347116c6245eb3476.jpg", "/static/img/goodsImage/1076015/description/b8ec471cd4bfea845336c8f34b6d4088.jpg", "/static/img/goodsImage/1076015/description/9ad8ada8ed85c15e05acdcf44152c3e7.jpg", "/static/img/goodsImage/1076015/description/37e48594b4e6f5ebc04361238e3b031e.jpg", "/static/img/goodsImage/1076015/description/4ac026d0e5ce00a934b8507993297900.jpg", "/static/img/goodsImage/1076015/description/bd6e33aa44faf996c48aebbe682f6904.jpg", "/static/img/goodsImage/1076015/description/a7db5180ee3b7ab6c79c7404715a89f6.jpg", "/static/img/goodsImage/1076015/description/3e4d1a1d5e41968691eb6ab38e286549.jpg", "/static/img/goodsImage/1076015/description/a7e43bd3c0bbb5242ab61a78f315797b.jpg", "/static/img/goodsImage/1076015/description/6b5c97098498a5641e526358645446b6.jpg", "/static/img/goodsImage/1076015/description/5300957568f9a5d056fb85f2a0568771.jpg"],
+		"inventory": [785, 513],
+		"information": [],
+		"label": [{
+			"title": "",
+			"type": ""
+		}],
+		"manufacture": "",
+		"sale": 885,
+		"date": "1500800758287",
+		"category": "志趣",
+		"subCategory": "礼品卡"
 	})
 	goodsEntity.save();
 

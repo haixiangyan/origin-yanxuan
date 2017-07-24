@@ -188,6 +188,10 @@ export default {
     mounted() {
         let id = this.$route.params.goodId;
 
+        // 重置立即购买
+        this.$store.commit('resetTempCartItem');
+        this.$store.commit('resetSelection');
+
         // 发送请求获取商品的全部数据
         this.$http({
             method: 'get',

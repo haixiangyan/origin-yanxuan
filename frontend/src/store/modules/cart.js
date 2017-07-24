@@ -27,7 +27,12 @@ const state = {
   // 判断是否立刻购买
   isBuying: false,
   // 生成订单的ID
-  orderID: -1
+  orderID: -1,
+  // 当前选择的项目
+    selection: {
+        type: 0,
+        num: 1
+    }
 }
 
 const getters = {
@@ -41,6 +46,7 @@ const getters = {
   isBuying: state => state.isBuying,
   displayCartNum: state => state.displayCartNum,
   orderID: state => state.orderID,
+  selection: state => state.selection,
   // 是否全选
   isSelectAllCartItems: state => {
     let selectAllState = true
@@ -86,7 +92,7 @@ const getters = {
   // 购物车的总价
   totalPrice: state => {
     if (state.isBuying) {
-      return state.tempCartItem[0].price;
+      return state.tempCartItem[0].price * state.selection.num;
     }
 
     let sum = 0;
@@ -105,7 +111,7 @@ const getters = {
     let sum = 0;
 
     if (state.isBuying) {
-      sum = state.tempCartItem[0].price;
+      sum = state.tempCartItem[0].price * state.selection.num;
     }
     else {
       state.cart.forEach((cartItem) => {
@@ -252,7 +258,42 @@ const mutations = {
   // 设置订单的ID
   setOrderID(state, payload) {
     state.orderID = payload.orderID;
-  }
+  },
+
+      // 改变数量
+    changeNum(state, payload) {
+        state.selection.num = payload.num;
+    },
+    // 改变类别
+    changeType(state, payload) {
+        state.selection.type = payload.type;
+    },
+    // 添加1
+    addNum(state) {
+        state.selection.num ++;
+    },
+    // 减1
+    subNum(state) {
+        if (state.selection.num === 1) {
+            return ;
+        }
+        else {
+            state.selection.num --;
+        }
+    },
+
+  // 重置临时购买
+  resetTempCartItem(state) {
+    state.tempCartItem = [];
+  },
+
+  // 重置选择信息
+    resetSelection(state) {
+        state.selection = {
+            type: 0,
+            num: 1
+        }
+    }
 }
 
 export default {

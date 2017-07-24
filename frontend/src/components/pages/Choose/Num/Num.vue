@@ -6,7 +6,7 @@
         </div>
     
         <div class="num">
-            <input v-model="num" type="text">
+            <input disabled v-model="num" type="text">
         </div>
     
         <!-- 加一件 -->
@@ -58,6 +58,8 @@ img {
 .num input {
     width: 50px;
     outline: none;
+    border: none;
+    background: #fff;
 }
 
 .sub,
