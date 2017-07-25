@@ -24,7 +24,7 @@
 			<div class="yan-topic-body-item-topic-info">
 				<div class="title">
 					<div>{{item.headline}}</div>
-					<div class="price" v-if="item.picture[1]===''">
+					<div class="price" v-if="item.picture.length===1">
 						<span>{{item.price}}</span>
 						<span>元起</span>
 					</div>
@@ -231,7 +231,7 @@ div {
 	justify-content: space-between;
 }
 
-.title .price{
+.title .price>span{
 	color: #b4282d;
 }
 
