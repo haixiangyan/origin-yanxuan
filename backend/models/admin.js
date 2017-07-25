@@ -254,7 +254,20 @@ function deleteGoods(goodsID, cb) {
 		}
 	})
 }
-
+function getAllUser(){
+	userModel.find({},cb)
+}
+function deleteUser(userID,cb){
+	userModel.findOne({telephone:userID},function(err,docs){
+		if(docs){
+			userModel.remove({
+				telephone:userID
+			},cb)
+		}else{
+			cb("error","")
+		}
+	})
+}
 
 module.exports.getAllGoods = getAllGoods;
 module.exports.getSaleByCategory = getSaleByCategory;
@@ -263,3 +276,5 @@ module.exports.changeInformation = changeInformation;
 module.exports.getAllOrder = getAllOrder;
 module.exports.getRecentSale = getRecentSale;
 module.exports.deleteGoods = deleteGoods;
+module.exports.getAllUser=getAllUser;
+module.exports.deleteUser=deleteUser;

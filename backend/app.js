@@ -9,7 +9,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var goods = require('./routes/goods');
 var shop =require('./routes/shop');
-
+var admin=require('./routes/admin');
 // 引入 h5 history 模式的中间件
 var history = require('connect-history-api-fallback');
 
@@ -43,6 +43,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/goods',goods);
 app.use('/shop',shop);
+app.use('/admin',admin);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

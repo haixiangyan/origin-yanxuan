@@ -10,7 +10,7 @@ router.patch('/changeInformation', function (req, res, next) {
             })
         } else {
             res.json({
-                result: "success",
+                result: "success"
             })
         }
 
@@ -25,7 +25,7 @@ router.get('/sale', function (req, res, next) {
             })
         } else {
             res.json({
-                result: "error",
+                result: "error"
             })
         }
 
@@ -41,7 +41,7 @@ router.get('/certainCategorySale/:category', function (req, res, next) {
             })
         } else {
             res.json({
-                result: "success",
+                result: "success"
             })
         }
 
@@ -95,11 +95,42 @@ router.delete('/goods/:goodsID', function (req, res, next) {
 	admin.deleteGoods(goodsID, function (err, docs) {
 		if (err == "error") {
 			res.json({
-				result: "error",
+				result: "error"
 			})
 		} else {
 			res.json({
+				result: "success"
+			})
+		}
+
+	})
+})
+
+router.get('/user', function (req, res, next) {
+	admin.getAllUser(function (err, docs) {
+		if (!err ) {
+			res.json({
 				result: "success",
+                data:docs
+			})
+		} else {
+			res.json({
+				result: "error"
+			})
+		}
+
+	})
+})
+router.delete('/user/:userID', function (req, res, next) {
+	var userID = req.params.userID;
+	admin.deleteUser(userID, function (err, docs) {
+		if (err == "error") {
+			res.json({
+				result: "error"
+			})
+		} else {
+			res.json({
+				result: "success"
 			})
 		}
 
