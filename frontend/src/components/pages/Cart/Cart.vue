@@ -2,21 +2,23 @@
     <div class="yan-cart">
         <!-- 头部 -->
         <yan-cart-header></yan-cart-header>
-
+    
         <!-- 购物车的子项 -->
-        <yan-cart-item :isShowCheck="true" v-show="!isEditCart" v-for="(cartItem, index) in cartItems" :index="index" :key="index" :cartItem="cartItem"></yan-cart-item>  
-
-        <!-- 购物车的编辑项 -->
-        <yan-edit-item v-show="isEditCart" v-for="(cartItem, index) in cartItems" :index="index" :key="index" :cartItem="cartItem"></yan-edit-item> 
-
-        <!-- 空的购物车的组件 -->
-        <yan-empty-cart v-show="cartItems.length === 0"></yan-empty-cart>
-
-        <!-- 编辑脚注 -->
-        <yan-edit-cart-footer v-show="isEditCart && cartItems.length !== 0"></yan-edit-cart-footer>  
-
-        <yan-make-order-footer v-show="!isEditCart && cartItems.length !== 0"></yan-make-order-footer> 
-
+        <div class="yan-cart-content">
+            <yan-cart-item :isShowCheck="true" v-show="!isEditCart" v-for="(cartItem, index) in cartItems" :index="index" :key="index" :cartItem="cartItem"></yan-cart-item>
+    
+            <!-- 购物车的编辑项 -->
+            <yan-edit-item v-show="isEditCart" v-for="(cartItem, index) in cartItems" :index="index" :key="index" :cartItem="cartItem"></yan-edit-item>
+    
+            <!-- 空的购物车的组件 -->
+            <yan-empty-cart v-show="cartItems.length === 0"></yan-empty-cart>
+    
+            <!-- 编辑脚注 -->
+            <yan-edit-cart-footer v-show="isEditCart && cartItems.length !== 0"></yan-edit-cart-footer>
+    
+            <yan-make-order-footer v-show="!isEditCart && cartItems.length !== 0"></yan-make-order-footer>
+        </div>
+    
         <!-- tab bar -->
         <yan-tab-bar :selectedIndex="3"></yan-tab-bar>
     </div>
@@ -65,6 +67,9 @@ export default {
     },
     mounted() {
         // 发送请求，获取商品的购物车
+        if (this.user === null) {
+            return;
+        }
         this.$http({
             method: 'get',
             url: `/shop/cart/${this.user.userID}`
@@ -89,13 +94,21 @@ export default {
 
 <style scoped>
 .yan-cart {
-    margin-top: 112px;
+    /* margin-top: 112px; */
     position: fixed;
     top: 0;
     right: 0;
     left: 0;
-    bottom: 235px;
+    bottom: 0;
     overflow: auto;
-    background: #f4f4f4; 
-} 
+    background: #f4f4f4;
+}
+
+.yan-cart-content {
+    position: fixed;
+    top: 117px;
+    left: 0;
+    right: 0;
+    bottom: 237px;
+}
 </style>

@@ -12,9 +12,9 @@
             <img src="/static/icons/empty-cart.png" alt="empty">
             <p>去添加点什么吧</p>
 
-            <div v-show="!isLogin" class="yan-cart-login">
+            <router-link tag="div" to="/login" v-show="!isLogin" class="yan-cart-login">
                 登录
-            </div>
+            </router-link>
         </div>
     </div>
 </template>

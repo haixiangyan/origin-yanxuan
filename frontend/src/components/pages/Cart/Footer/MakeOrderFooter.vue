@@ -69,7 +69,7 @@ export default {
 .yan-select-all {
     position: relative; 
     display: flex;
-     align-items: center; 
+    align-items: center; 
     flex-grow: 1;
 }
 
@@ -84,7 +84,11 @@ export default {
 }
 
 .yan-select-all i {
-    padding: 35px;
+      padding: 35px;  
+}
+
+.total-price {
+     padding: 40px 0; 
 }
 
 /* 总价 */
