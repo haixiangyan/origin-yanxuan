@@ -6,7 +6,6 @@ db.on('error', function () {
 	console.log("error")
 });
 db.once('open', function () {
-
 	console.log("temp connected");
 	var goodsSchema = new mongoose.Schema({
 		ID: Number,
@@ -28,18 +27,9 @@ db.once('open', function () {
 		manufacturer: String,
 		label: Array
 	});
-	goodsSchema.methods.findByID = function (cb) {
-		return this.model("goods").find({
-			ID: this.ID
-		}, cb)
-	}
-	goodsSchema.statics.findByID = function (ID, cb) {
-		return this.find({
-			ID: ID
-		}, cb)
-	}
 	goodsModel = db.model("goods", goodsSchema);
 	addGoods();
+	
 	var commentSchema = new mongoose.Schema({
 		goodsID: Number,
 		userID: String,
@@ -50,6 +40,7 @@ db.once('open', function () {
 	});
 	commentModel = db.model("comments", commentSchema);
 	addComment();
+
 	var topicModelSchema = new mongoose.Schema({
 		topicID: Number,
 		writer: String,
@@ -70,8 +61,169 @@ db.once('open', function () {
 	});
 	categoryModel = db.model("categories", categorySchema);
 	addCategory();
+
+	var userschema = new mongoose.Schema({
+		telephone: String,
+		name: String,
+		password: String,
+		photo: String,
+		gender: String,
+		interest: Array,
+		address: Array
+	});
+	userModel = db.model("User", userschema);
+	addUser();
+
+   	var orderSchema = new mongoose.Schema({
+		orderID: String,
+		userID: String,
+		goodsList: Array,
+		expressNumber: Number,
+		expressCompany: String,
+		address: Array,
+		orderState: Number,
+		orderDate: String,
+		payID: String,
+		totalFee: Number
+	});
+	orderModel = db.model("orders", orderSchema);
+	addOrder();
 })
 
+function addOrder() {
+	var orderEntity = new orderModel({
+		orderID: "15005664000001",
+		userID: "1",
+		goodsList: [{
+			ID: "1083009",
+			number: 1,
+			type: "妖姬蓝",
+			price: 299,
+			name: "海洋之心永生花",
+			picture: '/static/img/goodsImage/1083009/headImage/76e5c820f6bb71a26517ffa01f499871.png'
+		}],
+		expressNumber:0,
+		expressCompany: "",
+		address: [{
+			province: "辽宁省",
+			city: "沈阳市",
+			town: "浑南区",
+			detail: "东北大学",
+			receiver: "许康琪",
+			telephone: "18805862675",
+			isDefault: false
+		}],
+		orderDate: 1500566400000,
+		orderState: 0,
+		payID: "",
+		totalFee: 299
+	})
+	orderEntity.save();
+	var orderEntity = new orderModel({
+		orderID: "15004800000001",
+		userID: "1",
+		goodsList: [{
+			ID: "1083009",
+			number: 1,
+			type: "妖姬蓝",
+			price: 299,
+			name: "海洋之心永生花",
+			picture: '/static/img/goodsImage/1083009/headImage/76e5c820f6bb71a26517ffa01f499871.png'
+		}],
+		expressNumber: 0,
+		expressCompany: "",
+		address: [{
+			province: "辽宁省",
+			city: "沈阳市",
+			town: "浑南区",
+			detail: "东北大学",
+			receiver: "许康琪",
+			telephone: "18805862675",
+			isDefault: false
+		}],
+		orderDate: 1500480000000,
+		orderState: 1,
+		payID: "1500480000000",
+		totalFee: 299
+	})
+	orderEntity.save();
+	var orderEntity = new orderModel({
+		orderID: "15003936000001",
+		userID: "1",
+		goodsList: [{
+			ID: "1083009",
+			number: 1,
+			type: "妖姬蓝",
+			price: 299,
+			name: "海洋之心永生花",
+			picture: '/static/img/goodsImage/1083009/headImage/76e5c820f6bb71a26517ffa01f499871.png'
+		}],
+		expressNumber: 810874175279,
+		expressCompany: "圆通",
+		address: [{
+			province: "辽宁省",
+			city: "沈阳市",
+			town: "浑南区",
+			detail: "东北大学",
+			receiver: "许康琪",
+			telephone: "123124",
+			isDefault: false
+		}],
+		orderDate: 1500393600000,
+		orderState: 2,
+		payID: "1500393600000",
+		totalFee: 299
+	})
+	orderEntity.save();
+	var orderEntity = new orderModel({
+		orderID: "15001344000001",
+		userID: "1",
+		goodsList: [{
+			ID: "1083009",
+			number: 1,
+			type: "妖姬蓝",
+			price: 299,
+			name: "海洋之心永生花",
+			picture: '/static/img/goodsImage/1083009/headImage/76e5c820f6bb71a26517ffa01f499871.png'
+		}],
+		expressNumber: 810874175279,
+		expressCompany: "圆通",
+		address: [{
+			province: "辽宁省",
+			city: "沈阳市",
+			town: "浑南区",
+			detail: "东北大学",
+			receiver: "许康琪",
+			telephone: "18805862675",
+			isDefault: false
+		}],
+		orderDate: 1500134400000,
+		orderState: 3,
+		payID: "1500134400000",
+		totalFee: 299
+	})
+	orderEntity.save();
+}
+function addUser() {
+	var userEntity = new userModel({
+		telephone: '1',
+		password: '123456',
+		photo: "/static/img/userImage/1.jpg",
+		name: "xukangqi",
+		gender: "man",
+		interest: ["1", "2", "3"],
+		address: [{
+			province: "辽宁省",
+			city: "沈阳市",
+			town: "浑南区",
+			detail: "东北大学",
+			receiver: "许康琪",
+			telephone: "18805862675",
+			isDefault: false
+		}]
+	})
+	userEntity.save();
+}
 function addCategory() {
 
 	var categoryEntity = new categoryModel({

@@ -27,7 +27,7 @@ db.once('open', function () {
 		totalFee: Number
 	});
 	orderModel = db.model("orders", orderSchema);
-	addOrder();
+	// addOrder();
 	var commentSchema = new mongoose.Schema({
 		goodsID: Number,
 		userID: String,
@@ -40,121 +40,7 @@ db.once('open', function () {
 	// addComment();
 })
 
-function addOrder() {
-	var orderEntity = new orderModel({
-		orderID: "15005664000001",
-		userID: "1",
-		goodsList: [{
-			ID: "1083009",
-			number: 1,
-			type: "妖姬蓝",
-			price: 299,
-			name: "海洋之心永生花",
-			picture: '/static/img/goodsImage/1083009/headImage/76e5c820f6bb71a26517ffa01f499871.png'
-		}],
-		expressNumber:0,
-		expressCompany: "",
-		address: [{
-			province: "辽宁省",
-			city: "沈阳市",
-			town: "浑南区",
-			detail: "东北大学",
-			receiver: "许康琪",
-			telephone: "18805862675",
-			isDefault: false
-		}],
-		orderDate: 1500566400000,
-		orderState: 0,
-		payID: "",
-		totalFee: 299
-	})
-	orderEntity.save();
-	var orderEntity = new orderModel({
-		orderID: "15004800000001",
-		userID: "1",
-		goodsList: [{
-			ID: "1083009",
-			number: 1,
-			type: "妖姬蓝",
-			price: 299,
-			name: "海洋之心永生花",
-			picture: '/static/img/goodsImage/1083009/headImage/76e5c820f6bb71a26517ffa01f499871.png'
-		}],
-		expressNumber: 0,
-		expressCompany: "",
-		address: [{
-			province: "辽宁省",
-			city: "沈阳市",
-			town: "浑南区",
-			detail: "东北大学",
-			receiver: "许康琪",
-			telephone: "18805862675",
-			isDefault: false
-		}],
-		orderDate: 1500480000000,
-		orderState: 1,
-		payID: "1500480000000",
-		totalFee: 299
-	})
-	orderEntity.save();
-	var orderEntity = new orderModel({
-		orderID: "15003936000001",
-		userID: "1",
-		goodsList: [{
-			ID: "1083009",
-			number: 1,
-			type: "妖姬蓝",
-			price: 299,
-			name: "海洋之心永生花",
-			picture: '/static/img/goodsImage/1083009/headImage/76e5c820f6bb71a26517ffa01f499871.png'
-		}],
-		expressNumber: 810874175279,
-		expressCompany: "圆通",
-		address: [{
-			province: "辽宁省",
-			city: "沈阳市",
-			town: "浑南区",
-			detail: "东北大学",
-			receiver: "许康琪",
-			telephone: "123124",
-			isDefault: false
-		}],
-		orderDate: 1500393600000,
-		orderState: 2,
-		payID: "1500393600000",
-		totalFee: 299
-	})
-	orderEntity.save();
-	var orderEntity = new orderModel({
-		orderID: "15001344000001",
-		userID: "1",
-		goodsList: [{
-			ID: "1083009",
-			number: 1,
-			type: "妖姬蓝",
-			price: 299,
-			name: "海洋之心永生花",
-			picture: '/static/img/goodsImage/1083009/headImage/76e5c820f6bb71a26517ffa01f499871.png'
-		}],
-		expressNumber: 810874175279,
-		expressCompany: "圆通",
-		address: [{
-			province: "辽宁省",
-			city: "沈阳市",
-			town: "浑南区",
-			detail: "东北大学",
-			receiver: "许康琪",
-			telephone: "18805862675",
-			isDefault: false
-		}],
-		orderDate: 1500134400000,
-		orderState: 3,
-		payID: "1500134400000",
-		totalFee: 299
-	})
-	orderEntity.save();
 
-}
 
 function addCart() {
 	var arr = [];
@@ -177,28 +63,6 @@ function addCart() {
 
 }
 
-
-//function addCart() {
-//	var arr = [];
-//	for (var i = 0; i < 20; i++) {
-//		var obj = {
-//			ID: i,
-//			type: "1",
-//			number: 1
-//		}
-//		arr.push(obj);
-//	}
-//	var cartEntity = new cartModel({
-//		userID: 0,
-//		goodsList: arr
-//	});
-//	cartEntity.save();
-//
-//}
-//function addOrder(){
-//	
-//}
-//function CH
 
 function addComment() {
 	var commentEntity = new commentModel({

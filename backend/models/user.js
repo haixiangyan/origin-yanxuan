@@ -6,8 +6,6 @@ db.on('error', function () {
 });
 
 db.once('open', function () {
-
-
 	console.log("user connected");
 	var userschema = new mongoose.Schema({
 		telephone: String,
@@ -36,30 +34,8 @@ db.once('open', function () {
 		}, cb)
 	}
 	userModel = db.model("User", userschema);
-	addUser();
+	// addUser();
 })
-
-function addUser() {
-	var userEntity = new userModel({
-		telephone: '1',
-		password: '123456',
-		photo: "/static/img/userImage/1.jpg",
-		name: "xukangqi",
-		gender: "man",
-		interest: ["1", "2", "3"],
-		address: [{
-			province: "辽宁省",
-			city: "沈阳市",
-			town: "浑南区",
-			detail: "东北大学",
-			receiver: "许康琪",
-			telephone: "18805862675",
-			isDefault: false
-		}]
-	})
-	userEntity.save();
-
-}
 
 function creatUser(obj, cb) {
 	userModel.find({

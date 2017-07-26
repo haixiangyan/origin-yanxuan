@@ -79,20 +79,6 @@ db.once('open', function () {
 		address: Array
 	});
     userModel = db.model("User", userschema);
-    var orderSchema = new mongoose.Schema({
-		orderID: String,
-		userID: String,
-		goodsList: Array,
-		expressNumber: Number,
-		expressCompany: String,
-		address: Array,
-		orderState: Number,
-		orderDate: String,
-		payID: String,
-		totalFee: Number
-	});
-
-	orderModel = db.model("orders", orderSchema);
 })
 
 
