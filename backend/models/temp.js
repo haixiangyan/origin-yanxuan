@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var db = mongoose.createConnection('localhost', 'YanXuan');
+var db = mongoose.createConnection('180.76.237.59', 'YanXuan');
 
 db.on('error', function () {
 	console.log("error")
@@ -28,8 +28,7 @@ db.once('open', function () {
 		label: Array
 	});
 	goodsModel = db.model("goods", goodsSchema);
-	addGoods();
-	
+
 	var commentSchema = new mongoose.Schema({
 		goodsID: Number,
 		userID: String,
@@ -39,7 +38,6 @@ db.once('open', function () {
 		type: String
 	});
 	commentModel = db.model("comments", commentSchema);
-	addComment();
 
 	var topicModelSchema = new mongoose.Schema({
 		topicID: Number,
@@ -52,7 +50,6 @@ db.once('open', function () {
 		price: Number
 	});
 	topicModel = db.model("topics", topicModelSchema);
-	addTopic();
 
 	var categorySchema = new mongoose.Schema({
 		name: String,
@@ -60,7 +57,6 @@ db.once('open', function () {
 		subCategory: Array
 	});
 	categoryModel = db.model("categories", categorySchema);
-	addCategory();
 
 	var userschema = new mongoose.Schema({
 		telephone: String,
@@ -71,10 +67,9 @@ db.once('open', function () {
 		interest: Array,
 		address: Array
 	});
-	userModel = db.model("User", userschema);
-	addUser();
+	userModel = db.model("user", userschema);
 
-   	var orderSchema = new mongoose.Schema({
+	var orderSchema = new mongoose.Schema({
 		orderID: String,
 		userID: String,
 		goodsList: Array,
@@ -87,8 +82,47 @@ db.once('open', function () {
 		totalFee: Number
 	});
 	orderModel = db.model("orders", orderSchema);
-	addOrder();
+	remove();
+	// addGoods();
+	// console.log("goods")
+	// addComment();
+	// console.log("comment")
+	// addTopic();
+	// console.log("topic")
+	// addCategory();
+	// console.log("category")
+	// addUser();
+	// console.log("user")
+	// addOrder();
+	// console.log("order")
 })
+
+function remove() {
+	goodsModel.remove({}, function (err, docs) {
+		addGoods();
+		console.log("goods")
+	});
+	commentModel.remove({}, function (err, docs) {
+		addComment();
+		console.log("comment")
+	});
+	topicModel.remove({}, function (err, docs) {
+		addTopic();
+		console.log("topic")
+	});
+	categoryModel.remove({}, function (err, docs) {
+		addCategory();
+		console.log("category")
+	});
+	userModel.remove({}, function (err, docs) {
+		addUser();
+		console.log("user")
+	});
+	orderModel.remove({}, function (err, docs) {
+		addOrder();
+		console.log("order")
+	});
+}
 
 function addOrder() {
 	var orderEntity = new orderModel({
@@ -102,7 +136,7 @@ function addOrder() {
 			name: "海洋之心永生花",
 			picture: '/static/img/goodsImage/1083009/headImage/76e5c820f6bb71a26517ffa01f499871.png'
 		}],
-		expressNumber:0,
+		expressNumber: 0,
 		expressCompany: "",
 		address: [{
 			province: "辽宁省",
@@ -204,6 +238,7 @@ function addOrder() {
 	})
 	orderEntity.save();
 }
+
 function addUser() {
 	var userEntity = new userModel({
 		telephone: '1',
@@ -224,6 +259,7 @@ function addUser() {
 	})
 	userEntity.save();
 }
+
 function addCategory() {
 
 	var categoryEntity = new categoryModel({
