@@ -14,6 +14,7 @@
 │   ├── public
 │   ├── routes // 路由配置
 │   └── views
+│   └── models //操作数据库方法
 └── frontend // 前端代码
     ├── README.md
     ├── build // webpack 购建目录
@@ -24,6 +25,9 @@
     ├── src // 组件源码
     └── static // 静态资源
 ```
+## 数据库文件位置
+\backend\models\temp.js
+
 
 ## Mock 数据的说明
 

@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var db = mongoose.createConnection('180.76.237.59', 'YanXuan');
+var db = mongoose.createConnection('localhost', 'YanXuan');
 
 db.on('error', function () {
 	console.log("error")
