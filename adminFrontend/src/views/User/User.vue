@@ -72,6 +72,7 @@ export default {
 		deleteUser(scope) {
 			// 发送请求，删除用户
 			this.$axios({
+
 				method: 'delete',
 				url: `/admin/user/${scope.row.telephone}`,
 			}).then(res => {

@@ -29,7 +29,7 @@ db.once('open', function () {
 		manufacturer: String,
 		label: Array
 	});
-		goodsModel = db.model("goods", goodsSchema);
+	goodsModel = db.model("goods", goodsSchema);
 	var categorySchema = new mongoose.Schema({
 		name: String,
 		picture: String,
@@ -79,7 +79,7 @@ db.once('open', function () {
 		interest: Array,
 		address: Array
 	});
-    userModel = db.model("User", userschema);
+	userModel = db.model("users", userschema);
 })
 
 
@@ -175,6 +175,7 @@ function getCertainCategorySale(category, cb) {
 		}
 	})
 }
+
 function getRecentSale(cb) {
 	var now = new Date();
 	var arr = [];
@@ -223,6 +224,7 @@ function getRecentSale(cb) {
 		cb("success", arr);
 	})
 }
+
 function getAllOrder(cb) {
 	orderModel.find({}, cb);
 }
@@ -241,17 +243,21 @@ function deleteGoods(goodsID, cb) {
 		}
 	})
 }
-function getAllUser(){
-	userModel.find({},cb)
+
+function getAllUser(cb) {
+	userModel.find({}, cb)
 }
-function deleteUser(userID,cb){
-	userModel.findOne({telephone:userID},function(err,docs){
-		if(docs){
+
+function deleteUser(userID, cb) {
+	userModel.findOne({
+		telephone: userID
+	}, function (err, docs) {
+		if (docs) {
 			userModel.remove({
-				telephone:userID
-			},cb)
-		}else{
-			cb("error","")
+				telephone: userID
+			}, cb)
+		} else {
+			cb("error", "")
 		}
 	})
 }
@@ -263,5 +269,5 @@ module.exports.changeInformation = changeInformation;
 module.exports.getAllOrder = getAllOrder;
 module.exports.getRecentSale = getRecentSale;
 module.exports.deleteGoods = deleteGoods;
-module.exports.getAllUser=getAllUser;
-module.exports.deleteUser=deleteUser;
+module.exports.getAllUser = getAllUser;
+module.exports.deleteUser = deleteUser;
