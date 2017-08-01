@@ -184,17 +184,28 @@ export default {
 		},
 		// 删除订单
 		deleteOrder(scope) {
-			this.filteredOrders = this.orders = this.orders.filter((order) => {
-				return order.orderID !== scope.row.orderID;
-			});
+			// 删除订单
+			this.$axios({
+				method: 'delete',
+				url: `/shop/order/${scope.row.orderID}`
+			})
+				.then((res) => {
+					// 成功删除订单
+					this.filteredOrders = this.orders = this.orders.filter((order) => {
+						return order.orderID !== scope.row.orderID;
+					});
 
-			// 过滤
-			this.changePage(this.curPage);
+					// 过滤
+					this.changePage(this.curPage);
 
-			this.$message({
-				message: '成功删除订单',
-				type: 'success'
-			});
+					this.$message({
+						message: '成功删除订单',
+						type: 'success'
+					});
+				})
+				.catch((err) => {
+					console.log('vue-resource err', err);
+				});
 		},
 		// 设置物流外链
 		toExpressUrl(scope) {
@@ -293,8 +304,8 @@ export default {
 		// 选择不同页
 		changePage(currentPage) {
 			this.curPage = currentPage;
-			this.filteredOrders = this.orders.slice((currentPage-1) * 10, (currentPage-1) * 10 + 10);
-		}
+			this.filteredOrders = this.orders.slice((currentPage - 1) * 10, (currentPage - 1) * 10 + 10);
+		},
 	},
 	mounted() {
 		this.$axios({

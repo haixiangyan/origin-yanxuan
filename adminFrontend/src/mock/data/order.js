@@ -71,4 +71,18 @@ export const order = [{
         return result;
     }
 },
+{
+    path: '/shop/order/1', // 删除订单
+    type: 'delete',
+    data(option) {
+
+        console.log('成功删除订单');
+
+        let result = {
+            result: 'success'
+        };
+
+        return result;
+    }
+},
 ]
