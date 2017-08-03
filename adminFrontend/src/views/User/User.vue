@@ -18,14 +18,7 @@
 	
 		<!-- 订单的表格 -->
 		<el-table v-loading="isLoading" :data="filteredUsers" style="width: 100%">
-			<!-- 用户头像 -->
-			<!--<el-table-column label="用户头像" width="150">
-				<template scope="scope">
-					<div class="yan-user-avatar-col">
-						<img class="yan-user-avatar" :src="scope.row.photo" alt="user avatar">
-					</div>
-				</template>
-			</el-table-column>-->
+
 			<!-- 用户名 -->
 			<el-table-column sortable prop="name" label="用户名" width="180"></el-table-column>
 			<!-- 用户的姓别 -->
@@ -171,17 +164,5 @@ export default {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
-}
-
-.yan-user-avatar-col {
-	display: flex;
-	align-items: center;
-	padding: 7px 0;
-}
-
-.yan-user-avatar {
-	width: 40px;
-	border-radius: 50%;
-	box-shadow: 0px 0px 8px 1px #888888;
 }
 </style>
