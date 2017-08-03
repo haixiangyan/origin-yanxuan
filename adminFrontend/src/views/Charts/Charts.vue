@@ -66,19 +66,19 @@ export default {
                     data: saleData.map((saleItem) => {
                         switch (Number.parseInt(saleItem.time)) {
                             case 1:
-                                return '星期一';
+                                return '一';
                             case 2:
-                                return '星期二';
+                                return '二';
                             case 3:
-                                return '星期三';
+                                return '三';
                             case 4:
-                                return '星期四';
+                                return '四';
                             case 5:
-                                return '星期五';
+                                return '五';
                             case 6:
-                                return '星期六';
+                                return '六';
                             case 7:
-                                return '星期七';
+                                return '七';
                         }
                     })
                 },
@@ -92,25 +92,25 @@ export default {
                             let day = '';
                             switch (Number.parseInt(saleItem.time)) {
                                 case 1:
-                                    day = '星期一';
+                                    day = '一';
                                     break;
                                 case 2:
-                                    day = '星期二';
+                                    day = '二';
                                     break;
                                 case 3:
-                                    day = '星期三';
+                                    day = '三';
                                     break;
                                 case 4:
-                                    day = '星期四';
+                                    day = '四';
                                     break;
                                 case 5:
-                                    day = '星期五';
+                                    day = '五';
                                     break;
                                 case 6:
-                                    day = '星期六';
+                                    day = '六';
                                     break;
                                 case 7:
-                                    day = '星期七';
+                                    day = '七';
                                     break;
                             }
 

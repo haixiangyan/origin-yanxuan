@@ -13,7 +13,7 @@ import { user } from './data/user.js';
 import { chart } from './data/chart.js';
 
 let data = [].concat(
-    login
+    // login,
     // user,    
     // order,
     // chart

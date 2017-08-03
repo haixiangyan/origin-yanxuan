@@ -2,72 +2,72 @@ var express = require('express');
 var router = express.Router();
 var admin = require("../models/admin");
 router.patch('/changeInformation', function (req, res, next) {
-    var obj = req.body.obj;
-    admin.changeInformation(obj, function (err, docs) {
-        if (err == "error") {
-            res.json({
-                result: "error",
-            })
-        } else {
-            res.json({
-                result: "success"
-            })
-        }
+	var obj = req.body.obj;
+	admin.changeInformation(obj, function (err, docs) {
+		if (err == "error") {
+			res.json({
+				result: "error",
+			})
+		} else {
+			res.json({
+				result: "success"
+			})
+		}
 
-    })
+	})
 })
 router.get('/sale', function (req, res, next) {
-    admin.getSaleByCategory(function (err, docs) {
-        if (err == "success") {
-            res.json({
-                result: "success",
-                data: docs
-            })
-        } else {
-            res.json({
-                result: "error"
-            })
-        }
+	admin.getSaleByCategory(function (err, docs) {
+		if (err == "success") {
+			res.json({
+				result: "success",
+				data: docs
+			})
+		} else {
+			res.json({
+				result: "error"
+			})
+		}
 
-    })
+	})
 })
 router.get('/certainCategorySale/:category', function (req, res, next) {
-    var category = req.params.category;
-    admin.getCertainCategorySale(category, function (err, docs) {
-        if (err == "success") {
-            res.json({
-                result: "success",
-                data: docs
-            })
-        } else {
-            res.json({
-                result: "success"
-            })
-        }
+	var category = req.params.category;
+	admin.getCertainCategorySale(category, function (err, docs) {
+		if (err == "success") {
+			res.json({
+				result: "success",
+				data: docs
+			})
+		} else {
+			res.json({
+				result: "success"
+			})
+		}
 
-    })
+	})
 })
 
 router.get('/AllGoods', function (req, res, next) {
-    admin.getAllGoods(function (err, docs) {
-        if (!err) {
-            res.json({
-                result: "success",
-                data: docs
-            })
-        } else {
-            res.json({
-                result: "error"
-            })
-        }
-    })
+	admin.getAllGoods(function (err, docs) {
+		if (!err) {
+			res.json({
+				result: "success",
+				data: docs
+			})
+		} else {
+			res.json({
+				result: "error"
+			})
+		}
+	})
 })
 router.get('/allOrder', function (req, res, next) {
 	admin.getAllOrder(function (err, docs) {
 		if (!err) {
 			res.json({
 				result: "success",
-				data:docs
+				data: docs
 			})
 		} else {
 			res.json({
@@ -78,10 +78,11 @@ router.get('/allOrder', function (req, res, next) {
 })
 router.get('/recentSale', function (req, res, next) {
 	admin.getRecentSale(function (err, docs) {
-		if (err=="success") {
+		if (err == "success") {
+			console.log(docs);
 			res.json({
 				result: "success",
-				data:docs
+				data: docs
 			})
 		} else {
 			res.json({
@@ -107,14 +108,11 @@ router.delete('/goods/:goodsID', function (req, res, next) {
 })
 
 router.get('/user', function (req, res, next) {
-	console.log("getuser")
-	
 	admin.getAllUser(function (err, docs) {
-		console.log(docs);
-		if (!err ) {
+		if (!err) {
 			res.json({
 				result: "success",
-                data:docs
+				data: docs
 			})
 		} else {
 			res.json({
@@ -141,18 +139,18 @@ router.delete('/user/:userID', function (req, res, next) {
 })
 router.post('/login', function (req, res, next) {
 	var account = req.body.account;
-	var password=req.body.password;
-	admin.deleteUser(userID, function (err, docs) {
-		if (err == "error") {
-			res.json({
-				result: "error"
-			})
-		} else {
-			res.json({
-				result: "success"
-			})
-		}
-
-	})
+	var password = req.body.password;
+	if (account == 'admin' && password =='123456') {
+		let isSuccess=true;
+		res.json({
+			result: "success",
+			isSuccess: isSuccess,
+			adminID: 1
+		})
+	} else {
+		res.json({
+			result: "error"
+		})
+	}
 })
 module.exports = router;

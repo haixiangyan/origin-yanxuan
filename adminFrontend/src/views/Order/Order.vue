@@ -25,6 +25,7 @@
 				<template scope="scope">
 					{{formatDate(scope.row.orderDate)}}
 				</template>
+
 			</el-table-column>
 			<!-- 订单状态 -->
 			<el-table-column label="订单状态" width="150">
@@ -154,7 +155,8 @@ export default {
 	methods: {
 		// 格式化时间
 		formatDate(time) {
-			let date = new Date(time);
+			console.log(time);
+			let date = new Date(parseInt(time));
 			return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
 		},
 		// 格式化订单状态
@@ -209,7 +211,8 @@ export default {
 		},
 		// 设置物流外链
 		toExpressUrl(scope) {
-			let expressUrl = `https://m.kuaidi100.com/index_all.html?type=${scope.row.expressCompany}&postid=${scope.row.expressNumber}`;
+			let expressUrl = `https://www.kuaidi100.com/chaxun?com=${scope.row.expressCompany}&nu=${scope.row.expressNumber}`;
+			console.log(expressUrl);
 			window.location = expressUrl;
 		},
 		// 显示物流表单
@@ -277,6 +280,7 @@ export default {
 						if (order.orderID === this.deliverForm.orderID) {
 							order.expressNumber = this.deliverForm.expressNumber;
 							order.expressCompany = this.deliverForm.expressCompany;
+							order.orderState=2;
 						}
 					})
 

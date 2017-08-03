@@ -58,7 +58,8 @@ db.once('open', function () {
 		address: Array,
 		orderState: Number,
 		payID: String,
-		totalFee: Number
+		totalFee: Number,
+		orderDate:String
 	});
 	orderModel = db.model("orders", orderSchema);
 

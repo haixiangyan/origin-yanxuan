@@ -20,8 +20,8 @@ export default {
     return {
       logining: false,
       loginForm: {
-        account: 'admin',
-        checkPass: '123456'
+        account: '',
+        checkPass: ''
       },
       checked: true
     };
