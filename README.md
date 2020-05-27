@@ -1,6 +1,6 @@
-# YanXuan
+# 仿网易严选
 
-本项目是模访网易严选网上商城来编写的。项目前端技术基于 Vue.js 单页应用的框架，移动框架用的是 Mint UI 框架。后端持术是基于 Express 4.x 框架。
+本项目是模访网易严选网上商城来编写的。项目前端技术基于 Vue.js 单页应用的框架，移动框架用的是 Mint UI 框架。后端持术是基于 Express 4.x 框架。
 
 ## 项目目录
 
@@ -17,8 +17,8 @@
 │   └── models //操作数据库方法
 └── frontend // 前端代码
     ├── README.md
-    ├── build // webpack 购建目录
-    ├── config // webpack 配置目录
+    ├── build // webpack 购建目录
+    ├── config // webpack 配置目录
     ├── index.html
     ├── node_modules // node 模块
     ├── package.json
@@ -44,33 +44,33 @@
 ## 构建打包
 
 ```
-$ cd frontend // 进入后端目录
+$ cd frontend // 进入后端目录
 
-$ npm install // 安装依赖
+$ npm install // 安装依赖
 
-$ npm run build // 开启构建
+$ npm run build // 开启构建
 ```
 
-## 运行
+## 运行
 
-#### 后台运行网站
-
-```
-$ cd backend  // 进入后端目录
-
-$ npm install // 安装依赖
-
-$ npm start   // 开启服务器
-```
-
-#### 前台运行网站（注意：这里要使用 mock 的数据，要开启 Mock）
+#### 后台运行网站
 
 ```
-$ cd frontend // 进入后端目录
+$ cd backend  // 进入后端目录
 
-$ npm install // 安装依赖
+$ npm install // 安装依赖
 
-$ npm run dev // 开启服务器
+$ npm start   // 开启服务器
+```
+
+#### 前台运行网站（注意：这里要使用 mock 的数据，要开启 Mock）
+
+```
+$ cd frontend // 进入后端目录
+
+$ npm install // 安装依赖
+
+$ npm run dev // 开启服务器
 ```
 
 ## 文档
@@ -101,7 +101,7 @@ Yanxuan/frontend/docs/...
 
 - [Element UI 官方文档](http://element.eleme.io/#/zh-CN/component/installation)
 
-#### Express.js
+#### Express.js
 
 - [Express.js](http://www.expressjs.com.cn/)
 
